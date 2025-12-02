@@ -14,6 +14,19 @@ let dateText;
 
 // Reserved space for social links area on the right side of the scrollbar
 const SOCIAL_LINKS_RESERVED_SPACE = 470;
+const SOCIAL_LINKS_RESERVED_SPACE_MOBILE = 40;
+
+// Helper to get reserved space based on screen size
+function getSocialLinksReservedSpace() {
+    try {
+        if (window.matchMedia && window.matchMedia('(max-width: 800px)').matches) {
+            return SOCIAL_LINKS_RESERVED_SPACE_MOBILE;
+        }
+    } catch (err) {
+        // Fallback if matchMedia not available
+    }
+    return SOCIAL_LINKS_RESERVED_SPACE;
+}
 
 // Helper to resolve DOM references once header is inserted
 function resolveDom() {
@@ -84,7 +97,7 @@ function ensureScrollbarExists() {
         const iconWrap = document.createElement('div');
         iconWrap.className = 'thumb-icon';
         (async function insertInlineArrow() {
-            const path = 'assets/Right Arrow Icon.svg';
+            const path = 'assets/arrow-new.svg';
             try {
                 const resp = await fetch(path, { cache: 'no-cache' });
                 if (resp.ok) {
@@ -105,7 +118,7 @@ function ensureScrollbarExists() {
                 // fall through to img fallback
             }
             const img = document.createElement('img');
-            img.src = encodeURI('assets/Right Arrow Icon.svg');
+            img.src = encodeURI('assets/arrow-new.svg');
             img.alt = '';
             iconWrap.appendChild(img);
         })();
@@ -291,7 +304,7 @@ function updateScrollbar() {
         thumbWidth = thumbWidthRaw;
     }
     // Calculate available space, accounting for social links area on the right
-    const availableWidth = scrollbar.clientWidth - SOCIAL_LINKS_RESERVED_SPACE;
+    const availableWidth = scrollbar.clientWidth - getSocialLinksReservedSpace();
     const available = Math.max(0, availableWidth - thumbWidth);
     const thumbPosition = scrollPercentage * available;
     thumb.style.width = thumbWidth + 'px';
@@ -643,7 +656,7 @@ function attachBehaviors() {
         const scrollbarRect = scrollbar.getBoundingClientRect();
         const thumbWidth = thumb.getBoundingClientRect().width;
         // Calculate available space, accounting for social links area on the right
-        const availableWidth = scrollbarRect.width - SOCIAL_LINKS_RESERVED_SPACE;
+        const availableWidth = scrollbarRect.width - getSocialLinksReservedSpace();
         const available = Math.max(0, availableWidth - thumbWidth);
         let thumbLeft = pointerX - scrollbarRect.left - dragOffset;
         thumbLeft = Math.max(0, Math.min(available, thumbLeft));
@@ -698,7 +711,7 @@ function attachBehaviors() {
                 const clickPosition = e.clientX - scrollbarRect.left;
                 const thumbWidth = thumb.getBoundingClientRect().width;
                 // Calculate available space, accounting for social links area on the right
-                const availableWidth = scrollbarRect.width - SOCIAL_LINKS_RESERVED_SPACE;
+                const availableWidth = scrollbarRect.width - getSocialLinksReservedSpace();
                 const thumbLeft = Math.max(0, Math.min(availableWidth - thumbWidth, clickPosition - thumbWidth / 2));
                 const available = Math.max(0, availableWidth - thumbWidth);
                 const scrollPercentage = available === 0 ? 0 : thumbLeft / available;

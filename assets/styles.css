@@ -457,12 +457,33 @@ body.is-frontpage select {
 
 /* small-screen adjustments */
 @media (max-width: 800px) {
-    .custom-scrollbar { height: 90px; }
-    .custom-scrollbar-thumb { height: 72px; padding: 0 12px; min-width: 180px; }
+    .custom-scrollbar { height: 120px; }
+    .custom-scrollbar-thumb {
+        height: 100px;
+        padding: 8px 12px 24px 12px;
+        min-width: 140px;
+        max-width: 170px;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 6px;
+    }
+    .custom-scrollbar-thumb .thumb-content {
+        max-width: 100%;
+        margin-top: 8px;
+        margin-bottom: 0;
+    }
     .custom-scrollbar-thumb .thumb-description { font-size: 16px; }
     .custom-scrollbar-thumb .thumb-location { font-size: 14px; }
     .custom-scrollbar-thumb .thumb-photographer { font-size: 11px; }
-    .custom-scrollbar-thumb .thumb-icon { width: 40px; height: 40px; flex: 0 0 40px; }
+    .custom-scrollbar-thumb .thumb-icon {
+        width: 45px;
+        height: 20px;
+        flex: 0 0 20px;
+        align-self: center;
+        margin-top: auto;
+        margin-bottom: 12px;
+    }
 }
 
 
