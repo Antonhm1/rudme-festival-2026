@@ -1,0 +1,711 @@
+:root{
+    /* left offset of gallery (matches .gallery-container left) */
+    --gallery-left: 30px;
+     /* minimum required gap to the right of the slide (user requested at least 300px) */
+     --min-gap: 300px;
+     /*
+         responsive gap rule:
+         - prefer 20vw as the natural gap on wide screens
+         - never go below --min-gap
+         - cap at 600px to avoid excessively large gaps on ultra-wide monitors
+         Adjust the 20vw or 600px values if you want a different growth behavior.
+     */
+     /* Ensure the gap is at least the responsive clamp, but grow further if the
+         slide is clamped at --slide-max-width so the next slide remains off-screen.
+         Using max() picks the larger value between the visual-preference clamp and
+         the calculated required gap. */
+     --gap: max(clamp(var(--min-gap), 20vw, 600px), calc(100vw - var(--gallery-left) - var(--slide-max-width)));
+     /* maximum width for a slide image: once this size is reached the gap will grow
+         instead of the image enlarging further. Tweak as desired (e.g. 1000px, 1200px). */
+     --slide-max-width: 1200px;
+
+    /* select layout variables: change --select-gap-right to move both text and caret together */
+    --select-gap-right: 30px; /* distance from the caret to the right edge */
+    /* fallback background color for the page (first slide). Helps avoid transparent body on first paint */
+    --bg-color-1: #FEAD47;
+     /* current runtime blended background (updated by JS). Default to white
+         to avoid a flash of the first-slide color on non-index pages before
+         JS runs. The index page's JS will overwrite this with the slide
+         color at runtime. */
+     --current-bg: #ffffff;
+    --select-caret-size: 35px; /* visual size of the caret (keeps padding in sync) */
+    /* how far the whole select sits from the viewport right edge (was 20px before) */
+    --select-right-offset: 0px;
+    /* extra space between the caret and the visible text area */
+    --select-text-gap: 20px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* body uses the runtime background (updated by JS) but falls back to
+       the first slide color if --current-bg isn't available yet. */
+    background-color: var(--current-bg, var(--bg-color-1));
+    transition: background-color 200ms linear;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+/* Fixed menu in top right */
+.menu-container {
+    /* Make the menu container part of the document flow so it scrolls with the page.
+       The logo (`#logo-container`) and date (`#date-text`) remain fixed elsewhere.
+       Position it below the fixed logo (logo top 50px + height 100px) with a small gap.
+       Move the container slightly closer to the right edge to reduce the "hole" gap. */
+    position: absolute;
+    top: 75px; /* logo top + logo height + 10px gap */
+    /* reduced from 20px to 8px to nudge the menu closer to the viewport right edge */
+    right: 8px;
+    z-index: 1000;
+}
+
+/* Styled native select (kept for basic look) */
+select {
+    padding: 6px 20px;
+    font-size: 40px;
+    font-family: Arial, "Montserrat", "Helvetica Neue", Arial, sans-serif;
+    letter-spacing: -5px;
+    font-weight: 700;
+    line-height: 1;
+    background-color: transparent;
+    color: inherit;
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding-right: 60px;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 12 12'%3e%3cpath fill='currentColor' d='M6 9L1 4h10z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 18px center;
+    /* flow text to the right */
+    text-align: right;
+}
+select:hover { background-color: rgba(255,255,255,0.03); }
+
+/* Custom dropdown (replaces the native dropdown list so we can style the menu fully) */
+.custom-select {
+    /* The select is now positioned inside `.menu-container` and should scroll with the page.
+       Use relative positioning so internal offsets (right offset variable) still apply. */
+    position: relative;
+    /* remove fixed top; the parent `.menu-container` controls the vertical placement */
+    top: 0px;
+    right: var(--select-right-offset);
+    display: flex;              /* allow alignment of children */
+    align-items: center;
+    justify-content: flex-end;  /* push .select-display to the right edge */
+    user-select: none;
+    z-index: 1001;
+}
+
+/* shared typography / interaction for both display and options */
+/* shared typography / interaction for both display and options
+   - Use content-based sizing so the longest option defines the width.
+   - We avoid forcing large min-widths so the box won't extend beyond the text.
+   - Keep a safe max-width to avoid viewport overflow on very small screens. */
+.select-display,
+.select-options li {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    line-height: 1;
+    cursor: pointer;
+    border: none;
+    border-radius: 0;
+    padding: 10px 20px;
+    letter-spacing: -1px;
+    font-weight: 400;
+    color: #111;
+    /* ensure option and display text align to the right */
+    text-align: right;
+    /* Size to content: width follows the longest option text. */
+    width: max-content;
+    /* don't grow beyond viewport (leave some breathing room) */
+    max-width: calc(100vw - 60px);
+    box-sizing: border-box;
+}
+
+.select-display {
+    font-size: 45px;
+    /* right padding is computed from caret size + caret offset + text gap so
+        changing the three variables keeps everything aligned. To increase the
+        space between text and the caret, raise --select-text-gap. */
+    padding: 6px calc(var(--select-caret-size) + var(--select-gap-right) + var(--select-text-gap)) 6px 10px;
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    justify-content: flex-end; /* text aligned to the right inside the box */
+    direction: ltr;
+    /* use the page background so the display matches body */
+    background: inherit;
+    text-align: right;         /* ensure text lines up to the right */
+    min-width: 0;              /* allow the box to shrink inside flex container */
+    max-width: calc(100vw - 60px); /* avoid overflow when viewport is narrow */
+    margin-left: 0;
+}
+
+/* white background box behind the display and dropdown that expands when open */
+.select-bg {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: #ffffff;
+    box-sizing: border-box;
+    z-index: -10000; /* behind .select-display (1001) and below .select-options (1100) */
+    width: auto; /* set by JS to match display width */
+    height: auto; /* set by JS to match display height or display+options when open */
+    pointer-events: none; /* allow clicks to pass through to the wrapper */
+    overflow: hidden;
+}
+
+/* only show the select background on subpages; frontpage remains transparent */
+.select-bg { display: none; }
+body.is-subpage .select-bg { display: block; }
+
+/*
+  Page-scoped background rules for the select/menu.
+  - Subpages (any non-index page) should always show a solid white background for the menu
+    on desktop and mobile.
+  - Front page: desktop should keep the select visually transparent (no background),
+    while mobile keeps an adaptive background matching --current-bg (set by index page JS).
+*/
+body.is-subpage .select-display,
+body.is-subpage .select-options,
+body.is-subpage select {
+    background: #ffffff;
+    color: inherit;
+}
+
+/* Front page (desktop): transparent select so the site imagery shows through */
+body.is-frontpage .select-display,
+body.is-frontpage .select-options,
+body.is-frontpage select {
+    background: transparent;
+}
+
+/* caret / down-arrow taken from assets; placed on the right inside the display */
+.select-caret {
+    position: absolute;
+    /* offset from the right edge of the display box. Change --select-gap-right
+       to move both the caret and the visible text space together. */
+    right: var(--select-gap-right);
+    top: 50%;
+    transform: translateY(-50%);
+    width: var(--select-caret-size);
+    height: var(--select-caret-size);
+    pointer-events: none; /* clicks go to the wrapper */
+}
+
+.select-caret img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    transition: transform 220ms ease;
+    transform-origin: center;
+}
+
+/* rotate the arrow when dropdown is open */
+.custom-select.open .select-caret img {
+    transform: rotate(180deg);
+}
+
+/* The dropdown menu appearing below the select */
+.select-options {
+    font-size: 37px;
+    position: absolute;
+    top: calc(100% + 0px); /* place it below the display box */
+    right: 0px;
+    background: transparent; /* white background as requested */
+    border-radius: 0; /* square corners */
+    /* let the menu size itself to the longest option. Anchoring to the right
+       keeps the right-edges aligned; if menu is wider it will expand to the left. */
+    width: max-content;
+    max-width: calc(100vw - 40px);
+    overflow: hidden;
+    list-style: none;
+    padding-right: 15px;
+    margin: 0;
+    z-index: 1100;
+    transform-origin: top left;
+    display: none; /* toggled with .open class */
+    /* ensure options keep their text right-aligned */
+    text-align: right;
+}
+
+.custom-select.open .select-options {
+    display: block;
+}
+
+.select-options li {
+    /* make each option fill the menu width so text-align:right places
+       the text flush against the right edge (resolves left-alignment issue) */
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    white-space: nowrap;
+    text-align: right;
+}
+
+.select-options li:hover{
+    background: var(--select-hover-bg, #f0f0f0);
+}
+
+/* ensure the native select remains usable as a fallback but visually hidden */
+.menu-container select.fallback {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Horizontal scrolling container */
+.gallery-container {
+    position: absolute;
+    top: var(--gallery-left);
+    left: var(--gallery-left);
+    /* make bottom gap equal to top gap (use same variable) */
+    bottom: var(--gallery-left);
+    right: 0;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-snap-stop: always;
+    display: flex;
+    /* use the computed gap variable */
+    gap: var(--gap);
+    /* ensure the last slide has the same right gap as between slides */
+    padding-right: calc(var(--gap));
+    
+    z-index: 600;
+}
+
+.gallery-container.dragging-scrollbar {
+    scroll-snap-type: none;
+}
+
+/* Hide scrollbar but keep functionality */
+.gallery-container::-webkit-scrollbar {
+    display: none;
+}
+
+.gallery-container {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Individual slide container */
+.slide {
+     /* Each slide width is the lesser of:
+         - 80vw (to keep slides reasonably responsive),
+         - the configured maximum slide width `--slide-max-width`, and
+         - the remaining viewport space after accounting for the left offset and the gap.
+         This ensures the image stops scaling once it reaches `--slide-max-width` and the
+         extra space becomes part of the gap instead. */
+     width: min(80vw, var(--slide-max-width), calc(100vw - var(--gallery-left) - var(--gap)));
+    flex-shrink: 0;
+    height: 100%;
+    scroll-snap-align: start;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* image fills the slide and preserves cover aspect */
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+/* Custom scrollbar at top */
+.custom-scrollbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    /* bigger area so the thumb can be taller and more visible */
+    height: 120px; /* increase container height so thumb can be taller */
+    z-index: 500; /* by default stay behind the gallery (gallery z-index:600) */
+    pointer-events: auto; /* allow pointer events; when behind gallery it won't intercept */
+    overflow: visible; /* ensure the thumb's children (icon/text) are not clipped */
+}
+
+/* active class is toggled by JS on user activity to bring the scrollbar in front */
+.custom-scrollbar.active {
+    z-index: 1400; /* above header/logo/social elements */
+    pointer-events: auto; /* allow interaction when visible */
+}
+
+.custom-scrollbar-thumb {
+    position: absolute;
+    /* align the thumb's bottom edge to the viewport bottom (no bottom margin) */
+    bottom: 0;
+    left: 0;
+    transform: none;
+    /* make the thumb visually larger (height slightly less than container) */
+    height: 100px; /* taller thumb */
+    cursor: pointer;
+    /* no rounded corners */
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 0 20px;
+    /* remove shadow per request */
+    box-shadow: none;
+    box-sizing: border-box;
+    transition: left 120ms linear, width 120ms linear, transform 220ms ease, background 200ms linear;
+    /* keep visible at all times; z-index controls whether it's in front */
+    pointer-events: auto; /* allow pointer events on the thumb itself */
+    min-width: 300px; /* enforce a wider thumb */
+}
+
+/* .active only changes z-index so the thumb "jumps to front" on activity */
+.custom-scrollbar.active {
+    z-index: 1400; /* above header/logo/social elements */
+}
+
+/* thumb content container */
+.custom-scrollbar-thumb .thumb-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: calc(100% - 48px); /* leave space for icon */
+    text-align: left;
+    margin-top: -25px;
+    opacity: 0;
+    transition: opacity 160ms ease;
+}
+
+/* individual text elements */
+.custom-scrollbar-thumb .thumb-description {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: inherit; /* let JS/setThumbColor control color */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 1.2;
+}
+
+.custom-scrollbar-thumb .thumb-location {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 15px;
+    color: inherit; /* let JS/setThumbColor control color */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 1.2;
+    margin-top: 2px;
+}
+
+.custom-scrollbar-thumb .thumb-photographer {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 12px;
+    font-style: italic;
+    color: inherit; /* let JS/setThumbColor control color */
+    opacity: 0.8; /* slightly transparent for visual hierarchy */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 1.2;
+    margin-top: 1px;
+}
+.custom-scrollbar-thumb .thumb-icon {
+    width: 48px; /* larger arrow */
+    height: 48px;
+    flex: 0 0 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 160ms ease;
+}
+.custom-scrollbar-thumb .thumb-icon img {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Show content and icon when the scrollbar is active (slide hovered) or the
+   thumb itself is hovered so users can interact. When not active they stay
+   hidden to avoid visual clutter. */
+.custom-scrollbar.active .custom-scrollbar-thumb .thumb-content,
+.custom-scrollbar.active .custom-scrollbar-thumb .thumb-icon,
+.custom-scrollbar .custom-scrollbar-thumb:hover .thumb-content,
+.custom-scrollbar .custom-scrollbar-thumb:hover .thumb-icon {
+    opacity: 1;
+}
+
+/* Keep inline SVG stroke thin so the arrow matches the original icon style */
+.custom-scrollbar-thumb .thumb-icon svg path,
+.custom-scrollbar-thumb .thumb-icon svg line,
+.custom-scrollbar-thumb .thumb-icon svg polyline {
+    stroke-width: 1.2 !important;
+}
+
+/* small-screen adjustments */
+@media (max-width: 800px) {
+    .custom-scrollbar { height: 90px; }
+    .custom-scrollbar-thumb { height: 72px; padding: 0 12px; min-width: 180px; }
+    .custom-scrollbar-thumb .thumb-description { font-size: 16px; }
+    .custom-scrollbar-thumb .thumb-location { font-size: 14px; }
+    .custom-scrollbar-thumb .thumb-photographer { font-size: 11px; }
+    .custom-scrollbar-thumb .thumb-icon { width: 40px; height: 40px; flex: 0 0 40px; }
+}
+
+
+
+/* Logo in top-left, sits at top of the document flow (uses margins so it scrolls with content) */
+#logo-container{
+    /* avoid forcing styles with !important so media queries can override them */
+    position: relative;
+    /* use margins so the logo sits visually 50px from the top/left of the document */
+    margin-top: 50px;
+    margin-left: 50px;
+    z-index: 1200;
+    width: auto; /* allow container to size to logo + date */
+    height: auto;
+    display: inline-flex; /* place logo and date inline and allow easy alignment */
+    align-items: center;
+    gap: 20px; /* space between logo SVG and date text */
+    pointer-events: none;
+    /* remove background so SVG is visible */
+    background: transparent;
+}
+/* ensure injected/inlined SVG scales to container height and uses currentColor */
+#logo-container svg{
+    height: 100px;
+    width: auto;
+    display: block;
+    fill: currentColor;
+    stroke: currentColor;
+    /* optional small shadow so it remains readable on very similar backgrounds */
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.12));
+}
+
+/* Date text to the right of the logo */
+#date-text {
+    position: relative;
+    /* when inside #logo-container the date will be aligned with the logo via flexbox */
+    margin-left: 0;
+    z-index: 1200;
+    display: flex;
+    align-items: center;
+    /* match select menu font */
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-weight: 400;
+    letter-spacing: -1px;
+    font-size: 28px;
+    /* color will be set via JS to match the page background */
+    color: inherit;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+/* Global header rule: keep logo and date fixed, but make the menu scrollable
+   by placing it below the fixed header area. This applies on all pages so the
+   header layout is consistent whether frontpage or subpage. */
+.menu-container {
+    /* avoid !important here so responsive rules can override top/right when needed */
+    position: absolute; /* absolute within document so it scrolls */
+    top: 70px; /* place below fixed logo/date */
+    right: 8px;
+    z-index: 1200;
+}
+
+/* Social icons (bottom-right) */
+.social-container {
+    position: fixed;
+    right: 20px;
+    bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    z-index: 1300;
+    align-items: center;
+    pointer-events: auto;
+}
+
+.social-btn {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.92);
+    color: #111;
+    text-decoration: none;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.14);
+    transition: transform 180ms ease, box-shadow 180ms ease, opacity 180ms ease;
+}
+
+.social-link {
+    display: inline-block;
+    color: inherit;
+    text-decoration: none;
+    font-family: "Helvetica Neue", Arial, sans-serif; /* match select/display text */
+    font-weight: 400;
+    letter-spacing: -1px;
+    font-size: 30px; /* requested size */
+    line-height: 1;
+    text-transform: capitalize; /* "Facebook" / "Instagram" */
+    padding: 4px 8px;
+}
+
+.social-link:focus,
+.social-link:hover {
+    text-decoration: underline;
+}
+
+
+@media (max-width: 600px) {
+:root{
+        --gallery-left: 20px;
+}
+
+/* On mobile, hide the logo and date on subpages only so the front page keeps them visible */
+    body.is-subpage #logo-container,
+    body.is-subpage #date-text {
+        display: none;
+    }
+
+    #date-text { 
+    font-size: 19px;
+position: absolute;
+right: 0px;
+top: -3px;
+    }
+
+    /* Make logo smaller on mobile so it doesn't crowd the top-left */
+    #logo-container {
+        width: calc(100% - 60px);
+        height: auto;
+        margin-top: 30px;
+        margin-left: 30px;
+        gap: 12px;
+    }
+    /* reduce svg height on mobile so logo visually matches mobile spacing */
+    #logo-container svg { height: 90px; }
+
+    .custom-select {
+        top: auto; /* let the parent `.menu-container` control vertical placement */
+    }
+
+    /* Mobile: position the menu-container below the smaller mobile logo */
+    .menu-container {
+        top: 55px/* mobile logo top + mobile logo height + gap */
+    }
+
+    /* Mobile: smaller select font and solid background matching site background */
+    select {
+        font-size: 16px;
+        padding: 6px 12px;
+    /* use the runtime background variable (with fallback to the slide color) */
+    background-color: var(--current-bg, var(--bg-color-1, #ffffff));
+        color: inherit;
+        /* native caret (background-image) size and position on mobile */
+        background-size: 16px 16px;
+        background-position: right 12px center;
+    }
+    .select-display {
+        font-size: 40px;
+    }
+
+    /* On mobile, scope backgrounds by page type:
+       - frontpage: use adaptive runtime background variable
+       - subpages: keep solid white background
+    */
+    body.is-frontpage .select-display,
+    body.is-frontpage .select-options,
+    body.is-frontpage .select-options li {
+        /* ensure a solid background even if the variable isn't initialized */
+        background: var(--current-bg, var(--bg-color-1, #ffffff));
+        color: inherit;
+        min-width: 0;
+        max-width: none;
+    }
+
+    body.is-subpage .select-display,
+    body.is-subpage .select-options,
+    body.is-subpage .select-options li {
+        background: #ffffff;
+        color: inherit;
+        min-width: 0;
+        max-width: none;
+    }
+
+    .select-options {
+        top: calc(100% + 0px); /* place it below the display box */
+       /* Fit to content and keep right-aligned with the display box */
+        width: max-content;
+        min-width: 0;
+        right: 0;
+        left: auto;
+    background-color: var(--current-bg, var(--bg-color-1, #ffffff));
+    }
+
+
+
+    /* reduce caret size and nudge it for mobile spacing */
+    .select-caret {
+        width: calc(var(--select-caret-size) * 0.5);
+        height: calc(var(--select-caret-size) * 0.5);
+        right: calc(var(--select-gap-right) - 10px);
+    }
+
+    .select-caret img {
+        width: 100%;
+        height: 100%;
+        display: block;
+    }
+
+    /* allow the display box to shrink a bit on small viewports and use reduced padding for smaller caret */
+    .select-display {
+        max-width: calc(100vw - 40px);
+        padding: 8px calc(var(--select-caret-size) * 0.5 + var(--select-gap-right) + 8px) 8px 10px;
+    }
+
+    /* On mobile, make social icons/text follow the page background color so they blend like the logo */
+    .social-link {
+        color: var(--current-bg, var(--bg-color-1, #ffffff));
+        padding: 0px 8px;
+        font-size: 25px;
+    }
+
+
+    /* push social links further from the screen edges on mobile for better tap/visual spacing */
+    .social-container{
+        position: fixed;
+        right: 20px;
+        bottom: 25px;    
+    }
+
+
+
+}
+
+/* remove gap on small screens (mobile) */
+@media (max-width: 800px) {
+    /* eliminate the gap on mobile */
+    :root { --gap: var(--gallery-left); }
+    .gallery-container {
+        gap: var(--gap);
+    }
+    /* on small screens make slides effectively full width (account for left offset) */
+    .slide {
+        width: calc(100vw - (var(--gallery-left) * 2));
+    }
+}

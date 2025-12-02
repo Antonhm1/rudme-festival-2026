@@ -1,0 +1,281 @@
+/* Program page: artist grid & box scrollbar styles (moved from main stylesheet) */
+/* Re-enable vertical scrolling on this page only (main stylesheet sets body { overflow: hidden }) */
+html, body {
+    height: 100%;
+    overflow-y: auto;
+}
+
+/* Vertical scrollbar styling for program page:
+   - wider rectangular thumb (no rounded corners)
+   - track is invisible (transparent)
+   - Firefox fallback uses scrollbar-color (width not controllable in Firefox)
+   Note: macOS overlay scrollbar behavior (auto-hide) is controlled by the OS/user settings
+   and cannot be fully overridden by CSS. If you need a guaranteed always-visible
+   scrollbar on macOS, I can add a custom fixed-position scrollbar element instead.
+*/
+/* WebKit/Blink (Chrome, Safari, Edge) */
+/* Keep native vertical scrollbars — let the browser/OS control appearance */
+
+/*
+    Thumb-only vertical scrollbar for page (controlled by JS: add
+    `html.show-vertical-scrollbar` to reveal the thumb). Default is
+    hidden (opacity:0). Track is transparent so only the thumb is visible.
+    This affects the page-level vertical scrollbar only; per-box horizontal
+    scrollbars are left untouched.
+*/
+
+/* WebKit / Blink */
+html::-webkit-scrollbar { width: 10px; }
+html::-webkit-scrollbar-track { background: transparent; }
+html::-webkit-scrollbar-thumb {
+        background: rgba(0,0,0,0.45);
+        border-radius: 6px;
+        border: 2px solid transparent; /* keep thumb away from edges */
+        background-clip: padding-box;
+        opacity: 0; /* hidden by default */
+        transition: opacity 240ms ease, background 160ms ease;
+}
+html.show-vertical-scrollbar::-webkit-scrollbar-thumb {
+        opacity: 1;
+}
+
+/* Firefox: limited styling; make thumb visible when class present */
+html { scrollbar-width: thin; scrollbar-color: rgba(0,0,0,0.45) transparent; }
+html:not(.show-vertical-scrollbar) { scrollbar-color: transparent transparent; }
+
+/* Page-level overlay scrollbar removed so native vertical scrollbar is shown */
+
+
+.program-main {
+    padding: 40px 30px 60px 30px; /* move artist grid further from the top */
+}
+
+.artist-grid {
+    display: grid;
+    /* each column may grow up to --box-max-width but not beyond; extra
+       horizontal space will remain on the page sides because we center the grid */
+    --box-max-width: 800px; /* adjust this if you want a different maximum */
+    grid-template-columns: repeat(2, minmax(0, var(--box-max-width)));
+    gap: 22px; /* fixed gap between columns */
+    align-items: start;
+    justify-content: center; /* keep the two columns centered on large viewports */
+}
+
+.artist-box {
+    position: relative;
+    /* keep a landscape (wider-than-tall) shape using aspect-ratio.
+       max-height keeps desktop sizes similar; min-height prevents it
+       from becoming too short on very narrow screens. */
+    aspect-ratio: 16 / 13;
+    height: auto;
+    max-height: 450px;
+    min-height: 180px;
+    /* no rounded corners */
+    border-radius: 0;
+    /* leave space at top for the flush scrollbar (scrollbar sits at top:0) */
+     /* reserve extra bottom padding to make room for the artist title */
+     --title-height: 32px; /* height reserved for the artist name line (adjustable) */
+     /* unified inset used for left/right/top of the inner scroll area so
+         the top gap matches the side gaps. Default is 20px but overridden
+         in mobile media queries. */
+    --box-inset: 28px; /* increased inset so scroll area sits further from box edges */
+     /* fill the grid cell; the grid controls the per-column max width so
+         boxes stay equal and centered as a pair. Keep box-sizing to include
+         padding in width calculations. */
+     box-sizing: border-box;
+     width: 100%;
+     max-width: none;
+     margin: 0;
+    /* solid, constant color (no gradient) */
+    background: var(--box-color);
+    color: #111;
+    overflow: hidden;
+    z-index: 2; /* ensure artist boxes sit above the page scrollbar */
+}
+
+.artist-box .box-title {
+    /* place artist name in bottom-right corner; use unified inset so
+       the title offsets match the inner scroll inset */
+    position: absolute;
+    bottom: 20px;
+    right: 25px;
+    /* fixed height so we can calculate spacing to the scroll box */
+    height: var(--title-height);
+    line-height: var(--title-height);
+    /* match select menu typography: font family and letter spacing */
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 45px;
+    font-weight: 400;
+    letter-spacing: -1px;
+    color: #fff; /* make artist text white */
+    margin: 0;
+    padding: 0;
+}
+
+.box-scroll {
+    position: absolute;
+    /* inset the scroll container from the left, right and top edges using
+       a single variable so top spacing matches the horizontal insets */
+    left: var(--box-inset, 20px);
+    right: var(--box-inset, 20px);
+    /* pull content up so inner items overlap the top scrollbar */
+    top: var(--box-inset, 20px);
+    /* place the bottom of the scroll area 20px above the top of the title
+       (title sits bottom:20px and has its own height). bottom = 40px + title-height */
+    bottom: calc(33px + var(--title-height));
+    display: flex;
+    gap: 20px; /* spacing between each scrollbox item */
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 6px; /* breathing room */
+    scroll-snap-type: x mandatory; /* snap horizontally to items */
+    scroll-behavior: smooth;
+    /* remove extra left/right padding — container insets handle spacing */
+    padding-left: 0;
+    padding-right: 0;
+    z-index: 100;
+}
+
+.box-scroll::-webkit-scrollbar { display: none; }
+.box-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+
+.box-item {
+    /* fill the visible scroll area width so each item occupies the full box width */
+    flex: 0 0 100%;
+    width: 100%;
+    /* make the inner boxes taller */
+    height: 100%;
+    /* allow children to use 100% height inside flex layout (prevents min-height collapse) */
+    min-height: 0;
+    
+     /* use the box color as the item background so any uncovered edges match
+         the box instead of showing a black bar when an image can't fully cover
+         (prevents a visible black line at the bottom of some aspect ratios) */
+     background: var(--box-color, #000);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0; /* gap is handled by .box-scroll gap */
+    color: #fff;
+    font-weight: 600;
+    position: relative;
+    z-index: 5; /* ensure inner boxes sit above the top scrollbar */
+    scroll-snap-align: start;
+}
+
+/* Photo class used for artist image tiles */
+.artist-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Make embedded YouTube iframes fill the box-item area and be responsive */
+.youtube-embed {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+}
+
+/* Spotify embed should occupy the full box-item area like YouTube players */
+.spotify-embed {
+    width: 100%;
+    height: 101%;
+    /* ensure the wrapper can stretch fully within the .box-item */
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.spotify-embed iframe {
+    width: 100%;
+    /* enforce full-height behavior even if the original embed included a fixed height attribute */
+    height: 100%;
+    min-height: 0;
+    border: 0;
+    display: block;
+}
+
+.box-scrollbar.custom-scrollbar {
+    position: absolute;
+    top: 18px; /* inside the box near the top */
+    left: 1px;
+    right: 12px;
+    height: 10px;
+    background: rgba(0,0,0,0.06);
+    border-radius: 6px;
+    z-index: 10;
+}
+
+.box-scrollbar.custom-scrollbar {
+    position: absolute;
+    /* flush to the very top of the box */
+    top: 0;
+    left: 0;
+    right: 0;
+    /* triple the previous thumb/track height (thumb is 100% of this) */
+    height: 40px;
+    /* hide the track background so only the thumb is visible */
+    background: transparent;
+    z-index: 20;
+}
+.box-scrollbar .custom-scrollbar-thumb {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 40px; /* initial - JS will resize */
+    /* rectangular thumb with no rounded corners */
+    border-radius: 0;
+    background: rgba(255,255,255,0.9);
+    cursor: pointer;
+}
+
+/* Responsive: stack artist boxes vertically on narrow viewports */
+@media (max-width: 1200px) {
+    .artist-grid {
+        grid-template-columns: 1fr;
+        gap: 18px; /* slightly tighter gap on mobile */
+    }
+
+}
+
+/* Larger top spacing on narrow/mobile viewports so the page doesn't feel cramped
+   Increase only the top padding to keep side/bottom spacing intact. Adjust the
+   breakpoint if you prefer a different threshold. */
+@media (max-width: 600px) {
+    /* Reduce horizontal side spacing on small screens so artist boxes
+       use more of the viewport width. Keep larger top padding so the
+       header area still breathes. */
+    .program-main {
+        padding: 130px 12px 60px 12px; /* top, right, bottom, left */
+    }
+
+    /* Make the single-column grid stretch so boxes fill the available width */
+    .artist-grid {
+        justify-content: stretch;
+    }
+
+    /* slightly smaller artist title on mobile to fit narrow boxes */
+    .artist-box .box-title {
+        font-size: 26px;
+        letter-spacing: -0.5px;
+    }
+
+    /* reduce reserved title height so the scroll area can sit closer to the title
+       and set a smaller unified inset so top == sides on mobile */
+    .artist-box {
+        --title-height: 0px;
+        margin-left: 0;
+        margin-right: 0;
+        --box-inset: 14px; /* slightly larger mobile inset for better breathing room */
+    }
+
+    .box-scroll {
+        bottom: 35px;
+        gap: 12px; /* slightly smaller gap between scroll items on mobile */
+    }
+
+}

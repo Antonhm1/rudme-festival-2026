@@ -1,0 +1,64 @@
+{
+  "artists": [
+    {
+      "id": "artist-a",
+      "name": "ANIMAUX ANIMÉ",
+      "color": "#676767",
+      "image": "ArtistPictures/animauxAnime.png",
+      "crop": "top",
+      "youtube": [],
+      "spotify": "<iframe data-testid=\"embed-iframe\" style=\"border-radius:12px\" src=\"https://open.spotify.com/embed/artist/5J3UgWmAsBwZ8jOtZ4f2Uk?utm_source=generator&theme=0\" width=\"100%\" height=\"352\" frameBorder=\"0\" allowfullscreen=\"\" allow=\"autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture\" loading=\"lazy\"></iframe>"
+    },
+    {
+      "id": "artist-b",
+      "name": "GILLI",
+      "color": "#FDCE99",
+      "image": "ArtistPictures/gilli.jpeg",
+      "crop": "mid",
+      "youtube": [
+      ],
+      "spotify": "<iframe data-testid=\"embed-iframe\" style=\"border-radius:12px\" src=\"https://open.spotify.com/embed/artist/2KbikmQKGiUPR2ARs1h0sq?utm_source=generator&theme=0\" width=\"100%\" height=\"352\" frameBorder=\"0\" allowfullscreen=\"\" allow=\"autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture\" loading=\"lazy\"></iframe>"
+    },
+    {
+      "id": "artist-c",
+      "name": "MINDS OF 99",
+      "color": "#C0D3DC",
+      "image": "ArtistPictures/minds.png",
+      "crop": "mid",
+      "youtube": [
+
+      ],
+      "spotify": "<iframe data-testid=\"embed-iframe\" style=\"border-radius:12px\" src=\"https://open.spotify.com/embed/artist/6GTwMrB4u3hwcUyc9sU1UL?utm_source=generator&theme=0\" width=\"100%\" height=\"352\" frameBorder=\"0\" allowfullscreen=\"\" allow=\"autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture\" loading=\"lazy\"></iframe>"
+    },
+    {
+      "id": "artist-d",
+      "name": "NAUSIA",
+      "color": "#697E56",
+      "image": "ArtistPictures/nausia.png",
+      "crop": "top",
+      "youtube": [
+      ],
+      "spotify": ""
+    },
+    {
+      "id": "artist-e",
+      "name": "PATINA",
+      "color": "#EAB1A5",
+      "image": "ArtistPictures/patina.png",
+      "crop": "bottom",
+      "youtube": [
+      ],
+      "spotify": ""
+    },
+    {
+      "id": "artist-f",
+      "name": "SØN",
+      "color": "#052145",
+      "image": "ArtistPictures/søn.png",
+      "crop": "top",
+      "youtube": [
+      ],
+      "spotify": ""
+    }
+  ]
+}

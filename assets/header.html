@@ -1,0 +1,44 @@
+<!-- Shared header: logo, date, menu and social links. Inserted dynamically into each page. -->
+<!-- Custom scrollbar at top -->
+
+
+<!-- Logo container: svg will be loaded dynamically from assets/logo.svg by the script
+     The date text is placed inside this container so both elements can be aligned together. -->
+<div id="logo-container" aria-hidden="true">
+    <div id="logo-inner" aria-hidden="true"></div>
+    
+    <div id="date-text" aria-hidden="true">16-18 JULI 2026</div>
+</div>
+
+<!-- Fixed menu in top right -->
+<div class="menu-container">
+    <div class="custom-select" id="custom-select" tabindex="0" aria-haspopup="listbox" aria-expanded="false">
+        <!-- background box behind the display and dropdown; will be sized dynamically -->
+        <div class="select-bg" aria-hidden="true"></div>
+        <div class="select-display" id="select-display">
+            HJEM
+            <span class="select-caret" aria-hidden="true">
+                <img src="assets/Down-Arrow-Icon.svg" alt="">
+            </span>
+        </div>
+        <ul class="select-options" id="select-options" role="listbox" aria-labelledby="select-display">
+            <li data-value="home" class="selected" role="option">HJEM</li>
+            <li data-value="about" role="option">INFO</li>
+            <li data-value="program" role="option">PROGRAM</li>
+            <li data-value="tickets" role="option">BILLETTER</li>
+            <li data-value="volunteer" role="option">FRIVILLIG</li>
+            <li data-value="camp" role="option">RUDME LEJR</li>
+            <li data-value="association" role="option">FORENINGEN</li>
+        </ul>
+        <!-- hidden native fallback kept for non-JS / accessibility -->
+        <select id="page-menu" class="fallback" onchange="navigatePage(this.value)">
+            <option value="home">HJEM</option>
+            <option value="about">OM</option>
+            <option value="program">PROGRAM</option>
+            <option value="contact">KONTAKT</option>
+        </select>
+    </div>
+</div>
+
+<!-- Social icons: bottom-right round buttons for Facebook and Instagram -->
+
