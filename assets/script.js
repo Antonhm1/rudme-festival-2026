@@ -230,44 +230,48 @@ async function loadAndInitLogo() {
     svg.style.fill = 'currentColor';
     svg.style.stroke = 'currentColor';
 
-    // If we're not on the front page (index.html) force a static black
-    // logo and date color and avoid using the dynamic background logic.
+
+    // Choose an initial color for the logo/date based on page type.
+    // Check if this is the front page or a subpage
     try {
         const filename = window.location.pathname.split('/').pop() || 'index.html';
         const isIndex = filename === '' || filename === 'index.html';
-        if (!isIndex) {
-            // Use black for logo and date on all non-index pages
-            logoContainer.style.color = 'black';
-            if (dateText) dateText.style.color = 'black';
-            // also ensure mobile social links render black
-            try { document.querySelectorAll('.social-btn, .social-link').forEach(el => el.style.color = 'black'); } catch (err) {}
-            // Force a white page background on non-index pages
-            try { document.body.style.background = 'white'; } catch (err) {}
-            try { document.documentElement.style.setProperty('--current-bg', 'white'); } catch (err) {}
-            return;
+
+        if (isIndex) {
+            // Front page: use dynamic background from gallery
+            let initial = getComputedStyle(document.body).backgroundColor;
+            const isTransparent = !initial || initial === 'transparent' || initial === 'rgba(0, 0, 0, 0)';
+            if (isTransparent) {
+                try {
+                    initial = bgColorForIndex(0) || '#FEAD47';
+                } catch (err) {
+                    initial = '#FEAD47';
+                }
+            }
+            logoContainer.style.color = initial;
+            if (dateText) dateText.style.color = initial;
+            try { document.documentElement.style.setProperty('--current-bg', initial); } catch (err) {}
+        } else {
+            // Check if this is the program page, which handles its own colors
+            if (filename === 'program.html') {
+                // Program page handles its own initialization, don't override
+                return;
+            }
+
+            // Other subpages: use a nice background color and make logo color adapt to it
+            const subpageColor = '#FEAD47'; // Use first slide color as default for subpages
+            document.body.style.background = subpageColor;
+            logoContainer.style.color = subpageColor;
+            if (dateText) dateText.style.color = subpageColor;
+            try { document.documentElement.style.setProperty('--current-bg', subpageColor); } catch (err) {}
         }
     } catch (err) {
-        // if anything goes wrong, fall back to dynamic behavior below
+        // Fallback if anything goes wrong
+        const fallbackColor = '#FEAD47';
+        logoContainer.style.color = fallbackColor;
+        if (dateText) dateText.style.color = fallbackColor;
+        try { document.documentElement.style.setProperty('--current-bg', fallbackColor); } catch (err) {}
     }
-
-    // Choose an initial color for the logo/date on the index page.
-    // If the computed body background is transparent (common on first paint),
-    // fall back to the first slide's background so the logo is visible immediately.
-    let initial = getComputedStyle(document.body).backgroundColor;
-    const isTransparent = !initial || initial === 'transparent' || initial === 'rgba(0, 0, 0, 0)';
-    if (isTransparent) {
-        try {
-            initial = bgColorForIndex(0) || 'white';
-        } catch (err) {
-            initial = 'white';
-        }
-    }
-    logoContainer.style.color = initial;
-    if (dateText) dateText.style.color = initial;
-    // ensure the CSS variable used by mobile rules matches the initial background
-    // use a dedicated variable for the current runtime background so we don't
-    // overwrite per-slide variables like --bg-color-1 which are used as sources
-    try { document.documentElement.style.setProperty('--current-bg', initial); } catch (err) {}
 }
 
 // cheap recolor: set container color (svg uses currentColor)

@@ -167,22 +167,11 @@ body.is-subpage .select-bg { display: block; }
 
 /*
   Page-scoped background rules for the select/menu.
-  - Subpages (any non-index page) should always show a solid white background for the menu
-    on desktop and mobile.
-  - Front page: desktop should keep the select visually transparent (no background),
-    while mobile keeps an adaptive background matching --current-bg (set by index page JS).
+  All pages now use transparent background to allow dynamic coloring.
 */
-body.is-subpage .select-display,
-body.is-subpage .select-options,
-body.is-subpage select {
-    background: #ffffff;
-    color: inherit;
-}
-
-/* Front page (desktop): transparent select so the site imagery shows through */
-body.is-frontpage .select-display,
-body.is-frontpage .select-options,
-body.is-frontpage select {
+.select-display,
+.select-options,
+select {
     background: transparent;
 }
 
@@ -611,11 +600,7 @@ body.is-frontpage select {
         --gallery-left: 20px;
 }
 
-/* On mobile, hide the logo and date on subpages only so the front page keeps them visible */
-    body.is-subpage #logo-container,
-    body.is-subpage #date-text {
-        display: none;
-    }
+/* Logo and date text now remain visible on all pages */
 
     #date-text { 
     font-size: 19px;
@@ -659,24 +644,12 @@ top: -3px;
         font-size: 40px;
     }
 
-    /* On mobile, scope backgrounds by page type:
-       - frontpage: use adaptive runtime background variable
-       - subpages: keep solid white background
-    */
-    body.is-frontpage .select-display,
-    body.is-frontpage .select-options,
-    body.is-frontpage .select-options li {
+    /* On mobile, all pages use adaptive runtime background variable */
+    .select-display,
+    .select-options,
+    .select-options li {
         /* ensure a solid background even if the variable isn't initialized */
         background: var(--current-bg, var(--bg-color-1, #ffffff));
-        color: inherit;
-        min-width: 0;
-        max-width: none;
-    }
-
-    body.is-subpage .select-display,
-    body.is-subpage .select-options,
-    body.is-subpage .select-options li {
-        background: #ffffff;
         color: inherit;
         min-width: 0;
         max-width: none;
