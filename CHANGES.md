@@ -1,5 +1,45 @@
 # Project Changes Log
 
+## 2025-12-03: Fixed Program Page Scrollbar Thumb Sizing on Mobile
+
+### Issue
+On small screens (mobile devices), the scrollbar thumb in artist boxes was not properly scaling to represent the content ratio. The thumb appeared too small and didn't maintain the expected proportional relationship between visible content and total scrollable content.
+
+### Root Cause
+Previous attempts to fix the thumb sizing had used a fixed 50% width approach, which ignored the actual content ratio. The scrollbar thumb should represent the proportion of visible content to total content, not an arbitrary percentage.
+
+### Solution Implemented
+**Proportional Thumb Width with Enhanced Mobile Support** (program.js):
+
+1. **Restored Proportional Calculation**:
+   - `thumbWidth = (scrollEl.clientWidth / scrollEl.scrollWidth) * scrollbar.clientWidth`
+   - Thumb size now accurately reflects the ratio of visible content to total scrollable content
+   - Example: If 312px is visible out of 636px total content, thumb is ~49% of scrollbar width
+
+2. **Enhanced Mobile Minimum Width**:
+   - Mobile devices (max-width: 600px): minimum 30% of scrollbar width or 40px
+   - Desktop: maintains original 24px minimum
+   - Ensures thumb remains usable while preserving proportional accuracy
+
+3. **Content-Responsive Behavior**:
+   - Thumb automatically adapts to different content amounts
+   - More scrollable content = smaller thumb (represents smaller visible portion)
+   - Less scrollable content = larger thumb (represents larger visible portion)
+
+### Technical Details
+- **Files Modified**: `assets/program.js` (lines 227-230)
+- **Mobile Detection**: Uses `window.matchMedia('(max-width: 600px)')`
+- **Minimum Width Logic**: `Math.max(scrollbar.clientWidth * 0.3, 40)` for mobile
+- **Fallback**: Desktop maintains `24px` minimum for consistent UX
+
+### Result
+- Scrollbar thumb now properly represents content proportion on all screen sizes
+- Enhanced mobile usability with appropriate minimum sizing
+- Maintains desktop compatibility and existing behavior
+- Thumb size automatically adjusts based on actual scrollable content amount
+
+---
+
 ## 2025-12-03: Implemented Directional Scroll Color System for Program Page
 
 ### Overview
