@@ -223,9 +223,16 @@ function attachBoxScrollbars() {
             const maxScroll = scrollEl.scrollWidth - scrollEl.clientWidth;
             const scrollPercentage = maxScroll === 0 ? 0 : Math.min(1, scrollEl.scrollLeft / maxScroll);
             const thumbWidth = (scrollEl.clientWidth / scrollEl.scrollWidth) * scrollbar.clientWidth || scrollbar.clientWidth;
-            const available = Math.max(0, scrollbar.clientWidth - thumbWidth);
+
+            // Use better minimum width on mobile, but keep the proportional calculation
+            const isMobile = window.matchMedia('(max-width: 600px)').matches;
+            const minThumbWidth = isMobile ? Math.max(scrollbar.clientWidth * 0.3, 40) : 24;
+            const finalThumbWidth = Math.max(minThumbWidth, thumbWidth);
+
+            const available = Math.max(0, scrollbar.clientWidth - finalThumbWidth);
             const thumbPosition = scrollPercentage * available;
-            thumb.style.width = Math.max(24, thumbWidth) + 'px';
+
+            thumb.style.width = finalThumbWidth + 'px';
             thumb.style.left = Math.max(0, Math.min(available, thumbPosition)) + 'px';
         }
 
