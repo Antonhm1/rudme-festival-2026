@@ -554,7 +554,7 @@ body.is-frontpage select {
     display: flex;
     flex-direction: column;
     gap: 6px;
-    z-index: 1300;
+    z-index: 1500; /* Above custom scrollbar when active */
     align-items: center;
     pointer-events: auto;
 }

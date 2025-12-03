@@ -28,6 +28,39 @@ function getSocialLinksReservedSpace() {
     return SOCIAL_LINKS_RESERVED_SPACE;
 }
 
+// Dynamic z-index management for social links when thumb approaches on mobile
+function manageSocialLinksZIndex() {
+    if (!thumb || !scrollbar) return;
+
+    // Only apply on mobile screens
+    try {
+        if (!window.matchMedia || !window.matchMedia('(max-width: 800px)').matches) {
+            return;
+        }
+    } catch (err) {
+        return;
+    }
+
+    const socialContainer = document.querySelector('.social-container');
+    if (!socialContainer) return;
+
+    // Calculate thumb's right edge position
+    const thumbRect = thumb.getBoundingClientRect();
+    const thumbRightEdge = thumbRect.left + thumbRect.width;
+    const viewportWidth = window.innerWidth;
+
+    // Define threshold: when thumb gets within 150px of right edge, lower social z-index
+    const threshold = viewportWidth - 150;
+
+    if (thumbRightEdge > threshold) {
+        // Thumb is close to social area - lower social z-index so thumb can pass over
+        socialContainer.style.zIndex = '1200';
+    } else {
+        // Thumb is away from social area - restore high z-index so social links are clickable
+        socialContainer.style.zIndex = '1500';
+    }
+}
+
 // Helper to resolve DOM references once header is inserted
 function resolveDom() {
     gallery = document.getElementById('gallery');
@@ -309,6 +342,9 @@ function updateScrollbar() {
     const thumbPosition = scrollPercentage * available;
     thumb.style.width = thumbWidth + 'px';
     thumb.style.left = thumbPosition + 'px';
+
+    // Manage social links z-index based on thumb position
+    manageSocialLinksZIndex();
 
     // update descriptive content inside the thumb to reflect the currently centered slide
     try {
