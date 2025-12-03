@@ -501,6 +501,8 @@ function updateBackgroundOnScroll() {
 let rafId = null;
 function onGalleryScroll() {
     updateScrollbar();
+    updateArrowDirection();
+    checkForAutoReverse();
     if (rafId === null) {
         rafId = requestAnimationFrame(() => {
             updateBackgroundOnScroll();
@@ -508,6 +510,57 @@ function onGalleryScroll() {
         });
     }
 }
+// Arrow direction state tracking
+let lastScrollLeft = 0;
+let currentScrollDirection = 'right'; // default direction
+
+// Update arrow direction based on scroll movement
+function updateArrowDirection() {
+    if (!gallery || !thumb) return;
+
+    const thumbIcon = thumb.querySelector('.thumb-icon');
+    if (!thumbIcon) return;
+
+    const currentScrollLeft = gallery.scrollLeft;
+    const scrollDirection = currentScrollLeft > lastScrollLeft ? 'right' :
+                           currentScrollLeft < lastScrollLeft ? 'left' : currentScrollDirection;
+
+    // Only update if direction actually changed
+    if (scrollDirection !== currentScrollDirection) {
+        currentScrollDirection = scrollDirection;
+
+        // Update CSS classes for arrow direction
+        thumbIcon.classList.remove('pointing-left', 'pointing-right');
+        thumbIcon.classList.add(`pointing-${scrollDirection}`);
+    }
+
+    lastScrollLeft = currentScrollLeft;
+}
+
+// Check if we're at the final slide and should reverse direction
+function checkForAutoReverse() {
+    if (!gallery || !slides.length) return;
+
+    const maxScroll = gallery.scrollWidth - gallery.clientWidth;
+    const isAtEnd = gallery.scrollLeft >= maxScroll - 5; // small tolerance for rounding
+    const isAtStart = gallery.scrollLeft <= 5; // small tolerance for rounding
+
+    const thumbIcon = thumb?.querySelector('.thumb-icon');
+    if (!thumbIcon) return;
+
+    if (isAtEnd && currentScrollDirection === 'right') {
+        // At the end, point left for next auto-advance
+        currentScrollDirection = 'left';
+        thumbIcon.classList.remove('pointing-right');
+        thumbIcon.classList.add('pointing-left');
+    } else if (isAtStart && currentScrollDirection === 'left') {
+        // At the start, point right for next auto-advance
+        currentScrollDirection = 'right';
+        thumbIcon.classList.remove('pointing-left');
+        thumbIcon.classList.add('pointing-right');
+    }
+}
+
 // Attach all behaviours that require the header/menu DOM to be present.
 function attachBehaviors() {
     resolveDom();
@@ -547,6 +600,17 @@ function attachBehaviors() {
         } catch (err) {
             gallery.scrollLeft = left;
         }
+
+        // Update arrow direction for programmatic scroll
+        const thumbIcon = thumb?.querySelector('.thumb-icon');
+        if (thumbIcon) {
+            // Determine direction based on target vs current position
+            const targetDirection = left > gallery.scrollLeft ? 'right' : 'left';
+            currentScrollDirection = targetDirection;
+            thumbIcon.classList.remove('pointing-left', 'pointing-right');
+            thumbIcon.classList.add(`pointing-${targetDirection}`);
+        }
+
         // Reset flag after a longer delay to allow smooth scroll animation to complete
         setTimeout(() => { isAutoScrolling = false; }, 1000);
     }
@@ -561,9 +625,29 @@ function attachBehaviors() {
             if (typeof isDragging !== 'undefined' && isDragging) return;
             // If user is actively scrolling (recent RAF) avoid jitter by checking
             currentAutoIndex = computeCurrentSlideIndex();
+
+            // Check if we need to reverse direction at the ends
+            const maxScroll = gallery.scrollWidth - gallery.clientWidth;
+            const isAtEnd = gallery.scrollLeft >= maxScroll - 5;
+            const isAtStart = gallery.scrollLeft <= 5;
+
+            let nextIndex;
+            if (isAtEnd || (currentAutoIndex === slides.length - 1 && currentScrollDirection === 'right')) {
+                // At the end, start going backwards
+                currentScrollDirection = 'left';
+                nextIndex = currentAutoIndex - 1;
+            } else if (isAtStart || (currentAutoIndex === 0 && currentScrollDirection === 'left')) {
+                // At the start, start going forwards
+                currentScrollDirection = 'right';
+                nextIndex = currentAutoIndex + 1;
+            } else {
+                // Continue in current direction
+                nextIndex = currentScrollDirection === 'right' ? currentAutoIndex + 1 : currentAutoIndex - 1;
+            }
+
             // Set flag before calling goToSlideIndex
             isAutoScrolling = true;
-            goToSlideIndex(currentAutoIndex + 1);
+            goToSlideIndex(nextIndex);
         }, autoplayInterval);
     }
 
@@ -623,6 +707,15 @@ function attachBehaviors() {
     // Initially keep the scrollbar hidden (behind the slides) until activity
     hideScrollbar();
 
+    // Initialize arrow direction
+    function initializeArrowDirection() {
+        const thumbIcon = thumb?.querySelector('.thumb-icon');
+        if (thumbIcon) {
+            thumbIcon.classList.add('pointing-right'); // default to pointing right
+            currentScrollDirection = 'right';
+        }
+    }
+
     // initial setup: wait for images
     let imagesLoaded = 0;
     const totalImages = slides.length;
@@ -630,6 +723,7 @@ function attachBehaviors() {
         recomputeSlidePositions();
         updateScrollbar();
         updateBackgroundOnScroll();
+        initializeArrowDirection();
         // start autoplay when static content is ready
         startAutoAdvance();
     } else {
@@ -642,6 +736,7 @@ function attachBehaviors() {
                     recomputeSlidePositions();
                     updateScrollbar();
                     updateBackgroundOnScroll();
+                    initializeArrowDirection();
                 }
             } else {
                 img.addEventListener('load', () => {
@@ -650,6 +745,7 @@ function attachBehaviors() {
                         recomputeSlidePositions();
                         updateScrollbar();
                         updateBackgroundOnScroll();
+                        initializeArrowDirection();
                         // start autoplay once images and layout are ready
                         startAutoAdvance();
                     }
@@ -660,6 +756,7 @@ function attachBehaviors() {
                         recomputeSlidePositions();
                         updateScrollbar();
                         updateBackgroundOnScroll();
+                        initializeArrowDirection();
                         // start autoplay even if some images errored
                         startAutoAdvance();
                     }

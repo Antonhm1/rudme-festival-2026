@@ -455,6 +455,20 @@ body.is-frontpage select {
     stroke-width: 1.2 !important;
 }
 
+/* Arrow rotation animation */
+.custom-scrollbar-thumb .thumb-icon svg {
+    transition: transform 250ms ease;
+}
+
+/* Arrow direction classes */
+.custom-scrollbar-thumb .thumb-icon.pointing-left svg {
+    transform: rotate(180deg);
+}
+
+.custom-scrollbar-thumb .thumb-icon.pointing-right svg {
+    transform: rotate(0deg);
+}
+
 /* small-screen adjustments */
 @media (max-width: 800px) {
     .custom-scrollbar { height: 120px; }
