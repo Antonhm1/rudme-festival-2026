@@ -31,12 +31,12 @@ function attachBoxScrollbars() {
 
         function update() {
             const maxScroll = scrollEl.scrollWidth - scrollEl.clientWidth;
-            const scrollPercentage = maxScroll === 0 ? 0 : scrollEl.scrollLeft / maxScroll;
+            const scrollPercentage = maxScroll === 0 ? 0 : Math.min(1, scrollEl.scrollLeft / maxScroll);
             const thumbWidth = (scrollEl.clientWidth / scrollEl.scrollWidth) * scrollbar.clientWidth || scrollbar.clientWidth;
             const available = Math.max(0, scrollbar.clientWidth - thumbWidth);
             const thumbPosition = scrollPercentage * available;
             thumb.style.width = Math.max(24, thumbWidth) + 'px';
-            thumb.style.left = thumbPosition + 'px';
+            thumb.style.left = Math.max(0, Math.min(available, thumbPosition)) + 'px';
         }
 
         // Sync on scroll and resize
@@ -67,7 +67,8 @@ function attachBoxScrollbars() {
             let left = e.clientX - rect.left - dragOffset;
             left = Math.max(0, Math.min(available, left));
             const scrollPerc = available === 0 ? 0 : left / available;
-            scrollEl.scrollLeft = scrollPerc * (scrollEl.scrollWidth - scrollEl.clientWidth);
+            const maxScroll = scrollEl.scrollWidth - scrollEl.clientWidth;
+            scrollEl.scrollLeft = Math.max(0, Math.min(maxScroll, scrollPerc * maxScroll));
         }
 
         function onUp(e) {
@@ -90,11 +91,14 @@ function attachBoxScrollbars() {
             const thumbLeft = Math.max(0, Math.min(rect.width - thumbW, clickX - thumbW / 2));
             const available = Math.max(0, rect.width - thumbW);
             const scrollPerc = available === 0 ? 0 : thumbLeft / available;
-            scrollEl.scrollLeft = scrollPerc * (scrollEl.scrollWidth - scrollEl.clientWidth);
+            const maxScroll = scrollEl.scrollWidth - scrollEl.clientWidth;
+            scrollEl.scrollLeft = Math.max(0, Math.min(maxScroll, scrollPerc * maxScroll));
         });
 
         // Pointer handlers: set background and manage media embeds on enter/leave.
         // We intentionally do NOT change the horizontal scroll position on hover.
+        let hoverTimer = null;
+
         box.addEventListener('pointerenter', (e) => {
             if (e.pointerType === 'touch') return; // ignore touch
             if (scrollEl.classList.contains('dragging-scrollbar')) return; // don't interfere with user drag
@@ -120,18 +124,50 @@ function attachBoxScrollbars() {
             } catch (err) {}
         });
 
+        // Special hover behavior for artist photos: scroll to second item after 4 seconds
+        const artistPhoto = box.querySelector('.artist-photo');
+        if (artistPhoto) {
+            artistPhoto.addEventListener('pointerenter', (e) => {
+                if (e.pointerType === 'touch') return; // ignore touch
+                if (scrollEl.classList.contains('dragging-scrollbar')) return; // don't interfere with user drag
+
+                // Clear any existing timer
+                if (hoverTimer) {
+                    clearTimeout(hoverTimer);
+                    hoverTimer = null;
+                }
+
+                // Set 4-second timer to scroll to second item
+                hoverTimer = setTimeout(() => {
+                    const items = scrollEl.querySelectorAll('.box-item');
+                    if (items.length > 1) {
+                        const secondItem = items[1];
+                        const itemWidth = secondItem.offsetWidth;
+                        try {
+                            scrollEl.scrollTo({ left: itemWidth, behavior: 'smooth' });
+                        } catch (err) {
+                            // fallback for older browsers
+                            scrollEl.scrollLeft = itemWidth;
+                        }
+                    }
+                    hoverTimer = null;
+                }, 4000);
+            });
+
+            artistPhoto.addEventListener('pointerleave', (e) => {
+                if (e.pointerType === 'touch') return;
+                // Cancel the timer if user stops hovering
+                if (hoverTimer) {
+                    clearTimeout(hoverTimer);
+                    hoverTimer = null;
+                }
+            });
+        }
+
         box.addEventListener('pointerleave', (e) => {
             if (e.pointerType === 'touch') return;
             if (scrollEl.classList.contains('dragging-scrollbar')) return;
-            // Stop YouTube iframes (via postMessage) and unload Spotify embeds to stop playback
-            try {
-                const ytIframes = box.querySelectorAll('iframe.youtube-embed');
-                ytIframes.forEach(yt => {
-                    try {
-                        yt.contentWindow && yt.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'stopVideo', args: [] }), '*');
-                    } catch (err) {}
-                });
-            } catch (err) {}
+            // Unload Spotify embeds to stop playback
             try {
                 const spIframes = box.querySelectorAll('.spotify-embed iframe');
                 spIframes.forEach(ifr => {
@@ -232,7 +268,7 @@ function loadArtists() {
                 const scroll = document.createElement('div');
                 scroll.className = 'box-scroll';
 
-                // image tile
+                // image tile (always first)
                 const imgItem = document.createElement('div');
                 imgItem.className = 'box-item';
                 const img = document.createElement('img');
@@ -244,35 +280,7 @@ function loadArtists() {
                 imgItem.appendChild(img);
                 scroll.appendChild(imgItem);
 
-                // youtube/link tiles — embed YouTube players when possible
-                if (Array.isArray(a.youtube)) {
-                    a.youtube.forEach(link => {
-                        const item = document.createElement('div');
-                        item.className = 'box-item';
-                        const id = getYouTubeId(link);
-                        if (id) {
-                            const iframe = document.createElement('iframe');
-                            iframe.className = 'youtube-embed';
-                            // enable JS API so we can stop the player via postMessage when user leaves
-                            iframe.src = `https://www.youtube.com/embed/${id}?rel=0&modestbranding=1&enablejsapi=1`;
-                            iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
-                            iframe.setAttribute('allowfullscreen', '');
-                            iframe.loading = 'lazy';
-                            item.appendChild(iframe);
-                        } else {
-                            const anchor = document.createElement('a');
-                            anchor.href = link;
-                            anchor.target = '_blank';
-                            anchor.rel = 'noopener';
-                            anchor.textContent = 'Link ›';
-                            item.appendChild(anchor);
-                        }
-                        scroll.appendChild(item);
-                    });
-                }
-
-                // spotify embed: if provided as an iframe string in the JSON, insert it
-                // as its own scroll item after the YouTube items so users can scroll to it.
+                // spotify embed (always second if present)
                 if (a.spotify && String(a.spotify).trim()) {
                     try {
                         const spItem = document.createElement('div');
@@ -312,6 +320,7 @@ function loadArtists() {
                         scroll.appendChild(spItem);
                     }
                 }
+
 
                 box.appendChild(scroll);
 
