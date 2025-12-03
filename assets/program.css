@@ -1,8 +1,10 @@
 /* Program page: artist grid & box scrollbar styles (moved from main stylesheet) */
 /* Re-enable vertical scrolling on this page only (main stylesheet sets body { overflow: hidden }) */
 html, body {
-    height: 100%;
-    overflow-y: auto;
+    height: auto !important;
+    min-height: 100vh;
+    overflow-y: auto !important;
+    overflow: visible !important;
 }
 
 /* Vertical scrollbar styling for program page:
@@ -47,7 +49,7 @@ html:not(.show-vertical-scrollbar) { scrollbar-color: transparent transparent; }
 
 
 .program-main {
-    padding: 40px 30px 60px 30px; /* move artist grid further from the top */
+    padding: 40px 30px 150vh 30px; /* large bottom padding for scrolling to last artists */
 }
 
 .artist-grid {

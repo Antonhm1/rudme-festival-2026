@@ -1,5 +1,195 @@
 /* assets/program.js — program page specific JS: per-box custom scrollbars */
 
+// Initialize program page with white background and black text
+function initializeProgramPage() {
+    try {
+        // Set initial white background and black header elements
+        document.body.style.background = 'white';
+        document.documentElement.style.setProperty('--current-bg', 'white');
+        document.documentElement.style.setProperty('--select-hover-bg', '#f0f0f0'); // Light gray hover for initial state
+
+        const logoContainer = document.getElementById('logo-container');
+        const dateText = document.getElementById('date-text');
+        const selectDisplay = document.getElementById('select-display');
+        const selectOptions = document.getElementById('select-options');
+        const selectItems = document.querySelectorAll('.select-options li');
+        const selectBg = document.querySelector('.select-bg');
+
+        if (logoContainer) logoContainer.style.color = 'black';
+        if (dateText) dateText.style.color = 'black';
+
+        if (selectDisplay) {
+            selectDisplay.style.backgroundColor = 'transparent';
+            selectDisplay.style.color = 'black';
+        }
+
+        if (selectOptions) {
+            selectOptions.style.backgroundColor = 'transparent';
+        }
+
+        // Keep the background box white initially
+        if (selectBg) {
+            selectBg.style.backgroundColor = 'white';
+        }
+
+        selectItems.forEach(item => {
+            item.style.backgroundColor = 'transparent';
+            item.style.color = 'black';
+        });
+
+        // Apply initial hover styles
+        applySelectHoverStyles('white', '#f0f0f0');
+
+    } catch (err) {
+        console.warn('Error initializing program page:', err);
+    }
+}
+
+// Helper functions for color manipulation (reused from main script.js)
+function parseColorToRgb(color) {
+    if (!color) return [255, 255, 255];
+    color = color.trim();
+
+    if (color.startsWith('#')) {
+        const hex = color.slice(1);
+        if (hex.length === 3) {
+            return [
+                parseInt(hex[0] + hex[0], 16),
+                parseInt(hex[1] + hex[1], 16),
+                parseInt(hex[2] + hex[2], 16)
+            ];
+        }
+        return [
+            parseInt(hex.slice(0, 2), 16),
+            parseInt(hex.slice(2, 4), 16),
+            parseInt(hex.slice(4, 6), 16)
+        ];
+    }
+
+    if (color.startsWith('rgb')) {
+        const match = color.match(/\d+/g);
+        if (match && match.length >= 3) {
+            return [parseInt(match[0]), parseInt(match[1]), parseInt(match[2])];
+        }
+    }
+
+    return [255, 255, 255]; // fallback to white
+}
+
+function lightenColor(color, amount = 0.4) {
+    const rgb = parseColorToRgb(color);
+    const r = Math.round(rgb[0] + (255 - rgb[0]) * amount);
+    const g = Math.round(rgb[1] + (255 - rgb[1]) * amount);
+    const b = Math.round(rgb[2] + (255 - rgb[2]) * amount);
+    return `rgb(${r}, ${g}, ${b})`;
+}
+
+function updateHeaderColors(boxColor) {
+    try {
+        const lighterColor = lightenColor(boxColor, 0.3);
+        const hoverColor = lightenColor(boxColor, 0.2); // Lighter version of the background color for hover
+
+        // Update logo and date text with lighter color
+        const logoContainer = document.getElementById('logo-container');
+        const dateText = document.getElementById('date-text');
+
+        if (logoContainer) logoContainer.style.color = lighterColor;
+        if (dateText) dateText.style.color = lighterColor;
+
+        // Update select menu background to artist box color but keep text black
+        const selectDisplay = document.getElementById('select-display');
+        const selectOptions = document.getElementById('select-options');
+        const selectItems = document.querySelectorAll('.select-options li');
+        const selectBg = document.querySelector('.select-bg'); // The white background box
+
+        if (selectDisplay) {
+            selectDisplay.style.backgroundColor = boxColor;
+            selectDisplay.style.color = 'black'; // Always black text
+        }
+
+        if (selectOptions) {
+            selectOptions.style.backgroundColor = boxColor;
+        }
+
+        // Update the background box that extends with the menu
+        if (selectBg) {
+            selectBg.style.backgroundColor = boxColor;
+        }
+
+        selectItems.forEach(item => {
+            item.style.backgroundColor = boxColor;
+            item.style.color = 'black'; // Always black text
+        });
+
+        // Update CSS variable for mobile compatibility and hover effects
+        document.documentElement.style.setProperty('--current-bg', boxColor);
+        document.documentElement.style.setProperty('--select-hover-bg', hoverColor);
+
+        // Apply hover styles directly to ensure they work
+        applySelectHoverStyles(boxColor, hoverColor);
+
+    } catch (err) {
+        console.warn('Error updating header colors:', err);
+    }
+}
+
+// Apply hover styles directly to select menu items
+function applySelectHoverStyles(baseColor, hoverColor) {
+    // Remove any existing hover styles
+    const existingStyle = document.getElementById('program-select-hover-styles');
+    if (existingStyle) {
+        existingStyle.remove();
+    }
+
+    // Create new hover styles
+    const style = document.createElement('style');
+    style.id = 'program-select-hover-styles';
+    style.textContent = `
+        .select-options li:hover {
+            background-color: ${hoverColor} !important;
+            color: black !important;
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+function resetHeaderColors() {
+    try {
+        // Reset to white background and black text
+        const logoContainer = document.getElementById('logo-container');
+        const dateText = document.getElementById('date-text');
+        const selectDisplay = document.getElementById('select-display');
+        const selectOptions = document.getElementById('select-options');
+        const selectItems = document.querySelectorAll('.select-options li');
+
+        // Set logo and date to black
+        if (logoContainer) logoContainer.style.color = 'black';
+        if (dateText) dateText.style.color = 'black';
+
+        // Reset select menu to transparent background with black text
+        if (selectDisplay) {
+            selectDisplay.style.backgroundColor = 'transparent';
+            selectDisplay.style.color = 'black';
+        }
+
+        if (selectOptions) {
+            selectOptions.style.backgroundColor = 'transparent';
+        }
+
+        selectItems.forEach(item => {
+            item.style.backgroundColor = 'transparent';
+            item.style.color = 'black';
+        });
+
+        // Set white background
+        document.body.style.background = 'white';
+        document.documentElement.style.setProperty('--current-bg', 'white');
+
+    } catch (err) {
+        console.warn('Error resetting header colors:', err);
+    }
+}
+
 function attachBoxScrollbars() {
     const boxes = Array.from(document.querySelectorAll('.artist-box'));
     if (!boxes.length) return;
@@ -102,14 +292,6 @@ function attachBoxScrollbars() {
         box.addEventListener('pointerenter', (e) => {
             if (e.pointerType === 'touch') return; // ignore touch
             if (scrollEl.classList.contains('dragging-scrollbar')) return; // don't interfere with user drag
-            // set the page background to match this artist box color and keep it
-            try {
-                const bg = getComputedStyle(box).getPropertyValue('--box-color').trim();
-                if (bg) {
-                    document.documentElement.style.setProperty('--current-bg', bg);
-                    try { document.body.style.background = bg; } catch (e) {}
-                }
-            } catch (err) {}
             // Restore Spotify embeds (if we previously unloaded them on leave)
             try {
                 const spIframes = box.querySelectorAll('.spotify-embed iframe');
@@ -167,6 +349,9 @@ function attachBoxScrollbars() {
         box.addEventListener('pointerleave', (e) => {
             if (e.pointerType === 'touch') return;
             if (scrollEl.classList.contains('dragging-scrollbar')) return;
+
+            // Do NOT reset header colors - keep the last artist box color persistent
+
             // Unload Spotify embeds to stop playback
             try {
                 const spIframes = box.querySelectorAll('.spotify-embed iframe');
@@ -194,17 +379,287 @@ function attachBoxScrollbars() {
             } catch (err) {}
         });
         
-        // also allow keyboard users to set the background by focusing the box
-        box.addEventListener('focus', (e) => {
-            try {
-                const bg = getComputedStyle(box).getPropertyValue('--box-color').trim();
-                if (bg) {
-                    document.documentElement.style.setProperty('--current-bg', bg);
-                    try { document.body.style.background = bg; } catch (e) {}
-                }
-            } catch (err) {}
-        });
+        // Focus handler removed - colors now controlled by scroll position
     });
+}
+
+// Simplified directional scroll color system
+function initializeScrollColorSystem() {
+    let leftColumnArtists = [];
+    let rightColumnArtists = [];
+    let rafId = null;
+
+    // Target commitment system
+    let lastScrollY = window.scrollY;
+    let scrollDirection = 'down'; // 'up' or 'down'
+    let targetArtist = null; // Artist we're currently transitioning to
+    let currentArtist = null; // Artist we're currently showing
+    let isCommitted = false; // Whether we've reached the target color
+
+    function updateArtistBoxes() {
+        // Get all artist boxes
+        const allBoxes = Array.from(document.querySelectorAll('.artist-box')).map((box, index) => {
+            const rect = box.getBoundingClientRect();
+            const color = getComputedStyle(box).getPropertyValue('--box-color').trim() || '#FEAD47';
+            return {
+                element: box,
+                top: rect.top + window.scrollY,
+                bottom: rect.bottom + window.scrollY,
+                center: rect.top + window.scrollY + rect.height / 2,
+                left: rect.left,
+                color: color,
+                index: index,
+                name: box.querySelector('.box-title')?.textContent || `Artist ${index + 1}`
+            };
+        });
+
+        // Separate into left and right columns
+        separateColumns(allBoxes);
+    }
+
+    function separateColumns(allBoxes) {
+        // Sort by vertical position first, then by horizontal position
+        const sortedBoxes = [...allBoxes].sort((a, b) => {
+            const verticalDiff = a.top - b.top;
+            return Math.abs(verticalDiff) < 50 ? a.left - b.left : verticalDiff;
+        });
+
+        leftColumnArtists = [];
+        rightColumnArtists = [];
+
+        // Group by rows and separate columns
+        let currentRowBoxes = [];
+        let currentRowTop = null;
+
+        sortedBoxes.forEach(box => {
+            if (currentRowTop === null || Math.abs(box.top - currentRowTop) <= 50) {
+                // Same row
+                currentRowBoxes.push(box);
+                if (currentRowTop === null) currentRowTop = box.top;
+            } else {
+                // Process completed row
+                processRow(currentRowBoxes);
+                currentRowBoxes = [box];
+                currentRowTop = box.top;
+            }
+        });
+
+        // Process final row
+        if (currentRowBoxes.length > 0) {
+            processRow(currentRowBoxes);
+        }
+
+        // Sort columns by vertical position
+        leftColumnArtists.sort((a, b) => a.top - b.top);
+        rightColumnArtists.sort((a, b) => a.top - b.top);
+    }
+
+    function processRow(boxes) {
+        if (boxes.length === 1) {
+            // Single column layout - add to left column
+            leftColumnArtists.push(boxes[0]);
+        } else if (boxes.length >= 2) {
+            // Two column layout - sort by horizontal position
+            boxes.sort((a, b) => a.left - b.left);
+            leftColumnArtists.push(boxes[0]); // Leftmost
+            rightColumnArtists.push(boxes[1]); // Rightmost
+        }
+    }
+
+    function updateBackgroundOnScroll() {
+        if (leftColumnArtists.length === 0) return;
+
+        const currentScrollY = window.scrollY;
+        const viewportCenter = currentScrollY + window.innerHeight / 2;
+
+        // Update scroll direction
+        updateScrollDirection(currentScrollY);
+
+        // Determine target artist based on new simple algorithm
+        determineTargetArtist(viewportCenter);
+
+        // Update colors based on current/target state
+        updateColorsWithCommitment(viewportCenter);
+    }
+
+    function updateScrollDirection(currentScrollY) {
+        const scrollDelta = currentScrollY - lastScrollY;
+        const minDelta = 5; // Minimum scroll distance to register direction change
+
+        if (Math.abs(scrollDelta) >= minDelta) {
+            const newDirection = scrollDelta > 0 ? 'down' : 'up';
+
+            if (newDirection !== scrollDirection) {
+                scrollDirection = newDirection;
+                // Reset commitment when direction changes
+                isCommitted = false;
+            }
+        }
+
+        lastScrollY = currentScrollY;
+    }
+
+    function determineTargetArtist(viewportCenter) {
+        // Get the appropriate artist list for current scroll direction
+        const artistList = scrollDirection === 'down' ? leftColumnArtists :
+                          (rightColumnArtists.length > 0 ? rightColumnArtists : leftColumnArtists);
+
+        if (artistList.length === 0) return;
+
+        // Find which artist is currently centered (or closest to being centered)
+        const currentIndex = getCurrentArtistIndex(viewportCenter, artistList);
+
+        // Determine target based on scroll direction and current position
+        let newTarget = null;
+
+        if (scrollDirection === 'down') {
+            // Scrolling down: target next artist in sequence or stay with current if at end
+            if (viewportCenter > artistList[currentIndex].center) {
+                // We've passed current artist center, target next one
+                newTarget = artistList[currentIndex + 1] || artistList[currentIndex];
+            } else {
+                // We haven't reached current artist center yet
+                newTarget = artistList[currentIndex];
+            }
+        } else {
+            // Scrolling up: target previous artist in sequence or stay with current if at beginning
+            if (viewportCenter < artistList[currentIndex].center) {
+                // We've passed current artist center going up, target previous one
+                newTarget = artistList[currentIndex - 1] || artistList[currentIndex];
+            } else {
+                // We haven't reached current artist center yet
+                newTarget = artistList[currentIndex];
+            }
+        }
+
+        // Only change target when we move to a new artist or direction changes
+        if (newTarget && newTarget !== targetArtist) {
+            currentArtist = targetArtist; // Previous target becomes current
+            targetArtist = newTarget;
+            isCommitted = false;
+        }
+    }
+
+    function getCurrentArtistIndex(viewportCenter, artistList) {
+        // Find the artist whose center is closest to viewport center
+        let closestIndex = 0;
+        let closestDistance = Math.abs(viewportCenter - artistList[0].center);
+
+        artistList.forEach((artist, index) => {
+            const distance = Math.abs(viewportCenter - artist.center);
+            if (distance < closestDistance) {
+                closestDistance = distance;
+                closestIndex = index;
+            }
+        });
+
+        return closestIndex;
+    }
+
+    function hasReachedTarget(viewportCenter) {
+        if (!targetArtist) return false;
+        const distance = Math.abs(viewportCenter - targetArtist.center);
+        return distance < 100; // Close enough to center for commitment
+    }
+
+    function updateColorsWithCommitment(viewportCenter) {
+        if (!targetArtist) {
+            // Initialize with first artist based on direction
+            const firstArtist = scrollDirection === 'down' ? leftColumnArtists[0] :
+                               (rightColumnArtists.length > 0 ? rightColumnArtists[0] : leftColumnArtists[0]);
+            if (firstArtist) {
+                currentArtist = firstArtist;
+                targetArtist = firstArtist;
+                updatePageColors(firstArtist.color);
+            }
+            return;
+        }
+
+        // Check if we've reached the target (artist is centered in viewport)
+        if (hasReachedTarget(viewportCenter)) {
+            isCommitted = true;
+            currentArtist = targetArtist;
+            updatePageColors(targetArtist.color);
+            return;
+        }
+
+        // If we're transitioning between artists, use smooth interpolation
+        if (currentArtist && targetArtist && currentArtist !== targetArtist) {
+            const interpolatedColor = getInterpolatedColorBetweenArtists(viewportCenter, currentArtist, targetArtist);
+            updatePageColors(interpolatedColor);
+        } else {
+            // Show target color if no transition needed
+            updatePageColors(targetArtist.color);
+        }
+    }
+
+    function getInterpolatedColorBetweenArtists(viewportCenter, artist1, artist2) {
+        // Calculate distances from viewport center to each artist center
+        const distance1 = Math.abs(viewportCenter - artist1.center);
+        const distance2 = Math.abs(viewportCenter - artist2.center);
+        const totalDistance = distance1 + distance2;
+
+        // Avoid division by zero
+        if (totalDistance === 0) return artist2.color;
+
+        // Calculate interpolation factor (0 = fully artist1, 1 = fully artist2)
+        const t = distance1 / totalDistance;
+
+        // Smooth interpolation between the two colors
+        return interpolateColors(artist1.color, artist2.color, t);
+    }
+
+    function interpolateColors(color1, color2, t) {
+        const rgb1 = parseColorToRgb(color1);
+        const rgb2 = parseColorToRgb(color2);
+
+        const r = Math.round(rgb1[0] * (1 - t) + rgb2[0] * t);
+        const g = Math.round(rgb1[1] * (1 - t) + rgb2[1] * t);
+        const b = Math.round(rgb1[2] * (1 - t) + rgb2[2] * t);
+
+        return `rgb(${r}, ${g}, ${b})`;
+    }
+
+    function updatePageColors(color) {
+        document.body.style.background = color;
+        document.documentElement.style.setProperty('--current-bg', color);
+        updateHeaderColors(color);
+    }
+
+    function onScroll() {
+        if (rafId === null) {
+            rafId = requestAnimationFrame(() => {
+                updateBackgroundOnScroll();
+                rafId = null;
+            });
+        }
+    }
+
+    // Initialize
+    function init() {
+        updateArtistBoxes();
+        updateBackgroundOnScroll();
+
+        // Add scroll listener
+        window.addEventListener('scroll', onScroll, { passive: true });
+
+        // Update positions on resize
+        window.addEventListener('resize', () => {
+            updateArtistBoxes();
+            updateBackgroundOnScroll();
+        });
+    }
+
+    return {
+        init,
+        updateArtistBoxes,
+        // Expose for testing
+        get leftColumnArtists() { return leftColumnArtists; },
+        get rightColumnArtists() { return rightColumnArtists; },
+        get currentArtist() { return currentArtist; },
+        get targetArtist() { return targetArtist; },
+        get scrollDirection() { return scrollDirection; }
+    };
 }
 
 // Load artists.json and render the artist boxes, then attach scrollbars.
@@ -334,8 +789,17 @@ function loadArtists() {
                 grid.appendChild(box);
             });
 
-            // wait a tick for layout, then wire the scrollbar logic
-            setTimeout(attachBoxScrollbars, 50);
+            // wait a tick for layout, then wire the scrollbar logic and color system
+            setTimeout(() => {
+                attachBoxScrollbars();
+
+                // Initialize scroll-based color system
+                const colorSystem = initializeScrollColorSystem();
+                colorSystem.init();
+
+                // Store reference for potential updates
+                window.programColorSystem = colorSystem;
+            }, 50);
         })
         .catch(err => {
             // leave the grid empty on error, but log for debugging
@@ -344,12 +808,23 @@ function loadArtists() {
 }
 
 // Initialize: load when header is inserted or DOM is ready
-document.addEventListener('header-inserted', loadArtists);
+document.addEventListener('header-inserted', () => {
+    initializeProgramPage();
+    loadArtists();
+});
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => setTimeout(loadArtists, 50));
+    document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => {
+            initializeProgramPage();
+            loadArtists();
+        }, 50);
+    });
 } else {
     // run shortly after load so layout is stable
-    setTimeout(loadArtists, 50);
+    setTimeout(() => {
+        initializeProgramPage();
+        loadArtists();
+    }, 50);
 }
 
 /* Page-level custom vertical scrollbar removed — rely on native vertical scrollbar. */
