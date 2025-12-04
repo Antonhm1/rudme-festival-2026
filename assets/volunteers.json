@@ -1,0 +1,79 @@
+{
+  "roles": [
+    {
+      "id": "frivillig",
+      "name": "FRIVILLIG",
+      "image": "pictures/crowded-føler-den.jpg",
+      "color": "#90EE90",
+      "description": [
+        "Som frivillig på Rudme Festival bliver du en del af et fællesskab, som er afgørende for at få festivalen afholdt, men også være et ansigt udadtil som er med til at skabe god stemning, fællesskab og hygge.",
+        "Du vil modtage <strong>festivalbillet</strong>, årets festival <strong>t-shirt</strong> samt <strong>mad og drikkebilletter</strong> når du er på vagt.",
+        "At være frivillig på Rudme Festival indebærer <strong>8 timers arbejde</strong>, fordelt på en eller to vagter.",
+        "Hver enkelt frivillig har stor betydning for at festivalen bliver afholdt. Derfor forventer vi at du tager dit ansvar alvorligt."
+      ],
+      "buttonText": "BLIV FRIVILLIG"
+    },
+    {
+      "id": "afvikler",
+      "name": "AFVIKLER",
+      "image": "pictures/folkedans.jpg",
+      "color": "#87CEEB",
+      "description": [
+        "Som afvikler på Rudme Festival bliver du en del af et fællesskab, som er afgørende for at få festivalen afholdt, men også være et ansigt udadtil som er med til at skabe god stemning, fællesskab og hygge.",
+        "Du vil modtage <strong>festivalbillet</strong>, årets festival <strong>t-shirt</strong> samt <strong>mad og drikkebilletter</strong> når du er på vagt.",
+        "At være afvikler på Rudme Festival indebærer <strong>8 timers arbejde</strong>, fordelt på en eller to vagter.",
+        "Eventuelle <strong>afbud skal ske senest d. 13. juni</strong>. Ved udeblivelse kan der udstedes en bøde.",
+        "Afbud sker ved at du aflyser din vagt i Crewplan."
+      ],
+      "buttonText": "BLIV AFVIKLER"
+    },
+    {
+      "id": "arrangor",
+      "name": "ARRANGØR",
+      "image": "pictures/teltoppsætning.jpg",
+      "color": "#FFB6C1",
+      "description": [
+        "Som arrangør er du med til at planlægge og koordinere festivalen. Du får indflydelse på programmet og hjælper med at skabe den unikke Rudme-stemning.",
+        "Du vil modtage <strong>festivalbillet</strong>, årets festival <strong>t-shirt</strong> samt <strong>mad og drikkebilletter</strong> når du er på vagt.",
+        "At være arrangør på Rudme Festival kræver engagement før, under og efter festivalen."
+      ],
+      "buttonText": "BLIV ARRANGØR"
+    },
+    {
+      "id": "praktikant",
+      "name": "PRAKTIKANT",
+      "image": "pictures/ølbold-med-handicap.jpg",
+      "color": "#FFF59D",
+      "description": [
+        "Som praktikant får du mulighed for at lære om festivalafvikling og få hands-on erfaring med event management.",
+        "Du vil modtage <strong>festivalbillet</strong>, årets festival <strong>t-shirt</strong> samt <strong>mad og drikkebilletter</strong> når du er på vagt.",
+        "Praktikperioden varer typisk 2-4 uger omkring festivalen."
+      ],
+      "buttonText": "BLIV PRAKTIKANT"
+    },
+    {
+      "id": "rudme-lejr",
+      "name": "RUDME LEJR",
+      "image": "pictures/stakit-bygning.jpg",
+      "color": "#FFEB3B",
+      "description": [
+        "Rudme Lejr er vores camping område hvor du kan overnatte under festivalen og være en del af fællesskabet døgnet rundt.",
+        "Her får du den fulde festivaloplevelse med morgenmad, fællesspisning og hygge.",
+        "Pladsen koster 200 kr. for hele festivalen og inkluderer adgang til faciliteter."
+      ],
+      "buttonText": "TILMELD RUDME LEJR"
+    },
+    {
+      "id": "foreningsmedlem",
+      "name": "FORENINGSMEDLEM",
+      "image": "pictures/kærlighed.jpg",
+      "color": "#B19CD9",
+      "description": [
+        "Som foreningsmedlem får du indflydelse på festivalens fremtid og er med til at forme Rudme Festival.",
+        "Du får stemmeret ved generalforsamlingen og kan stille op til bestyrelsen.",
+        "Medlemskab koster 100 kr. om året og giver dig mulighed for at være med til at præge festivalen."
+      ],
+      "buttonText": "BLIV MEDLEM"
+    }
+  ]
+}

@@ -50,18 +50,7 @@ body {
     font-family: Arial, sans-serif;
 }
 
-/* Fixed menu in top right */
-.menu-container {
-    /* Make the menu container part of the document flow so it scrolls with the page.
-       The logo (`#logo-container`) and date (`#date-text`) remain fixed elsewhere.
-       Position it below the fixed logo (logo top 50px + height 100px) with a small gap.
-       Move the container slightly closer to the right edge to reduce the "hole" gap. */
-    position: absolute;
-    top: 75px; /* logo top + logo height + 10px gap */
-    /* reduced from 20px to 8px to nudge the menu closer to the viewport right edge */
-    right: 8px;
-    z-index: 1000;
-}
+/* Menu container - styling handled by global rule below */
 
 /* Styled native select (kept for basic look) */
 select {
@@ -538,15 +527,21 @@ select {
     white-space: nowrap;
 }
 
-/* Global header rule: keep logo and date fixed, but make the menu scrollable
-   by placing it below the fixed header area. This applies on all pages so the
-   header layout is consistent whether frontpage or subpage. */
+/* Global header rule: keep logo and date fixed, menu uses absolute/fixed hybrid.
+   This applies on all pages so the header layout is consistent whether
+   frontpage or subpage. */
 .menu-container {
-    /* avoid !important here so responsive rules can override top/right when needed */
-    position: absolute; /* absolute within document so it scrolls */
-    top: 70px; /* place below fixed logo/date */
+    position: absolute;
+    top: 75px; /* Initial position below logo */
     right: 8px;
     z-index: 1200;
+    transition: none; /* No transition for position changes */
+}
+
+/* When page is scrolled, make menu fixed */
+.menu-fixed {
+    position: fixed !important;
+    top: 20px !important; /* Closer to top when fixed */
 }
 
 /* Social icons (bottom-right) */

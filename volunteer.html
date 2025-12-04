@@ -5,10 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>FRIVILLIG</title>
     <link rel="stylesheet" href="assets/styles.css">
+    <link rel="stylesheet" href="assets/volunteer.css">
 </head>
 <body>
     <!-- Page intentionally left minimal: header is injected by assets/header-insert.js -->
+
+    <main class="volunteer-main">
+        <!-- Hero section with big picture -->
+        <section class="hero-section">
+            <img src="pictures/folkedans.jpg" alt="Frivillige ved Rudme Festival" class="hero-image">
+        </section>
+
+        <!-- Hero text underneath image -->
+        <div class="hero-text">BLIV EN DEL AF FÆLLESSKABET</div>
+
+        <!-- Roles section with colored boxes -->
+        <section class="roles-section">
+            <h2 class="section-title">ROLLER</h2>
+            <div class="roles-grid" id="roles-grid">
+                <!-- Role boxes will be generated dynamically from JSON -->
+            </div>
+        </section>
+
+        <!-- Role sections container - will be populated from JSON -->
+        <div id="role-sections-container">
+            <!-- Role sections will be generated dynamically from JSON -->
+        </div>
+    </main>
+
     <script src="assets/header-insert.js" defer></script>
     <script src="assets/script.js" defer></script>
+    <script src="assets/volunteer.js" defer></script>
 </body>
 </html>
