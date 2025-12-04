@@ -3,10 +3,12 @@
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', async function() {
     await loadVolunteerData();
+    await loadPosterData();
     initializeRoleNavigation();
     initializeColorTransitions();
     setInitialHeaderColor();
     initializeStickyMenu();
+    initializePosterScroll();
 });
 
 // Load volunteer data from JSON and generate page content
@@ -404,4 +406,203 @@ function initializeStickyMenu() {
 
     // Check initial state
     handleScroll();
+}
+
+// Load poster data from JSON and generate poster boxes
+async function loadPosterData() {
+    try {
+        const response = await fetch('assets/posters.json');
+        const data = await response.json();
+        generatePosterBoxes(data.posters);
+    } catch (error) {
+        console.error('Error loading poster data:', error);
+    }
+}
+
+// Generate poster boxes in the scroll container
+function generatePosterBoxes(posters) {
+    const posterScroll = document.getElementById('poster-scroll');
+
+    // Create poster boxes twice for seamless infinite scroll
+    const allPosters = [...posters, ...posters];
+
+    allPosters.forEach((poster, index) => {
+        const box = document.createElement('div');
+        box.className = 'poster-box';
+        box.setAttribute('data-poster', `${poster.id}-${index}`); // Unique identifier for each box
+        box.style.borderColor = poster.color;
+        box.style.backgroundColor = poster.color; // Set background color to match border
+
+        // Create content structure
+        box.innerHTML = `
+            <img src="${poster.image}" alt="${poster.title}" class="poster-image">
+            <div class="poster-content">
+                <div class="poster-header">
+                    <h3 class="poster-title">${poster.title}</h3>
+                    <button class="poster-button" style="background-color: ${poster.color}">LÆS MERE</button>
+                </div>
+                <div class="poster-description">${poster.description}</div>
+            </div>
+        `;
+
+        // Add click handler for expand/collapse - only this box expands
+        const button = box.querySelector('.poster-button');
+        button.addEventListener('click', function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+
+            const currentBox = e.currentTarget.closest('.poster-box');
+            const wasExpanded = currentBox.classList.contains('expanded');
+
+            // Close ALL expanded boxes first
+            document.querySelectorAll('.poster-box.expanded').forEach(expandedBox => {
+                expandedBox.classList.remove('expanded');
+                const btn = expandedBox.querySelector('.poster-button');
+                if (btn) btn.textContent = 'LÆS MERE';
+            });
+
+            // If this box wasn't expanded before, expand it
+            if (!wasExpanded) {
+                currentBox.classList.add('expanded');
+                e.currentTarget.textContent = 'LUK';
+            }
+        });
+
+        posterScroll.appendChild(box);
+    });
+}
+
+// Initialize poster scroll functionality
+function initializePosterScroll() {
+    const container = document.querySelector('.poster-container');
+    const scrollContent = document.querySelector('.poster-scroll');
+
+    if (!container || !scrollContent) return;
+
+    let scrollSpeed = 0.5; // Pixels per frame
+    let isAutoScrolling = true;
+    let scrollPosition = 0;
+    let animationId = null;
+
+    // Create custom scrollbar
+    const scrollbarTrack = document.createElement('div');
+    scrollbarTrack.className = 'poster-scrollbar-track';
+
+    const scrollbarThumb = document.createElement('div');
+    scrollbarThumb.className = 'poster-scrollbar-thumb';
+
+    scrollbarTrack.appendChild(scrollbarThumb);
+
+    // Insert scrollbar track inside poster section
+    const posterSection = document.querySelector('.poster-section');
+    posterSection.appendChild(scrollbarTrack);
+
+    // Function to update scrollbar color based on current background
+    function updateScrollbarColor() {
+        const currentBgColor = window.getComputedStyle(document.body).backgroundColor;
+        // Make scrollbar a much lighter version of the background for better contrast
+        scrollbarThumb.style.backgroundColor = lightenColor(currentBgColor, 0.7);
+    }
+
+    // Lighten color function (if not already available)
+    function lightenColor(color, factor = 0.7) {
+        const match = color.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
+        if (match) {
+            const r = Math.min(255, parseInt(match[1]) + (255 - parseInt(match[1])) * factor);
+            const g = Math.min(255, parseInt(match[2]) + (255 - parseInt(match[2])) * factor);
+            const b = Math.min(255, parseInt(match[3]) + (255 - parseInt(match[3])) * factor);
+            return `rgb(${Math.round(r)}, ${Math.round(g)}, ${Math.round(b)})`;
+        }
+        return color;
+    }
+
+    // Update scrollbar color initially and on scroll
+    updateScrollbarColor();
+    window.addEventListener('scroll', updateScrollbarColor);
+
+    // Update scrollbar position
+    function updateScrollbar() {
+        const scrollPercentage = container.scrollLeft / (container.scrollWidth - container.clientWidth);
+        const maxThumbPosition = scrollbarTrack.clientWidth - scrollbarThumb.clientWidth;
+        scrollbarThumb.style.left = (scrollPercentage * maxThumbPosition) + 'px';
+    }
+
+    // Auto-scroll function
+    function autoScroll() {
+        if (isAutoScrolling) {
+            scrollPosition += scrollSpeed;
+
+            // Reset scroll when reaching halfway (for seamless loop)
+            const maxScroll = scrollContent.scrollWidth / 2;
+            if (scrollPosition >= maxScroll) {
+                scrollPosition = 0;
+            }
+
+            container.scrollLeft = scrollPosition;
+            updateScrollbar();
+        }
+
+        animationId = requestAnimationFrame(autoScroll);
+    }
+
+    // Stop auto-scroll on mouse enter
+    container.addEventListener('mouseenter', () => {
+        isAutoScrolling = false;
+    });
+
+    // Resume auto-scroll on mouse leave immediately
+    container.addEventListener('mouseleave', () => {
+        isAutoScrolling = true;
+    });
+
+    // Handle manual scrolling
+    container.addEventListener('scroll', () => {
+        if (!isAutoScrolling) {
+            scrollPosition = container.scrollLeft;
+            updateScrollbar();
+        }
+    });
+
+    // Handle scrollbar thumb dragging
+    let isDragging = false;
+    let startX = 0;
+    let startScrollLeft = 0;
+
+    scrollbarThumb.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        isAutoScrolling = false;
+        startX = e.clientX - scrollbarThumb.offsetLeft;
+        startScrollLeft = container.scrollLeft;
+        e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+
+        const x = e.clientX - startX;
+        const maxThumbPosition = scrollbarTrack.clientWidth - scrollbarThumb.clientWidth;
+        const boundedX = Math.max(0, Math.min(x, maxThumbPosition));
+
+        const scrollPercentage = boundedX / maxThumbPosition;
+        container.scrollLeft = scrollPercentage * (container.scrollWidth - container.clientWidth);
+        scrollPosition = container.scrollLeft;
+    });
+
+    document.addEventListener('mouseup', () => {
+        if (isDragging) {
+            isDragging = false;
+            // Don't auto-resume scrolling after dragging - wait for mouse to leave
+        }
+    });
+
+    // Start auto-scrolling
+    autoScroll();
+
+    // Cleanup on page unload
+    window.addEventListener('beforeunload', () => {
+        if (animationId) {
+            cancelAnimationFrame(animationId);
+        }
+    });
 }
