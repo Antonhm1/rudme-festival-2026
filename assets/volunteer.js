@@ -198,6 +198,32 @@ function initializeColorTransitions() {
         return hex2rgb(color);
     }
 
+    // Function to lighten a color
+    function lightenColor(color, factor = 0.2) {
+        // Parse RGB color
+        const match = color.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
+        if (match) {
+            const r = Math.min(255, parseInt(match[1]) + (255 - parseInt(match[1])) * factor);
+            const g = Math.min(255, parseInt(match[2]) + (255 - parseInt(match[2])) * factor);
+            const b = Math.min(255, parseInt(match[3]) + (255 - parseInt(match[3])) * factor);
+            return `rgb(${Math.round(r)}, ${Math.round(g)}, ${Math.round(b)})`;
+        }
+
+        // If it's a hex color, convert to RGB first
+        const hex2rgb = (hex) => {
+            const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            if (result) {
+                const r = Math.min(255, parseInt(result[1], 16) + (255 - parseInt(result[1], 16)) * factor);
+                const g = Math.min(255, parseInt(result[2], 16) + (255 - parseInt(result[2], 16)) * factor);
+                const b = Math.min(255, parseInt(result[3], 16) + (255 - parseInt(result[3], 16)) * factor);
+                return `rgb(${Math.round(r)}, ${Math.round(g)}, ${Math.round(b)})`;
+            }
+            return color;
+        };
+
+        return hex2rgb(color);
+    }
+
     // Update header colors based on background
     function updateHeaderColorForBackground(bgColor) {
         const logo = document.querySelector('#logo-inner');
@@ -225,6 +251,23 @@ function initializeColorTransitions() {
         const darkerColor = darkenColor(bgColor, 0.4); // 40% darker
         roleHeaders.forEach(header => {
             header.style.color = darkerColor;
+        });
+
+        // Update all role buttons with darker version of background
+        const roleButtons = document.querySelectorAll('.role-button');
+        const buttonBgColor = darkenColor(bgColor, 0.35); // 35% darker for buttons
+        const buttonHoverColor = lightenColor(bgColor, 0.2); // 20% lighter for hover
+
+        roleButtons.forEach(button => {
+            button.style.backgroundColor = buttonBgColor;
+
+            // Remove existing hover listeners to avoid duplicates
+            button.onmouseenter = function() {
+                this.style.backgroundColor = buttonHoverColor;
+            };
+            button.onmouseleave = function() {
+                this.style.backgroundColor = buttonBgColor;
+            };
         });
     }
 

@@ -239,15 +239,13 @@ html, body {
     font-weight: 400;
     letter-spacing: -1px;
     color: #fff;
-    background-color: rgba(0, 0, 0, 0.7);
+    /* Background color will be set dynamically via JavaScript */
     border: none;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-.role-button:hover {
-    background-color: rgba(0, 0, 0, 0.85);
-}
+/* Hover styles for role button are handled dynamically via JavaScript */
 
 /* Remove individual section background colors - handled by JS */
 
