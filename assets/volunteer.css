@@ -53,6 +53,10 @@ html, body {
     padding-right: 30px;
     position: relative;
     z-index: 10;
+    /* Constrain width and push to right */
+    max-width: 700px;
+    margin-left: auto; /* This pushes it to the right */
+    margin-right: 30px; /* Default right margin for small screens */
 }
 
 /* Roles section */
@@ -61,6 +65,33 @@ html, body {
     background: transparent; /* Transparent so body color shows through */
     position: relative;
     z-index: 10;
+    /* Constrain width and push to left */
+    max-width: 700px;
+    margin-right: auto; /* This pushes it to the left */
+    margin-left: 30px; /* Default left margin */
+}
+
+/* On larger screens, increase margins */
+@media (min-width: 1200px) {
+    .hero-text {
+        margin-right: 60px;
+    }
+
+    .roles-section {
+        margin-left: 60px;
+    }
+}
+
+@media (min-width: 1600px) {
+    .hero-text {
+        margin-right: 100px;
+        max-width: 800px; /* Slightly wider container on very large screens */
+    }
+
+    .roles-section {
+        margin-left: 100px;
+        max-width: 800px; /* Match hero text width on large screens */
+    }
 }
 
 .section-title {
@@ -78,7 +109,7 @@ html, body {
     flex-wrap: wrap;
     gap: 12px;
     align-items: flex-start;
-    width: 70%; /* Only use 60% of the width */
+    /* Remove width constraint since parent container handles it */
     margin-left: 0; /* Align to the left */
 }
 
@@ -146,7 +177,7 @@ html, body {
 .role-content-box {
     width: 70%;
     max-width: 800px;
-    background-color: rgba(255, 255, 255, 0.3); /* Lighter version of background */
+    background-color: #ffffff; /* White background */
     border-radius: 0;
     overflow: hidden;
     margin: 0 auto;
@@ -235,8 +266,11 @@ html, body {
     .hero-text {
         font-size: 28px;
         letter-spacing: -1px;
-        padding-right: 20px;
-        padding-top: 420px; /* Adjusted for mobile */
+        padding-right: 0px;
+        padding-top: 130px; /* Keep same as desktop */
+        margin-right: 20px; /* Override larger screen margins for mobile */
+        max-width: none; /* Remove max-width constraint on mobile */
+        margin-left: 0; /* Full width on mobile, no auto margin */
     }
 
     .section-title {
@@ -244,35 +278,44 @@ html, body {
         letter-spacing: -1px;
     }
 
+    .roles-section {
+        padding: 10px 10px;
+        max-width: none; /* Full width on mobile */
+        margin-left: 0;
+        margin-right: 0;
+    }
+
     .roles-grid {
         gap: 8px;
-        width: 80%; /* Slightly wider on mobile */
     }
 
     .role-box {
-        font-size: 18px;
+        font-size: 20px; /* Bigger text on mobile */
         letter-spacing: -0.5px;
-        padding: 8px 15px;
+        padding: 10px 18px; /* Bigger padding for larger boxes */
     }
 
     .role-section {
-        padding: 60px 20px;
+        padding: 40px 5px; /* Reduced spacing between sections */
     }
 
     .role-content-box {
-        width: 90%;
+        width: calc(100% - 20px); /* Less margin on sides */
+        margin: 0 10px; /* Smaller left/right margins */
     }
 
     .role-header {
-        font-size: 38px;
-        padding: 25px;
+        font-size: 32px; /* Smaller title text */
+        padding: 20px;
+        padding-bottom: 10px; /* Less space before image */
         letter-spacing: -2px;
     }
 
     .role-image {
         height: 250px;
-        width: calc(100% - 40px);
-        margin: 20px;
+        width: calc(100% - 30px);
+        margin: 15px;
+        margin-top: 10px; /* Less margin from title */
     }
 
     .role-description {
@@ -288,6 +331,6 @@ html, body {
     }
 
     .roles-section {
-        padding: 30px 20px;
+        padding: 10px 10px;
     }
 }
