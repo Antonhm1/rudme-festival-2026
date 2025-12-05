@@ -37,7 +37,7 @@ async function main() {
 
   const slideHtml = slides.map(s => {
     // Use encodeURIComponent so reserved characters like # and & are percent-encoded
-    const src = `pictures/${encodeURIComponent(s.filename)}`;
+    const src = `pictures/Forsiden/${encodeURIComponent(s.filename)}`;
     // If name is empty or only punctuation, use filename (safe fallback)
     let alt = (s.name || s.filename).replace(/"/g, '');
     // Trim trailing punctuation
