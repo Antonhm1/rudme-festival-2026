@@ -38,111 +38,255 @@
     },
     {
       "id": "picture-5",
+      "filename": "bussenRudmelejr.jpeg",
+      "description": "Bussen på Rudmelejr",
+      "location": "Rudmelejr 2025",
+      "photographer": "Tobias Jensen",
+      "color": "#F4A460",
+      "order": 5
+    },
+    {
+      "id": "picture-6",
+      "filename": "crowd:flagstang.jpeg",
+      "description": "Fest ved flagstangen",
+      "location": "Rudme Festival 2025",
+      "photographer": "Maria Olsen",
+      "color": "#8B4513",
+      "order": 6
+    },
+    {
+      "id": "picture-7",
+      "filename": "CROWD25.jpeg",
+      "description": "Publikum 2025",
+      "location": "Rudme Festival 2025",
+      "photographer": "Jonas Pedersen",
+      "color": "#FF69B4",
+      "order": 7
+    },
+    {
+      "id": "picture-8",
       "filename": "søn.jpg",
       "description": "SØN",
       "location": "Rudme Festival 2022",
       "photographer": "Lars Andersen",
       "color": "#DA5E22",
-      "order": 5
+      "order": 8
     },
     {
-      "id": "picture-6",
+      "id": "picture-9",
+      "filename": "crowd345.jpeg",
+      "description": "Festlig stemning",
+      "location": "Rudme Festival 2024",
+      "photographer": "Emma Nielsen",
+      "color": "#4B0082",
+      "order": 9
+    },
+    {
+      "id": "picture-10",
+      "filename": "crowdchill.jpeg",
+      "description": "Chill stemning",
+      "location": "Rudme Festival 2025",
+      "photographer": "Oliver Hansen",
+      "color": "#708090",
+      "order": 10
+    },
+    {
+      "id": "picture-11",
       "filename": "crowded-føler-den.jpg",
       "description": "Publikum",
       "location": "Rudme Festival 2022",
       "photographer": "Sofia Jensen",
       "color": "#F9C2E2",
-      "order": 6
+      "order": 11
     },
     {
-      "id": "picture-7",
+      "id": "picture-12",
+      "filename": "demersal-forside.jpeg",
+      "description": "Demersal",
+      "location": "Rudme Festival 2024",
+      "photographer": "Kasper Larsen",
+      "color": "#1E90FF",
+      "order": 12
+    },
+    {
+      "id": "picture-13",
       "filename": "edbeasts.jpg",
       "description": "EDBeasts",
       "location": "Rudme Festival",
       "photographer": "Magnus Olsen",
       "color": "#F777EF",
-      "order": 7
+      "order": 13
     },
     {
-      "id": "picture-8",
+      "id": "picture-14",
+      "filename": "flagstang.jpeg",
+      "description": "Flagstangen",
+      "location": "Rudmelejr 2025",
+      "photographer": "Sofie Kristensen",
+      "color": "#DC143C",
+      "order": 14
+    },
+    {
+      "id": "picture-15",
+      "filename": "haaangNIKOLAJchill.jpeg",
+      "description": "Nikolaj chiller",
+      "location": "Rudme Festival 2025",
+      "photographer": "Andreas Møller",
+      "color": "#FFD700",
+      "order": 15
+    },
+    {
+      "id": "picture-16",
       "filename": "bass-madness.jpg",
       "description": "Bass Madness",
       "location": "Rudme Festival 2022",
       "photographer": "Lotte Hansen",
       "color": "#9D4DF0",
-      "order": 8
+      "order": 16
     },
     {
-      "id": "picture-9",
+      "id": "picture-17",
       "filename": "afskum.jpg",
       "description": "Afskum",
       "location": "Rudme Festival 2022",
       "photographer": "Nikolaj Møller",
       "color": "#2C1D12",
-      "order": 9
+      "order": 17
     },
     {
-      "id": "picture-10",
-      "filename": "ølbold-med-handicap.jpg",
-      "description": "Ølbold med handicap",
-      "location": "Rudme Festival 2022",
-      "photographer": "Camilla Kristensen",
-      "color": "#98DD8C",
-      "order": 10
-    },
-    {
-      "id": "picture-11",
-      "filename": "ølbong.jpg",
-      "description": "Ølbong",
-      "location": "Rudme Festival 2022",
-      "photographer": "Frederik Nielsen",
-      "color": "#FD9137",
-      "order": 11
-    },
-    {
-      "id": "picture-12",
-      "filename": "pom-poko.jpg",
-      "description": "Pom Poko",
-      "location": "Rudme Festival 2023",
-      "photographer": "Isabella Rasmussen",
-      "color": "#135C9B",
-      "order": 12
-    },
-    {
-      "id": "picture-13",
-      "filename": "ravi-kumar.jpg",
-      "description": "Ravi Kumar",
-      "location": "Rudme Festival 2022",
-      "photographer": "Mads Jorgensen",
-      "color": "#0324CF",
-      "order": 13
-    },
-    {
-      "id": "picture-14",
-      "filename": "regndans.jpg",
-      "description": "Regndans",
-      "location": "Rudme Festival 2018",
-      "photographer": "Katrine Pedersen",
-      "color": "#EAC501",
-      "order": 14
-    },
-    {
-      "id": "picture-15",
-      "filename": "fraads.jpg",
-      "description": "Fraads",
-      "location": "Rudme Festival 2019",
-      "photographer": "Simon Thomsen",
-      "color": "#E40219",
-      "order": 15
-    },
-    {
-      "id": "picture-16",
+      "id": "picture-18",
       "filename": "kærlighed.jpg",
       "description": "Kærlighed",
       "location": "Rudme Festival",
       "photographer": "Emma Christensen",
       "color": "#825979",
-      "order": 16
+      "order": 18
+    },
+    {
+      "id": "picture-19",
+      "filename": "komerabi-grøn.jpeg",
+      "description": "Komerabi",
+      "location": "Rudme Festival 2025",
+      "photographer": "Louise Jørgensen",
+      "color": "#228B22",
+      "order": 19
+    },
+    {
+      "id": "picture-20",
+      "filename": "konfrantie.jpeg",
+      "description": "Konfrantie",
+      "location": "Rudme Festival 2024",
+      "photographer": "Thomas Andersen",
+      "color": "#FF4500",
+      "order": 20
+    },
+    {
+      "id": "picture-21",
+      "filename": "kroki-evet.jpeg",
+      "description": "Kroki Evet",
+      "location": "Rudme Festival 2025",
+      "photographer": "Julie Pedersen",
+      "color": "#8A2BE2",
+      "order": 21
+    },
+    {
+      "id": "picture-22",
+      "filename": "madbod.jpeg",
+      "description": "Madboden",
+      "location": "Rudme Festival 2025",
+      "photographer": "Martin Nielsen",
+      "color": "#A0522D",
+      "order": 22
+    },
+    {
+      "id": "picture-23",
+      "filename": "ølbold-med-handicap.jpg",
+      "description": "Ølbold med handicap",
+      "location": "Rudme Festival 2022",
+      "photographer": "Camilla Kristensen",
+      "color": "#98DD8C",
+      "order": 23
+    },
+    {
+      "id": "picture-24",
+      "filename": "ølbong.jpg",
+      "description": "Ølbong",
+      "location": "Rudme Festival 2022",
+      "photographer": "Frederik Nielsen",
+      "color": "#FD9137",
+      "order": 24
+    },
+    {
+      "id": "picture-25",
+      "filename": "pladsen-folk-camping.jpeg",
+      "description": "Campingpladsen",
+      "location": "Rudmelejr 2025",
+      "photographer": "Rasmus Sørensen",
+      "color": "#00CED1",
+      "order": 25
+    },
+    {
+      "id": "picture-26",
+      "filename": "pom-poko.jpg",
+      "description": "Pom Poko",
+      "location": "Rudme Festival 2023",
+      "photographer": "Isabella Rasmussen",
+      "color": "#135C9B",
+      "order": 26
+    },
+    {
+      "id": "picture-27",
+      "filename": "ravi-kumar.jpg",
+      "description": "Ravi Kumar",
+      "location": "Rudme Festival 2022",
+      "photographer": "Mads Jorgensen",
+      "color": "#0324CF",
+      "order": 27
+    },
+    {
+      "id": "picture-28",
+      "filename": "regndans.jpg",
+      "description": "Regndans",
+      "location": "Rudme Festival 2018",
+      "photographer": "Katrine Pedersen",
+      "color": "#EAC501",
+      "order": 28
+    },
+    {
+      "id": "picture-29",
+      "filename": "SKÅÅL.jpeg",
+      "description": "Skål!",
+      "location": "Rudme Festival 2025",
+      "photographer": "Peter Hansen",
+      "color": "#B22222",
+      "order": 29
+    },
+    {
+      "id": "picture-30",
+      "filename": "stemning3scenelys.jpeg",
+      "description": "Scenelys",
+      "location": "Rudme Festival 2024",
+      "photographer": "Caroline Larsen",
+      "color": "#FF1493",
+      "order": 30
+    },
+    {
+      "id": "picture-31",
+      "filename": "tag.jpg",
+      "description": "Festival tag",
+      "location": "Rudme Festival 2024",
+      "photographer": "Viktor Olsen",
+      "color": "#32CD32",
+      "order": 31
+    },
+    {
+      "id": "picture-32",
+      "filename": "fraads.jpg",
+      "description": "Fraads",
+      "location": "Rudme Festival 2019",
+      "photographer": "Simon Thomsen",
+      "color": "#E40219",
+      "order": 32
     }
   ]
 }
