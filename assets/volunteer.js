@@ -413,15 +413,22 @@ async function loadPosterData() {
     try {
         const response = await fetch('assets/posters.json');
         const data = await response.json();
-        generatePosterBoxes(data.posters);
+        generatePosterBoxes(data.posters, data.roleColors);
     } catch (error) {
         console.error('Error loading poster data:', error);
     }
 }
 
 // Generate poster boxes in the scroll container
-function generatePosterBoxes(posters) {
+function generatePosterBoxes(posters, roleColorsFromJSON) {
     const posterScroll = document.getElementById('poster-scroll');
+
+    // Use role colors from JSON, fallback to defaults if not provided
+    const roleColors = roleColorsFromJSON || {
+        'Frivillige': '#90EE90',
+        'Afviklere': '#87CEEB',
+        'Arrangører': '#FFB6C1'
+    };
 
     // Create poster boxes twice for seamless infinite scroll
     const allPosters = [...posters, ...posters];
@@ -433,6 +440,23 @@ function generatePosterBoxes(posters) {
         box.style.borderColor = poster.color;
         box.style.backgroundColor = poster.color; // Set background color to match border
 
+        // Create role badges HTML if roles exist
+        let rolesHTML = '';
+        if (poster.roles && poster.roles.length > 0) {
+            const roleBadges = poster.roles.map(role =>
+                `<span class="poster-role-badge" style="background-color: ${roleColors[role] || '#ccc'}">${role}</span>`
+            ).join('');
+
+            rolesHTML = `
+                <div class="poster-roles-section">
+                    <h4 class="poster-roles-heading">MULIGE ROLLER</h4>
+                    <div class="poster-roles-badges">
+                        ${roleBadges}
+                    </div>
+                </div>
+            `;
+        }
+
         // Create content structure
         box.innerHTML = `
             <img src="${poster.image}" alt="${poster.title}" class="poster-image">
@@ -441,18 +465,21 @@ function generatePosterBoxes(posters) {
                     <h3 class="poster-title">${poster.title}</h3>
                     <button class="poster-button" style="background-color: ${poster.color}">LÆS MERE</button>
                 </div>
-                <div class="poster-description">${poster.description}</div>
+                <div class="poster-description">
+                    ${poster.description}
+                    ${rolesHTML}
+                </div>
             </div>
         `;
 
-        // Add click handler for expand/collapse - only this box expands
-        const button = box.querySelector('.poster-button');
-        button.addEventListener('click', function(e) {
-            e.stopPropagation();
-            e.preventDefault();
+        // Add click handler for the entire box
+        box.addEventListener('click', function(e) {
+            // Prevent double-triggering from button click
+            if (e.target.classList.contains('poster-button')) {
+                return;
+            }
 
-            const currentBox = e.currentTarget.closest('.poster-box');
-            const wasExpanded = currentBox.classList.contains('expanded');
+            const wasExpanded = box.classList.contains('expanded');
 
             // Close ALL expanded boxes first
             document.querySelectorAll('.poster-box.expanded').forEach(expandedBox => {
@@ -463,8 +490,29 @@ function generatePosterBoxes(posters) {
 
             // If this box wasn't expanded before, expand it
             if (!wasExpanded) {
-                currentBox.classList.add('expanded');
-                e.currentTarget.textContent = 'LUK';
+                box.classList.add('expanded');
+                button.textContent = 'LUK';
+            }
+        });
+
+        // Add click handler specifically for the button
+        const button = box.querySelector('.poster-button');
+        button.addEventListener('click', function(e) {
+            e.stopPropagation();
+
+            const wasExpanded = box.classList.contains('expanded');
+
+            // Close ALL expanded boxes first
+            document.querySelectorAll('.poster-box.expanded').forEach(expandedBox => {
+                expandedBox.classList.remove('expanded');
+                const btn = expandedBox.querySelector('.poster-button');
+                if (btn) btn.textContent = 'LÆS MERE';
+            });
+
+            // If this box wasn't expanded before, expand it
+            if (!wasExpanded) {
+                box.classList.add('expanded');
+                button.textContent = 'LUK';
             }
         });
 

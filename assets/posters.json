@@ -1,60 +1,73 @@
 {
+  "roleColors": {
+    "Frivillige": "#90EE90",
+    "Afviklere": "#87CEEB",
+    "Arrangører": "#FFB6C1"
+  },
   "posters": [
     {
       "id": "baren",
       "title": "Baren",
       "image": "pictures/crowded-føler-den.jpg",
       "description": "Som bartender på Rudme Festival serverer du drikkevarer og skaber god stemning. Du vil være en del af et festligt team og møde mange glade festivalgæster.",
-      "color": "#FF6B6B"
+      "color": "#FF6B6B",
+      "roles": ["Frivillige", "Afviklere"]
     },
     {
       "id": "mateltet",
       "title": "Ma'teltet",
       "image": "pictures/folkedans.jpg",
       "description": "I madteltet hjælper du med at servere lækker mad til sultne festivalgæster. Du bliver en del af et hyggeligt køkkenteam og sørger for at alle bliver mætte.",
-      "color": "#A8A8F0"
+      "color": "#A8A8F0",
+      "roles": ["Frivillige", "Afviklere", "Arrangører"]
     },
     {
       "id": "team-clean",
       "title": "Team Clean",
       "image": "pictures/tag.jpg",
       "description": "Som del af Team Clean holder du festivalpladsen ren og pæn. Du sørger for at alle kan nyde en ren festival og hjælper med affaldshåndtering og oprydning.",
-      "color": "#4ECDC4"
+      "color": "#4ECDC4",
+      "roles": ["Frivillige"]
     },
     {
       "id": "indgang",
       "title": "Indgang",
       "image": "pictures/RUDME-2023_Kaare-Smith-225.jpg",
       "description": "Ved indgangen tager du imod gæster, tjekker billetter og sørger for at alle får en varm velkomst til festivalen.",
-      "color": "#FFE66D"
+      "color": "#FFE66D",
+      "roles": ["Afviklere", "Frivillige"]
     },
     {
       "id": "scene",
       "title": "Scene",
       "image": "pictures/RUDME-2023_Kaare-Smith-154.jpg",
       "description": "På scenen hjælper du med at sætte udstyr op, koordinere med kunstnere og sørge for at alle koncerter kører glat.",
-      "color": "#FF9A8B"
+      "color": "#FF9A8B",
+      "roles": ["Afviklere", "Arrangører"]
     },
     {
       "id": "info",
       "title": "Info",
       "image": "pictures/RUDME-2023_Kaare-Smith-161.jpg",
       "description": "I infoboden hjælper du gæster med spørgsmål, udleverer programmer og sørger for at alle finder vej på festivalpladsen.",
-      "color": "#B4E7CE"
+      "color": "#B4E7CE",
+      "roles": ["Frivillige", "Arrangører"]
     },
     {
       "id": "sikkerhed",
       "title": "Sikkerhed",
       "image": "pictures/Fluen på væggen(det-er-anna).jpg",
       "description": "Som sikkerhedsvagt hjælper du med at skabe trygge rammer for alle. Du holder øje med at alt forløber fredeligt og hjælper gæster der har brug for det.",
-      "color": "#DDA77B"
+      "color": "#DDA77B",
+      "roles": ["Afviklere"]
     },
     {
       "id": "backstage",
       "title": "Backstage",
       "image": "pictures/RUDME-2023_Kaare-Smith-203.jpg",
       "description": "Backstage tager du dig af kunstnerne, sørger for forplejning og hjælper med at alt er klar til deres optræden.",
-      "color": "#C9ADA7"
+      "color": "#C9ADA7",
+      "roles": ["Arrangører", "Afviklere"]
     }
   ]
 }

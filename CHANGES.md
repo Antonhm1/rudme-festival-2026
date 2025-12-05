@@ -300,3 +300,158 @@ Created comprehensive test suite:
 A fully functional volunteer page with sophisticated color transitions, dynamic content loading, and refined user interactions that match the design requirements while providing an enhanced user experience through smooth animations and thoughtful color management.
 
 ---
+
+## 2025-12-05: Enhanced Volunteer Page with Poster Section and Role System
+
+### Overview
+Extended the volunteer page with a comprehensive poster section featuring horizontally scrolling job assignments, role badges, and enhanced user interactions. Implemented auto-scrolling functionality, custom scrollbar, and dynamic content loading from centralized JSON.
+
+### Key Features Implemented
+
+#### 1. Poster Section with Job Assignments
+**Initial Implementation:**
+- Added 8 job positions/posters: Baren, Ma'teltet, Team Clean, Indgang, Scene, Info, Sikkerhed, Backstage
+- Each poster has unique color scheme and description
+- Created `assets/posters.json` with all poster information
+
+**Layout and Styling:**
+- Full viewport width horizontal scrolling
+- Poster title right-aligned matching hero text style
+- Custom scrollbar positioned behind boxes
+- Responsive design for mobile and desktop
+
+#### 2. Poster Box Scaling (500x500px)
+**Size Adjustments:**
+- Scaled poster boxes from 340×300px to 500×500px
+- Image height increased to 400px
+- Title font size: 36px (from 24px)
+- Button font size: 20px with 12×30px padding
+- Description font size: 20px
+- More square appearance for better visual balance
+
+**Interactive Features:**
+- Entire box is clickable for expansion (not just button)
+- Single box expansion - clicking one closes others
+- Fixed height (500px) when collapsed, auto height when expanded
+- Removed hover animation (translateY) for cleaner interaction
+
+#### 3. Auto-Scrolling with User Control
+**Scrolling Behavior:**
+- Continuous auto-scroll at 0.5px per frame
+- Pauses immediately on mouse enter
+- Resumes on mouse leave (no delay)
+- Seamless infinite loop by duplicating content
+- Manual scrolling supported while auto-scroll paused
+
+#### 4. Custom Scrollbar Implementation
+**Visual Design:**
+- Size: 240px wide × 180px tall (doubled from original)
+- Position: Half behind boxes, half below
+- Color: 70% lighter version of current background
+- Opacity states: 0.5 default, 0.7 hover, 0.9 active
+- Updates color dynamically with background transitions
+
+**Functionality:**
+- Draggable for manual position control
+- Syncs with container scroll position
+- Native scrollbar hidden for cleaner appearance
+
+#### 5. Role Badge System
+**"MULIGE ROLLER" Section:**
+- Added below description in expanded poster boxes
+- Displays applicable volunteer roles for each position
+- Role badges with colored backgrounds:
+  - Frivillige: Green (#90EE90)
+  - Afviklere: Sky blue (#87CEEB)
+  - Arrangører: Pink (#FFB6C1)
+
+**Visual Styling:**
+- 24px heading "MULIGE ROLLER"
+- 18px role badge text
+- 10×20px padding per badge
+- Removed decorative border lines for cleaner look
+
+#### 6. Centralized JSON Data Structure
+**Enhanced posters.json:**
+```json
+{
+  "roleColors": {
+    "Frivillige": "#90EE90",
+    "Afviklere": "#87CEEB",
+    "Arrangører": "#FFB6C1"
+  },
+  "posters": [
+    {
+      "id": "baren",
+      "title": "Baren",
+      "image": "pictures/...",
+      "description": "...",
+      "color": "#FF6B6B",
+      "roles": ["Frivillige", "Afviklere"]
+    }
+    // ... more posters
+  ]
+}
+```
+
+### Technical Implementation Details
+
+#### JavaScript Updates (volunteer.js):
+- `loadPosterData()` - Fetches poster data from JSON
+- `generatePosterBoxes()` - Creates poster elements with role badges
+- `initializePosterScroll()` - Manages auto-scroll and interactions
+- Enhanced click handlers for box expansion
+- Dynamic scrollbar color management
+- Role color mapping from JSON
+
+#### CSS Updates (volunteer.css):
+- Poster section with full viewport width
+- Fixed poster box heights with expansion support
+- Custom scrollbar styling and positioning
+- Role badge styling with flex layout
+- Mobile responsive adjustments
+
+### Bug Fixes and Refinements
+
+1. **Poster Box Expansion Issue:**
+   - Problem: All boxes expanded when clicking one (flexbox stretching)
+   - Solution: Added fixed height and `align-self: flex-start`
+
+2. **Auto-Scroll Resume:**
+   - Problem: Auto-scroll resumed after timeout even while hovering
+   - Solution: Only resume on mouse leave, no timeout
+
+3. **Scrollbar Positioning:**
+   - Initial: Behind boxes at wrong height
+   - Adjusted: `bottom: -90px` for half behind/half below effect
+
+4. **Role Display:**
+   - Removed border lines above description and roles section
+   - Adjusted padding and margins for cleaner appearance
+
+### Mobile Optimizations
+- Poster boxes: 250×280px on mobile
+- Image: 210px height
+- Smaller font sizes and padding
+- Responsive scrollbar behavior
+- Touch-friendly interactions
+
+### Testing Coverage
+Created comprehensive Puppeteer tests:
+- `test-poster-scaled.js` - Verifies 500px box dimensions
+- `test-poster-expansion.js` - Tests single box expansion
+- `test-poster-roles.js` - Validates role badge display
+- `test-json-loading.js` - Confirms JSON data loading
+
+### User Experience Improvements
+- Smooth auto-scrolling creates dynamic feel
+- Large poster boxes improve content visibility
+- Role badges provide clear volunteer opportunities
+- Single expansion prevents overwhelming layout changes
+- Custom scrollbar offers visual feedback and control
+- Responsive design maintains functionality across devices
+
+### Result
+A sophisticated poster section that seamlessly integrates with the volunteer page, providing an engaging way to explore festival job opportunities. The combination of auto-scrolling, large visual elements, and clear role indicators creates an intuitive and attractive user experience. All data is centralized in JSON for easy maintenance and updates.
+
+---

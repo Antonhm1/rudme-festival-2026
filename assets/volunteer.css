@@ -43,7 +43,7 @@ html, body {
 
 .hero-text {
     font-family: "Helvetica", Arial, sans-serif;
-    font-size: 40px;
+    font-size: 60px;
     font-weight: 400; /* Regular, not bold */
     letter-spacing: -2px;
     color: #111;
@@ -54,7 +54,7 @@ html, body {
     position: relative;
     z-index: 10;
     /* Constrain width and push to right */
-    max-width: 700px;
+    max-width: 1000px;
     margin-left: auto; /* This pushes it to the right */
     margin-right: 30px; /* Default right margin for small screens */
 }
@@ -66,7 +66,7 @@ html, body {
     position: relative;
     z-index: 10;
     /* Constrain width and push to left */
-    max-width: 700px;
+    max-width: 900px;
     margin-right: auto; /* This pushes it to the left */
     margin-left: 30px; /* Default left margin */
 }
@@ -96,7 +96,7 @@ html, body {
 
 .section-title {
     font-family: "Helvetica", Arial, sans-serif;
-    font-size: 45px;
+    font-size: 90px;
     font-weight: 400; /* Regular */
     letter-spacing: -1px;
     color: #111;
@@ -117,7 +117,7 @@ html, body {
 .role-box {
     padding: 12px 20px;
     font-family: "Helvetica", Arial, sans-serif;
-    font-size: 22px;
+    font-size: 42px;
     font-weight: 400; /* Regular, not bold */
     letter-spacing: -1px;
     color: #111;
@@ -336,20 +336,18 @@ html, body {
 
 /* Individual poster box */
 .poster-box {
-    flex: 0 0 300px;
-    width: 300px;
+    flex: 0 0 500px;
+    width: 500px;
     /* Background color will be set dynamically via JavaScript */
     border: 3px solid;
     transition: height 0.3s ease, transform 0.2s ease;
     cursor: pointer;
     overflow: hidden;
-    height: 340px; /* More square-like height for collapsed state */
+    height: 500px; /* More square-like height for collapsed state */
     align-self: flex-start; /* Prevent vertical stretching in flexbox */
 }
 
-.poster-box:hover {
-    transform: translateY(-5px);
-}
+/* Hover state removed - no animation on hover */
 
 .poster-box.expanded {
     height: auto; /* Allow natural height when expanded */
@@ -357,14 +355,14 @@ html, body {
 
 .poster-image {
     width: calc(100% - 10px);
-    height: 260px; /* Reduced height for more square appearance */
+    height: 400px; /* Scaled up for 500px box */
     object-fit: cover;
     display: block;
     margin: 5px;
 }
 
 .poster-content {
-    padding: 15px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
 }
@@ -378,7 +376,7 @@ html, body {
 
 .poster-title {
     font-family: "Helvetica", Arial, sans-serif;
-    font-size: 24px;
+    font-size: 36px; /* Scaled up from 24px */
     font-weight: 400;
     letter-spacing: -1px;
     color: #111;
@@ -386,9 +384,9 @@ html, body {
 }
 
 .poster-button {
-    padding: 8px 20px;
+    padding: 12px 30px; /* Scaled up padding */
     font-family: "Helvetica", Arial, sans-serif;
-    font-size: 14px;
+    font-size: 20px; /* Scaled up from 14px */
     font-weight: 400;
     letter-spacing: -0.5px;
     color: #111; /* Dark text for better contrast on colored backgrounds */
@@ -404,12 +402,12 @@ html, body {
 
 .poster-description {
     font-family: "Helvetica", Arial, sans-serif;
-    font-size: 16px;
+    font-size: 20px; /* Scaled up from 16px */
     line-height: 1.5;
     color: #333;
-    margin-top: 15px;
-    padding-top: 15px;
-    border-top: 1px solid #eee;
+    margin-top: 20px;
+    padding-top: 20px;
+    /* Removed border-top line */
     display: none;
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -418,6 +416,38 @@ html, body {
 .poster-box.expanded .poster-description {
     display: block;
     opacity: 1;
+}
+
+/* Poster roles section */
+.poster-roles-section {
+    margin-top: 30px;
+    padding-top: 20px;
+    /* Removed border-top line */
+}
+
+.poster-roles-heading {
+    font-family: "Helvetica", Arial, sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    letter-spacing: -1px;
+    color: #111;
+    margin-bottom: 15px;
+}
+
+.poster-roles-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.poster-role-badge {
+    display: inline-block;
+    padding: 10px 20px;
+    font-family: "Helvetica", Arial, sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: -0.5px;
+    color: #111;
 }
 
 /* Remove individual section background colors - handled by JS */
@@ -545,5 +575,15 @@ html, body {
 
     .poster-description {
         font-size: 14px;
+    }
+
+    /* Poster roles mobile */
+    .poster-roles-heading {
+        font-size: 20px;
+    }
+
+    .poster-role-badge {
+        font-size: 16px;
+        padding: 8px 16px;
     }
 }
