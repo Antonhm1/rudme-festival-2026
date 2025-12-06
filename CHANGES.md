@@ -1,5 +1,32 @@
 # Project Changes Log
 
+## 2025-12-06: Moved Role Headers Outside Content Boxes on Volunteer Page
+
+### Overview
+Restructured the volunteer page role sections to position headers outside of the white content boxes, creating better visual hierarchy with headers appearing above the boxes on the site background.
+
+### Changes Made
+
+**CSS Updates** (volunteer.css):
+- Changed `.role-section` to use `flex-direction: column` for proper layout structure
+- Moved `.role-header` styling outside `.role-content-box` with independent width/margin controls
+- Headers now have transparent background and sit on the page background
+- Adjusted image top margin from 10px to 30px to compensate for external header
+- Updated mobile responsive styles to maintain proper alignment at all viewport sizes
+
+**JavaScript Updates** (volunteer.js):
+- Modified `generateRoleSections()` to append headers directly to section elements
+- Headers are now siblings of content boxes rather than children
+- Content boxes contain only image, description, and button elements
+
+### Visual Impact
+- Headers appear to float above the white content boxes
+- Creates cleaner visual separation between role title and content
+- Maintains consistent alignment across desktop and mobile viewports
+- Preserves dynamic color system for headers based on scroll position
+
+---
+
 ## 2025-12-03: Fixed Program Page Scrollbar Thumb Sizing on Mobile
 
 ### Issue
