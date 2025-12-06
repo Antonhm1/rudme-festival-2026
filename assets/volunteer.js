@@ -48,14 +48,14 @@ function generateRoleSections(roles) {
         section.className = 'role-section';
         section.setAttribute('data-color', role.color);
 
-        const contentBox = document.createElement('div');
-        contentBox.className = 'role-content-box';
-
-        // Header - initially without color, will be set dynamically
+        // Header - now outside the content box
         const header = document.createElement('h2');
         header.className = 'role-header';
         header.textContent = role.name;
-        contentBox.appendChild(header);
+        section.appendChild(header); // Append to section, not contentBox
+
+        const contentBox = document.createElement('div');
+        contentBox.className = 'role-content-box';
 
         // Image
         const img = document.createElement('img');
