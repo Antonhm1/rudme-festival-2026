@@ -455,3 +455,72 @@ Created comprehensive Puppeteer tests:
 A sophisticated poster section that seamlessly integrates with the volunteer page, providing an engaging way to explore festival job opportunities. The combination of auto-scrolling, large visual elements, and clear role indicators creates an intuitive and attractive user experience. All data is centralized in JSON for easy maintenance and updates.
 
 ---
+
+## 2025-12-06: Gallery Auto-Scroll Enhancements
+
+### Overview
+Enhanced the homepage gallery's automatic scrolling behavior with user-interaction awareness and improved looping functionality.
+
+### Key Features Implemented
+
+#### 1. User-Controlled Auto-Scroll Pause
+**Behavior:**
+- Auto-scroll pauses for 10 seconds when user manually scrolls
+- Timer resets on each scroll interaction
+- Only resumes after 10 continuous seconds of no scrolling
+- Prevents conflicts between automatic and manual navigation
+
+**Implementation:**
+- Added `pauseTimer` and `pauseDuration` (10000ms) variables
+- Modified `onUserScroll()` to trigger pause timer
+- Created `pauseAutoAdvanceWithTimer()` helper function
+- Applied pause behavior to all interaction methods:
+  - Gallery scrolling
+  - Scrollbar dragging
+  - Scrollbar clicking
+  - Touch/pointer interactions
+
+#### 2. Continuous Forward Loop
+**Behavior:**
+- Gallery always advances forward through slides
+- After reaching the last slide, loops back to first slide
+- No more back-and-forth reversing at ends
+- Creates seamless infinite carousel effect
+
+**Implementation:**
+- Simplified auto-advance logic to always increment index
+- Loop back to index 0 when reaching last slide
+- Maintained arrow direction indicators for manual scrolling
+- Removed complex reverse direction logic for auto-scroll
+
+#### 3. Preserved Manual Navigation
+**Features Maintained:**
+- Users can still manually scroll in both directions
+- Arrow direction indicator updates based on manual scroll direction
+- Smooth scrolling transitions preserved
+- Touch and drag interactions fully functional
+
+### Technical Details
+- **File Modified**: `assets/script.js`
+- **Key Functions Updated**:
+  - `startAutoAdvance()` - Simplified loop logic
+  - `onUserScroll()` - Added pause timer
+  - `pauseAutoAdvanceWithTimer()` - New helper function
+  - `goToSlideIndex()` - Maintains forward direction for auto-scroll
+
+### User Experience Improvements
+- More predictable auto-scroll behavior (always forward)
+- Respects user intent with 10-second pause
+- Seamless looping creates continuous flow
+- No jarring direction changes
+- Clear separation between automatic and manual navigation
+
+### Data Updates
+- Fixed double `##` in color value for picture-25 in `pictures.json`
+- Regenerated gallery slides from updated JSON data
+- All 27 slides properly configured with correct colors
+
+### Result
+The gallery now provides a more intuitive and user-friendly experience with smart auto-scrolling that respects manual interaction while maintaining smooth, continuous forward progression through all slides.
+
+---

@@ -541,7 +541,7 @@ function updateArrowDirection() {
     lastScrollLeft = currentScrollLeft;
 }
 
-// Check if we're at the final slide and should reverse direction
+// Check if we're at the final slide (keep for manual scrolling arrow direction)
 function checkForAutoReverse() {
     if (!gallery || !slides.length) return;
 
@@ -552,13 +552,15 @@ function checkForAutoReverse() {
     const thumbIcon = thumb?.querySelector('.thumb-icon');
     if (!thumbIcon) return;
 
+    // This only affects manual scrolling direction indication
+    // Auto-advance will always loop forward
     if (isAtEnd && currentScrollDirection === 'right') {
-        // At the end, point left for next auto-advance
+        // At the end, point left for manual scroll
         currentScrollDirection = 'left';
         thumbIcon.classList.remove('pointing-right');
         thumbIcon.classList.add('pointing-left');
     } else if (isAtStart && currentScrollDirection === 'left') {
-        // At the start, point right for next auto-advance
+        // At the start, point right for manual scroll
         currentScrollDirection = 'right';
         thumbIcon.classList.remove('pointing-left');
         thumbIcon.classList.add('pointing-right');
@@ -579,6 +581,8 @@ function attachBehaviors() {
     const autoplayInterval = 4000; // ms
     let currentAutoIndex = 0;
     let isAutoScrolling = false; // flag to track programmatic scrolling
+    let pauseTimer = null; // timer for pausing auto-advance after manual scroll
+    const pauseDuration = 10000; // 10 seconds pause after manual scroll
 
     function computeCurrentSlideIndex() {
         if (!gallery || slides.length === 0) return 0;
@@ -608,11 +612,11 @@ function attachBehaviors() {
         // Update arrow direction for programmatic scroll
         const thumbIcon = thumb?.querySelector('.thumb-icon');
         if (thumbIcon) {
-            // Determine direction based on target vs current position
-            const targetDirection = left > gallery.scrollLeft ? 'right' : 'left';
-            currentScrollDirection = targetDirection;
-            thumbIcon.classList.remove('pointing-left', 'pointing-right');
-            thumbIcon.classList.add(`pointing-${targetDirection}`);
+            // For auto-advance, always show right arrow since we're looping forward
+            // For manual scroll, this will be overridden by updateArrowDirection
+            currentScrollDirection = 'right';
+            thumbIcon.classList.remove('pointing-left');
+            thumbIcon.classList.add('pointing-right');
         }
 
         // Reset flag after a longer delay to allow smooth scroll animation to complete
@@ -630,23 +634,13 @@ function attachBehaviors() {
             // If user is actively scrolling (recent RAF) avoid jitter by checking
             currentAutoIndex = computeCurrentSlideIndex();
 
-            // Check if we need to reverse direction at the ends
-            const maxScroll = gallery.scrollWidth - gallery.clientWidth;
-            const isAtEnd = gallery.scrollLeft >= maxScroll - 5;
-            const isAtStart = gallery.scrollLeft <= 5;
-
             let nextIndex;
-            if (isAtEnd || (currentAutoIndex === slides.length - 1 && currentScrollDirection === 'right')) {
-                // At the end, start going backwards
-                currentScrollDirection = 'left';
-                nextIndex = currentAutoIndex - 1;
-            } else if (isAtStart || (currentAutoIndex === 0 && currentScrollDirection === 'left')) {
-                // At the start, start going forwards
-                currentScrollDirection = 'right';
-                nextIndex = currentAutoIndex + 1;
+            // When at the last slide, loop back to the first
+            if (currentAutoIndex === slides.length - 1) {
+                nextIndex = 0;
             } else {
-                // Continue in current direction
-                nextIndex = currentScrollDirection === 'right' ? currentAutoIndex + 1 : currentAutoIndex - 1;
+                // Otherwise, advance to the next slide
+                nextIndex = currentAutoIndex + 1;
             }
 
             // Set flag before calling goToSlideIndex
@@ -693,6 +687,20 @@ function attachBehaviors() {
         // Only show scrollbar if this is user-initiated scrolling, not auto-advance
         if (!isAutoScrolling) {
             onUserActivity();
+
+            // Pause auto-advance for 10 seconds on manual scroll
+            stopAutoAdvance();
+
+            // Clear existing pause timer if any
+            if (pauseTimer) {
+                clearTimeout(pauseTimer);
+            }
+
+            // Set new pause timer - restart auto-advance after 10 seconds
+            pauseTimer = setTimeout(() => {
+                pauseTimer = null;
+                startAutoAdvance();
+            }, pauseDuration);
         }
     }
 
@@ -800,6 +808,7 @@ function attachBehaviors() {
         const scrollPercentage = available === 0 ? 0 : thumbLeft / available;
         // This is user interaction with scrollbar, not auto-scroll, so show thumb
         showScrollbar(); // directly show scrollbar during drag
+        pauseAutoAdvanceWithTimer(); // pause auto-advance while dragging
         gallery.scrollLeft = scrollPercentage * (gallery.scrollWidth - gallery.clientWidth);
     }
 
@@ -819,22 +828,58 @@ function attachBehaviors() {
         document.addEventListener('pointercancel', onDocumentPointerUp);
     }
 
+    // Helper function to pause auto-advance with timer
+    function pauseAutoAdvanceWithTimer() {
+        stopAutoAdvance();
+
+        // Clear existing pause timer if any
+        if (pauseTimer) {
+            clearTimeout(pauseTimer);
+        }
+
+        // Set new pause timer - restart auto-advance after 10 seconds
+        pauseTimer = setTimeout(() => {
+            pauseTimer = null;
+            startAutoAdvance();
+        }, pauseDuration);
+    }
+
     // Pause autoplay when user interacts, resume afterward
     try {
         if (gallery) {
-            gallery.addEventListener('pointerdown', () => stopAutoAdvance());
-            gallery.addEventListener('touchstart', () => stopAutoAdvance(), { passive: true });
-            gallery.addEventListener('pointerup', () => startAutoAdvance());
-            gallery.addEventListener('touchend', () => startAutoAdvance());
+            gallery.addEventListener('pointerdown', () => pauseAutoAdvanceWithTimer());
+            gallery.addEventListener('touchstart', () => pauseAutoAdvanceWithTimer(), { passive: true });
+            // Remove immediate resume handlers since we want the 10-second timer to control resumption
+            // gallery.addEventListener('pointerup', () => startAutoAdvance());
+            // gallery.addEventListener('touchend', () => startAutoAdvance());
             gallery.addEventListener('mouseenter', () => stopAutoAdvance());
-            gallery.addEventListener('mouseleave', () => startAutoAdvance());
+            gallery.addEventListener('mouseleave', () => {
+                // Only restart if there's no active pause timer
+                if (!pauseTimer) {
+                    startAutoAdvance();
+                }
+            });
         }
         // Pause when tab is hidden to save CPU and avoid missed animations
         document.addEventListener('visibilitychange', () => {
-            if (document.hidden) stopAutoAdvance(); else startAutoAdvance();
+            if (document.hidden) {
+                stopAutoAdvance();
+                // Clear pause timer when tab is hidden
+                if (pauseTimer) {
+                    clearTimeout(pauseTimer);
+                    pauseTimer = null;
+                }
+            } else {
+                startAutoAdvance();
+            }
         });
         // Also stop when the user actively focuses inputs to avoid surprises
-        window.addEventListener('focus', () => startAutoAdvance());
+        window.addEventListener('focus', () => {
+            // Only restart if there's no active pause timer
+            if (!pauseTimer) {
+                startAutoAdvance();
+            }
+        });
         window.addEventListener('blur', () => stopAutoAdvance());
     } catch (err) {
         // non-critical: ignore
@@ -852,8 +897,9 @@ function attachBehaviors() {
                 const thumbLeft = Math.max(0, Math.min(availableWidth - thumbWidth, clickPosition - thumbWidth / 2));
                 const available = Math.max(0, availableWidth - thumbWidth);
                 const scrollPercentage = available === 0 ? 0 : thumbLeft / available;
-                // This is user interaction with scrollbar, so show thumb
+                // This is user interaction with scrollbar, so show thumb and pause auto-advance
                 onUserActivity();
+                pauseAutoAdvanceWithTimer();
                 gallery.scrollLeft = scrollPercentage * (gallery.scrollWidth - gallery.clientWidth);
             }
         });
