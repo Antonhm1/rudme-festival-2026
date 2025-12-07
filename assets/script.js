@@ -1003,6 +1003,7 @@ function attachBehaviors() {
                 try {
                     if (!bg || !display) return;
                     const dRect = display.getBoundingClientRect();
+                    // When collapsed, only use display width
                     bg.style.width = Math.ceil(dRect.width) + 'px';
                     bg.style.height = Math.ceil(dRect.height) + 'px';
                 } catch (err) {}
@@ -1013,7 +1014,9 @@ function attachBehaviors() {
                     if (!bg || !display || !options) return;
                     const dRect = display.getBoundingClientRect();
                     const oRect = options.getBoundingClientRect();
-                    bg.style.width = Math.ceil(dRect.width) + 'px';
+                    // Use the wider of display or options width to cover the longest dropdown text
+                    const maxWidth = Math.max(dRect.width, oRect.width);
+                    bg.style.width = Math.ceil(maxWidth) + 'px';
                     bg.style.height = Math.ceil(dRect.height + oRect.height) + 'px';
                 } catch (err) {}
             }
