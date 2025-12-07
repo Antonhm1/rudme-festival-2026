@@ -1,8 +1,8 @@
 /* Override body overflow for info page to allow scrolling */
 body {
     overflow: auto !important;
-    --info-bg-color: #FDA253; /* Orange background for info page */
-    --current-bg: #FDA253 !important; /* Override the gallery background */
+    --info-bg-color: #FF90D4; /* Pink background for info page */
+    --current-bg: #FF90D4 !important; /* Override the gallery background */
     background-color: var(--info-bg-color) !important;
 }
 
@@ -19,10 +19,10 @@ body.is-subpage .select-bg {
     background-color: var(--info-bg-color) !important;
 }
 
-/* Logo and date text - much darker brown/orange than background */
+/* Logo and date text - lighter version of pink background */
 #logo-container svg,
 #date-text {
-    color: #8B4A1C !important; /* Much darker brown/orange matching headers */
+    color: #FFCCE8 !important; /* Lighter pink than #FF90D4 background */
 }
 
 .info-main {
@@ -41,9 +41,9 @@ body.is-subpage .select-bg {
 
 .contact-section h2 {
     background-color: transparent; /* Transparent background */
-    color: #8B4A1C; /* Much darker orange/brown for strong contrast */
+    color: #000; /* Black heading text */
     margin: 0;
-    padding: 15px 30px;
+    padding: 15px 30px 10px 30px;
     font-size: 2rem;
     font-weight: 400;
     text-transform: uppercase;
@@ -51,7 +51,7 @@ body.is-subpage .select-bg {
 }
 
 .contact-content-wrapper {
-    background: #FAD3B2; /* Light peach background for boxes */
+    background: transparent; /* Transparent background */
     padding: 30px;
 }
 
@@ -66,14 +66,20 @@ body.is-subpage .select-bg {
     flex-direction: column;
     gap: 8px;
     padding: 15px;
-    background: rgba(255, 255, 255, 0.3);
     border-radius: 8px;
-    transition: transform 0.2s ease, background 0.2s ease;
+    transition: transform 0.2s ease, opacity 0.2s ease;
 }
+
+/* Different colors for each contact item */
+.contact-item:nth-child(1) { background: #FFE4B5; } /* Moccasin - Booking */
+.contact-item:nth-child(2) { background: #E6E6FA; } /* Lavender - Økonomi */
+.contact-item:nth-child(3) { background: #FFB6C1; } /* Light Pink - Generel */
+.contact-item:nth-child(4) { background: #B0E0E6; } /* Powder Blue - Frivillig */
+.contact-item:nth-child(5) { background: #F0E68C; } /* Khaki - Telefon */
 
 .contact-item:hover {
     transform: translateY(-2px);
-    background: rgba(255, 255, 255, 0.5);
+    opacity: 0.9;
 }
 
 .contact-item strong {
@@ -99,7 +105,6 @@ body.is-subpage .select-bg {
 
 .contact-item.full-row {
     grid-column: 1 / -1;
-    background: rgba(255, 255, 255, 0.4);
     font-size: 1.05rem;
 }
 
@@ -107,7 +112,7 @@ body.is-subpage .select-bg {
 .info-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
+    gap: 15px;
     margin-bottom: 60px;
     align-items: start; /* Allow different heights */
 }
@@ -124,7 +129,7 @@ body.is-subpage .select-bg {
     transform: translateY(-5px);
 }
 
-/* Card header - outside the box like volunteer page */
+/* Card header - inside the box with background color */
 .info-card h2 {
     font-family: "Helvetica", Arial, sans-serif;
     font-size: 1.75rem;
@@ -132,14 +137,12 @@ body.is-subpage .select-bg {
     text-transform: uppercase;
     letter-spacing: -1px;
     margin: 0;
-    padding: 12px 20px;
-    background-color: transparent; /* Transparent background */
-    color: #8B4A1C; /* Much darker orange/brown for strong contrast */
+    padding: 15px 20px 10px 20px; /* Less bottom padding to be closer to image */
+    color: #000; /* Black heading text */
 }
 
 /* Content box with image and text */
 .info-card-content-wrapper {
-    background: #FAD3B2; /* Light peach background for boxes */
     border: none;
     overflow: hidden;
     display: flex;
@@ -149,11 +152,11 @@ body.is-subpage .select-bg {
 
 /* Image card styles */
 .info-card-image {
-    width: calc(100% - 40px); /* Account for margins */
+    width: calc(100% - 20px); /* Smaller margins */
     height: 280px; /* Taller images */
     object-fit: cover;
     display: block;
-    margin: 20px 20px 0 20px; /* Larger top and side margins, no bottom */
+    margin: 10px 10px 0 10px; /* Smaller margins all around */
 }
 
 .info-content {
@@ -219,7 +222,18 @@ body.is-subpage .select-bg {
     display: block;
 }
 
-/* Remove color variations - headers now have transparent background */
+/* Different colors for each info card */
+.info-card:nth-child(1) .info-card-content-wrapper { background: #FFE4B5; } /* Moccasin */
+.info-card:nth-child(2) .info-card-content-wrapper { background: #E6E6FA; } /* Lavender */
+.info-card:nth-child(3) .info-card-content-wrapper { background: #FFB6C1; } /* Light Pink */
+.info-card:nth-child(4) .info-card-content-wrapper { background: #B0E0E6; } /* Powder Blue */
+.info-card:nth-child(5) .info-card-content-wrapper { background: #F0E68C; } /* Khaki */
+.info-card:nth-child(6) .info-card-content-wrapper { background: #DDA0DD; } /* Plum */
+.info-card:nth-child(7) .info-card-content-wrapper { background: #98FB98; } /* Pale Green */
+.info-card:nth-child(8) .info-card-content-wrapper { background: #FFDAB9; } /* Peach Puff */
+.info-card:nth-child(9) .info-card-content-wrapper { background: #F5DEB3; } /* Wheat */
+.info-card:nth-child(10) .info-card-content-wrapper { background: #FFE4E1; } /* Misty Rose */
+.info-card:nth-child(11) .info-card-content-wrapper { background: #E0FFFF; } /* Light Cyan */
 
 /* Footer section */
 .info-footer {
@@ -259,7 +273,7 @@ body.is-subpage .select-bg {
 
     .info-grid {
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 10px;
     }
 
     .contact-grid {
