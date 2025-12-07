@@ -551,3 +551,96 @@ Enhanced the homepage gallery's automatic scrolling behavior with user-interacti
 The gallery now provides a more intuitive and user-friendly experience with smart auto-scrolling that respects manual interaction while maintaining smooth, continuous forward progression through all slides.
 
 ---
+
+## 2025-12-07: Fixed Select Menu Background Width on Info Page
+
+### Overview
+Fixed the select menu background (select-bg) width issue where it wasn't properly covering the longest dropdown option text, implementing the same dynamic width calculation used on the program page.
+
+### Issue
+- The select menu background only covered the width of the display text, not the full dropdown width
+- When opened, longer options like "FORENINGEN" would extend beyond the background
+- When closed, the background was unnecessarily wide, not matching the display text
+
+### Solution Implemented
+**Dynamic Width Calculation** (script.js):
+
+1. **When Dropdown Opens** (`setBgToDisplayPlusOptions()`):
+   - Calculates the maximum width between display and options
+   - Background expands to cover the widest dropdown option
+   - Ensures all dropdown text is properly covered
+
+2. **When Dropdown Closes** (`setBgToDisplayHeight()`):
+   - Background width returns to match only the display text width
+   - Creates a cleaner, more compact appearance when closed
+
+### Technical Details
+- **File Modified**: `assets/script.js` (lines 1002-1021)
+- **Functions Updated**:
+  - `setBgToDisplayHeight()` - Now uses display width only when collapsed
+  - `setBgToDisplayPlusOptions()` - Calculates max width of display and options
+- **Width Behavior**:
+  - Closed: Background width = ~196px (matches "INFO" text)
+  - Open: Background width = ~283px (covers all dropdown options)
+
+### Result
+- Select menu background properly covers all dropdown options when open
+- Background width matches display text when collapsed for cleaner appearance
+- Consistent behavior with program page implementation
+- No options overflow beyond the background
+
+---
+
+## 2025-12-07: Dynamic Image Crop Positioning for Volunteer Page
+
+### Overview
+Added flexible image cropping system for volunteer role images using percentage-based positioning, allowing precise control over which part of each image is shown in the fixed-height containers.
+
+### Features Implemented
+
+#### 1. Crop Field in JSON Data
+**volunteers.json Enhancement:**
+- Added `crop` field to each role entry
+- Uses percentage values (0-100) for vertical positioning
+- Examples:
+  - `0` = Show top of image
+  - `50` = Show center of image (default)
+  - `100` = Show bottom of image
+  - Any value for fine control (e.g., `30` for upper-third)
+
+#### 2. JavaScript Image Positioning
+**volunteer.js Updates:**
+- Reads crop value from JSON for each role
+- Applies CSS `object-position: center [value]%`
+- Works with existing `object-fit: cover` for proper cropping
+- Maintains 400px fixed height for all images
+
+#### 3. Flexible Control System
+**Benefits:**
+- Percentage-based system works across all image dimensions
+- Responsive - same values work on all screen sizes
+- Easy to adjust without knowing image pixel dimensions
+- Future-proof when images are replaced
+
+### Technical Implementation
+- **Files Modified**:
+  - `assets/volunteer.js` (lines 66-69)
+  - `assets/volunteers.json` (all role entries)
+- **CSS Compatibility**: Works with existing `object-fit: cover` on `.role-image`
+- **Applied Values**:
+  - Frivillig: 30% (upper portion)
+  - Afvikler: 50% (center)
+  - Arrangør: 50% (center)
+  - Praktikant: 40% (upper-middle)
+  - Bestyrer: 35% (upper-third)
+  - Rudme Lejr: 50% (center) with updated image path
+  - Foreningsmedlem: 50% (center)
+
+### Additional Changes
+- Updated Rudme Lejr to use correct image from `roller/Rudme Lejr.jpeg`
+- Fixed image path reference in volunteers.json
+
+### Result
+Images now display the most relevant portion of each photo, improving visual hierarchy and ensuring important content (like faces in group photos) is visible in the cropped view. The system is maintainable and easily adjustable through simple percentage values in the JSON configuration.
+
+---
