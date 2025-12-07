@@ -915,7 +915,7 @@ function attachBehaviors() {
         // map menu values to filenames
         const map = {
             'home': 'index.html',
-            'about': 'about.html',
+            'about': 'info.html',
             'program': 'program.html',
             'tickets': 'tickets.html',
             'volunteer': 'volunteer.html',
@@ -955,6 +955,7 @@ function attachBehaviors() {
             const filenameMap = {
                 'index.html': 'home',
                 'about.html': 'about',
+                'info.html': 'about',
                 'program.html': 'program',
                 'tickets.html': 'tickets',
                 'volunteer.html': 'volunteer',
