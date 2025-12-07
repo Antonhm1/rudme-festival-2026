@@ -4,6 +4,7 @@
       "id": "frivillig",
       "name": "FRIVILLIG",
       "image": "pictures/frivillig-siden/roller/team-clean44.jpeg",
+      "crop": 30,
       "color": "#90EE90",
       "description": [
         "Som frivillig på Rudme Festival bliver du en del af et fællesskab, som er afgørende for at få festivalen afholdt, men også være et ansigt udadtil som er med til at skabe god stemning, fællesskab og hygge.",
@@ -17,6 +18,7 @@
       "id": "afvikler",
       "name": "AFVIKLER",
       "image": "pictures/frivillig-siden/roller/Afvikler.jpeg",
+      "crop": 50,
       "color": "#87CEEB",
       "description": [
         "Som afvikler på Rudme Festival bliver du en del af et fællesskab, som er afgørende for at få festivalen afholdt, men også være et ansigt udadtil som er med til at skabe god stemning, fællesskab og hygge.",
@@ -31,6 +33,7 @@
       "id": "arrangor",
       "name": "ARRANGØR",
       "image": "pictures/frivillig-siden/roller/arrangør3.jpeg",
+      "crop": 50,
       "color": "#FFB6C1",
       "description": [
         "Som arrangør er du med til at planlægge og koordinere festivalen. Du får indflydelse på programmet og hjælper med at skabe den unikke Rudme-stemning.",
@@ -43,6 +46,7 @@
       "id": "praktikant",
       "name": "PRAKTIKANT",
       "image": "pictures/frivillig-siden/roller/praktikant.jpeg",
+      "crop": 40,
       "color": "#FFF59D",
       "description": [
         "Som praktikant får du mulighed for at lære om festivalafvikling og få hands-on erfaring med event management.",
@@ -55,6 +59,7 @@
       "id": "bestyrer",
       "name": "BESTYRER",
       "image": "pictures/frivillig-siden/roller/Bestyrer.jpeg",
+      "crop": 35,
       "color": "#9C27B0",
       "description": [
         "Som bestyrer tager du ansvar for større områder af festivalen og koordinerer teams af frivillige.",
@@ -66,7 +71,8 @@
     {
       "id": "rudme-lejr",
       "name": "RUDME LEJR",
-      "image": "pictures/frivillig-siden/roller/praktikant.jpeg",
+      "image": "pictures/frivillig-siden/roller/Rudme Lejr.jpeg",
+      "crop": 50,
       "color": "#FFEB3B",
       "description": [
         "Rudme Lejr er vores camping område hvor du kan overnatte under festivalen og være en del af fællesskabet døgnet rundt.",
@@ -79,6 +85,7 @@
       "id": "foreningsmedlem",
       "name": "FORENINGSMEDLEM",
       "image": "pictures/frivillig-siden/roller/foreningsmedlem.jpg",
+      "crop": 50,
       "color": "#B19CD9",
       "description": [
         "Som foreningsmedlem får du indflydelse på festivalens fremtid og er med til at forme Rudme Festival.",
