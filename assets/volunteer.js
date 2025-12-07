@@ -62,6 +62,12 @@ function generateRoleSections(roles) {
         img.src = role.image;
         img.alt = role.name;
         img.className = 'role-image';
+
+        // Apply crop position if specified (as percentage from top)
+        if (role.crop !== undefined) {
+            img.style.objectPosition = `center ${role.crop}%`;
+        }
+
         contentBox.appendChild(img);
 
         // Description
