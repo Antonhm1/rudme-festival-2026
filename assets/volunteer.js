@@ -254,27 +254,26 @@ function initializeColorTransitions() {
             menuContainer.style.backgroundColor = bgColor;
         }
 
-        // Update all role headers with darker version of background
+        // Update all role headers to black
         const roleHeaders = document.querySelectorAll('.role-header');
-        const darkerColor = darkenColor(bgColor, 0.4); // 40% darker
         roleHeaders.forEach(header => {
-            header.style.color = darkerColor;
+            header.style.color = '#111'; // Always black
         });
 
-        // Update all role buttons with darker version of background
+        // Update all role buttons with black background and colored text
         const roleButtons = document.querySelectorAll('.role-button');
-        const buttonBgColor = darkenColor(bgColor, 0.35); // 35% darker for buttons
-        const buttonHoverColor = lightenColor(bgColor, 0.2); // 20% lighter for hover
 
         roleButtons.forEach(button => {
-            button.style.backgroundColor = buttonBgColor;
+            button.style.backgroundColor = '#111'; // Black background
+            button.style.color = bgColor; // Text color matches page background
+            button.style.fontWeight = '400'; // Regular text
 
             // Remove existing hover listeners to avoid duplicates
             button.onmouseenter = function() {
-                this.style.backgroundColor = buttonHoverColor;
+                this.style.backgroundColor = '#333'; // Slightly lighter black on hover
             };
             button.onmouseleave = function() {
-                this.style.backgroundColor = buttonBgColor;
+                this.style.backgroundColor = '#111'; // Back to black
             };
         });
     }

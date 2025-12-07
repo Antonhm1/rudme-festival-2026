@@ -183,19 +183,20 @@ html, body {
     /* Color will be set dynamically via JavaScript */
     width: 70%;
     max-width: 800px;
-    padding-left: 30px;
-    padding-bottom: 10px;
+    padding-left: 40px; /* Match description padding */
+    padding-bottom: 5px; /* Reduced gap to image */
     margin: 0 auto 0 auto; /* No margin between header and box */
     text-align: left;
     transition: color 0.3s ease;
     background-color: transparent;
+    box-sizing: border-box; /* Include padding in width calculation */
 }
 
 /* Content box for each role */
 .role-content-box {
     width: 70%;
     max-width: 800px;
-    background-color: #ffffff; /* White background */
+    background-color: transparent; /* Transparent background */
     border-radius: 0;
     overflow: hidden;
     margin: 0 auto;
@@ -203,13 +204,13 @@ html, body {
 
 /* Role image */
 .role-image {
-    width: calc(100% - 60px);
-    height: 400px;
+    width: calc(100% + 160px); /* Extend 80px on each side */
+    height: 520px; /* 30% bigger (400px * 1.3) */
     object-fit: cover;
     display: block;
-    margin-left: 30px;
-    margin-right: 30px;
-    margin-top: 30px; /* More margin since header is outside now */
+    margin-left: -80px; /* Pull image 80px to the left */
+    margin-right: -80px; /* Pull image 80px to the right */
+    margin-top: 15px; /* Reduced gap from header */
     margin-bottom: 0px;
 }
 
@@ -239,10 +240,9 @@ html, body {
     padding: 20px;
     font-family: "Helvetica", Arial, sans-serif;
     font-size: 22px;
-    font-weight: 400;
+    font-weight: 400; /* Regular text */
     letter-spacing: -1px;
-    color: #fff;
-    /* Background color will be set dynamically via JavaScript */
+    /* Colors will be set dynamically via JavaScript */
     border: none;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -506,10 +506,11 @@ html, body {
     .role-header {
         font-size: 32px; /* Smaller title text */
         width: calc(100% - 20px);
-        padding-left: 20px;
-        padding-bottom: 10px;
+        padding-left: 25px; /* Match mobile description padding */
+        padding-bottom: 5px; /* Reduced gap to image */
         margin: 0 10px 0 10px;
         letter-spacing: -2px;
+        box-sizing: border-box;
     }
 
     .role-content-box {
@@ -518,10 +519,11 @@ html, body {
     }
 
     .role-image {
-        height: 250px;
-        width: calc(100% - 30px);
-        margin: 15px;
-        margin-top: 20px; /* More margin since header is outside now */
+        height: 325px; /* 30% bigger (250px * 1.3) */
+        width: calc(100% + 50px); /* Extend 25px on each side for mobile */
+        margin-left: -25px;
+        margin-right: -25px;
+        margin-top: 10px; /* Reduced gap from header */
     }
 
     .role-description {
