@@ -644,3 +644,70 @@ Added flexible image cropping system for volunteer role images using percentage-
 Images now display the most relevant portion of each photo, improving visual hierarchy and ensuring important content (like faces in group photos) is visible in the cropped view. The system is maintainable and easily adjustable through simple percentage values in the JSON configuration.
 
 ---
+
+## 2025-12-07: Enhanced Volunteer Page Role Section Styling
+
+### Overview
+Redesigned volunteer page role sections with transparent backgrounds, larger images that extend beyond text width, and improved visual hierarchy with black headers and styled buttons.
+
+### Changes Made
+
+#### 1. Transparent Role Section Backgrounds
+**CSS Updates:**
+- Changed `.role-content-box` background from white (#ffffff) to transparent
+- Allows page background color to show through role sections
+- Creates more cohesive visual flow with color transitions
+
+#### 2. Enlarged and Extended Images
+**Image Sizing:**
+- Desktop: Increased height from 400px to 520px (30% larger)
+- Mobile: Increased height from 250px to 325px (30% larger)
+- Images now extend beyond text container width for visual impact
+
+**Width Extensions:**
+- Desktop: Images extend 80px on each side (160px total wider)
+- Mobile: Images extend 25px on each side (50px total wider)
+- Uses negative margins to pull images beyond container boundaries
+
+#### 3. Header and Layout Refinements
+**Header Styling:**
+- Role headers always display in black (#111) instead of darker background color
+- Header padding aligned with description text (40px desktop, 25px mobile)
+- Reduced gap between headers and images (15px desktop, 10px mobile)
+- Added box-sizing: border-box for consistent width calculations
+
+#### 4. Button Redesign
+**Button Styling:**
+- Background: Always black (#111)
+- Text color: Dynamically matches page background color
+- Font weight: Regular (400), not bold
+- Hover effect: Slightly lighter black (#333)
+- Creates strong visual contrast with colored text on black background
+
+### Technical Implementation
+- **Files Modified**:
+  - `assets/volunteer.css` - Role section styling updates
+  - `assets/volunteer.js` - Dynamic button color management
+
+- **JavaScript Updates**:
+  - Modified `updateHeaderColorForBackground()` function
+  - Buttons update text color to match current background
+  - Maintains hover state management for button interactions
+
+### Visual Impact
+- Role sections blend seamlessly with background color transitions
+- Larger images create more impactful visual presentation
+- Extended image width adds dynamic visual interest
+- Black headers provide consistent, strong typography
+- Button design creates clear call-to-action with dynamic coloring
+
+### Mobile Responsiveness
+- Proportional scaling maintained across all screen sizes
+- Mobile-specific adjustments for padding and margins
+- Touch-friendly button sizing preserved
+- Responsive image extensions prevent overflow issues
+
+### Result
+The volunteer page now features a more modern, visually striking design with transparent sections that flow with the background colors, dramatically larger images that break container boundaries, and a refined typography system with black headers and dynamically colored buttons that adapt to the scrolling color system.
+
+---
