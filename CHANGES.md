@@ -1,5 +1,87 @@
 # Project Changes Log
 
+## 2025-12-08: Info Page Redesign with Improved Layout and Styling
+
+### Overview
+Comprehensive redesign of the info page with new background color, improved contact section styling, variable-width info boxes, and better visual hierarchy matching the volunteer page design language.
+
+### Changes Made
+
+#### 1. Background and Color Scheme Updates
+**Color Changes:**
+- Background color: Changed from pink to light gray (#EAEAEA)
+- Logo and date text: Changed to black (#000000) for better contrast
+- Previous iterations: #FF90D4 (pink) → #F8D3FF (light purple) → #D4C0D8 (muted purple) → #EAEAEA (final)
+
+#### 2. Contact Section Redesign
+**Typography and Layout:**
+- Heading: Increased to 90px font size (32px on mobile) matching volunteer page style
+- Font: Helvetica with no uppercase transformation, -2px letter-spacing
+- Layout: Changed from grid to flexbox with wrapping, auto-width boxes
+- Width: Limited to 60% viewport width (100% on mobile)
+- Position: Moved down 100px with margin-top
+
+**Contact Box Styling:**
+- Variable width based on content with no text wrapping
+- Updated colors matching volunteer page palette:
+  - Booking: Light Green (#90EE90)
+  - Økonomi: Sky Blue (#87CEEB)
+  - Generel: Light Pink (#FFB6C1)
+  - Frivillig: Light Yellow (#FFF59D)
+  - Telefon: Light Purple (#B19CD9)
+- Hover effects: Box shadow instead of opacity change
+
+#### 3. Praktisk Section Addition
+**New Section Header:**
+- Added "Praktisk" heading between contact and info boxes
+- Right-aligned text matching volunteer page style
+- Same 90px font size as contact heading
+
+#### 4. Info Box Layout Transformation
+**Variable Width System:**
+- Changed from uniform 3-column grid to flexible masonry-like layout
+- Individual box widths based on content importance:
+  - Tid & Sted: 40% (important)
+  - Transport & Parkering: 45% (emphasized)
+  - Camping: 15% with 440px minimum width
+  - Mad & Drikke: 40%
+  - Other boxes: 27-38% based on priority
+
+**Image Height Adjustments:**
+- Increased all image heights significantly to show more content
+- Desktop: 280-500px based on box importance
+- Mobile: Consistent 350px for all boxes
+- Reduced vertical cropping for better content visibility
+
+**Screen Edge Extension:**
+- Info boxes extend closer to screen edges (40px left padding, 15px right)
+- Contact and Praktisk sections maintain original centered margins
+- Creates visual hierarchy with contained headings and extended content
+
+#### 5. Responsive Design Updates
+**Mobile Optimizations:**
+- All info boxes become full width on mobile
+- Contact section uses full width with smaller padding
+- Heading font sizes reduced appropriately (32px)
+- Consistent image heights for mobile viewing
+
+### Technical Implementation
+- **Files Modified**:
+  - `assets/info.css` - Complete styling overhaul
+  - `info.html` - Added Praktisk section
+
+### Visual Impact
+- Clean, neutral gray background provides better contrast
+- Larger headings create stronger visual hierarchy
+- Variable box widths add visual interest and prioritize important information
+- Extended images show more content without excessive cropping
+- Consistent design language with volunteer page
+
+### Result
+The info page now features a modern, clean design with improved readability, better content prioritization through variable layouts, and a cohesive visual system that aligns with the volunteer page styling while maintaining its own unique character.
+
+---
+
 ## 2025-12-08: Camp Page Restructured with Activities and Benefits Sections
 
 ### Overview
