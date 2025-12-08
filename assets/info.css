@@ -1,8 +1,8 @@
 /* Override body overflow for info page to allow scrolling */
 body {
     overflow: auto !important;
-    --info-bg-color: #FF90D4; /* Pink background for info page */
-    --current-bg: #FF90D4 !important; /* Override the gallery background */
+    --info-bg-color: #EAEAEA; /* Light gray background for info page */
+    --current-bg: #EAEAEA !important; /* Override the gallery background */
     background-color: var(--info-bg-color) !important;
 }
 
@@ -19,10 +19,10 @@ body.is-subpage .select-bg {
     background-color: var(--info-bg-color) !important;
 }
 
-/* Logo and date text - lighter version of pink background */
+/* Logo and date text - black for light gray background */
 #logo-container svg,
 #date-text {
-    color: #FFCCE8 !important; /* Lighter pink than #FF90D4 background */
+    color: #000000 !important; /* Black on light gray background */
 }
 
 .info-main {
@@ -34,67 +34,78 @@ body.is-subpage .select-bg {
 
 /* Contact section styles */
 .contact-section {
+    margin-top: 100px; /* Move section down 100px */
     margin-bottom: 60px;
     display: flex;
     flex-direction: column;
+    padding: 0 30px; /* Keep original margins */
 }
 
 .contact-section h2 {
     background-color: transparent; /* Transparent background */
-    color: #000; /* Black heading text */
-    margin: 0;
-    padding: 15px 30px 10px 30px;
-    font-size: 2rem;
+    color: #111; /* Black heading text */
+    margin: 0 0 30px 0;
+    padding: 0;
+    font-family: "Helvetica", Arial, sans-serif;
+    font-size: 90px;
     font-weight: 400;
-    text-transform: uppercase;
-    letter-spacing: -1px;
+    text-transform: none;
+    letter-spacing: -2px;
 }
 
 .contact-content-wrapper {
     background: transparent; /* Transparent background */
-    padding: 30px;
+    padding: 0;
+    max-width: 60vw; /* Limit to 60% of viewport width */
 }
 
 .contact-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: flex-start;
 }
 
 .contact-item {
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
     gap: 8px;
-    padding: 15px;
-    border-radius: 8px;
-    transition: transform 0.2s ease, opacity 0.2s ease;
+    padding: 12px 20px;
+    border-radius: 0;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    width: auto; /* Variable width based on content */
+    white-space: nowrap; /* Prevent text wrapping */
 }
 
-/* Different colors for each contact item */
-.contact-item:nth-child(1) { background: #FFE4B5; } /* Moccasin - Booking */
-.contact-item:nth-child(2) { background: #E6E6FA; } /* Lavender - Økonomi */
+/* Different colors for each contact item - matching volunteer page palette */
+.contact-item:nth-child(1) { background: #90EE90; } /* Light Green - Booking */
+.contact-item:nth-child(2) { background: #87CEEB; } /* Sky Blue - Økonomi */
 .contact-item:nth-child(3) { background: #FFB6C1; } /* Light Pink - Generel */
-.contact-item:nth-child(4) { background: #B0E0E6; } /* Powder Blue - Frivillig */
-.contact-item:nth-child(5) { background: #F0E68C; } /* Khaki - Telefon */
+.contact-item:nth-child(4) { background: #FFF59D; } /* Light Yellow - Frivillig */
+.contact-item:nth-child(5) { background: #B19CD9; } /* Light Purple - Telefon */
 
 .contact-item:hover {
-    transform: translateY(-2px);
-    opacity: 0.9;
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .contact-item strong {
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: #6B3812;
-    margin-bottom: 2px;
+    font-family: "Helvetica", Arial, sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: -0.5px;
+    color: #111;
+    margin-bottom: 4px;
 }
 
 .contact-item a {
-    color: #8B4A1C !important;
+    color: #111 !important;
     text-decoration: none !important;
-    font-weight: 500;
-    font-size: 1rem;
+    font-family: "Helvetica", Arial, sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    letter-spacing: -0.5px;
     transition: opacity 0.2s ease;
 }
 
@@ -104,26 +115,69 @@ body.is-subpage .select-bg {
 }
 
 .contact-item.full-row {
-    grid-column: 1 / -1;
-    font-size: 1.05rem;
+    font-family: "Helvetica", Arial, sans-serif;
+    font-size: 20px;
+    letter-spacing: -0.5px;
 }
 
-/* Info grid - 3 columns */
+/* Praktisk section styles */
+.praktisk-section {
+    margin-bottom: 40px;
+    padding: 0 30px; /* Keep original margins for heading */
+}
+
+.praktisk-section h2 {
+    background-color: transparent;
+    color: #111;
+    margin: 0 0 30px 0;
+    padding: 0;
+    font-family: "Helvetica", Arial, sans-serif;
+    font-size: 90px;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: -2px;
+    text-align: right; /* Float heading to the right */
+}
+
+/* Info grid - flexible masonry-like layout */
 .info-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-wrap: wrap;
     gap: 15px;
     margin-bottom: 60px;
+    padding: 0 15px 0 40px; /* Bigger left padding */
     align-items: start; /* Allow different heights */
+    width: calc(100vw - 55px); /* Adjusted for asymmetric padding */
+    max-width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    box-sizing: border-box;
 }
 
-/* Info card wrapper for header + content */
+/* Info card wrapper for header + content - variable widths */
 .info-card {
     display: flex;
     flex-direction: column;
     transition: transform 0.2s ease;
     height: auto; /* Let height be determined by content */
+    flex: 0 0 auto;
 }
+
+/* Different widths for different info cards based on importance */
+.info-card:nth-child(1) { width: calc(40% - 8px); } /* Tid & Sted - important, bigger */
+.info-card:nth-child(2) { width: calc(45% - 8px); } /* Transport & Parkering - bigger */
+.info-card:nth-child(3) {
+    width: calc(15% - 8px); /* Camping - smaller */
+    min-width: 440px; /* Minimum width doubled for better visibility */
+}
+.info-card:nth-child(4) { width: calc(40% - 8px); } /* Mad & Drikke - important */
+.info-card:nth-child(5) { width: calc(30% - 8px); } /* Regler & Sikkerhed */
+.info-card:nth-child(6) { width: calc(30% - 8px); } /* Lydregler */
+.info-card:nth-child(7) { width: calc(30% - 8px); } /* Strøm & Opladning */
+.info-card:nth-child(8) { width: calc(38% - 8px); } /* Tilgængelighed - important */
+.info-card:nth-child(9) { width: calc(32% - 8px); } /* Børn & Familie */
+.info-card:nth-child(10) { width: calc(35% - 8px); } /* Miljø & Bæredygtighed */
 
 .info-card:hover {
     transform: translateY(-5px);
@@ -150,14 +204,25 @@ body.is-subpage .select-bg {
     height: auto; /* No fixed height - adapts to content */
 }
 
-/* Image card styles */
+/* Image card styles - varied heights based on card width */
 .info-card-image {
     width: calc(100% - 20px); /* Smaller margins */
-    height: 280px; /* Taller images */
     object-fit: cover;
     display: block;
     margin: 10px 10px 0 10px; /* Smaller margins all around */
 }
+
+/* Different image heights for different card sizes */
+.info-card:nth-child(1) .info-card-image { height: 450px; } /* Tid & Sted - larger */
+.info-card:nth-child(2) .info-card-image { height: 480px; } /* Transport - bigger */
+.info-card:nth-child(3) .info-card-image { height: 280px; } /* Camping - smaller */
+.info-card:nth-child(4) .info-card-image { height: 500px; } /* Mad & Drikke - larger */
+.info-card:nth-child(5) .info-card-image { height: 350px; } /* Regler */
+.info-card:nth-child(6) .info-card-image { height: 350px; } /* Lydregler */
+.info-card:nth-child(7) .info-card-image { height: 380px; } /* Strøm */
+.info-card:nth-child(8) .info-card-image { height: 420px; } /* Tilgængelighed */
+.info-card:nth-child(9) .info-card-image { height: 400px; } /* Børn */
+.info-card:nth-child(10) .info-card-image { height: 400px; } /* Miljø */
 
 .info-content {
     padding: 20px;
@@ -262,8 +327,20 @@ body.is-subpage .select-bg {
 /* Responsive Design */
 @media (max-width: 1024px) {
     .info-grid {
-        grid-template-columns: repeat(2, 1fr);
+        padding: 0 10px;
     }
+
+    /* Adjust widths for tablet */
+    .info-card:nth-child(1) { width: calc(50% - 8px); }
+    .info-card:nth-child(2) { width: calc(50% - 8px); }
+    .info-card:nth-child(3) { width: calc(45% - 8px); }
+    .info-card:nth-child(4) { width: calc(55% - 8px); }
+    .info-card:nth-child(5) { width: calc(48% - 8px); }
+    .info-card:nth-child(6) { width: calc(52% - 8px); }
+    .info-card:nth-child(7) { width: calc(50% - 8px); }
+    .info-card:nth-child(8) { width: calc(50% - 8px); }
+    .info-card:nth-child(9) { width: calc(50% - 8px); }
+    .info-card:nth-child(10) { width: calc(50% - 8px); }
 }
 
 @media (max-width: 768px) {
@@ -272,12 +349,53 @@ body.is-subpage .select-bg {
     }
 
     .info-grid {
-        grid-template-columns: 1fr;
         gap: 10px;
+        padding: 0 5px;
+    }
+
+    /* Full width on mobile */
+    .info-card {
+        width: 100% !important;
+    }
+
+    .contact-section {
+        padding: 0 15px; /* Smaller padding on mobile */
+    }
+
+    .contact-section h2 {
+        font-size: 32px;
+        letter-spacing: -1px;
+    }
+
+    .contact-content-wrapper {
+        max-width: 100%; /* Full width on mobile */
     }
 
     .contact-grid {
-        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .contact-item {
+        font-size: 16px;
+        padding: 10px 18px;
+    }
+
+    .contact-item strong {
+        font-size: 14px;
+    }
+
+    .contact-item a {
+        font-size: 16px;
+    }
+
+    .praktisk-section {
+        padding: 0 15px; /* Smaller padding on mobile */
+    }
+
+    .praktisk-section h2 {
+        font-size: 32px;
+        letter-spacing: -1px;
+        text-align: right; /* Keep right alignment on mobile */
     }
 
     .info-card h2 {
@@ -290,7 +408,7 @@ body.is-subpage .select-bg {
     }
 
     .info-card-image {
-        height: 200px; /* Reduced height for mobile */
+        height: 350px !important; /* Taller images on mobile to show more content */
     }
 
     .info-footer {
