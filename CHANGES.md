@@ -1,5 +1,50 @@
 # Project Changes Log
 
+## 2025-12-08: Camp Page Restructured with Activities and Benefits Sections
+
+### Overview
+Restructured the camp page (Rudme Lejr) to split the features section into two distinct sections: activities volunteers can do and benefits they receive. Also removed the gallery section for a cleaner, more focused page layout.
+
+### Changes Made
+
+#### 1. Split Features into Two Sections
+**"HVAD KAN DU LAVE?" (What can you do?) - 8 activities:**
+- **LYSKUNST** - Light art installations and LED design
+- **TRÆHÅNDVÆRK** - Woodworking and traditional crafts (renamed from "BYG")
+- **MALING** - Painting signs, murals, and decorations (renamed from "MAL")
+- **OPSÆTNING** - Setting up tents and structures (new)
+- **PLADSDESIGN** - Designing festival areas and creative spaces (new)
+- **STOF OG STRIK** - Textile work and knitting decorations
+- **FLYT** - Logistics and equipment moving
+- **HYG** - Having fun and enjoying the community
+
+**"HVAD FÅR DU?" (What do you get?) - 4 benefits:**
+- **GRATIS MAD & DRIKKE** - Free meals and beverages
+- **FÆLLESSKAB** - Community and new friendships
+- **AFTEN EVENTS** - Evening entertainment
+- **NYE FÆRDIGHEDER** - Learning new skills
+
+#### 2. Visual Updates
+- Added intro text above activities section explaining tools and materials availability
+- Each section box has a suitable image from camp photos
+- All 12 boxes receive random colors from an expanded palette
+- Reduced top margin on box headings from 8px to 4px for tighter layout
+
+#### 3. Content Removal
+- Removed "LEJRLIVET" gallery section with 21 images
+- Page now focuses on activities and benefits rather than photo gallery
+
+### Technical Implementation
+- **camp.html**: Added new activities section, restructured existing features section
+- **camp.css**: Added styles for activities section with responsive design
+- **camp.js**: Updated to handle 12 colored boxes with expanded color palette
+
+### Result
+The camp page now clearly communicates what volunteers can contribute (8 different activities) and what they receive in return (4 key benefits), creating a more action-oriented and informative layout that encourages participation in Rudme Lejr 2026.
+
+---
+
+
 ## 2025-12-06: Moved Role Headers Outside Content Boxes on Volunteer Page
 
 ### Overview
