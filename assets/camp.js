@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const observer = new IntersectionObserver(observerCallback, observerOptions);
 
     // Observe sections for fade-in animation
-    const sectionsToAnimate = document.querySelectorAll('.intro-section, .gallery-section, .features-section, .social-section, .cta-section');
+    const sectionsToAnimate = document.querySelectorAll('.intro-section, .gallery-section, .activities-section, .features-section, .social-section, .cta-section');
 
     sectionsToAnimate.forEach(section => {
         section.style.opacity = '0';
@@ -71,15 +71,41 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(section);
     });
 
-    // Staggered animation for feature boxes
+    // Apply random colors and staggered animation for both activity and feature boxes
+    const activityBoxes = document.querySelectorAll('.activity-box');
     const featureBoxes = document.querySelectorAll('.feature-box');
-    featureBoxes.forEach((box, index) => {
+    const allBoxes = [...activityBoxes, ...featureBoxes];
+
+    const colors = [
+        '#FFEB3B', // Yellow
+        '#FFA726', // Orange
+        '#66BB6A', // Green
+        '#42A5F5', // Blue
+        '#EF5350', // Red
+        '#AB47BC', // Purple
+        '#26C6DA', // Cyan
+        '#EC407A', // Pink
+        '#9CCC65', // Light green
+        '#FF7043', // Deep orange
+        '#78909C', // Blue grey
+        '#FFCC80'  // Peach
+    ];
+
+    // Shuffle colors array
+    const shuffledColors = colors.sort(() => Math.random() - 0.5);
+
+    allBoxes.forEach((box, index) => {
+        // Apply random color
+        const randomColor = shuffledColors[index % shuffledColors.length];
+        box.style.backgroundColor = randomColor;
+
+        // Animation
         box.style.opacity = '0';
         box.style.transform = 'translateY(30px)';
         box.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
     });
 
-    const featureObserver = new IntersectionObserver((entries) => {
+    const boxObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 setTimeout(() => {
@@ -90,8 +116,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, observerOptions);
 
-    featureBoxes.forEach(box => {
-        featureObserver.observe(box);
+    allBoxes.forEach(box => {
+        boxObserver.observe(box);
     });
 
     // Gallery items staggered load animation
