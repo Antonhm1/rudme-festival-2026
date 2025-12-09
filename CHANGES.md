@@ -1,5 +1,101 @@
 # Project Changes Log
 
+## 2025-12-09: Tickets Page Implementation with Scrolling Banner and Newsletter Signup
+
+### Overview
+Created a comprehensive tickets page featuring a hero image, fixed scrolling banner with ticket availability information, and newsletter signup form. Implemented custom styling with light purple theme and responsive design.
+
+### Changes Made
+
+#### 1. Page Structure and Layout
+**Hero Section:**
+- Added hero image from `pictures/billetter/billetter-polly.jpeg`
+- Positioned absolutely with 30px margins (15px on mobile)
+- Max height: 600px desktop, 300px mobile
+- Behind header with z-index: 1
+
+**Scrolling Banner:**
+- Fixed position at bottom of viewport
+- Purple background (#9D4DF0)
+- Continuous horizontal scroll animation (30s loop)
+- Large uppercase text (120px desktop, 60px mobile)
+- Messages: "BILLETTER IKKE TIL SALG ENDNU", "KOMMER ENGANG I FEBRUAR/MARTS", "VÆR HURTIG, DE BLIVER HURTIGT SOLGT"
+
+**Newsletter Section:**
+- Left-aligned layout (not centered)
+- Maximum width: 1400px
+- Positioned 480px below top (200px on mobile)
+- Extra bottom padding to account for fixed banner
+
+#### 2. Color Scheme Updates
+**Background and Theme:**
+- Page background: Light purple (#EFD0FF)
+- Logo and date text: Light purple (#EFD0FF)
+- Select menu background: Light purple (#EFD0FF)
+- Scrolling banner: Dark purple (#9D4DF0)
+
+**Interactive Elements:**
+- Email input: White background with black text
+- Submit button: Black background with light purple text (#EFD0FF)
+- Form labels: Black text
+
+#### 3. Header and Navigation
+**Menu Styling:**
+- Sticky positioning with top: 20px when scrolling
+- Z-index: 2000 to stay above all content
+- Margin-top: -82px to align with date text
+- Black menu text with purple background
+
+#### 4. Newsletter Form
+**Form Elements:**
+- Single email field (removed name field)
+- Sharp corners (no border-radius)
+- White input background
+- Black "Email" label text
+- Black submit button with purple text matching background
+
+**Form Behavior:**
+- JavaScript form submission handling
+- Success message display
+- 5-second auto-reset after submission
+
+#### 5. Responsive Design
+**Mobile Adjustments:**
+- Hero image: Reduced margins and max-height
+- Scrolling banner: 80px height with 60px font
+- Newsletter section: Adjusted padding and margins
+- Form elements: Smaller font sizes and padding
+
+### Technical Implementation
+- **Files Created/Modified**:
+  - `tickets.html` - Page structure with hero image and newsletter form
+  - `assets/tickets.css` - Complete styling with responsive design
+  - `assets/tickets.js` - Form handling and dynamic color application
+
+- **Key Features**:
+  - CSS variables for dynamic color management
+  - Fixed positioning for scrolling banner
+  - Sticky menu behavior matching other pages
+  - Seamless animation loop for scrolling text
+
+### Bug Fixes Applied
+1. **Background Color Override:**
+   - Issue: Orange background from styles.css persisted
+   - Solution: Added `!important` flags and CSS variable overrides
+
+2. **Menu Color Consistency:**
+   - Issue: Select menu showed white instead of purple
+   - Solution: Applied specific selectors and JavaScript color updates
+
+3. **Sticky Menu Z-index:**
+   - Issue: Menu hidden behind hero image
+   - Solution: Increased z-index to 2000
+
+### Result
+A fully functional tickets page that effectively communicates ticket availability status while collecting newsletter signups. The fixed scrolling banner creates urgency and draws attention, while the clean form design encourages user engagement. The page maintains visual consistency with the festival's design language through coordinated purple theming and responsive behavior.
+
+---
+
 ## 2025-12-08: Info Page Redesign with Improved Layout and Styling
 
 ### Overview
