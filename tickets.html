@@ -5,10 +5,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>BILLETTER</title>
     <link rel="stylesheet" href="assets/styles.css">
+    <link rel="stylesheet" href="assets/tickets.css">
 </head>
 <body>
     <!-- Page intentionally left minimal: header is injected by assets/header-insert.js -->
+
+    <main class="tickets-main">
+        <!-- Hero section with big picture -->
+        <section class="hero-section">
+            <img src="pictures/billetter/billetter-polly.jpeg" alt="Billetter til Rudme Festival" class="hero-image">
+        </section>
+
+        <!-- Scrolling banner -->
+        <div class="scrolling-banner">
+            <div class="scrolling-text">
+                <span>BILLETTER IKKE TIL SALG ENDNU</span>
+                <span class="dot">-</span>
+                <span>KOMMER ENGANG I FEBRUAR/MARTS</span>
+                <span class="dot">-</span>
+                <span>BILLETTER IKKE TIL SALG ENDNU</span>
+                <span class="dot">-</span>
+                <span>KOMMER ENGANG I FEBRUAR/MARTS</span>
+                <span class="dot">-</span>
+                <span>BILLETTER IKKE TIL SALG ENDNU</span>
+                <span class="dot">-</span>
+                <span>VÆR HURTIG, DE BLIVER HURTIGT SOLGT</span>
+                <span class="dot">-</span>
+                <!-- Duplicate for seamless loop -->
+                <span>BILLETTER IKKE TIL SALG ENDNU</span>
+                <span class="dot">-</span>
+                <span>KOMMER ENGANG I FEBRUAR/MARTS</span>
+                <span class="dot">-</span>
+                <span>BILLETTER IKKE TIL SALG ENDNU</span>
+                <span class="dot">-</span>
+                <span>ENGANG I FEBRUAR/MARTS</span>
+                <span class="dot">-</span>
+                <span>BILLETTER IKKE TIL SALG ENDNU</span>
+                <span class="dot">-</span>
+                <span>VÆR HURTIG, DE BLIVER HURTIGT SOLGT</span>
+                <span class="dot">-</span>
+            </div>
+        </div>
+
+        <!-- Newsletter signup section -->
+        <section class="newsletter-section">
+            <h2 class="newsletter-heading">Vil du have en reminder, når billetsalget starter?</h2>
+            <p class="newsletter-subheading">Skriv dig op til vores nyhedsbrev og vær blandt de første til at få besked</p>
+
+            <form class="newsletter-form" id="newsletter-form">
+                <div class="form-group">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" name="email" class="form-input" placeholder="din@email.dk" required>
+                </div>
+
+                <button type="submit" class="submit-button">Tilmeld nyhedsbrev</button>
+            </form>
+
+            <div class="success-message" id="success-message">
+                Tak for din tilmelding! Vi sender dig en besked, når billetsalget starter.
+            </div>
+        </section>
+    </main>
+
     <script src="assets/header-insert.js" defer></script>
     <script src="assets/script.js" defer></script>
+    <script src="assets/tickets.js" defer></script>
 </body>
 </html>
