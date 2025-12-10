@@ -1,9 +1,9 @@
 /* Override body overflow for info page to allow scrolling */
 body {
     overflow: auto !important;
-    --info-bg-color: #EAEAEA; /* Light gray background for info page */
-    --current-bg: #EAEAEA !important; /* Override the gallery background */
-    background-color: var(--info-bg-color) !important;
+    --info-bg-color: #FFEE7B; /* Yellow background for info page */
+    --current-bg: #FFEE7B; /* Override the gallery background */
+    background-color: var(--info-bg-color);
 }
 
 /* Make menu sticky - scrolls with page then sticks at top */
@@ -19,26 +19,62 @@ body.is-subpage .select-bg {
     background-color: var(--info-bg-color) !important;
 }
 
-/* Logo and date text - black for light gray background */
+/* Logo and date text - same blue as background */
 #logo-container svg,
 #date-text {
-    color: #000000 !important; /* Black on light gray background */
+    color: #FFEE7B !important; /* Same yellow as background */
 }
 
 .info-main {
-    padding: 80px 20px 40px;
-    max-width: 1400px;
-    margin: 0 auto;
+    padding: 0;
+    margin: 0;
     color: #000;
+}
+
+/* Hero section with image and contact side by side */
+.hero-section {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    right: 30px;
+    z-index: 1; /* Behind header */
+}
+
+.hero-container {
+    display: flex;
+    gap: 30px;
+    align-items: stretch;
+}
+
+.hero-image-wrapper {
+    width: 50%;
+    flex-shrink: 0;
+}
+
+.hero-image {
+    width: 100%;
+    height: 800px;
+    object-fit: cover;
+    display: block;
+}
+
+.hero-image-wrapper {
+    overflow: hidden; /* Hide parts of image that move outside */
+}
+
+.hero-image-wrapper .hero-image {
+    width: 120%; /* Wider to allow horizontal movement */
+    margin-left: 0; /* Start position, will be animated */
+    transition: margin-left 0.1s ease-out;
 }
 
 /* Contact section styles */
 .contact-section {
-    margin-top: 100px; /* Move section down 100px */
-    margin-bottom: 60px;
+    width: 50%;
     display: flex;
     flex-direction: column;
-    padding: 0 30px; /* Keep original margins */
+    justify-content: center;
+    padding: 0;
 }
 
 .contact-section h2 {
@@ -56,7 +92,6 @@ body.is-subpage .select-bg {
 .contact-content-wrapper {
     background: transparent; /* Transparent background */
     padding: 0;
-    max-width: 60vw; /* Limit to 60% of viewport width */
 }
 
 .contact-grid {
@@ -69,61 +104,61 @@ body.is-subpage .select-bg {
 .contact-item {
     display: inline-flex;
     flex-direction: column;
-    gap: 8px;
-    padding: 12px 20px;
+    gap: 0;
+    padding: 15px 8px 8px 8px; /* 8px margin on sides and bottom */
     border-radius: 0;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    width: auto; /* Variable width based on content */
-    white-space: nowrap; /* Prevent text wrapping */
+    width: auto;
+    white-space: nowrap;
+    background: #000 !important; /* Black background for all */
 }
 
-/* Different colors for each contact item - matching volunteer page palette */
-.contact-item:nth-child(1) { background: #90EE90; } /* Light Green - Booking */
-.contact-item:nth-child(2) { background: #87CEEB; } /* Sky Blue - Økonomi */
-.contact-item:nth-child(3) { background: #FFB6C1; } /* Light Pink - Generel */
-.contact-item:nth-child(4) { background: #FFF59D; } /* Light Yellow - Frivillig */
-.contact-item:nth-child(5) { background: #B19CD9; } /* Light Purple - Telefon */
-
-.contact-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+/* All contact items use the page background color */
+.contact-item {
+    --item-color: #FFEE7B; /* Yellow - same as page background */
 }
+
 
 .contact-item strong {
     font-family: "Helvetica", Arial, sans-serif;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 400;
-    text-transform: none;
-    letter-spacing: -0.5px;
-    color: #111;
-    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    color: var(--item-color); /* Colored text on black */
+    margin-bottom: 12px;
+    padding-left: 12px; /* Indent heading */
 }
 
-.contact-item a {
-    color: #111 !important;
-    text-decoration: none !important;
+.contact-item .email,
+.contact-item .phone {
+    display: block;
+    background: var(--item-color); /* Colored background */
+    color: #000; /* Black text */
     font-family: "Helvetica", Arial, sans-serif;
     font-weight: 400;
-    font-size: 20px;
+    font-size: 22px;
     letter-spacing: -0.5px;
-    transition: opacity 0.2s ease;
+    padding: 14px 20px;
+    margin: 0; /* margin handled by parent padding */
+    cursor: pointer;
+    transition: background 0.2s ease;
+    user-select: all;
 }
 
-.contact-item a:hover {
-    opacity: 0.8;
-    text-decoration: underline !important;
+.contact-item .email:hover,
+.contact-item .phone:hover {
+    background: #fff; /* White on hover */
 }
 
 .contact-item.full-row {
     font-family: "Helvetica", Arial, sans-serif;
-    font-size: 20px;
-    letter-spacing: -0.5px;
 }
 
 /* Praktisk section styles */
 .praktisk-section {
     margin-bottom: 40px;
-    padding: 0 30px; /* Keep original margins for heading */
+    padding: 0 80px 0 30px; /* Right padding to align with info-grid */
+    padding-top: 700px; /* Space for hero section */
 }
 
 .praktisk-section h2 {
@@ -145,8 +180,9 @@ body.is-subpage .select-bg {
     flex-wrap: wrap;
     gap: 15px;
     margin-bottom: 60px;
-    padding: 0 15px 0 40px; /* Bigger left padding */
+    padding: 0 60px 0 40px; /* Right padding to align with Praktisk heading */
     align-items: start; /* Allow different heights */
+    justify-content: flex-end; /* Float all boxes to the right */
     width: calc(100vw - 55px); /* Adjusted for asymmetric padding */
     max-width: 100vw;
     position: relative;
@@ -155,29 +191,24 @@ body.is-subpage .select-bg {
     box-sizing: border-box;
 }
 
-/* Info card wrapper for header + content - variable widths */
+/* Info card wrapper for header + content */
 .info-card {
     display: flex;
     flex-direction: column;
     transition: transform 0.2s ease;
     height: auto; /* Let height be determined by content */
-    flex: 0 0 auto;
 }
 
-/* Different widths for different info cards based on importance */
-.info-card:nth-child(1) { width: calc(40% - 8px); } /* Tid & Sted - important, bigger */
-.info-card:nth-child(2) { width: calc(45% - 8px); } /* Transport & Parkering - bigger */
-.info-card:nth-child(3) {
-    width: calc(15% - 8px); /* Camping - smaller */
-    min-width: 440px; /* Minimum width doubled for better visibility */
+/* First row: 2 cards (50% each) */
+.info-card:nth-child(1),
+.info-card:nth-child(2) {
+    width: calc(50% - 8px);
 }
-.info-card:nth-child(4) { width: calc(40% - 8px); } /* Mad & Drikke - important */
-.info-card:nth-child(5) { width: calc(30% - 8px); } /* Regler & Sikkerhed */
-.info-card:nth-child(6) { width: calc(30% - 8px); } /* Lydregler */
-.info-card:nth-child(7) { width: calc(30% - 8px); } /* Strøm & Opladning */
-.info-card:nth-child(8) { width: calc(38% - 8px); } /* Tilgængelighed - important */
-.info-card:nth-child(9) { width: calc(32% - 8px); } /* Børn & Familie */
-.info-card:nth-child(10) { width: calc(35% - 8px); } /* Miljø & Bæredygtighed */
+
+/* Remaining rows: 3 cards (33.33% each) */
+.info-card:nth-child(n+3) {
+    width: calc(33.33% - 10px);
+}
 
 .info-card:hover {
     transform: translateY(-5px);
@@ -191,7 +222,7 @@ body.is-subpage .select-bg {
     text-transform: uppercase;
     letter-spacing: -1px;
     margin: 0;
-    padding: 15px 20px 10px 20px; /* Less bottom padding to be closer to image */
+    padding: 25px 35px 0 35px; /* Align with info-content text */
     color: #000; /* Black heading text */
 }
 
@@ -209,12 +240,14 @@ body.is-subpage .select-bg {
     width: calc(100% - 20px); /* Smaller margins */
     object-fit: cover;
     display: block;
-    margin: 10px 10px 0 10px; /* Smaller margins all around */
+    margin: 15px 10px 0 10px; /* More top margin for space below heading */
 }
 
 /* Different image heights for different card sizes */
 .info-card:nth-child(1) .info-card-image { height: 450px; } /* Tid & Sted - larger */
-.info-card:nth-child(2) .info-card-image { height: 480px; } /* Transport - bigger */
+.info-card:nth-child(2) .info-card-image {
+    height: 480px; /* Transport - bigger */
+}
 .info-card:nth-child(3) .info-card-image { height: 280px; } /* Camping - smaller */
 .info-card:nth-child(4) .info-card-image { height: 500px; } /* Mad & Drikke - larger */
 .info-card:nth-child(5) .info-card-image { height: 350px; } /* Regler */
@@ -225,7 +258,7 @@ body.is-subpage .select-bg {
 .info-card:nth-child(10) .info-card-image { height: 400px; } /* Miljø */
 
 .info-content {
-    padding: 20px;
+    padding: 20px 35px;
     font-size: 0.95rem;
     line-height: 1.6;
 }
@@ -287,18 +320,18 @@ body.is-subpage .select-bg {
     display: block;
 }
 
-/* Different colors for each info card */
-.info-card:nth-child(1) .info-card-content-wrapper { background: #FFE4B5; } /* Moccasin */
-.info-card:nth-child(2) .info-card-content-wrapper { background: #E6E6FA; } /* Lavender */
-.info-card:nth-child(3) .info-card-content-wrapper { background: #FFB6C1; } /* Light Pink */
-.info-card:nth-child(4) .info-card-content-wrapper { background: #B0E0E6; } /* Powder Blue */
-.info-card:nth-child(5) .info-card-content-wrapper { background: #F0E68C; } /* Khaki */
-.info-card:nth-child(6) .info-card-content-wrapper { background: #DDA0DD; } /* Plum */
-.info-card:nth-child(7) .info-card-content-wrapper { background: #98FB98; } /* Pale Green */
-.info-card:nth-child(8) .info-card-content-wrapper { background: #FFDAB9; } /* Peach Puff */
-.info-card:nth-child(9) .info-card-content-wrapper { background: #F5DEB3; } /* Wheat */
-.info-card:nth-child(10) .info-card-content-wrapper { background: #FFE4E1; } /* Misty Rose */
-.info-card:nth-child(11) .info-card-content-wrapper { background: #E0FFFF; } /* Light Cyan */
+/* Different colors for each info card - vibrant colors inspired by volunteer page */
+.info-card:nth-child(1) .info-card-content-wrapper { background: #FFA726; } /* Orange */
+.info-card:nth-child(2) .info-card-content-wrapper { background: #CC3F4C; } /* Red */
+.info-card:nth-child(3) .info-card-content-wrapper { background: #FFB6C1; } /* Pink */
+.info-card:nth-child(4) .info-card-content-wrapper { background: #87CEEB; } /* Sky Blue */
+.info-card:nth-child(5) .info-card-content-wrapper { background: #FFEB3B; } /* Bright Yellow */
+.info-card:nth-child(6) .info-card-content-wrapper { background: #E06E59; } /* Orange-Red */
+.info-card:nth-child(7) .info-card-content-wrapper { background: #90EE90; } /* Light Green */
+.info-card:nth-child(8) .info-card-content-wrapper { background: #FF8A65; } /* Coral */
+.info-card:nth-child(9) .info-card-content-wrapper { background: #F5A0E2; } /* Pink */
+.info-card:nth-child(10) .info-card-content-wrapper { background: #4DD0E1; } /* Cyan */
+.info-card:nth-child(11) .info-card-content-wrapper { background: #AED581; } /* Light Green */
 
 /* Footer section */
 .info-footer {
