@@ -96,6 +96,117 @@ A fully functional tickets page that effectively communicates ticket availabilit
 
 ---
 
+## 2025-12-10: Info Page Major Redesign with Hero Section, Contact Boxes, and Scroll Effects
+
+### Overview
+Complete redesign of the info page featuring a hero section with side-by-side image and contact boxes, scroll-activated background color transitions, horizontal parallax effect, and updated info box styling.
+
+### Key Features Implemented
+
+#### 1. Hero Section with Image and Contact
+**Layout:**
+- Hero image (mennesker.jpeg) on the left, 50% width
+- Contact section on the right, 50% width
+- 30px margins matching volunteer page style
+- Image positioned behind logo and date text (z-index: 1)
+- Image height: 800px
+
+**Parallax Effect:**
+- Horizontal parallax movement when scrolling
+- Image moves left as user scrolls down
+- Maximum movement: -20% horizontal offset
+- Smooth transition with requestAnimationFrame throttling
+
+#### 2. Contact Box Redesign
+**Visual Design:**
+- Black outer box with colored heading text
+- Inner colored box containing email/phone with black text
+- Color matches page background (dynamic with scroll)
+- 8px margin around inner box
+
+**Typography:**
+- Heading: 20px uppercase
+- Email/phone: 22px with 14px/20px padding
+
+**Interactions:**
+- Hover: Inner box turns white
+- Click: Selects all text for easy copying (user-select: all)
+- Removed jump-up hover effect on outer box
+
+#### 3. Scroll-Activated Color Transition
+**Background Color:**
+- Start color: #FFEE7B (yellow) at top
+- End color: #1CC937 (green) when scrolled to bottom
+- Smooth interpolation based on scroll progress
+
+**Dynamic Element Updates:**
+- Logo and date text color matches background
+- Contact box inner color matches background
+- Select menu background matches background
+
+**Implementation (info.js):**
+- `initializeColorTransitions()` function
+- Color interpolation using RGB values
+- requestAnimationFrame throttling for performance
+
+#### 4. Info Box Updates
+**Layout Changes:**
+- First row: 2 boxes (50% each)
+- Remaining rows: 3 boxes (33.33% each)
+- All boxes float to right (justify-content: flex-end)
+- Right padding: 60px to align with "Praktisk" heading
+
+**Removed Images from:**
+- Tid & Sted
+- Camping
+- Mad & Drikke
+- Tilgængelighed
+- Miljø & Bæredygtighed
+
+**Color Updates:**
+- Transport & Parkering: #CC3F4C (red)
+- Lydregler: #E06E59 (orange-red)
+- Børn & Familie: #F5A0E2 (pink)
+
+**Typography Alignment:**
+- Heading padding: 25px 35px 0 35px (aligns with content text)
+- Content padding: 20px 35px
+- Image top margin: 15px (space below heading)
+
+#### 5. Praktisk Section
+**Styling:**
+- Right-aligned heading
+- Right padding: 80px to align with info boxes
+- padding-top: 700px to position below hero section
+
+### Technical Implementation
+
+**Files Created:**
+- `assets/info.js` - Color transitions and parallax effects
+
+**Files Modified:**
+- `info.html` - Hero section structure, contact box markup
+- `assets/info.css` - Complete styling overhaul
+
+**Key CSS Changes:**
+- Removed `!important` from background-color to allow JS control
+- Hero section: position absolute, top/left/right: 30px
+- Contact items: CSS variable `--item-color` for dynamic colors
+- Info grid: justify-content: flex-end
+
+**Key JavaScript Functions:**
+- `initializeColorTransitions()` - Scroll-based color changes
+- `initializeParallax()` - Horizontal image movement
+- `interpolateColor()` - RGB color interpolation
+
+### Images Added
+- `pictures/info-pictures/mennesker.jpeg` - Hero image
+
+### Result
+A modern, dynamic info page with engaging scroll effects, clear visual hierarchy, and improved contact information presentation. The scroll-activated color transitions and horizontal parallax create an immersive experience while maintaining usability and accessibility.
+
+---
+
 ## 2025-12-08: Info Page Redesign with Improved Layout and Styling
 
 ### Overview
