@@ -1,5 +1,104 @@
 # Project Changes Log
 
+## 2025-12-12: Info Page Complete Redesign with Volunteer-Style Layout
+
+### Overview
+Complete redesign of the info page to match the volunteer page structure. Features a split hero section with image and clickable emne buttons, dynamically generated info sections from JSON, smooth scroll-based background color transitions, and horizontal parallax effect on the hero image.
+
+### Key Features Implemented
+
+#### 1. Hero Section Split Layout
+**Structure:**
+- Left side (50%): Hero image (mennesker.jpeg)
+- Right side (50%): "EMNER" title with clickable topic buttons
+- Hero height: 820px minimum
+- 30px margins on all sides
+- Image positioned behind logo and date text
+
+**Parallax Effect:**
+- Horizontal parallax using `object-position`
+- Image content shifts as user scrolls (50% → 70%)
+- Effect continues until image leaves viewport
+- Smooth performance with requestAnimationFrame
+
+#### 2. Dynamic Content from JSON
+**info-sections.json Structure:**
+- Contains all section data: id, title, color, image, content
+- Sections include: Kontakt, Tid & Sted, Transport & Parkering, Camping, Mad & Drikke, Regler & Sikkerhed, Lydregler, Strøm & Opladning, Tilgængelighed, Børn & Familie, Miljø & Bæredygtighed
+
+**Dynamic Generation:**
+- Info boxes generated from JSON with correct colors
+- Click on box scrolls to corresponding section
+- Full info sections generated with headers, images, and content
+
+#### 3. Scroll-Based Color Transitions
+**Implementation:**
+- Hero starts with magenta (#9D3B78)
+- Gradual transition to first section color as user scrolls
+- Smooth interpolation between all section colors
+- Header elements (logo, date, menu) update dynamically
+
+**Color Calculation:**
+- Uses actual content position (info-header) not section bounds
+- Transition happens during scroll through hero area
+- Each section transitions to next section's color at 50% scroll progress
+
+#### 4. Kontakt Section Styling
+**Contact Boxes:**
+- Outer box: Same color as background (#3B9D86)
+- Inner email box: Pink (#E91E63)
+- Hover/click: Inner box turns white (not heading)
+- Black heading text
+- Click handler adds 'clicked' class for persistent white state
+
+#### 5. Visual Updates
+**Info Section Headers:**
+- All headers uppercase (text-transform)
+- 55px font size
+- Black text (#111)
+
+**Hero Section:**
+- "EMNER" title uppercase
+- Emner section pushed down 70px with padding-top
+
+### Technical Implementation
+
+**Files Created:**
+- `assets/info-sections.json` - All section data
+
+**Files Modified:**
+- `info.html` - Simplified structure with dynamic containers
+- `assets/info.css` - Complete rewrite for new layout
+- `assets/info.js` - Dynamic content loading, color transitions, parallax
+
+**Key JavaScript Functions:**
+- `loadInfoData()` - Fetches JSON and initializes page
+- `generateInfoBoxes()` - Creates clickable emne buttons
+- `generateInfoSections()` - Builds full info sections
+- `initializeColorTransitions()` - Scroll-based color changes
+- `updateParallax()` - Horizontal image parallax effect
+- `initializeContactBoxClicks()` - Click handlers for contact boxes
+
+### Color Scheme
+- Hero background: #9D3B78 (magenta)
+- Kontakt section: #3B9D86 (teal)
+- Contact inner boxes: #E91E63 (pink)
+- Tid & Sted: #FFA726 (orange)
+- Transport: #CC3F4C (red)
+- Camping: #FFB6C1 (light pink)
+- Mad & Drikke: #87CEEB (sky blue)
+- Regler: #FFEB3B (yellow)
+- Lydregler: #E06E59 (orange-red)
+- Strøm: #90EE90 (light green)
+- Tilgængelighed: #B19CD9 (purple)
+- Børn: #F5A0E2 (pink)
+- Miljø: #4DD0E1 (cyan)
+
+### Result
+A modern, dynamic info page that matches the volunteer page's design language. Smooth color transitions create an engaging scroll experience while the split hero section provides clear navigation to all info topics. The parallax effect adds visual interest without overwhelming the content.
+
+---
+
 ## 2025-12-09: Tickets Page Implementation with Scrolling Banner and Newsletter Signup
 
 ### Overview

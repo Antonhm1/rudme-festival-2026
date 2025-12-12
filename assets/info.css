@@ -1,43 +1,44 @@
-/* Override body overflow for info page to allow scrolling */
-body {
-    overflow: auto !important;
-    --info-bg-color: #FFEE7B; /* Yellow background for info page */
-    --current-bg: #FFEE7B; /* Override the gallery background */
-    background-color: var(--info-bg-color);
+/* Info page styles - based on volunteer page structure */
+
+:root {
+    /* Info section colors */
+    --color-tid-sted: #FFA726;
+    --color-transport: #CC3F4C;
+    --color-camping: #FFB6C1;
+    --color-mad-drikke: #87CEEB;
+    --color-regler: #FFEB3B;
+    --color-lydregler: #E06E59;
+    --color-strom: #90EE90;
+    --color-tilgaengelighed: #B19CD9;
+    --color-boern: #F5A0E2;
+    --color-miljo: #4DD0E1;
 }
 
-/* Make menu sticky - scrolls with page then sticks at top */
-.menu-container {
-    position: sticky !important;
-    top: 20px !important; /* Stick 20px from top when scrolling */
-    z-index: 1000 !important; /* Ensure it stays above content */
-    margin-top: -82px !important; /* Align perfectly with date text vertically */
-}
-
-/* Select menu background - same as page background */
-body.is-subpage .select-bg {
-    background-color: var(--info-bg-color) !important;
-}
-
-/* Logo and date text - same blue as background */
-#logo-container svg,
-#date-text {
-    color: #FFEE7B !important; /* Same yellow as background */
+/* Enable vertical scrolling on this page */
+html, body {
+    height: auto !important;
+    min-height: 100vh;
+    overflow-y: auto !important;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    --info-bg-color: #9D3B78;
+    --current-bg: #9D3B78;
+    --bg-color-1: #9D3B78;
+    background-color: #9D3B78;
 }
 
 .info-main {
-    padding: 0;
-    margin: 0;
-    color: #000;
+    padding-top: 0;
+    background-color: transparent;
 }
 
-/* Hero section with image and contact side by side */
+/* Hero section with image and info boxes side by side */
 .hero-section {
     position: absolute;
     top: 30px;
     left: 30px;
     right: 30px;
-    z-index: 1; /* Behind header */
+    z-index: 1;
 }
 
 .hero-container {
@@ -53,266 +54,195 @@ body.is-subpage .select-bg {
 
 .hero-image {
     width: 100%;
-    height: 800px;
+    height: 100%;
+    min-height: 820px;
     object-fit: cover;
     display: block;
 }
 
-.hero-image-wrapper {
-    overflow: hidden; /* Hide parts of image that move outside */
-}
-
-.hero-image-wrapper .hero-image {
-    width: 120%; /* Wider to allow horizontal movement */
-    margin-left: 0; /* Start position, will be animated */
-    transition: margin-left 0.1s ease-out;
-}
-
-/* Contact section styles */
-.contact-section {
+.hero-right {
     width: 50%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 0;
+    padding: 20px 0;
+    padding-top: 90px; /* Push emner section down 70px */
 }
 
-.contact-section h2 {
-    background-color: transparent; /* Transparent background */
-    color: #111; /* Black heading text */
-    margin: 0 0 30px 0;
-    padding: 0;
+.hero-title {
+    font-family: "Helvetica", Arial, sans-serif;
+    font-size: 60px;
+    font-weight: 400;
+    letter-spacing: -2px;
+    color: #111;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+
+/* Section title - large heading */
+.section-title {
     font-family: "Helvetica", Arial, sans-serif;
     font-size: 90px;
     font-weight: 400;
-    text-transform: none;
-    letter-spacing: -2px;
+    letter-spacing: -1px;
+    color: #111;
+    margin-bottom: 30px;
 }
 
-.contact-content-wrapper {
-    background: transparent; /* Transparent background */
-    padding: 0;
-}
-
-.contact-grid {
+/* Flexbox for info boxes */
+.info-boxes-grid {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
     align-items: flex-start;
+    margin-left: 0;
 }
 
-.contact-item {
+/* Individual info boxes with colors */
+.info-box {
+    padding: 12px 20px;
+    font-family: "Helvetica", Arial, sans-serif;
+    font-size: 42px;
+    font-weight: 400;
+    letter-spacing: -1px;
+    color: #111;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-align: center;
+    width: auto;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.info-box:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+
+/* Contact boxes inside info section */
+.contact-boxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.contact-box {
     display: inline-flex;
     flex-direction: column;
     gap: 0;
-    padding: 15px 8px 8px 8px; /* 8px margin on sides and bottom */
-    border-radius: 0;
+    padding: 15px 8px 8px 8px;
     width: auto;
     white-space: nowrap;
-    background: #000 !important; /* Black background for all */
+    background: #3B9D86 !important;
+    cursor: pointer;
 }
 
-/* All contact items use the page background color */
-.contact-item {
-    --item-color: #FFEE7B; /* Yellow - same as page background */
-}
-
-
-.contact-item strong {
+.contact-box strong {
     font-family: "Helvetica", Arial, sans-serif;
     font-size: 20px;
     font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 0;
-    color: var(--item-color); /* Colored text on black */
-    margin-bottom: 12px;
-    padding-left: 12px; /* Indent heading */
+    color: #111;
+    margin-bottom: 8px;
+    padding-left: 12px;
 }
 
-.contact-item .email,
-.contact-item .phone {
+.contact-box span {
     display: block;
-    background: var(--item-color); /* Colored background */
-    color: #000; /* Black text */
+    background: #E91E63;
+    color: #111;
     font-family: "Helvetica", Arial, sans-serif;
     font-weight: 400;
     font-size: 22px;
     letter-spacing: -0.5px;
     padding: 14px 20px;
-    margin: 0; /* margin handled by parent padding */
-    cursor: pointer;
-    transition: background 0.2s ease;
-    user-select: all;
-}
-
-.contact-item .email:hover,
-.contact-item .phone:hover {
-    background: #fff; /* White on hover */
-}
-
-.contact-item.full-row {
-    font-family: "Helvetica", Arial, sans-serif;
-}
-
-/* Praktisk section styles */
-.praktisk-section {
-    margin-bottom: 40px;
-    padding: 0 80px 0 30px; /* Right padding to align with info-grid */
-    padding-top: 700px; /* Space for hero section */
-}
-
-.praktisk-section h2 {
-    background-color: transparent;
-    color: #111;
-    margin: 0 0 30px 0;
-    padding: 0;
-    font-family: "Helvetica", Arial, sans-serif;
-    font-size: 90px;
-    font-weight: 400;
-    text-transform: none;
-    letter-spacing: -2px;
-    text-align: right; /* Float heading to the right */
-}
-
-/* Info grid - flexible masonry-like layout */
-.info-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    margin-bottom: 60px;
-    padding: 0 60px 0 40px; /* Right padding to align with Praktisk heading */
-    align-items: start; /* Allow different heights */
-    justify-content: flex-end; /* Float all boxes to the right */
-    width: calc(100vw - 55px); /* Adjusted for asymmetric padding */
-    max-width: 100vw;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-    box-sizing: border-box;
-}
-
-/* Info card wrapper for header + content */
-.info-card {
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.2s ease;
-    height: auto; /* Let height be determined by content */
-}
-
-/* First row: 2 cards (50% each) */
-.info-card:nth-child(1),
-.info-card:nth-child(2) {
-    width: calc(50% - 8px);
-}
-
-/* Remaining rows: 3 cards (33.33% each) */
-.info-card:nth-child(n+3) {
-    width: calc(33.33% - 10px);
-}
-
-.info-card:hover {
-    transform: translateY(-5px);
-}
-
-/* Card header - inside the box with background color */
-.info-card h2 {
-    font-family: "Helvetica", Arial, sans-serif;
-    font-size: 1.75rem;
-    font-weight: 400;
-    text-transform: uppercase;
-    letter-spacing: -1px;
     margin: 0;
-    padding: 25px 35px 0 35px; /* Align with info-content text */
-    color: #000; /* Black heading text */
+    user-select: all;
+    transition: background 0.2s ease;
 }
 
-/* Content box with image and text */
-.info-card-content-wrapper {
-    border: none;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    height: auto; /* No fixed height - adapts to content */
+.contact-box:hover span,
+.contact-box.clicked span {
+    background: #fff;
 }
 
-/* Image card styles - varied heights based on card width */
-.info-card-image {
-    width: calc(100% - 20px); /* Smaller margins */
+/* First info section needs extra padding for hero */
+.info-section:first-child {
+    padding-top: 880px; /* Space for hero section (820px + 60px) */
+}
+
+/* Info section - individual full-width sections */
+.info-section {
+    padding: 80px 30px;
+    position: relative;
+    z-index: 10;
+}
+
+.info-section-inner {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.info-header {
+    font-family: "Helvetica", Arial, sans-serif;
+    font-size: 55px;
+    font-weight: 400;
+    letter-spacing: -2px;
+    color: #111;
+    margin-bottom: 30px;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+.info-image {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    max-height: 400px;
     object-fit: cover;
-    display: block;
-    margin: 15px 10px 0 10px; /* More top margin for space below heading */
+    margin-bottom: 30px;
 }
 
-/* Different image heights for different card sizes */
-.info-card:nth-child(1) .info-card-image { height: 450px; } /* Tid & Sted - larger */
-.info-card:nth-child(2) .info-card-image {
-    height: 480px; /* Transport - bigger */
-}
-.info-card:nth-child(3) .info-card-image { height: 280px; } /* Camping - smaller */
-.info-card:nth-child(4) .info-card-image { height: 500px; } /* Mad & Drikke - larger */
-.info-card:nth-child(5) .info-card-image { height: 350px; } /* Regler */
-.info-card:nth-child(6) .info-card-image { height: 350px; } /* Lydregler */
-.info-card:nth-child(7) .info-card-image { height: 380px; } /* Strøm */
-.info-card:nth-child(8) .info-card-image { height: 420px; } /* Tilgængelighed */
-.info-card:nth-child(9) .info-card-image { height: 400px; } /* Børn */
-.info-card:nth-child(10) .info-card-image { height: 400px; } /* Miljø */
-
-.info-content {
-    padding: 20px 35px;
-    font-size: 0.95rem;
+.info-description {
+    font-family: "Helvetica", Arial, sans-serif;
+    font-size: 18px;
+    font-weight: 400;
     line-height: 1.6;
+    color: #111;
 }
 
-.info-content p {
-    margin-bottom: 15px;
-}
-
-.info-content ul {
-    margin-left: 20px;
-    margin-bottom: 15px;
-}
-
-.info-content ul li {
-    margin-bottom: 8px;
-}
-
-.info-content strong {
-    font-weight: 700;
-    color: #000;
-}
-
-.info-content h3 {
-    font-size: 1.1rem;
-    font-weight: 700;
-    margin-top: 15px;
+.info-description h3 {
+    font-size: 24px;
+    font-weight: 400;
+    margin-top: 25px;
     margin-bottom: 10px;
 }
 
-.info-note {
-    background-color: #FFF5ED; /* Very light peach for note background */
-    padding: 10px 15px;
-    border-left: 4px solid #C46920;
-    margin: 20px 0;
-    font-style: italic;
+.info-description p {
+    margin-bottom: 15px;
 }
 
-.info-content a {
-    color: #000;
-    font-weight: 700;
+.info-description ul {
+    margin-bottom: 15px;
+    padding-left: 20px;
+}
+
+.info-description li {
+    margin-bottom: 8px;
+}
+
+.info-description a {
+    color: #111;
     text-decoration: underline;
-    text-decoration-thickness: 2px;
-    transition: opacity 0.2s ease;
-}
-
-.info-content a:hover {
-    opacity: 0.7;
-    text-decoration-thickness: 3px;
 }
 
 /* Map container */
 .map-container {
     margin-top: 20px;
-    border: 2px solid #000;
+    border-radius: 0;
     overflow: hidden;
 }
 
@@ -320,146 +250,104 @@ body.is-subpage .select-bg {
     display: block;
 }
 
-/* Different colors for each info card - vibrant colors inspired by volunteer page */
-.info-card:nth-child(1) .info-card-content-wrapper { background: #FFA726; } /* Orange */
-.info-card:nth-child(2) .info-card-content-wrapper { background: #CC3F4C; } /* Red */
-.info-card:nth-child(3) .info-card-content-wrapper { background: #FFB6C1; } /* Pink */
-.info-card:nth-child(4) .info-card-content-wrapper { background: #87CEEB; } /* Sky Blue */
-.info-card:nth-child(5) .info-card-content-wrapper { background: #FFEB3B; } /* Bright Yellow */
-.info-card:nth-child(6) .info-card-content-wrapper { background: #E06E59; } /* Orange-Red */
-.info-card:nth-child(7) .info-card-content-wrapper { background: #90EE90; } /* Light Green */
-.info-card:nth-child(8) .info-card-content-wrapper { background: #FF8A65; } /* Coral */
-.info-card:nth-child(9) .info-card-content-wrapper { background: #F5A0E2; } /* Pink */
-.info-card:nth-child(10) .info-card-content-wrapper { background: #4DD0E1; } /* Cyan */
-.info-card:nth-child(11) .info-card-content-wrapper { background: #AED581; } /* Light Green */
-
-/* Footer section */
-.info-footer {
-    text-align: center;
-    padding: 40px 20px;
-    border-top: 2px solid #C46920;
-    margin-top: 60px;
+/* Menu styling */
+.menu-container {
+    position: sticky !important;
+    top: 20px !important;
+    z-index: 1000 !important;
+    margin-top: -82px !important;
+    background-color: transparent !important;
+    width: fit-content !important;
+    margin-left: auto !important;
 }
 
-.info-footer p {
-    font-size: 1.125rem;
-    margin-bottom: 15px;
+body.is-subpage .select-bg {
+    background-color: var(--current-bg, #9D3B78) !important;
 }
 
-.info-footer a {
-    color: #000;
-    font-weight: 700;
-    text-decoration: underline;
-    text-decoration-thickness: 2px;
+.select-display {
+    background-color: var(--current-bg, #9D3B78) !important;
 }
 
-.info-footer a:hover {
-    text-decoration-thickness: 3px;
+/* Logo and date text */
+#logo-container svg,
+#date-text {
+    color: #9D3B78 !important;
+    transition: color 0.3s ease;
 }
 
-/* Responsive Design */
-@media (max-width: 1024px) {
-    .info-grid {
-        padding: 0 10px;
+/* Responsive design */
+@media (min-width: 1200px) {
+    .hero-text {
+        margin-right: 60px;
     }
 
-    /* Adjust widths for tablet */
-    .info-card:nth-child(1) { width: calc(50% - 8px); }
-    .info-card:nth-child(2) { width: calc(50% - 8px); }
-    .info-card:nth-child(3) { width: calc(45% - 8px); }
-    .info-card:nth-child(4) { width: calc(55% - 8px); }
-    .info-card:nth-child(5) { width: calc(48% - 8px); }
-    .info-card:nth-child(6) { width: calc(52% - 8px); }
-    .info-card:nth-child(7) { width: calc(50% - 8px); }
-    .info-card:nth-child(8) { width: calc(50% - 8px); }
-    .info-card:nth-child(9) { width: calc(50% - 8px); }
-    .info-card:nth-child(10) { width: calc(50% - 8px); }
+    .info-boxes-section,
+    .contact-section {
+        margin-left: 60px;
+    }
+}
+
+@media (min-width: 1600px) {
+    .hero-text {
+        margin-right: 100px;
+        max-width: 800px;
+    }
+
+    .info-boxes-section,
+    .contact-section {
+        margin-left: 100px;
+        max-width: 800px;
+    }
 }
 
 @media (max-width: 768px) {
-    .info-main {
-        padding: 70px 15px 30px;
+    .hero-text {
+        font-size: 36px;
+        padding-top: 320px;
+        padding-right: 20px;
     }
 
-    .info-grid {
-        gap: 10px;
-        padding: 0 5px;
+    .section-title {
+        font-size: 48px;
     }
 
-    /* Full width on mobile */
-    .info-card {
-        width: 100% !important;
+    .info-box {
+        font-size: 24px;
+        padding: 10px 16px;
     }
 
+    .info-header {
+        font-size: 36px;
+    }
+
+    .hero-section {
+        top: 15px;
+        left: 15px;
+        right: 15px;
+    }
+
+    .hero-image {
+        max-height: 350px;
+    }
+
+    .info-boxes-section,
     .contact-section {
-        padding: 0 15px; /* Smaller padding on mobile */
+        padding: 30px 15px;
+        margin-left: 15px;
     }
 
-    .contact-section h2 {
-        font-size: 32px;
-        letter-spacing: -1px;
-    }
-
-    .contact-content-wrapper {
-        max-width: 100%; /* Full width on mobile */
-    }
-
-    .contact-grid {
-        gap: 8px;
-    }
-
-    .contact-item {
-        font-size: 16px;
-        padding: 10px 18px;
+    .info-section {
+        padding: 50px 15px;
     }
 
     .contact-item strong {
-        font-size: 14px;
-    }
-
-    .contact-item a {
         font-size: 16px;
     }
 
-    .praktisk-section {
-        padding: 0 15px; /* Smaller padding on mobile */
-    }
-
-    .praktisk-section h2 {
-        font-size: 32px;
-        letter-spacing: -1px;
-        text-align: right; /* Keep right alignment on mobile */
-    }
-
-    .info-card h2 {
-        font-size: 1.5rem;
-    }
-
-    .info-content {
-        font-size: 0.9rem;
-        padding: 15px;
-    }
-
-    .info-card-image {
-        height: 350px !important; /* Taller images on mobile to show more content */
-    }
-
-    .info-footer {
-        padding: 30px 15px;
-    }
-}
-
-/* Print styles */
-@media print {
-    .info-card {
-        page-break-inside: avoid;
-    }
-
-    .info-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .info-card-image {
-        display: none;
+    .contact-item .email,
+    .contact-item .phone {
+        font-size: 18px;
+        padding: 10px 15px;
     }
 }
