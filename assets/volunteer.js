@@ -43,58 +43,21 @@ function generateRoleBoxes(roles) {
     });
 }
 
-// Generate role sections with content
+// Generate role sections with content using shared SectionComponent
 function generateRoleSections(roles) {
     const container = document.getElementById('role-sections-container');
 
     roles.forEach(role => {
-        const section = document.createElement('section');
-        section.id = role.id;
-        section.className = 'role-section';
-        section.setAttribute('data-color', role.color);
-
-        // Header - now outside the content box
-        const header = document.createElement('h2');
-        header.className = 'role-header';
-        header.textContent = role.name;
-        section.appendChild(header); // Append to section, not contentBox
-
-        const contentBox = document.createElement('div');
-        contentBox.className = 'role-content-box';
-
-        // Image
-        const img = document.createElement('img');
-        img.src = role.image;
-        img.alt = role.name;
-        img.className = 'role-image';
-
-        // Apply crop position if specified (as percentage from top)
-        if (role.crop !== undefined) {
-            img.style.objectPosition = `center ${role.crop}%`;
-        }
-
-        contentBox.appendChild(img);
-
-        // Description
-        const descDiv = document.createElement('div');
-        descDiv.className = 'role-description';
-
-        role.description.forEach(paragraph => {
-            const p = document.createElement('p');
-            p.innerHTML = paragraph; // Using innerHTML to preserve <strong> tags
-            descDiv.appendChild(p);
+        SectionComponent.create({
+            id: role.id,
+            title: role.name,
+            image: role.image,
+            imageCrop: role.crop,
+            content: role.description,
+            buttonText: role.buttonText,
+            color: role.color,
+            container: container
         });
-
-        contentBox.appendChild(descDiv);
-
-        // Button
-        const button = document.createElement('button');
-        button.className = 'role-button';
-        button.textContent = role.buttonText;
-        contentBox.appendChild(button);
-
-        section.appendChild(contentBox);
-        container.appendChild(section);
     });
 }
 
@@ -218,35 +181,21 @@ function initializeColorTransitions() {
             document.documentElement.style.setProperty('--current-bg', bgColor);
         } catch (err) {}
 
-        // Update all role headers to black (page-specific)
-        const roleHeaders = document.querySelectorAll('.role-header');
-        roleHeaders.forEach(header => {
+        // Update all section headers to black (page-specific)
+        const sectionHeaders = document.querySelectorAll('.content-section-header');
+        sectionHeaders.forEach(header => {
             header.style.color = '#111'; // Always black
         });
 
-        // Update all role buttons with black background and colored text (page-specific)
-        const roleButtons = document.querySelectorAll('.role-button');
-
-        roleButtons.forEach(button => {
-            button.style.backgroundColor = '#111'; // Black background
-            button.style.color = bgColor; // Text color matches page background
-            button.style.fontWeight = '400'; // Regular text
-
-            // Remove existing hover listeners to avoid duplicates
-            button.onmouseenter = function() {
-                this.style.backgroundColor = '#333'; // Slightly lighter black on hover
-            };
-            button.onmouseleave = function() {
-                this.style.backgroundColor = '#111'; // Back to black
-            };
-        });
+        // Update all section buttons with black background and colored text
+        SectionComponent.updateButtonStyles(bgColor);
     }
 
     // Update colors on scroll
     function updateBackgroundColor() {
         // Get current sections
         if (sections.length === 0) {
-            sections = document.querySelectorAll('.role-section');
+            sections = document.querySelectorAll('.content-section');
             if (sections.length === 0) return;
         }
 
@@ -328,7 +277,7 @@ function initializeColorTransitions() {
 
     // Wait for sections to be generated then set up scroll listener
     setTimeout(() => {
-        sections = document.querySelectorAll('.role-section');
+        sections = document.querySelectorAll('.content-section');
         console.log('Found sections:', sections.length);
 
         // Initial update

@@ -49,61 +49,69 @@ function setupDynamicFooterColors() {
     const footer = document.querySelector('.site-footer');
     if (!footer) return;
 
-    function hexToRgb(hex) {
-        const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-        return result ? {
-            r: parseInt(result[1], 16),
-            g: parseInt(result[2], 16),
-            b: parseInt(result[3], 16)
-        } : null;
+    let lastColor = '';
+    let isFooterVisible = false;
+
+    // Helper to check if color is "empty" (white, transparent, or unset)
+    function isEmptyColor(color) {
+        if (!color) return true;
+        const c = color.replace(/\s/g, '').toLowerCase();
+        return c === '' ||
+            c === 'transparent' ||
+            c === 'rgba(0,0,0,0)' ||
+            c === 'rgb(255,255,255)' ||
+            c === 'rgb(242,242,242)' ||
+            c === 'white';
     }
 
-    function rgbToHex(r, g, b) {
-        return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
-    }
-
-    function darkenColor(color, amount = 0.3) {
-        let rgb;
-
-        if (color.startsWith('#')) {
-            rgb = hexToRgb(color);
-        } else if (color.startsWith('rgb')) {
-            const values = color.match(/\d+/g);
-            rgb = {
-                r: parseInt(values[0]),
-                g: parseInt(values[1]),
-                b: parseInt(values[2])
-            };
-        } else {
-            return color;
-        }
-
-        if (!rgb) return color;
-
-        const r = Math.round(rgb.r * (1 - amount));
-        const g = Math.round(rgb.g * (1 - amount));
-        const b = Math.round(rgb.b * (1 - amount));
-
-        return rgbToHex(r, g, b);
+    // Check if footer is in viewport
+    function isFooterInViewport() {
+        const rect = footer.getBoundingClientRect();
+        return rect.top < window.innerHeight && rect.bottom > 0;
     }
 
     function updateFooterColor() {
+        // Only update if footer is visible
+        if (!isFooterInViewport()) {
+            isFooterVisible = false;
+            return;
+        }
+
+        // If footer just became visible, force color check
+        if (!isFooterVisible) {
+            isFooterVisible = true;
+            lastColor = ''; // Force update
+        }
+
         let bgColor;
 
-        const currentBgVar = getComputedStyle(document.documentElement).getPropertyValue('--current-bg').trim();
-        if (currentBgVar) {
-            bgColor = currentBgVar;
-        } else {
+        // Get current body background color - prefer inline style over computed
+        bgColor = document.body.style.backgroundColor;
+
+        // If no inline style, get computed style
+        if (!bgColor) {
             bgColor = window.getComputedStyle(document.body).backgroundColor;
         }
 
-        if (bgColor === 'transparent' || bgColor === 'rgba(0, 0, 0, 0)') {
-            bgColor = '#ffffff';
+        // If body background is empty, use CSS variable as fallback
+        if (isEmptyColor(bgColor)) {
+            const cssVar = getComputedStyle(document.documentElement).getPropertyValue('--current-bg').trim();
+            if (!isEmptyColor(cssVar)) {
+                bgColor = cssVar;
+            } else {
+                // Default to white if no color found
+                bgColor = '#ffffff';
+            }
         }
 
-        const textColor = darkenColor(bgColor, 0.4);
-        footer.style.color = textColor;
+        // Skip if color hasn't changed
+        if (bgColor === lastColor) return;
+        lastColor = bgColor;
 
+        // Keep text black always
+        footer.style.color = 'black';
+
+        // Update logo to match background color
         const svgElement = footer.querySelector('svg');
         if (svgElement) {
             svgElement.style.fill = bgColor;
@@ -114,16 +122,59 @@ function setupDynamicFooterColors() {
                 }
             });
         }
+
+        // Update button text color to match background
+        const buyTicketBtn = footer.querySelector('.footer-buy-ticket-btn');
+        if (buyTicketBtn) {
+            buyTicketBtn.style.color = bgColor;
+        }
     }
 
+    // Use MutationObserver to watch for style changes on body
+    const observer = new MutationObserver(() => {
+        updateFooterColor();
+    });
+
+    observer.observe(document.body, {
+        attributes: true,
+        attributeFilter: ['style', 'class']
+    });
+
+    // Also observe document.documentElement for CSS variable changes
+    observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['style']
+    });
+
+    // Update on scroll (simpler than polling)
+    window.addEventListener('scroll', () => {
+        if (isFooterInViewport()) {
+            updateFooterColor();
+        }
+    });
+
+    // Also update on window resize
+    window.addEventListener('resize', () => {
+        if (isFooterInViewport()) {
+            updateFooterColor();
+        }
+    });
+
+    // Initial color update
     updateFooterColor();
 
-    const observer = new MutationObserver(updateFooterColor);
-    observer.observe(document.body, { attributes: true, attributeFilter: ['style'] });
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['style'] });
+    // Use IntersectionObserver to detect when footer enters viewport
+    const intersectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Footer just entered viewport - force immediate color update
+                lastColor = ''; // Reset to force update
+                updateFooterColor();
+            }
+        });
+    }, {
+        threshold: 0.1 // Trigger when 10% of footer is visible
+    });
 
-    window.addEventListener('scroll', updateFooterColor);
-    window.addEventListener('resize', updateFooterColor);
-
-    setInterval(updateFooterColor, 100);
+    intersectionObserver.observe(footer);
 }
