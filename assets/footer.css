@@ -1,0 +1,192 @@
+.site-footer {
+    background-color: transparent;
+    padding: 60px 40px 40px;
+    font-family: 'Helvetica', Arial, sans-serif;
+    color: currentColor;
+    position: relative;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1600px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.footer-left,
+.footer-right {
+    flex: 1;
+}
+
+.footer-left {
+    text-align: right;
+    padding-right: 80px;
+}
+
+.footer-center {
+    flex: 0 0 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 40px;
+}
+
+.footer-right {
+    text-align: left;
+    padding-left: 80px;
+}
+
+.contact-info {
+    color: currentColor;
+}
+
+.contact-info p {
+    margin: 8px 0;
+    font-size: 18px;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+}
+
+.contact-info .phone-info {
+    margin-top: 30px;
+    font-size: 20px;
+}
+
+.contact-info .contact-name {
+    font-size: 20px;
+}
+
+.logo-gallery-container {
+    position: relative;
+    width: 350px;
+    height: 350px;
+}
+
+.gallery-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 0;
+}
+
+.gallery-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    display: none;
+}
+
+.gallery-image.active {
+    opacity: 1;
+    display: block;
+}
+
+.footer-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    width: 250px;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-logo svg {
+    width: 100%;
+    height: auto;
+    fill: currentColor;
+}
+
+.festival-info {
+    color: currentColor;
+}
+
+.festival-dates {
+    font-size: 36px;
+    font-weight: 500;
+    margin: 0 0 15px 0;
+    letter-spacing: 1px;
+}
+
+.location,
+.postal {
+    font-size: 20px;
+    font-weight: 300;
+    margin: 8px 0;
+    letter-spacing: 0.5px;
+}
+
+.social-links {
+    margin-top: 30px;
+}
+
+.social-links a {
+    display: block;
+    color: currentColor;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 400;
+    margin: 10px 0;
+    letter-spacing: 1px;
+    transition: opacity 0.3s ease;
+}
+
+.social-links a:hover {
+    opacity: 0.7;
+}
+
+@media (max-width: 1024px) {
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 40px;
+    }
+
+    .footer-left,
+    .footer-right {
+        width: 100%;
+        text-align: center;
+        padding: 0;
+    }
+
+    .footer-center {
+        margin: 30px 0;
+    }
+
+    .social-links a {
+        display: inline-block;
+        margin: 10px 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .site-footer {
+        padding: 40px 20px;
+    }
+
+    .festival-dates {
+        font-size: 28px;
+    }
+
+    .logo-gallery-container {
+        width: 280px;
+        height: 280px;
+    }
+
+    .footer-logo {
+        width: 200px;
+        height: 200px;
+    }
+}
