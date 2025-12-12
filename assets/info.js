@@ -113,19 +113,15 @@ function initializeColorTransitions() {
         return `rgb(${r}, ${g}, ${b})`;
     }
 
-    // Update header colors based on background
+    // Update page-specific elements based on background color
+    // Header elements (logo, date, menu) are handled by header-universal.js via CSS variable
     function updateHeaderColorForBackground(bgColor) {
-        const logo = document.querySelector('#logo-inner');
-        const dateText = document.querySelector('#date-text');
-        const selectBg = document.querySelector('.select-bg');
-        const selectDisplay = document.querySelector('.select-display');
+        // Set CSS variable so header-universal.js can pick it up
+        try {
+            document.documentElement.style.setProperty('--current-bg', bgColor);
+        } catch (err) {}
 
-        if (logo) logo.style.color = bgColor;
-        if (dateText) dateText.style.color = bgColor;
-        if (selectBg) selectBg.style.backgroundColor = bgColor;
-        if (selectDisplay) selectDisplay.style.backgroundColor = bgColor;
-
-        // Update contact item colors
+        // Update contact item colors (page-specific)
         const contactItems = document.querySelectorAll('.contact-item');
         contactItems.forEach(item => {
             item.style.setProperty('--item-color', bgColor);

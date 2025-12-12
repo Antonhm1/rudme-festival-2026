@@ -10,82 +10,7 @@ html, body {
     background-color: #EFD0FF !important;
 }
 
-/* Override header colors for tickets page */
-body {
-    --header-color: #EFD0FF;
-    --bg-color-1: #EFD0FF;
-    --current-bg: #EFD0FF;
-}
-
-.logo svg {
-    color: #EFD0FF !important;
-}
-
-.date-text {
-    color: #EFD0FF !important;
-}
-
-/* Force ALL select elements to be purple - use body class for specificity */
-body.is-subpage select,
-body select,
-select {
-    color: #9D4DF0 !important;
-    border: 1px solid #9D4DF0 !important;
-    background-color: white !important;
-    -webkit-appearance: none !important;
-    -moz-appearance: none !important;
-    appearance: none !important;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239D4DF0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e") !important;
-    background-repeat: no-repeat !important;
-    background-position: right 10px center !important;
-    background-size: 20px !important;
-    padding-right: 40px !important;
-}
-
-/* Override styles.css that might be setting black text */
-body.is-subpage .nav-select,
-body.is-subpage select.fallback {
-    color: #9D4DF0 !important;
-}
-
-/* Style the option elements */
-select option {
-    color: #9D4DF0 !important;
-    background-color: white !important;
-}
-
-/* Style the select background to be light purple like on other pages */
-.select-bg {
-    background-color: #EFD0FF !important;
-    border: none !important;
-}
-
-/* Keep menu container text black like other pages and make it sticky */
-.menu-container {
-    color: #000 !important;
-    position: sticky !important;
-    top: 20px !important; /* Stick 20px from top when scrolling */
-    z-index: 2000 !important; /* Higher z-index to ensure it stays above everything */
-    margin-top: -82px !important; /* Move up to align with date text */
-}
-
-/* Ensure the arrow and text are visible */
-.custom-dropdown .dropdown-trigger,
-.nav-select,
-select.fallback,
-select.nav-select {
-    color: #9D4DF0 !important;
-    border-color: #9D4DF0 !important;
-}
-
-.custom-dropdown .dropdown-menu {
-    border-color: #9D4DF0 !important;
-}
-
-.custom-dropdown .dropdown-menu a:hover {
-    background-color: #9D4DF0 !important;
-    color: white !important;
-}
+/* Header colors are now managed dynamically by header-universal.js */
 
 .tickets-main {
     padding-top: 0; /* No padding, image goes to top like volunteer page */
@@ -110,32 +35,32 @@ select.nav-select {
     height: auto;
     max-height: 600px;
     object-fit: cover;
+    object-position: top; /* Show more of the top of the image */
     display: block;
 }
 
 /* Scrolling banner */
 .scrolling-banner {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 140px;
+    position: relative;
+    margin-top: 475px; /* Position below max-height of image + spacing */
+    width: 100%; /* Account for side margins */
+    height: auto;
     overflow: hidden;
     display: flex;
     align-items: center;
-    background-color: #9D4DF0;
-    z-index: 1000; /* High z-index to stay above all content */
+    background-color: transparent; /* Transparent background */
+    z-index: 10;
 }
 
 .scrolling-text {
     display: flex;
     white-space: nowrap;
-    animation: scroll 30s linear infinite;
+    animation: scroll 50s linear infinite;
 }
 
 .scrolling-text span {
     font-family: "Helvetica", Arial, sans-serif;
-    font-size: 120px;
+    font-size: 100px;
     font-weight: 400;
     letter-spacing: -4px;
     color: #111;
@@ -164,9 +89,9 @@ select.nav-select {
     width: 100%;
     max-width: 1400px;
     text-align: left;
-    padding: 60px 60px 180px 60px; /* Extra bottom padding for fixed banner */
+    padding: 60px 60px 60px 60px; /* Regular padding since banner is not fixed */
     margin-right: auto;
-    margin-top: 480px; /* Move up a bit */
+    margin-top: 0px; /* Reduced space after the scrolling banner */
 }
 
 .newsletter-heading {
@@ -287,6 +212,10 @@ select.nav-select {
 
     .scrolling-banner {
         height: 80px;
+        margin-top: calc(300px + 30px); /* Position below max-height of mobile image + spacing */
+        margin-left: 15px;
+        margin-right: 15px;
+        width: calc(100% - 30px); /* Account for side margins on mobile */
     }
 
     .scrolling-text span {
@@ -301,8 +230,8 @@ select.nav-select {
     }
 
     .newsletter-section {
-        padding: 40px 30px 100px 30px; /* Less bottom padding on mobile */
-        margin-top: 200px; /* Move up more on mobile */
+        padding: 40px 30px 40px 30px; /* Regular padding on mobile */
+        margin-top: 20px; /* Reduced space after scrolling banner on mobile */
     }
 
     .newsletter-heading {

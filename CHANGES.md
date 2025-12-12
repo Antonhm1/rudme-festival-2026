@@ -1,5 +1,52 @@
 # Project Changes Log
 
+## 2025-12-12: Program Page UI Updates
+
+### Overview
+Updated the program page with responsive background colors, sticky menu behavior, and improved artist box interactions.
+
+### Changes Made
+
+#### 1. Background Color System
+**Desktop (> 600px):**
+- Static white background
+- Black logo, date text, and menu text
+- No scroll-based color changes
+
+**Mobile (≤ 600px):**
+- Dynamic background colors based on scroll position
+- Background changes when scrolling past artist boxes
+- Smooth color transitions between sections
+
+#### 2. Sticky Menu Implementation
+**Behavior:**
+- Menu starts at 75px from top (aligned with date text)
+- Becomes sticky at 20px from top when scrolling
+- Returns to original position when scrolling up
+- Menu text always black on program page
+
+#### 3. Artist Box Click Interaction
+**Functionality:**
+- Click on artist box to auto-scroll to next item
+- Smooth scroll animation
+- Cycles through all items (loops back to first after last)
+- Doesn't trigger on scrollbar clicks
+
+### Technical Implementation
+- **Files Modified**:
+  - `assets/program.js` - Conditional color system, click handlers
+  - `assets/program.css` - Sticky menu styles, black text enforcement
+- **Responsive Design**: Media query at 600px breakpoint
+- **JavaScript Functions**:
+  - `initializeProgramPage()` - Sets colors based on viewport
+  - `initializeScrollColorSystem()` - Mobile-only color transitions
+  - `initializeMenuSticky()` - Scroll-based menu positioning
+
+### Result
+Clean, modern program page with desktop/mobile-specific behaviors. Desktop users get a static, professional white background while mobile users enjoy dynamic color transitions. The sticky menu ensures navigation is always accessible, and click interactions provide intuitive content browsing.
+
+---
+
 ## 2025-12-12: Info Page Complete Redesign with Volunteer-Style Layout
 
 ### Overview

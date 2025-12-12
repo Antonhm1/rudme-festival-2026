@@ -5,22 +5,10 @@ html, body {
     min-height: 100vh;
     overflow-y: auto !important;
     overflow: visible !important;
+    /* Background color is set dynamically from artists.json via JavaScript */
 }
 
-/* Menu starts at default position, then becomes sticky on scroll */
-.menu-container {
-    position: absolute;
-    top: 75px;
-    right: 8px;
-    z-index: 1200;
-    transition: none;
-}
-
-/* Ensure menu text is always black on program page */
-.select-display,
-.select-options li {
-    color: black !important;
-}
+/* Header colors are now managed dynamically by header-universal.js */
 
 /* Vertical scrollbar styling for program page:
    - wider rectangular thumb (no rounded corners)
@@ -76,6 +64,11 @@ html:not(.show-vertical-scrollbar) { scrollbar-color: transparent transparent; }
     gap: 22px; /* fixed gap between columns */
     align-items: start;
     justify-content: center; /* keep the two columns centered on large viewports */
+}
+
+/* Offset right column to start halfway down the left column */
+.artist-box:nth-child(even) {
+    transform: translateY(50%);
 }
 
 .artist-box {
@@ -255,6 +248,11 @@ html:not(.show-vertical-scrollbar) { scrollbar-color: transparent transparent; }
     .artist-grid {
         grid-template-columns: 1fr;
         gap: 18px; /* slightly tighter gap on mobile */
+    }
+
+    /* Remove offset on mobile/tablet where we have single column */
+    .artist-box:nth-child(even) {
+        transform: none;
     }
 
 }

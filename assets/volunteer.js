@@ -6,9 +6,8 @@ document.addEventListener('DOMContentLoaded', async function() {
     await loadPosterData();
     initializeRoleNavigation();
     initializeColorTransitions();
-    setInitialHeaderColor();
-    initializeStickyMenu();
     initializePosterScroll();
+    // Note: Header color and sticky behavior are now handled by header-universal.js
 });
 
 // Load volunteer data from JSON and generate page content
@@ -16,6 +15,12 @@ async function loadVolunteerData() {
     try {
         const response = await fetch('assets/volunteers.json');
         const data = await response.json();
+
+        // Set initial background color from first role immediately
+        if (data.roles && data.roles.length > 0 && data.roles[0].color) {
+            document.body.style.backgroundColor = data.roles[0].color;
+            document.documentElement.style.setProperty('--current-bg', data.roles[0].color);
+        }
 
         generateRoleBoxes(data.roles);
         generateRoleSections(data.roles);
@@ -121,35 +126,8 @@ function scrollToRole(roleId) {
     }
 }
 
-// Set initial header color to match first role section (frivillig - green)
-function setInitialHeaderColor() {
-    const initialColor = '#90EE90'; // Green color from frivillig role
-
-    // Wait for header to be injected
-    setTimeout(() => {
-        const logo = document.querySelector('#logo-inner');
-        const dateText = document.querySelector('#date-text');
-        const selectDisplay = document.querySelector('.select-display');
-        const selectBg = document.querySelector('.select-bg');
-        const menuContainer = document.querySelector('.menu-container');
-
-        if (logo) logo.style.color = initialColor;
-        if (dateText) dateText.style.color = initialColor;
-        if (selectDisplay) {
-            selectDisplay.style.color = '#111';
-            selectDisplay.style.backgroundColor = initialColor;
-        }
-        if (selectBg) {
-            selectBg.style.backgroundColor = initialColor;
-        }
-        if (menuContainer) {
-            menuContainer.style.backgroundColor = initialColor;
-        }
-
-        // Update page background to green
-        document.body.style.backgroundColor = initialColor;
-    }, 100);
-}
+// Initial header color is now set via initializeColorTransitions
+// Header sticky behavior is managed by header-universal.js
 
 // Initialize gradual color transitions on scroll
 function initializeColorTransitions() {
@@ -232,35 +210,21 @@ function initializeColorTransitions() {
         return hex2rgb(color);
     }
 
-    // Update header colors based on background
+    // Update page-specific elements based on background color
+    // Header elements (logo, date, menu) are handled by header-universal.js via CSS variable
     function updateHeaderColorForBackground(bgColor) {
-        const logo = document.querySelector('#logo-inner');
-        const dateText = document.querySelector('#date-text');
-        const selectBg = document.querySelector('.select-bg');
-        const selectDisplay = document.querySelector('.select-display');
-        const menuContainer = document.querySelector('.menu-container');
+        // Set CSS variable so header-universal.js can pick it up
+        try {
+            document.documentElement.style.setProperty('--current-bg', bgColor);
+        } catch (err) {}
 
-        if (logo) logo.style.color = bgColor;
-        if (dateText) dateText.style.color = bgColor;
-        if (selectBg) selectBg.style.backgroundColor = bgColor;
-
-        // Update select display background to match current page background
-        if (selectDisplay) {
-            selectDisplay.style.backgroundColor = bgColor;
-        }
-
-        // Update menu container background to match current page background
-        if (menuContainer) {
-            menuContainer.style.backgroundColor = bgColor;
-        }
-
-        // Update all role headers to black
+        // Update all role headers to black (page-specific)
         const roleHeaders = document.querySelectorAll('.role-header');
         roleHeaders.forEach(header => {
             header.style.color = '#111'; // Always black
         });
 
-        // Update all role buttons with black background and colored text
+        // Update all role buttons with black background and colored text (page-specific)
         const roleButtons = document.querySelectorAll('.role-button');
 
         roleButtons.forEach(button => {
@@ -375,43 +339,7 @@ function initializeColorTransitions() {
     }, 500); // Increased timeout to ensure sections are fully loaded
 }
 
-// Initialize sticky menu behavior
-function initializeStickyMenu() {
-    const menu = document.querySelector('.menu-container');
-    if (!menu) return;
-
-    // Calculate when menu should stick (when it would scroll past 20px from top)
-    const stickyPoint = 55; // 75px initial position - 20px final position
-
-    function handleScroll() {
-        const scrollY = window.scrollY;
-
-        if (scrollY > stickyPoint) {
-            // Add fixed class when scrolled past sticky point
-            menu.classList.add('menu-fixed');
-        } else {
-            // Remove fixed class when scrolled back up
-            menu.classList.remove('menu-fixed');
-        }
-    }
-
-    // Listen for scroll with throttling
-    let ticking = false;
-    function requestTick() {
-        if (!ticking) {
-            requestAnimationFrame(() => {
-                handleScroll();
-                ticking = false;
-            });
-            ticking = true;
-        }
-    }
-
-    window.addEventListener('scroll', requestTick);
-
-    // Check initial state
-    handleScroll();
-}
+// Sticky menu behavior is now handled by header-universal.js
 
 // Load poster data from JSON and generate poster boxes
 async function loadPosterData() {
