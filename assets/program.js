@@ -1,44 +1,81 @@
 /* assets/program.js — program page specific JS: per-box custom scrollbars */
 
-// Initialize program page with white background and black text
+// Initialize program page with different behavior for desktop/mobile
 function initializeProgramPage() {
     try {
-        // Set initial white background and black header elements
-        document.body.style.background = 'white';
-        document.documentElement.style.setProperty('--current-bg', 'white');
-        document.documentElement.style.setProperty('--select-hover-bg', '#f0f0f0'); // Light gray hover for initial state
+        const isMobile = window.matchMedia('(max-width: 600px)').matches;
 
-        const logoContainer = document.getElementById('logo-container');
-        const dateText = document.getElementById('date-text');
-        const selectDisplay = document.getElementById('select-display');
-        const selectOptions = document.getElementById('select-options');
-        const selectItems = document.querySelectorAll('.select-options li');
-        const selectBg = document.querySelector('.select-bg');
+        if (isMobile) {
+            // Mobile: white background initially, will change with scroll
+            document.body.style.background = 'white';
+            document.documentElement.style.setProperty('--current-bg', 'white');
+            document.documentElement.style.setProperty('--select-hover-bg', '#f0f0f0');
 
-        if (logoContainer) logoContainer.style.color = 'black';
-        if (dateText) dateText.style.color = 'black';
+            const logoContainer = document.getElementById('logo-container');
+            const dateText = document.getElementById('date-text');
+            const selectDisplay = document.getElementById('select-display');
+            const selectOptions = document.getElementById('select-options');
+            const selectItems = document.querySelectorAll('.select-options li');
+            const selectBg = document.querySelector('.select-bg');
 
-        if (selectDisplay) {
-            selectDisplay.style.backgroundColor = 'transparent';
-            selectDisplay.style.color = 'black';
+            if (logoContainer) logoContainer.style.color = 'black';
+            if (dateText) dateText.style.color = 'black';
+
+            if (selectDisplay) {
+                selectDisplay.style.backgroundColor = 'transparent';
+                selectDisplay.style.color = 'black';
+            }
+
+            if (selectOptions) {
+                selectOptions.style.backgroundColor = 'transparent';
+            }
+
+            if (selectBg) {
+                selectBg.style.backgroundColor = 'white';
+            }
+
+            selectItems.forEach(item => {
+                item.style.backgroundColor = 'transparent';
+                item.style.color = 'black';
+            });
+
+            applySelectHoverStyles('white', '#f0f0f0');
+        } else {
+            // Desktop: Static white background with black text
+            document.body.style.background = 'white';
+            document.documentElement.style.setProperty('--current-bg', 'white');
+            document.documentElement.style.setProperty('--select-hover-bg', '#f0f0f0');
+
+            const logoContainer = document.getElementById('logo-container');
+            const dateText = document.getElementById('date-text');
+            const selectDisplay = document.getElementById('select-display');
+            const selectOptions = document.getElementById('select-options');
+            const selectItems = document.querySelectorAll('.select-options li');
+            const selectBg = document.querySelector('.select-bg');
+
+            if (logoContainer) logoContainer.style.color = 'black';
+            if (dateText) dateText.style.color = 'black';
+
+            if (selectDisplay) {
+                selectDisplay.style.backgroundColor = 'transparent';
+                selectDisplay.style.color = 'black';
+            }
+
+            if (selectOptions) {
+                selectOptions.style.backgroundColor = 'transparent';
+            }
+
+            if (selectBg) {
+                selectBg.style.backgroundColor = 'white';
+            }
+
+            selectItems.forEach(item => {
+                item.style.backgroundColor = 'transparent';
+                item.style.color = 'black';
+            });
+
+            applySelectHoverStyles('white', '#f0f0f0');
         }
-
-        if (selectOptions) {
-            selectOptions.style.backgroundColor = 'transparent';
-        }
-
-        // Keep the background box white initially
-        if (selectBg) {
-            selectBg.style.backgroundColor = 'white';
-        }
-
-        selectItems.forEach(item => {
-            item.style.backgroundColor = 'transparent';
-            item.style.color = 'black';
-        });
-
-        // Apply initial hover styles
-        applySelectHoverStyles('white', '#f0f0f0');
 
     } catch (err) {
         console.warn('Error initializing program page:', err);
@@ -292,13 +329,28 @@ function attachBoxScrollbars() {
             scrollEl.scrollLeft = Math.max(0, Math.min(maxScroll, scrollPerc * maxScroll));
         });
 
-        // Pointer handlers: set background and manage media embeds on enter/leave.
-        // We intentionally do NOT change the horizontal scroll position on hover.
-        let hoverTimer = null;
+        // Click handler: auto-scroll to next item
+        box.addEventListener('click', (e) => {
+            // Don't scroll if clicking on the scrollbar or if already dragging
+            if (e.target.closest('.box-scrollbar') || scrollEl.classList.contains('dragging-scrollbar')) return;
 
+            const items = scrollEl.querySelectorAll('.box-item');
+            if (items.length > 1) {
+                const itemWidth = items[0].offsetWidth;
+                const currentScroll = scrollEl.scrollLeft;
+                const currentIndex = Math.round(currentScroll / itemWidth);
+                const nextIndex = (currentIndex + 1) % items.length; // Loop back to first item
+                const targetScroll = nextIndex * itemWidth;
+
+                scrollEl.scrollTo({ left: targetScroll, behavior: 'smooth' });
+            }
+        });
+
+        // Pointer handlers: restore Spotify embeds and manage scroll position
         box.addEventListener('pointerenter', (e) => {
-            if (e.pointerType === 'touch') return; // ignore touch
-            if (scrollEl.classList.contains('dragging-scrollbar')) return; // don't interfere with user drag
+            if (e.pointerType === 'touch') return;
+            if (scrollEl.classList.contains('dragging-scrollbar')) return;
+
             // Restore Spotify embeds (if we previously unloaded them on leave)
             try {
                 const spIframes = box.querySelectorAll('.spotify-embed iframe');
@@ -312,46 +364,6 @@ function attachBoxScrollbars() {
                 });
             } catch (err) {}
         });
-
-        // Special hover behavior for artist photos: scroll to second item after 4 seconds
-        const artistPhoto = box.querySelector('.artist-photo');
-        if (artistPhoto) {
-            artistPhoto.addEventListener('pointerenter', (e) => {
-                if (e.pointerType === 'touch') return; // ignore touch
-                if (scrollEl.classList.contains('dragging-scrollbar')) return; // don't interfere with user drag
-
-                // Clear any existing timer
-                if (hoverTimer) {
-                    clearTimeout(hoverTimer);
-                    hoverTimer = null;
-                }
-
-                // Set 4-second timer to scroll to second item
-                hoverTimer = setTimeout(() => {
-                    const items = scrollEl.querySelectorAll('.box-item');
-                    if (items.length > 1) {
-                        const secondItem = items[1];
-                        const itemWidth = secondItem.offsetWidth;
-                        try {
-                            scrollEl.scrollTo({ left: itemWidth, behavior: 'smooth' });
-                        } catch (err) {
-                            // fallback for older browsers
-                            scrollEl.scrollLeft = itemWidth;
-                        }
-                    }
-                    hoverTimer = null;
-                }, 4000);
-            });
-
-            artistPhoto.addEventListener('pointerleave', (e) => {
-                if (e.pointerType === 'touch') return;
-                // Cancel the timer if user stops hovering
-                if (hoverTimer) {
-                    clearTimeout(hoverTimer);
-                    hoverTimer = null;
-                }
-            });
-        }
 
         box.addEventListener('pointerleave', (e) => {
             if (e.pointerType === 'touch') return;
@@ -390,11 +402,26 @@ function attachBoxScrollbars() {
     });
 }
 
-// Simplified directional scroll color system
+// Simplified directional scroll color system (mobile only)
 function initializeScrollColorSystem() {
     let leftColumnArtists = [];
     let rightColumnArtists = [];
     let rafId = null;
+
+    // Check if mobile - if desktop, don't initialize scroll colors
+    const isDesktop = window.matchMedia('(min-width: 601px)').matches;
+    if (isDesktop) {
+        // Return a stub object that does nothing on desktop
+        return {
+            init: () => {},
+            updateArtistBoxes: () => {},
+            get leftColumnArtists() { return []; },
+            get rightColumnArtists() { return []; },
+            get currentArtist() { return null; },
+            get targetArtist() { return null; },
+            get scrollDirection() { return 'down'; }
+        };
+    }
 
     // Target commitment system
     let lastScrollY = window.scrollY;
@@ -800,12 +827,27 @@ function loadArtists() {
             setTimeout(() => {
                 attachBoxScrollbars();
 
-                // Initialize scroll-based color system
+                // Initialize scroll-based color system (mobile only)
                 const colorSystem = initializeScrollColorSystem();
                 colorSystem.init();
 
                 // Store reference for potential updates
                 window.programColorSystem = colorSystem;
+
+                // Handle resize events to reinitialize when switching between desktop/mobile
+                let lastWasMobile = window.matchMedia('(max-width: 600px)').matches;
+                window.addEventListener('resize', () => {
+                    const isMobile = window.matchMedia('(max-width: 600px)').matches;
+                    if (isMobile !== lastWasMobile) {
+                        lastWasMobile = isMobile;
+                        // Reinitialize page with appropriate settings
+                        initializeProgramPage();
+                        // Recreate color system if switching to/from mobile
+                        const newColorSystem = initializeScrollColorSystem();
+                        newColorSystem.init();
+                        window.programColorSystem = newColorSystem;
+                    }
+                });
             }, 50);
         })
         .catch(err => {
@@ -818,12 +860,14 @@ function loadArtists() {
 document.addEventListener('header-inserted', () => {
     initializeProgramPage();
     loadArtists();
+    initializeMenuSticky();
 });
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             initializeProgramPage();
             loadArtists();
+            initializeMenuSticky();
         }, 50);
     });
 } else {
@@ -831,7 +875,45 @@ if (document.readyState === 'loading') {
     setTimeout(() => {
         initializeProgramPage();
         loadArtists();
+        initializeMenuSticky();
     }, 50);
+}
+
+// Handle sticky menu behavior on scroll
+function initializeMenuSticky() {
+    const menu = document.querySelector('.menu-container');
+    if (!menu) return;
+
+    const stickyPoint = 55; // When to make menu sticky
+    let rafId = null;
+
+    function updateMenuPosition() {
+        const scrollY = window.scrollY || window.pageYOffset;
+
+        if (scrollY > stickyPoint) {
+            // Add fixed class when scrolled past sticky point
+            menu.classList.add('menu-fixed');
+        } else {
+            // Remove fixed class when scrolled back up
+            menu.classList.remove('menu-fixed');
+        }
+    }
+
+    // Throttle scroll events with RAF
+    function onScroll() {
+        if (rafId === null) {
+            rafId = requestAnimationFrame(() => {
+                updateMenuPosition();
+                rafId = null;
+            });
+        }
+    }
+
+    // Initial check
+    updateMenuPosition();
+
+    // Listen for scroll events
+    window.addEventListener('scroll', onScroll, { passive: true });
 }
 
 /* Page-level custom vertical scrollbar removed — rely on native vertical scrollbar. */

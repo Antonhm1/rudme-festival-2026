@@ -7,6 +7,21 @@ html, body {
     overflow: visible !important;
 }
 
+/* Menu starts at default position, then becomes sticky on scroll */
+.menu-container {
+    position: absolute;
+    top: 75px;
+    right: 8px;
+    z-index: 1200;
+    transition: none;
+}
+
+/* Ensure menu text is always black on program page */
+.select-display,
+.select-options li {
+    color: black !important;
+}
+
 /* Vertical scrollbar styling for program page:
    - wider rectangular thumb (no rounded corners)
    - track is invisible (transparent)
