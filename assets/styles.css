@@ -533,7 +533,7 @@ select {
 .menu-container {
     position: absolute;
     top: 75px; /* Initial position below logo */
-    right: 8px;
+    right: 0;
     z-index: 1200;
     transition: none; /* No transition for position changes */
 }
@@ -614,6 +614,9 @@ top: -3px;
     }
     /* reduce svg height on mobile so logo visually matches mobile spacing */
     #logo-container svg { height: 90px; }
+
+    /* Hide logo on mobile for subpages - only show on frontpage */
+    body.is-subpage #logo-container { display: none; }
 
     .custom-select {
         top: auto; /* let the parent `.menu-container` control vertical placement */
