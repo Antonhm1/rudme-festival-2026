@@ -17,6 +17,7 @@ html, body {
     overflow-y: auto !important;
     overflow-x: hidden;
     scroll-behavior: smooth;
+    /* Background color is set dynamically from volunteer-roles.json via JavaScript */
 }
 
 .volunteer-main {

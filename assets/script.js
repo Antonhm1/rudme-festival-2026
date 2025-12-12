@@ -252,25 +252,20 @@ async function loadAndInitLogo() {
             if (dateText) dateText.style.color = initial;
             try { document.documentElement.style.setProperty('--current-bg', initial); } catch (err) {}
         } else {
-            // Check if this is the program page, which handles its own colors
-            if (filename === 'program.html') {
-                // Program page handles its own initialization, don't override
-                return;
-            }
-
-            // Other subpages: use a nice background color and make logo color adapt to it
-            const subpageColor = '#FEAD47'; // Use first slide color as default for subpages
-            document.body.style.background = subpageColor;
-            logoContainer.style.color = subpageColor;
-            if (dateText) dateText.style.color = subpageColor;
-            try { document.documentElement.style.setProperty('--current-bg', subpageColor); } catch (err) {}
+            // Subpages: header-universal.js handles logo/menu colors
+            // Don't override - let CSS set the background and header-universal.js will read it
+            return;
         }
     } catch (err) {
-        // Fallback if anything goes wrong
-        const fallbackColor = '#FEAD47';
-        logoContainer.style.color = fallbackColor;
-        if (dateText) dateText.style.color = fallbackColor;
-        try { document.documentElement.style.setProperty('--current-bg', fallbackColor); } catch (err) {}
+        // Fallback only for front page if something goes wrong
+        const filename = window.location.pathname.split('/').pop() || 'index.html';
+        const isIndex = filename === '' || filename === 'index.html';
+        if (isIndex) {
+            const fallbackColor = '#FEAD47';
+            logoContainer.style.color = fallbackColor;
+            if (dateText) dateText.style.color = fallbackColor;
+            try { document.documentElement.style.setProperty('--current-bg', fallbackColor); } catch (err) {}
+        }
     }
 }
 

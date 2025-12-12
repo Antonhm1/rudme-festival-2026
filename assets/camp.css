@@ -26,60 +26,7 @@ body {
     background-color: #F8E8C9 !important;
 }
 
-/* Override header styles for camp page - make text match beige background */
-#logo-container {
-    color: #F8E8C9 !important;
-}
-
-#logo-container svg {
-    color: #F8E8C9 !important;
-}
-
-#date-text {
-    color: #F8E8C9 !important;
-}
-
-/* Make menu sticky - scrolls with page then sticks at top */
-.menu-container {
-    position: sticky !important;
-    top: 20px !important; /* Stick 20px from top when scrolling */
-    z-index: 1000 !important; /* Ensure it stays above content */
-    /* Override default position to align with date text */
-    margin-top: -90px !important; /* Move up to align with date text middle */
-}
-
-/* Override menu styles to match background */
-.select-bg {
-    background-color: #F8E8C9 !important;
-}
-
-.select-display {
-    background-color: #F8E8C9 !important;
-    color: #111 !important;
-}
-
-.select-options {
-    background-color: #F8E8C9 !important;
-}
-
-.select-options li {
-    background-color: #F8E8C9 !important;
-    color: #111 !important;
-}
-
-.select-options li:hover {
-    background-color: rgba(255, 255, 255, 0.3) !important;
-}
-
-.select-options li.selected {
-    background-color: rgba(255, 255, 255, 0.2) !important;
-}
-
-/* Native select fallback */
-#page-menu {
-    background-color: #F8E8C9 !important;
-    color: #111 !important;
-}
+/* Header colors are now managed dynamically by header-universal.js */
 
 .camp-main {
     padding-top: 0;

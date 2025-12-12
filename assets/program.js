@@ -1,88 +1,9 @@
 /* assets/program.js — program page specific JS: per-box custom scrollbars */
 
-// Initialize program page with different behavior for desktop/mobile
-function initializeProgramPage() {
-    try {
-        const isMobile = window.matchMedia('(max-width: 600px)').matches;
+// Header colors are now handled by header-universal.js
+// This file only handles the artist box scrollbars and click interactions
 
-        if (isMobile) {
-            // Mobile: white background initially, will change with scroll
-            document.body.style.background = 'white';
-            document.documentElement.style.setProperty('--current-bg', 'white');
-            document.documentElement.style.setProperty('--select-hover-bg', '#f0f0f0');
-
-            const logoContainer = document.getElementById('logo-container');
-            const dateText = document.getElementById('date-text');
-            const selectDisplay = document.getElementById('select-display');
-            const selectOptions = document.getElementById('select-options');
-            const selectItems = document.querySelectorAll('.select-options li');
-            const selectBg = document.querySelector('.select-bg');
-
-            if (logoContainer) logoContainer.style.color = 'black';
-            if (dateText) dateText.style.color = 'black';
-
-            if (selectDisplay) {
-                selectDisplay.style.backgroundColor = 'transparent';
-                selectDisplay.style.color = 'black';
-            }
-
-            if (selectOptions) {
-                selectOptions.style.backgroundColor = 'transparent';
-            }
-
-            if (selectBg) {
-                selectBg.style.backgroundColor = 'white';
-            }
-
-            selectItems.forEach(item => {
-                item.style.backgroundColor = 'transparent';
-                item.style.color = 'black';
-            });
-
-            applySelectHoverStyles('white', '#f0f0f0');
-        } else {
-            // Desktop: Static white background with black text
-            document.body.style.background = 'white';
-            document.documentElement.style.setProperty('--current-bg', 'white');
-            document.documentElement.style.setProperty('--select-hover-bg', '#f0f0f0');
-
-            const logoContainer = document.getElementById('logo-container');
-            const dateText = document.getElementById('date-text');
-            const selectDisplay = document.getElementById('select-display');
-            const selectOptions = document.getElementById('select-options');
-            const selectItems = document.querySelectorAll('.select-options li');
-            const selectBg = document.querySelector('.select-bg');
-
-            if (logoContainer) logoContainer.style.color = 'black';
-            if (dateText) dateText.style.color = 'black';
-
-            if (selectDisplay) {
-                selectDisplay.style.backgroundColor = 'transparent';
-                selectDisplay.style.color = 'black';
-            }
-
-            if (selectOptions) {
-                selectOptions.style.backgroundColor = 'transparent';
-            }
-
-            if (selectBg) {
-                selectBg.style.backgroundColor = 'white';
-            }
-
-            selectItems.forEach(item => {
-                item.style.backgroundColor = 'transparent';
-                item.style.color = 'black';
-            });
-
-            applySelectHoverStyles('white', '#f0f0f0');
-        }
-
-    } catch (err) {
-        console.warn('Error initializing program page:', err);
-    }
-}
-
-// Helper functions for color manipulation (reused from main script.js)
+// Helper function for color manipulation (used for box scrollbar thumbs)
 function parseColorToRgb(color) {
     if (!color) return [255, 255, 255];
     color = color.trim();
@@ -121,110 +42,11 @@ function lightenColor(color, amount = 0.4) {
     return `rgb(${r}, ${g}, ${b})`;
 }
 
-function updateHeaderColors(boxColor) {
-    try {
-        const lighterColor = lightenColor(boxColor, 0.3);
-        const hoverColor = lightenColor(boxColor, 0.2); // Lighter version of the background color for hover
-
-        // Update logo and date text with lighter color
-        const logoContainer = document.getElementById('logo-container');
-        const dateText = document.getElementById('date-text');
-
-        if (logoContainer) logoContainer.style.color = lighterColor;
-        if (dateText) dateText.style.color = lighterColor;
-
-        // Update select menu background to artist box color but keep text black
-        const selectDisplay = document.getElementById('select-display');
-        const selectOptions = document.getElementById('select-options');
-        const selectItems = document.querySelectorAll('.select-options li');
-        const selectBg = document.querySelector('.select-bg'); // The white background box
-
-        if (selectDisplay) {
-            selectDisplay.style.backgroundColor = boxColor;
-            selectDisplay.style.color = 'black'; // Always black text
-        }
-
-        if (selectOptions) {
-            selectOptions.style.backgroundColor = boxColor;
-        }
-
-        // Update the background box that extends with the menu
-        if (selectBg) {
-            selectBg.style.backgroundColor = boxColor;
-        }
-
-        selectItems.forEach(item => {
-            item.style.backgroundColor = boxColor;
-            item.style.color = 'black'; // Always black text
-        });
-
-        // Update CSS variable for mobile compatibility and hover effects
-        document.documentElement.style.setProperty('--current-bg', boxColor);
-        document.documentElement.style.setProperty('--select-hover-bg', hoverColor);
-
-        // Apply hover styles directly to ensure they work
-        applySelectHoverStyles(boxColor, hoverColor);
-
-    } catch (err) {
-        console.warn('Error updating header colors:', err);
-    }
-}
-
-// Apply hover styles directly to select menu items
-function applySelectHoverStyles(baseColor, hoverColor) {
-    // Remove any existing hover styles
-    const existingStyle = document.getElementById('program-select-hover-styles');
-    if (existingStyle) {
-        existingStyle.remove();
-    }
-
-    // Create new hover styles
-    const style = document.createElement('style');
-    style.id = 'program-select-hover-styles';
-    style.textContent = `
-        .select-options li:hover {
-            background-color: ${hoverColor} !important;
-            color: black !important;
-        }
-    `;
-    document.head.appendChild(style);
-}
-
-function resetHeaderColors() {
-    try {
-        // Reset to white background and black text
-        const logoContainer = document.getElementById('logo-container');
-        const dateText = document.getElementById('date-text');
-        const selectDisplay = document.getElementById('select-display');
-        const selectOptions = document.getElementById('select-options');
-        const selectItems = document.querySelectorAll('.select-options li');
-
-        // Set logo and date to black
-        if (logoContainer) logoContainer.style.color = 'black';
-        if (dateText) dateText.style.color = 'black';
-
-        // Reset select menu to transparent background with black text
-        if (selectDisplay) {
-            selectDisplay.style.backgroundColor = 'transparent';
-            selectDisplay.style.color = 'black';
-        }
-
-        if (selectOptions) {
-            selectOptions.style.backgroundColor = 'transparent';
-        }
-
-        selectItems.forEach(item => {
-            item.style.backgroundColor = 'transparent';
-            item.style.color = 'black';
-        });
-
-        // Set white background
-        document.body.style.background = 'white';
-        document.documentElement.style.setProperty('--current-bg', 'white');
-
-    } catch (err) {
-        console.warn('Error resetting header colors:', err);
-    }
+// Update page background color when clicking an artist box
+// This triggers header-universal.js to update header colors automatically
+function updatePageBackgroundColor(boxColor) {
+    document.body.style.backgroundColor = boxColor;
+    document.documentElement.style.setProperty('--current-bg', boxColor);
 }
 
 function attachBoxScrollbars() {
@@ -402,26 +224,11 @@ function attachBoxScrollbars() {
     });
 }
 
-// Simplified directional scroll color system (mobile only)
+// Simplified directional scroll color system (now works on both mobile and desktop)
 function initializeScrollColorSystem() {
     let leftColumnArtists = [];
     let rightColumnArtists = [];
     let rafId = null;
-
-    // Check if mobile - if desktop, don't initialize scroll colors
-    const isDesktop = window.matchMedia('(min-width: 601px)').matches;
-    if (isDesktop) {
-        // Return a stub object that does nothing on desktop
-        return {
-            init: () => {},
-            updateArtistBoxes: () => {},
-            get leftColumnArtists() { return []; },
-            get rightColumnArtists() { return []; },
-            get currentArtist() { return null; },
-            get targetArtist() { return null; },
-            get scrollDirection() { return 'down'; }
-        };
-    }
 
     // Target commitment system
     let lastScrollY = window.scrollY;
@@ -657,7 +464,7 @@ function initializeScrollColorSystem() {
     function updatePageColors(color) {
         document.body.style.background = color;
         document.documentElement.style.setProperty('--current-bg', color);
-        updateHeaderColors(color);
+        // Header colors are now handled automatically by header-universal.js
     }
 
     function onScroll() {
@@ -715,6 +522,12 @@ function loadArtists() {
             const grid = document.getElementById('artist-grid') || document.querySelector('.artist-grid');
             if (!grid) return;
             grid.innerHTML = '';
+
+            // Set initial background color from first artist immediately
+            if (artists.length > 0 && artists[0].color) {
+                document.body.style.backgroundColor = artists[0].color;
+                document.documentElement.style.setProperty('--current-bg', artists[0].color);
+            }
 
             // helper: extract YouTube video id from common URL forms
             function getYouTubeId(url) {
@@ -827,27 +640,19 @@ function loadArtists() {
             setTimeout(() => {
                 attachBoxScrollbars();
 
-                // Initialize scroll-based color system (mobile only)
+                // Initialize scroll-based color system for dynamic background colors
                 const colorSystem = initializeScrollColorSystem();
                 colorSystem.init();
 
                 // Store reference for potential updates
                 window.programColorSystem = colorSystem;
 
-                // Handle resize events to reinitialize when switching between desktop/mobile
-                let lastWasMobile = window.matchMedia('(max-width: 600px)').matches;
-                window.addEventListener('resize', () => {
-                    const isMobile = window.matchMedia('(max-width: 600px)').matches;
-                    if (isMobile !== lastWasMobile) {
-                        lastWasMobile = isMobile;
-                        // Reinitialize page with appropriate settings
-                        initializeProgramPage();
-                        // Recreate color system if switching to/from mobile
-                        const newColorSystem = initializeScrollColorSystem();
-                        newColorSystem.init();
-                        window.programColorSystem = newColorSystem;
-                    }
-                });
+                // Ensure first artist color is set after scroll system init
+                // This overrides any interpolation that might have happened
+                if (artists.length > 0 && artists[0].color && window.scrollY === 0) {
+                    document.body.style.backgroundColor = artists[0].color;
+                    document.documentElement.style.setProperty('--current-bg', artists[0].color);
+                }
             }, 50);
         })
         .catch(err => {
@@ -857,64 +662,24 @@ function loadArtists() {
 }
 
 // Initialize: load when header is inserted or DOM is ready
+// Note: Header styling and sticky menu are now handled by header-universal.js
 document.addEventListener('header-inserted', () => {
-    initializeProgramPage();
     loadArtists();
-    initializeMenuSticky();
 });
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
-            initializeProgramPage();
             loadArtists();
-            initializeMenuSticky();
         }, 50);
     });
 } else {
     // run shortly after load so layout is stable
     setTimeout(() => {
-        initializeProgramPage();
         loadArtists();
-        initializeMenuSticky();
     }, 50);
 }
 
-// Handle sticky menu behavior on scroll
-function initializeMenuSticky() {
-    const menu = document.querySelector('.menu-container');
-    if (!menu) return;
-
-    const stickyPoint = 55; // When to make menu sticky
-    let rafId = null;
-
-    function updateMenuPosition() {
-        const scrollY = window.scrollY || window.pageYOffset;
-
-        if (scrollY > stickyPoint) {
-            // Add fixed class when scrolled past sticky point
-            menu.classList.add('menu-fixed');
-        } else {
-            // Remove fixed class when scrolled back up
-            menu.classList.remove('menu-fixed');
-        }
-    }
-
-    // Throttle scroll events with RAF
-    function onScroll() {
-        if (rafId === null) {
-            rafId = requestAnimationFrame(() => {
-                updateMenuPosition();
-                rafId = null;
-            });
-        }
-    }
-
-    // Initial check
-    updateMenuPosition();
-
-    // Listen for scroll events
-    window.addEventListener('scroll', onScroll, { passive: true });
-}
+// Sticky menu behavior is now handled by header-universal.js
 
 /* Page-level custom vertical scrollbar removed — rely on native vertical scrollbar. */
 
