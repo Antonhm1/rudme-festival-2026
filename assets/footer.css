@@ -1,8 +1,9 @@
 .site-footer {
     background-color: transparent;
     padding: 60px 40px 40px;
+    margin-top: 120px;
     font-family: 'Helvetica', Arial, sans-serif;
-    color: currentColor;
+    color: black;
     position: relative;
 }
 
@@ -22,7 +23,7 @@
 
 .footer-left {
     text-align: right;
-    padding-right: 80px;
+    padding-right: 40px;
 }
 
 .footer-center {
@@ -35,27 +36,29 @@
 
 .footer-right {
     text-align: left;
-    padding-left: 80px;
+    padding-left: 40px;
 }
 
 .contact-info {
-    color: currentColor;
+    color: black;
 }
 
 .contact-info p {
     margin: 8px 0;
-    font-size: 18px;
-    font-weight: 300;
+    font-size: 20px;
+    font-weight: 400;
     letter-spacing: 0.5px;
 }
 
 .contact-info .phone-info {
     margin-top: 30px;
     font-size: 20px;
+    font-weight: 400;
 }
 
 .contact-info .contact-name {
     font-size: 20px;
+    font-weight: 400;
 }
 
 .logo-gallery-container {
@@ -110,12 +113,12 @@
 }
 
 .festival-info {
-    color: currentColor;
+    color: black;
 }
 
 .festival-dates {
-    font-size: 36px;
-    font-weight: 500;
+    font-size: 20px;
+    font-weight: 400;
     margin: 0 0 15px 0;
     letter-spacing: 1px;
 }
@@ -123,7 +126,7 @@
 .location,
 .postal {
     font-size: 20px;
-    font-weight: 300;
+    font-weight: 400;
     margin: 8px 0;
     letter-spacing: 0.5px;
 }
@@ -134,7 +137,7 @@
 
 .social-links a {
     display: block;
-    color: currentColor;
+    color: black;
     text-decoration: none;
     font-size: 20px;
     font-weight: 400;
@@ -145,6 +148,27 @@
 
 .social-links a:hover {
     opacity: 0.7;
+}
+
+.footer-button-container {
+    margin-top: 30px;
+}
+
+.footer-buy-ticket-btn {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+    font-family: 'Helvetica', Arial, sans-serif;
+}
+
+.footer-buy-ticket-btn:hover {
+    opacity: 0.8;
 }
 
 @media (max-width: 1024px) {
@@ -173,20 +197,96 @@
 
 @media (max-width: 768px) {
     .site-footer {
-        padding: 40px 20px;
+        padding: 25px 20px;
+        margin-top: 40px;
+    }
+
+    .footer-container {
+        gap: 15px;
+        padding: 0 15px;
+    }
+
+    .footer-center {
+        order: 1;
+        margin: 0 0 10px 0;
+        flex: 0 0 250px;
+    }
+
+    .footer-right {
+        order: 2;
+        padding: 0;
+    }
+
+    .footer-left {
+        order: 3;
+        padding: 0;
+    }
+
+    .contact-info p {
+        font-size: 16px;
+        margin: 4px 0;
+    }
+
+    .contact-info .phone-info {
+        margin-top: 12px;
+        font-size: 16px;
+    }
+
+    .contact-info .contact-name {
+        font-size: 16px;
     }
 
     .festival-dates {
-        font-size: 28px;
+        font-size: 24px;
+        margin-bottom: 5px;
+    }
+
+    .location,
+    .postal {
+        font-size: 16px;
+        margin: 3px 0;
+    }
+
+    .social-links {
+        margin-top: 12px;
+        gap: 15px;
+    }
+
+    .social-links a {
+        font-size: 14px;
     }
 
     .logo-gallery-container {
-        width: 280px;
-        height: 280px;
+        width: 250px;
+        height: 250px;
     }
 
     .footer-logo {
-        width: 200px;
-        height: 200px;
+        width: 180px;
+        height: 180px;
+    }
+
+    .footer-logo svg {
+        width: 100%;
+        height: 100%;
+    }
+
+    .footer-buy-ticket-btn {
+        padding: 10px 20px;
+        font-size: 14px;
+        margin-top: 10px;
+    }
+
+    .footer-button-container {
+        margin-top: 10px;
+    }
+
+    .festival-info {
+        margin-bottom: 10px;
+    }
+
+    .contact-info {
+        margin-top: 10px;
+        padding-top: 0;
     }
 }

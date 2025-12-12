@@ -4,14 +4,14 @@
             "id": "kontakt",
             "title": "Kontakt",
             "color": "#3B9D86",
-            "image": null,
+            "image": "pictures/Forsiden/crowdchill.jpeg",
             "content": "<div class=\"contact-boxes\"><div class=\"contact-box\"><strong>BOOKING</strong><span>booking@rudmefestival.dk</span></div><div class=\"contact-box\"><strong>ØKONOMI</strong><span>oekonomi@rudmefestival.dk</span></div><div class=\"contact-box\"><strong>GENEREL</strong><span>kontakt@rudmefestival.dk</span></div><div class=\"contact-box\"><strong>FRIVILLIG</strong><span>frivillig@rudmefestival.dk</span></div><div class=\"contact-box\"><strong>TELEFON</strong><span>23667406 (Jens Leonhard, forperson)</span></div></div>"
         },
         {
             "id": "tid-sted",
             "title": "Tid & Sted",
             "color": "#FFA726",
-            "image": null,
+            "image": "pictures/Forsiden/flagstang.jpeg",
             "content": "<p><strong>Dato:</strong> 16. - 18. juli 2026</p><p><strong>Pladsen åbner:</strong> Torsdag d. 16. juli kl. 14:00</p><p><strong>Festival pladsen lukker:</strong> Søndag d. 19. juli kl. 12:00</p><p><strong>Adresse:</strong><br>Rudmevej 36<br>5750 Ringe</p><div class=\"map-container\"><iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2263.7951!2d10.4721!3d55.2389!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x464d2b5e8a8c9a9d%3A0x0!2sRudmevej%2036%2C%205750%20Ringe!5e0!3m2!1sda!2sdk!4v1638789012345\" width=\"100%\" height=\"200\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\"></iframe></div>"
         },
         {
@@ -24,30 +24,30 @@
         {
             "id": "camping",
             "title": "Camping",
-            "color": "#FFB6C1",
-            "image": null,
+            "color": "#4A90D9",
+            "image": "pictures/info-pictures/camping.jpeg",
             "content": "<p><strong>Camping på Rudme Festival er GRATIS!</strong></p><p>Pladsen åbner onsdag og lukker søndag.</p><p>Find dit perfekte sted på vores hyggelige campingplads og nyd festivalstemningen døgnet rundt.</p><p><strong>Leave No Trace:</strong> Husk at rydde op efter dig selv - vi ønsker at efterlade pladsen, som vi fandt den.</p>"
         },
         {
             "id": "mad-drikke",
             "title": "Mad & Drikke",
             "color": "#87CEEB",
-            "image": null,
+            "image": "pictures/info-pictures/mad.jpeg",
             "content": "<h3>Ma'teltet</h3><p>På Rudme kan du i Ma'teltet få stillet din sult hele døgnet. Du vil kunne købe lækre vegetariske retter. Og ja selvfølgelig til billige penge.</p><h3>Baren</h3><p>Rudme Festival har nok en af landets billigste festivalbarer! Men trods den lave pris er kvaliteten stadig i top og du finder et stort udvalg af drinks, shots og fadøl.</p><p><strong>Gratis drikkevand:</strong> Der er vandposter flere steder på pladsen.</p>"
         },
         {
             "id": "regler",
-            "title": "Regler & Sikkerhed",
+            "title": "Ingen glas på pladsen",
             "color": "#FFEB3B",
             "image": "pictures/info-pictures/ingen-glas.jpeg",
-            "content": "<h3>INGEN GLAS PÅ PLADSEN</h3><p>Vi bestræber os på at man kan løbe rundt med bare tæer, så lad glasset blive hjemme! Tag dåseøl med og hæld vodkaen over i en plastikflaske. Vi opfordrer derudover, at man selvfølgelig køber sine drikkevarer i vores lækre og utroligt billige bar.</p>"
+            "content": "<p>Vi bestræber os på at man kan løbe rundt med bare tæer, så lad glasset blive hjemme! Tag dåseøl med og hæld vodkaen over i en plastikflaske. Vi opfordrer derudover, at man selvfølgelig køber sine drikkevarer i vores lækre og utroligt billige bar.</p>"
         },
         {
             "id": "lydregler",
-            "title": "Lydregler",
+            "title": "Ingen store højtalere",
             "color": "#E06E59",
             "image": "pictures/info-pictures/ingen-soundboks-kun-små-højtalere.jpeg",
-            "content": "<h3>INGEN STORE HØJTALERE</h3><p>Gå op og fest i festteltet og lad din Soundbox blive hjemme, pladsen er for lille til 'soundbox-støj'. Hvis I skal have hyggemusik til de skønne morgentimer, så tag en mindre højtaler med.</p>"
+            "content": "<p>Gå op og fest i festteltet og lad din Soundbox blive hjemme, pladsen er for lille til 'soundbox-støj'. Hvis I skal have hyggemusik til de skønne morgentimer, så tag en mindre højtaler med.</p>"
         },
         {
             "id": "strom",
@@ -60,7 +60,7 @@
             "id": "tilgaengelighed",
             "title": "Tilgængelighed",
             "color": "#B19CD9",
-            "image": null,
+            "image": "pictures/info-pictures/tilgængelighed.png",
             "content": "<p>Rudme Festival ønsker at være for alle!</p><ul><li>Kørestolsvenlig adgang til alle områder</li><li>Handicapparkering tæt på indgangen</li><li>Handicaptoiletter på pladsen</li><li>Ledsagerordning (ledsager gratis adgang)</li><li>Platform for kørestolsbrugere foran scenen</li></ul><p>Kontakt os på <a href=\"mailto:info@rudmefestival.dk\">info@rudmefestival.dk</a> hvis du har særlige behov.</p>"
         },
         {
@@ -74,7 +74,7 @@
             "id": "miljo",
             "title": "Miljø & Bæredygtighed",
             "color": "#4DD0E1",
-            "image": null,
+            "image": "pictures/info-pictures/bæredygtighed.jpeg",
             "content": "<p>Vi gør vores bedste for at minimere festivalens miljøpåvirkning:</p><ul><li>Affaldssortering på hele pladsen</li><li>Pantordning på plastikkrus</li><li>Vegetariske og veganske madmuligheder</li><li>Samarbejde med lokale leverandører</li><li>Opfordring til samkørsel og offentlig transport</li></ul><p><strong>Hjælp os:</strong> Tag dit affald med og sorter det korrekt!</p>"
         }
     ]

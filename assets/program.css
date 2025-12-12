@@ -10,6 +10,16 @@ html, body {
 
 /* Header colors are now managed dynamically by header-universal.js */
 
+/* Make the logo a darker version of the background color on program page */
+body.program-page .header-logo svg {
+    filter: brightness(0.6);
+}
+
+/* Apply the same darker filter to the date text */
+body.program-page .header-date {
+    filter: brightness(0.6);
+}
+
 /* Vertical scrollbar styling for program page:
    - wider rectangular thumb (no rounded corners)
    - track is invisible (transparent)

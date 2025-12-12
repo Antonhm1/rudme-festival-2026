@@ -30,7 +30,7 @@
       "color": "#697E56",
       "image": "ArtistPictures/nausia.png",
       "crop": "top",
-      "spotify": ""
+      "spotify": "<iframe data-testid=\"embed-iframe\" style=\"border-radius:12px\" src=\"https://open.spotify.com/embed/artist/163o4DEcZVOmeIhbIlNjXr?utm_source=generator&theme=0\" width=\"100%\" height=\"352\" frameBorder=\"0\" allowfullscreen=\"\" allow=\"autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture\" loading=\"lazy\"></iframe>"
     },
     {
       "id": "artist-e",
@@ -38,7 +38,7 @@
       "color": "#EAB1A5",
       "image": "ArtistPictures/patina.png",
       "crop": "bottom",
-      "spotify": ""
+      "spotify": "<iframe data-testid=\"embed-iframe\" style=\"border-radius:12px\" src=\"https://open.spotify.com/embed/artist/6SQ0yQG7sRlasn0yrSz7Gh?utm_source=generator&theme=0\" width=\"100%\" height=\"352\" frameBorder=\"0\" allowfullscreen=\"\" allow=\"autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture\" loading=\"lazy\"></iframe>"
     },
     {
       "id": "artist-f",
@@ -46,7 +46,7 @@
       "color": "#052145",
       "image": "ArtistPictures/søn.png",
       "crop": "top",
-      "spotify": ""
+      "spotify": "<iframe data-testid=\"embed-iframe\" style=\"border-radius:12px\" src=\"https://open.spotify.com/embed/artist/3QGV9euJ3cmqn0umll2yCb?utm_source=generator&theme=0\" width=\"100%\" height=\"352\" frameBorder=\"0\" allowfullscreen=\"\" allow=\"autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture\" loading=\"lazy\"></iframe>"
     }
   ]
 }

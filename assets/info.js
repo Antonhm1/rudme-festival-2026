@@ -42,7 +42,7 @@ function generateInfoBoxes(sections) {
 
         // Click to scroll to section
         box.addEventListener('click', () => {
-            const targetSection = document.querySelector(`.info-section[data-id="${section.id}"]`);
+            const targetSection = document.getElementById(section.id);
             if (targetSection) {
                 const offset = 100; // Account for fixed header
                 const targetPosition = targetSection.getBoundingClientRect().top + window.scrollY - offset;
@@ -57,31 +57,21 @@ function generateInfoBoxes(sections) {
     });
 }
 
-// Generate full info sections
+// Generate full info sections using shared SectionComponent
 function generateInfoSections(sections) {
     const container = document.getElementById('info-sections-container');
     if (!container) return;
 
     sections.forEach(section => {
-        const sectionEl = document.createElement('section');
-        sectionEl.className = 'info-section';
-        sectionEl.setAttribute('data-id', section.id);
-        sectionEl.setAttribute('data-color', section.color);
-
-        let imageHtml = '';
-        if (section.image) {
-            imageHtml = `<img src="${section.image}" alt="${section.title}" class="info-image">`;
-        }
-
-        sectionEl.innerHTML = `
-            <div class="info-section-inner">
-                <h2 class="info-header">${section.title}</h2>
-                ${imageHtml}
-                <div class="info-description">${section.content}</div>
-            </div>
-        `;
-
-        container.appendChild(sectionEl);
+        SectionComponent.create({
+            id: section.id,
+            title: section.title,
+            image: section.image,
+            imageCrop: section.crop,
+            content: section.content,
+            color: section.color,
+            container: container
+        });
     });
 }
 
@@ -132,7 +122,7 @@ function initializeColorTransitions() {
     function updateBackgroundColor() {
         // Get current sections
         if (sections.length === 0) {
-            sections = document.querySelectorAll('.info-section');
+            sections = document.querySelectorAll('.content-section');
             if (sections.length === 0) return;
         }
 
@@ -143,7 +133,7 @@ function initializeColorTransitions() {
 
         // Get first section's content position (find the header inside first section)
         const firstSection = sections[0];
-        const firstHeader = firstSection.querySelector('.info-header');
+        const firstHeader = firstSection.querySelector('.content-section-header');
         const firstSectionColor = firstSection.getAttribute('data-color') || initialColor;
 
         // Calculate where the first section content actually starts
@@ -164,7 +154,7 @@ function initializeColorTransitions() {
 
             for (let i = 0; i < sections.length; i++) {
                 const section = sections[i];
-                const header = section.querySelector('.info-header');
+                const header = section.querySelector('.content-section-header');
                 const headerRect = header ? header.getBoundingClientRect() : section.getBoundingClientRect();
                 const sectionTop = headerRect.top + scrollY;
                 const sectionColor = section.getAttribute('data-color') || initialColor;
@@ -172,7 +162,7 @@ function initializeColorTransitions() {
                 // If we're between two sections
                 if (i < sections.length - 1) {
                     const nextSection = sections[i + 1];
-                    const nextHeader = nextSection.querySelector('.info-header');
+                    const nextHeader = nextSection.querySelector('.content-section-header');
                     const nextHeaderRect = nextHeader ? nextHeader.getBoundingClientRect() : nextSection.getBoundingClientRect();
                     const nextSectionTop = nextHeaderRect.top + scrollY;
                     const nextColor = nextSection.getAttribute('data-color') || initialColor;

@@ -42,10 +42,20 @@ This is a website for the Rudme Festival (July 16-18, 2026), built as a static H
 - Dynamically injects shared header content from `assets/header.html`
 - Creates custom navigation dropdown with fallback native select
 - Handles page-specific styling (black text on subpages, dynamic colors on homepage)
+- **IMPORTANT**: The header has its own dedicated CSS and styling infrastructure
+- **DO NOT** manipulate header styles on sub-sites unless absolutely necessary
+- Header styling should be self-contained and consistent across all pages
 
 #### Program Page (`assets/program.js`)
 - Custom scrollbars for individual artist boxes
 - Color-coordinated with CSS custom properties
+
+#### Section Component (`assets/section-component.js` + `assets/section-component.css`)
+- Reusable component for content sections (used on volunteer and info pages)
+- Creates consistent layout: header outside content box, extended images, description, optional button
+- Usage: `SectionComponent.create({ id, title, image, imageCrop, content, buttonText, color, container })`
+- Content can be HTML string or array of paragraphs
+- Includes `updateButtonStyles(bgColor)` for dynamic button coloring
 
 ### CSS Architecture (`assets/styles.css`)
 - CSS custom properties for slide-specific colors (--bg-color-1, --bg-color-2, etc.)

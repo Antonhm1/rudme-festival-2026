@@ -3,6 +3,25 @@
 // Header colors are now handled by header-universal.js
 // This file only handles the artist box scrollbars and click interactions
 
+// Darken the logo color specifically for the program page
+function darkenLogoColor(baseColor) {
+    const logo = document.querySelector('#logo-inner');
+    const dateText = document.querySelector('#date-text');
+    if (!logo) return;
+
+    // Parse and darken the color
+    const rgb = parseColorToRgb(baseColor);
+    // Darken by 40% (multiply each channel by 0.6)
+    const darkerR = Math.round(rgb[0] * 0.6);
+    const darkerG = Math.round(rgb[1] * 0.6);
+    const darkerB = Math.round(rgb[2] * 0.6);
+    const darkerColor = `rgb(${darkerR}, ${darkerG}, ${darkerB})`;
+
+    // Apply the darker color to logo and date
+    logo.style.color = darkerColor;
+    if (dateText) dateText.style.color = darkerColor;
+}
+
 // Helper function for color manipulation (used for box scrollbar thumbs)
 function parseColorToRgb(color) {
     if (!color) return [255, 255, 255];
@@ -465,6 +484,9 @@ function initializeScrollColorSystem() {
         document.body.style.background = color;
         document.documentElement.style.setProperty('--current-bg', color);
         // Header colors are now handled automatically by header-universal.js
+
+        // Make logo darker on program page only
+        darkenLogoColor(color);
     }
 
     function onScroll() {
@@ -514,11 +536,22 @@ function mapCropToPosition(crop) {
     }
 }
 
+// Fisher-Yates shuffle algorithm for randomizing artist order
+function shuffleArray(array) {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+}
+
 function loadArtists() {
     fetch('assets/artists.json')
         .then(r => r.ok ? r.json() : Promise.reject(new Error('Failed to fetch')))
         .then(data => {
-            const artists = Array.isArray(data.artists) ? data.artists : [];
+            // Shuffle artists so they appear in random order each page load
+            const artists = shuffleArray(Array.isArray(data.artists) ? data.artists : []);
             const grid = document.getElementById('artist-grid') || document.querySelector('.artist-grid');
             if (!grid) return;
             grid.innerHTML = '';
@@ -527,6 +560,8 @@ function loadArtists() {
             if (artists.length > 0 && artists[0].color) {
                 document.body.style.backgroundColor = artists[0].color;
                 document.documentElement.style.setProperty('--current-bg', artists[0].color);
+                // Also darken the logo color on initial load
+                darkenLogoColor(artists[0].color);
             }
 
             // helper: extract YouTube video id from common URL forms
@@ -652,6 +687,7 @@ function loadArtists() {
                 if (artists.length > 0 && artists[0].color && window.scrollY === 0) {
                     document.body.style.backgroundColor = artists[0].color;
                     document.documentElement.style.setProperty('--current-bg', artists[0].color);
+                    darkenLogoColor(artists[0].color);
                 }
             }, 50);
         })
