@@ -775,24 +775,51 @@ function attachBehaviors() {
     // Dragging with correct offset so the thumb doesn't jump
     let isDragging = false;
     let dragOffset = 0;
+    let activePointerId = null; // track the active pointer for proper capture
+
+    function getPointerX(e) {
+        // Handle both pointer events and touch events
+        if (e.touches && e.touches.length > 0) {
+            return e.touches[0].clientX;
+        }
+        if (e.changedTouches && e.changedTouches.length > 0) {
+            return e.changedTouches[0].clientX;
+        }
+        return e.clientX;
+    }
 
     function onThumbPointerDown(e) {
         if (!thumb) return;
         if (e.pointerType === 'mouse' && e.button !== 0) return;
         e.preventDefault();
+        e.stopPropagation();
         const thumbRect = thumb.getBoundingClientRect();
-        const pointerX = (e.touches ? e.touches[0].clientX : e.clientX);
+        const pointerX = getPointerX(e);
         dragOffset = pointerX - thumbRect.left;
         isDragging = true;
+        activePointerId = e.pointerId || null;
         if (gallery) gallery.classList.add('dragging-scrollbar');
         if (e.pointerId && thumb.setPointerCapture) {
             try { thumb.setPointerCapture(e.pointerId); } catch (err) {}
         }
+        // Add dragging class to thumb for visual feedback
+        thumb.classList.add('dragging');
     }
 
-    function onDocumentPointerMove(e) {
+    function onThumbTouchStart(e) {
+        if (!thumb) return;
+        e.preventDefault();
+        e.stopPropagation();
+        const thumbRect = thumb.getBoundingClientRect();
+        const pointerX = getPointerX(e);
+        dragOffset = pointerX - thumbRect.left;
+        isDragging = true;
+        if (gallery) gallery.classList.add('dragging-scrollbar');
+        thumb.classList.add('dragging');
+    }
+
+    function handleDragMove(pointerX) {
         if (!isDragging || !thumb || !scrollbar || !gallery) return;
-        const pointerX = e.clientX;
         const scrollbarRect = scrollbar.getBoundingClientRect();
         const thumbWidth = thumb.getBoundingClientRect().width;
         // Calculate available space, accounting for social links area on the right
@@ -807,20 +834,50 @@ function attachBehaviors() {
         gallery.scrollLeft = scrollPercentage * (gallery.scrollWidth - gallery.clientWidth);
     }
 
-    function onDocumentPointerUp(e) {
+    function onDocumentPointerMove(e) {
+        if (!isDragging) return;
+        // Only respond to the same pointer that started the drag
+        if (activePointerId !== null && e.pointerId !== activePointerId) return;
+        handleDragMove(getPointerX(e));
+    }
+
+    function onDocumentTouchMove(e) {
+        if (!isDragging) return;
+        e.preventDefault(); // Prevent page scrolling while dragging
+        handleDragMove(getPointerX(e));
+    }
+
+    function endDrag(e) {
         if (!isDragging) return;
         isDragging = false;
+        activePointerId = null;
         if (gallery) gallery.classList.remove('dragging-scrollbar');
-        if (e.pointerId && thumb && thumb.releasePointerCapture) {
+        if (thumb) thumb.classList.remove('dragging');
+        if (e && e.pointerId && thumb && thumb.releasePointerCapture) {
             try { thumb.releasePointerCapture(e.pointerId); } catch (err) {}
         }
     }
 
+    function onDocumentPointerUp(e) {
+        endDrag(e);
+    }
+
+    function onDocumentTouchEnd(e) {
+        endDrag(e);
+    }
+
     if (thumb) {
+        // Pointer events (works for mouse and some touch)
         thumb.addEventListener('pointerdown', onThumbPointerDown);
         document.addEventListener('pointermove', onDocumentPointerMove);
         document.addEventListener('pointerup', onDocumentPointerUp);
         document.addEventListener('pointercancel', onDocumentPointerUp);
+
+        // Explicit touch events for better mobile support
+        thumb.addEventListener('touchstart', onThumbTouchStart, { passive: false });
+        document.addEventListener('touchmove', onDocumentTouchMove, { passive: false });
+        document.addEventListener('touchend', onDocumentTouchEnd);
+        document.addEventListener('touchcancel', onDocumentTouchEnd);
     }
 
     // Helper function to pause auto-advance with timer

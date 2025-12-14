@@ -21,7 +21,7 @@ html, body {
     background-color: transparent;
 }
 
-/* Hero section with big image - styled like volunteer page */
+/* Hero section with big image - absolute on desktop, relative on mobile */
 .hero-section {
     position: absolute;
     top: 30px;
@@ -42,7 +42,7 @@ html, body {
 /* Scrolling banner */
 .scrolling-banner {
     position: relative;
-    margin-top: 475px; /* Position below max-height of image + spacing */
+    margin-top: 475px; /* Position below the absolute hero image */
     width: 100%; /* Account for side margins */
     height: auto;
     overflow: hidden;
@@ -200,10 +200,13 @@ html, body {
         padding-top: 0;
     }
 
+    /* On mobile, use relative positioning for natural document flow */
     .hero-section {
-        top: 15px;
-        left: 15px;
-        right: 15px;
+        position: relative;
+        top: auto;
+        left: auto;
+        right: auto;
+        margin: 15px 15px 0 15px;
     }
 
     .hero-image {
@@ -212,7 +215,7 @@ html, body {
 
     .scrolling-banner {
         height: 80px;
-        margin-top: calc(300px + 30px); /* Position below max-height of mobile image + spacing */
+        margin-top: 20px; /* Spacing after hero image (natural flow) */
         margin-left: 15px;
         margin-right: 15px;
         width: calc(100% - 30px); /* Account for side margins on mobile */

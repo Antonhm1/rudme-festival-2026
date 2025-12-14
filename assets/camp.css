@@ -33,7 +33,7 @@ body {
     background-color: transparent;
 }
 
-/* Hero section with big image - matching volunteer page */
+/* Hero section with big image - absolute on desktop, relative on mobile */
 .hero-section {
     position: absolute;
     top: 30px;
@@ -57,7 +57,7 @@ body {
     letter-spacing: -2px;
     color: #111;
     text-align: right;
-    padding-top: 520px; /* Position underneath the image (max-height is 600px) */
+    padding-top: 520px; /* Position below the absolute hero image */
     margin-bottom: 40px;
     padding-right: 30px;
     position: relative;
@@ -597,17 +597,20 @@ body {
         padding: 0 20px;
     }
 
+    /* On mobile, use relative positioning for natural document flow */
     .hero-section {
-        top: 15px;
-        left: 15px;
-        right: 15px;
+        position: relative;
+        top: auto;
+        left: auto;
+        right: auto;
+        margin: 15px 15px 0 15px;
     }
 
     .hero-text {
         font-size: 28px;
         letter-spacing: -1px;
         padding-right: 0px;
-        padding-top: 250px; /* Increased to avoid overlap with hero image */
+        padding-top: 20px; /* Spacing after the hero image (natural flow) */
         margin-right: 20px; /* Override larger screen margins for mobile */
         max-width: none; /* Remove max-width constraint on mobile */
         margin-left: 0; /* Full width on mobile, no auto margin */

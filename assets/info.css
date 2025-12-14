@@ -32,7 +32,7 @@ html, body {
     background-color: transparent;
 }
 
-/* Hero section with image and info boxes side by side */
+/* Hero section with image and info boxes side by side - absolute on desktop, relative on mobile */
 .hero-section {
     position: absolute;
     top: 30px;
@@ -169,7 +169,7 @@ html, body {
     background: #fff;
 }
 
-/* First content section needs extra padding for hero */
+/* First content section needs extra padding for absolute hero on desktop */
 .content-section:first-child {
     padding-top: 880px; /* Space for hero section (820px + 60px) */
 }
@@ -213,12 +213,13 @@ html, body {
 }
 
 @media (max-width: 768px) {
-    /* Hero section - image behind text on mobile */
+    /* Hero section - relative positioning on mobile for natural document flow */
     .hero-section {
         position: relative;
-        top: 0;
-        left: 0;
-        right: 0;
+        top: auto;
+        left: auto;
+        right: auto;
+        margin: 15px 15px 0 15px;
         padding: 0;
         height: auto;
         margin-bottom: 40px;
@@ -232,13 +233,13 @@ html, body {
     }
 
     .hero-image-wrapper {
-        position: absolute;
-        top: -109px;  /* Offset to reach top of page (124px - 15px margin) */
-        left: 15px;
-        right: 15px;
-        width: calc(100% - 30px);
-        height: calc(100% + 109px);
-        max-height: 500px;
+        position: relative;
+        top: auto;
+        left: auto;
+        right: auto;
+        width: 100%;
+        height: auto;
+        max-height: none;
         z-index: 1;
         border-radius: 8px;
         overflow: hidden;
@@ -246,8 +247,9 @@ html, body {
 
     .hero-image {
         width: 100%;
-        height: 100%;
-        min-height: 320px;
+        height: auto;
+        min-height: 200px;
+        max-height: 300px;
         object-fit: cover;
         object-position: center;
     }
@@ -256,9 +258,9 @@ html, body {
         position: relative;
         width: 100%;
         z-index: 2;
-        padding: 200px 25px 30px;
+        padding: 20px 15px 30px;
         background: transparent;
-        min-height: 320px;
+        min-height: auto;
     }
 
     .hero-title {
@@ -277,10 +279,10 @@ html, body {
         letter-spacing: -0.5px;
     }
 
-    /* First section needs more padding to clear hero image */
+    /* First section follows naturally after hero on mobile */
     .content-section:first-child {
         padding-top: 0px;
-        margin-top: 60px;
+        margin-top: 20px;
     }
 
     .section-title {
