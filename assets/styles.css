@@ -346,6 +346,10 @@ select {
     /* keep visible at all times; z-index controls whether it's in front */
     pointer-events: auto; /* allow pointer events on the thumb itself */
     min-width: 300px; /* enforce a wider thumb */
+    /* Prevent browser default touch gestures on the thumb for smooth dragging */
+    touch-action: none;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 /* .active only changes z-index so the thumb "jumps to front" on activity */
@@ -447,6 +451,12 @@ select {
     transform: rotate(0deg);
 }
 
+/* Visual feedback when dragging thumb */
+.custom-scrollbar-thumb.dragging {
+    cursor: grabbing;
+    transition: none; /* Disable transitions while dragging for immediate response */
+}
+
 /* small-screen adjustments */
 @media (max-width: 800px) {
     .custom-scrollbar { height: 120px; }
@@ -459,6 +469,8 @@ select {
         align-items: flex-start;
         justify-content: flex-start;
         gap: 6px;
+        /* Ensure touch-action is set on mobile too */
+        touch-action: none;
     }
     .custom-scrollbar-thumb .thumb-content {
         max-width: 100%;

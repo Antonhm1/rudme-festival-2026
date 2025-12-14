@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const footerContainer = document.getElementById('footer-placeholder');
             if (footerContainer) {
                 footerContainer.innerHTML = data;
-                initializeFooterGallery();
                 loadFooterLogo();
                 setupDynamicFooterColors();
             }
@@ -28,21 +27,6 @@ function loadFooterLogo() {
             })
             .catch(error => console.error('Error loading footer logo:', error));
     }
-}
-
-function initializeFooterGallery() {
-    const images = document.querySelectorAll('.gallery-image');
-    if (images.length === 0) return;
-
-    let currentIndex = 0;
-
-    function switchImage() {
-        images[currentIndex].classList.remove('active');
-        currentIndex = (currentIndex + 1) % images.length;
-        images[currentIndex].classList.add('active');
-    }
-
-    setInterval(switchImage, 500);
 }
 
 function setupDynamicFooterColors() {
