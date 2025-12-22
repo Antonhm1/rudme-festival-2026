@@ -171,7 +171,7 @@ html, body {
 
 /* First content section needs extra padding for absolute hero on desktop */
 .content-section:first-child {
-    padding-top: 880px; /* Space for hero section (820px + 60px) */
+    padding-top: 940px; /* Space for hero section (820px + 120px gap) */
 }
 
 /* Map container */
