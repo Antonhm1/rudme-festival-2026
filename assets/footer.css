@@ -74,7 +74,7 @@
 .scrolling-track {
     display: flex;
     gap: 80px;
-    animation: scroll-gallery 60s linear infinite;
+    animation: scroll-gallery 90s linear infinite;
 }
 
 .scrolling-track img {

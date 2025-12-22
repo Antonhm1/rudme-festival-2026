@@ -39,49 +39,23 @@ html, body {
     display: block;
 }
 
-/* Scrolling banner */
-.scrolling-banner {
+/* Static banner */
+.static-banner {
     position: relative;
-    margin-top: 475px; /* Position below the absolute hero image */
-    width: 100%; /* Account for side margins */
-    height: auto;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    background-color: transparent; /* Transparent background */
+    margin-top: 550px; /* Position below the absolute hero image */
+    width: 100%;
+    padding: 0 60px;
     z-index: 10;
 }
 
-.scrolling-text {
-    display: flex;
-    white-space: nowrap;
-    animation: scroll 50s linear infinite;
-}
-
-.scrolling-text span {
+.static-banner p {
     font-family: "Helvetica", Arial, sans-serif;
     font-size: 100px;
     font-weight: 400;
     letter-spacing: -4px;
     color: #111;
-    padding: 0 40px;
-    display: inline-block;
-    text-transform: uppercase;
-}
-
-.scrolling-text .dot {
-    font-size: 120px;
-    color: #111;
-    padding: 0 40px;
-}
-
-@keyframes scroll {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-50%);
-    }
+    margin: 0;
+    line-height: 1.1;
 }
 
 /* Newsletter section */
@@ -213,23 +187,14 @@ html, body {
         max-height: 300px;
     }
 
-    .scrolling-banner {
-        height: 80px;
-        margin-top: 20px; /* Spacing after hero image (natural flow) */
-        margin-left: 15px;
-        margin-right: 15px;
-        width: calc(100% - 30px); /* Account for side margins on mobile */
+    .static-banner {
+        margin-top: 40px; /* Spacing after hero image (natural flow) */
+        padding: 0 15px;
     }
 
-    .scrolling-text span {
-        font-size: 60px;
+    .static-banner p {
+        font-size: 40px;
         letter-spacing: -2px;
-        padding: 0 20px;
-    }
-
-    .scrolling-text .dot {
-        font-size: 60px;
-        padding: 0 20px;
     }
 
     .newsletter-section {

@@ -485,6 +485,33 @@ function initializePosterScroll() {
         isAutoScrolling = true;
     });
 
+    // Touch events for mobile - stop auto-scroll when user touches
+    let touchScrollTimeout = null;
+
+    container.addEventListener('touchstart', () => {
+        isAutoScrolling = false;
+        // Clear any pending resume timeout
+        if (touchScrollTimeout) {
+            clearTimeout(touchScrollTimeout);
+            touchScrollTimeout = null;
+        }
+    }, { passive: true });
+
+    // Keep auto-scroll off during touch movement
+    container.addEventListener('touchmove', () => {
+        isAutoScrolling = false;
+        // Update scroll position for seamless loop
+        scrollPosition = container.scrollLeft;
+        updateScrollbar();
+    }, { passive: true });
+
+    // Resume auto-scroll after touch ends (with a small delay)
+    container.addEventListener('touchend', () => {
+        touchScrollTimeout = setTimeout(() => {
+            isAutoScrolling = true;
+        }, 2000); // 2 second delay before resuming auto-scroll
+    }, { passive: true });
+
     // Handle manual scrolling
     container.addEventListener('scroll', () => {
         if (!isAutoScrolling) {
