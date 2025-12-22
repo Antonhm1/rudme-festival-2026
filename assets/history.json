@@ -8,6 +8,10 @@
       "picturesUrl": "",
       "attendees": 150,
       "budgetResult": -2500,
+      "revenue": 45000,
+      "organizers": 5,
+      "coordinators": 8,
+      "volunteers": 25,
       "color": "#90EE90"
     },
     {
@@ -18,6 +22,10 @@
       "picturesUrl": "",
       "attendees": 280,
       "budgetResult": 4200,
+      "revenue": 89000,
+      "organizers": 6,
+      "coordinators": 12,
+      "volunteers": 35,
       "color": "#87CEEB"
     },
     {
@@ -28,6 +36,10 @@
       "picturesUrl": "",
       "attendees": 450,
       "budgetResult": 8500,
+      "revenue": 156000,
+      "organizers": 7,
+      "coordinators": 15,
+      "volunteers": 48,
       "color": "#FFB6C1"
     },
     {
@@ -38,6 +50,10 @@
       "picturesUrl": "",
       "attendees": 720,
       "budgetResult": 12300,
+      "revenue": 248000,
+      "organizers": 8,
+      "coordinators": 18,
+      "volunteers": 65,
       "color": "#DDA0DD"
     },
     {
@@ -48,6 +64,10 @@
       "picturesUrl": "",
       "attendees": 1100,
       "budgetResult": -8200,
+      "revenue": 385000,
+      "organizers": 9,
+      "coordinators": 22,
+      "volunteers": 85,
       "color": "#F0E68C"
     },
     {
@@ -58,6 +78,10 @@
       "picturesUrl": "",
       "attendees": 1600,
       "budgetResult": 25400,
+      "revenue": 520000,
+      "organizers": 10,
+      "coordinators": 28,
+      "volunteers": 110,
       "color": "#98D8C8"
     },
     {
@@ -68,6 +92,10 @@
       "picturesUrl": "",
       "attendees": 1850,
       "budgetResult": 31200,
+      "revenue": 612000,
+      "organizers": 11,
+      "coordinators": 32,
+      "volunteers": 135,
       "color": "#F7DC6F"
     },
     {
@@ -78,6 +106,10 @@
       "picturesUrl": "",
       "attendees": 2100,
       "budgetResult": 18700,
+      "revenue": 695000,
+      "organizers": 12,
+      "coordinators": 38,
+      "volunteers": 160,
       "color": "#AED6F1"
     }
   ]
