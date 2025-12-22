@@ -69,6 +69,7 @@ function generateInfoSections(sections) {
             image: section.image,
             imageCrop: section.crop,
             content: section.content,
+            subsections: section.subsections,
             color: section.color,
             container: container
         });

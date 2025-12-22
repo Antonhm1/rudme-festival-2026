@@ -83,6 +83,28 @@
     margin-bottom: 10px;
 }
 
+/* Subsection wrapper */
+.content-subsection {
+    margin-bottom: 30px;
+}
+
+.content-subsection:last-child {
+    margin-bottom: 0;
+}
+
+/* Subsection header - styled like main header but smaller */
+.content-subsection-header {
+    font-family: "Helvetica", Arial, sans-serif;
+    font-size: 32px;
+    font-weight: 400;
+    letter-spacing: -2px;
+    color: #111;
+    padding: 30px 40px 5px 40px;
+    margin: 0;
+    text-align: left;
+    text-transform: uppercase;
+}
+
 .content-section-description ul {
     margin-bottom: 15px;
     padding-left: 20px;
@@ -207,6 +229,13 @@
     .content-section-description h3 {
         font-size: 20px;
         margin-top: 20px;
+    }
+
+    /* Subsection mobile */
+    .content-subsection-header {
+        font-size: 22px;
+        padding: 20px 25px 5px 25px;
+        letter-spacing: -1px;
     }
 
     .content-section-button {

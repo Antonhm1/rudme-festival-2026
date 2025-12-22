@@ -37,17 +37,25 @@
         },
         {
             "id": "regler",
-            "title": "Ingen glas på pladsen",
+            "title": "Regler",
             "color": "#FFEB3B",
-            "image": "pictures/info-pictures/ingen-glas.jpeg",
-            "content": "<p>Vi bestræber os på at man kan løbe rundt med bare tæer, så lad glasset blive hjemme! Tag dåseøl med og hæld vodkaen over i en plastikflaske. Vi opfordrer derudover, at man selvfølgelig køber sine drikkevarer i vores lækre og utroligt billige bar.</p>"
-        },
-        {
-            "id": "lydregler",
-            "title": "Ingen store højtalere",
-            "color": "#E06E59",
-            "image": "pictures/info-pictures/ingen-soundboks-kun-små-højtalere.jpeg",
-            "content": "<p>Gå op og fest i festteltet og lad din Soundbox blive hjemme, pladsen er for lille til 'soundbox-støj'. Hvis I skal have hyggemusik til de skønne morgentimer, så tag en mindre højtaler med.</p>"
+            "subsections": [
+                {
+                    "title": "Ingen glas på pladsen",
+                    "image": "pictures/info-pictures/ingen-glas.jpeg",
+                    "content": "<p>Vi bestræber os på at man kan løbe rundt med bare tæer, så lad glasset blive hjemme! Tag dåseøl med og hæld vodkaen over i en plastikflaske. Vi opfordrer derudover, at man selvfølgelig køber sine drikkevarer i vores lækre og utroligt billige bar.</p>"
+                },
+                {
+                    "title": "Ingen store højtalere",
+                    "image": "pictures/info-pictures/ingen-soundboks-kun-små-højtalere.jpeg",
+                    "content": "<p>Gå op og fest i festteltet og lad din Soundbox blive hjemme, pladsen er for lille til 'soundbox-støj'. Hvis I skal have hyggemusik til de skønne morgentimer, så tag en mindre højtaler med.</p>"
+                },
+                {
+                    "title": "Ingen stoffer",
+                    "image": "pictures/info-pictures/noDrugs-info.jpeg",
+                    "content": "<p>Stoffer er ikke tilladt på Rudme Festival. Vi ønsker at skabe et trygt og godt miljø for alle gæster.</p>"
+                }
+            ]
         },
         {
             "id": "strom",
@@ -59,7 +67,7 @@
         {
             "id": "tilgaengelighed",
             "title": "Tilgængelighed",
-            "color": "#B19CD9",
+            "color": "#2862A5",
             "image": "pictures/info-pictures/tilgængelighed.png",
             "content": "<p>Rudme Festival ønsker at være for alle!</p><ul><li>Kørestolsvenlig adgang til alle områder</li><li>Handicapparkering tæt på indgangen</li><li>Handicaptoiletter på pladsen</li><li>Ledsagerordning (ledsager gratis adgang)</li><li>Platform for kørestolsbrugere foran scenen</li></ul><p>Kontakt os på <a href=\"mailto:info@rudmefestival.dk\">info@rudmefestival.dk</a> hvis du har særlige behov.</p>"
         },

@@ -13,6 +13,18 @@
  *     color: '#HEXCOLOR',         // section background color for transitions
  *     container: document.getElementById('container')
  *   });
+ *
+ * For sections with multiple subsections:
+ *   SectionComponent.create({
+ *     id: 'section-id',
+ *     title: 'Main Section Title',
+ *     subsections: [
+ *       { title: 'Sub Title 1', image: 'path/to/image1.jpg', imageCrop: 50, content: '...' },
+ *       { title: 'Sub Title 2', image: 'path/to/image2.jpg', content: '...' }
+ *     ],
+ *     color: '#HEXCOLOR',
+ *     container: document.getElementById('container')
+ *   });
  */
 
 const SectionComponent = {
@@ -21,9 +33,10 @@ const SectionComponent = {
      * @param {Object} options - Section configuration
      * @param {string} options.id - Section ID for navigation
      * @param {string} options.title - Section header title
-     * @param {string} [options.image] - Image URL (optional)
+     * @param {string} [options.image] - Image URL (optional, ignored if subsections provided)
      * @param {number} [options.imageCrop] - Image crop position as percentage from top
-     * @param {string|string[]} options.content - HTML content string or array of paragraphs
+     * @param {string|string[]} [options.content] - HTML content string or array of paragraphs
+     * @param {Object[]} [options.subsections] - Array of subsections (each with title, image, imageCrop, content)
      * @param {string} [options.buttonText] - Button text (omit for no button)
      * @param {string} options.color - Section color for background transitions
      * @param {HTMLElement} [options.container] - Container to append to (optional)
@@ -36,6 +49,7 @@ const SectionComponent = {
             image,
             imageCrop,
             content,
+            subsections,
             buttonText,
             color,
             container
@@ -57,37 +71,90 @@ const SectionComponent = {
         const contentBox = document.createElement('div');
         contentBox.className = 'content-section-box';
 
-        // Image (if provided)
-        if (image) {
-            const img = document.createElement('img');
-            img.src = image;
-            img.alt = title;
-            img.className = 'content-section-image';
+        // Check if we have subsections
+        if (subsections && Array.isArray(subsections) && subsections.length > 0) {
+            // Render subsections
+            subsections.forEach((sub, index) => {
+                // Subsection wrapper
+                const subWrapper = document.createElement('div');
+                subWrapper.className = 'content-subsection';
 
-            // Apply crop position if specified
-            if (imageCrop !== undefined) {
-                img.style.objectPosition = `center ${imageCrop}%`;
+                // Subsection header
+                if (sub.title) {
+                    const subHeader = document.createElement('h3');
+                    subHeader.className = 'content-subsection-header';
+                    subHeader.textContent = sub.title;
+                    subWrapper.appendChild(subHeader);
+                }
+
+                // Subsection image
+                if (sub.image) {
+                    const img = document.createElement('img');
+                    img.src = sub.image;
+                    img.alt = sub.title || title;
+                    img.className = 'content-section-image';
+
+                    if (sub.imageCrop !== undefined) {
+                        img.style.objectPosition = `center ${sub.imageCrop}%`;
+                    }
+
+                    subWrapper.appendChild(img);
+                }
+
+                // Subsection content
+                if (sub.content) {
+                    const descDiv = document.createElement('div');
+                    descDiv.className = 'content-section-description';
+
+                    if (typeof sub.content === 'string') {
+                        descDiv.innerHTML = sub.content;
+                    } else if (Array.isArray(sub.content)) {
+                        sub.content.forEach(paragraph => {
+                            const p = document.createElement('p');
+                            p.innerHTML = paragraph;
+                            descDiv.appendChild(p);
+                        });
+                    }
+
+                    subWrapper.appendChild(descDiv);
+                }
+
+                contentBox.appendChild(subWrapper);
+            });
+        } else {
+            // Original single-section behavior
+            // Image (if provided)
+            if (image) {
+                const img = document.createElement('img');
+                img.src = image;
+                img.alt = title;
+                img.className = 'content-section-image';
+
+                // Apply crop position if specified
+                if (imageCrop !== undefined) {
+                    img.style.objectPosition = `center ${imageCrop}%`;
+                }
+
+                contentBox.appendChild(img);
             }
 
-            contentBox.appendChild(img);
+            // Description
+            const descDiv = document.createElement('div');
+            descDiv.className = 'content-section-description';
+
+            // Handle content as string (HTML) or array of paragraphs
+            if (typeof content === 'string') {
+                descDiv.innerHTML = content;
+            } else if (Array.isArray(content)) {
+                content.forEach(paragraph => {
+                    const p = document.createElement('p');
+                    p.innerHTML = paragraph;
+                    descDiv.appendChild(p);
+                });
+            }
+
+            contentBox.appendChild(descDiv);
         }
-
-        // Description
-        const descDiv = document.createElement('div');
-        descDiv.className = 'content-section-description';
-
-        // Handle content as string (HTML) or array of paragraphs
-        if (typeof content === 'string') {
-            descDiv.innerHTML = content;
-        } else if (Array.isArray(content)) {
-            content.forEach(paragraph => {
-                const p = document.createElement('p');
-                p.innerHTML = paragraph;
-                descDiv.appendChild(p);
-            });
-        }
-
-        contentBox.appendChild(descDiv);
 
         // Button (if provided)
         if (buttonText) {
