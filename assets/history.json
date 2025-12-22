@@ -1,0 +1,84 @@
+{
+  "years": [
+    {
+      "year": 2016,
+      "image": "pictures/om/historie/2016.jpg",
+      "description": "Det første år. 150 gæster samledes i Rudme til Danmarks hyggeligste festival.",
+      "afterMovieUrl": "",
+      "picturesUrl": "",
+      "attendees": 150,
+      "budgetResult": -2500,
+      "color": "#90EE90"
+    },
+    {
+      "year": 2017,
+      "image": "pictures/om/historie/2017.jpg",
+      "description": "Andet år af festivalen med endnu mere musik og fællesskab.",
+      "afterMovieUrl": "",
+      "picturesUrl": "",
+      "attendees": 280,
+      "budgetResult": 4200,
+      "color": "#87CEEB"
+    },
+    {
+      "year": 2018,
+      "image": "pictures/om/historie/2018.jpg",
+      "description": "Festivalen voksede og tiltrak flere og flere gæster.",
+      "afterMovieUrl": "",
+      "picturesUrl": "",
+      "attendees": 450,
+      "budgetResult": 8500,
+      "color": "#FFB6C1"
+    },
+    {
+      "year": 2019,
+      "image": "pictures/om/historie/2019.jpg",
+      "description": "Endnu et fantastisk år med musik, sammenhold og gode minder.",
+      "afterMovieUrl": "",
+      "picturesUrl": "",
+      "attendees": 720,
+      "budgetResult": 12300,
+      "color": "#DDA0DD"
+    },
+    {
+      "year": 2022,
+      "image": "pictures/om/historie/2022.jpg",
+      "description": "Efter to års pause vendte festivalen tilbage stærkere end nogensinde.",
+      "afterMovieUrl": "",
+      "picturesUrl": "",
+      "attendees": 1100,
+      "budgetResult": -8200,
+      "color": "#F0E68C"
+    },
+    {
+      "year": 2023,
+      "image": "pictures/om/historie/2023.jpg",
+      "description": "Festivalen nåede 1600 besøgende og fortsatte med at vokse.",
+      "afterMovieUrl": "",
+      "picturesUrl": "",
+      "attendees": 1600,
+      "budgetResult": 25400,
+      "color": "#98D8C8"
+    },
+    {
+      "year": 2024,
+      "image": "pictures/om/historie/2024.jpeg",
+      "description": "Endnu et år med fantastisk musik og uforglemmelige oplevelser.",
+      "afterMovieUrl": "",
+      "picturesUrl": "",
+      "attendees": 1850,
+      "budgetResult": 31200,
+      "color": "#F7DC6F"
+    },
+    {
+      "year": 2025,
+      "image": "pictures/om/historie/2025.jpeg",
+      "description": "Festivalen fortsætter med at skabe minder og fællesskab.",
+      "afterMovieUrl": "",
+      "picturesUrl": "",
+      "attendees": 2100,
+      "budgetResult": 18700,
+      "color": "#AED6F1"
+    }
+  ]
+}
