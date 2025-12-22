@@ -1,0 +1,300 @@
+/**
+ * Roller Component Styles
+ * Horizontal scrolling section with auto-scroll, custom scrollbar, and expandable boxes
+ *
+ * Usage: Include this CSS and use RollerComponent.create() from roller-component.js
+ */
+
+/* Main roller section container */
+.roller-section {
+    padding: 60px 0;
+    background: transparent;
+    position: relative;
+    z-index: 10;
+    overflow: hidden;
+}
+
+/* Section title - can be aligned left or right */
+.roller-section .roller-title {
+    font-family: "Helvetica", Arial, sans-serif;
+    font-size: 90px;
+    font-weight: 400;
+    letter-spacing: -1px;
+    color: #111;
+    margin-bottom: 30px;
+}
+
+.roller-section .roller-title.align-right {
+    text-align: right;
+    padding-right: 30px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: 30px;
+}
+
+.roller-section .roller-title.align-left {
+    text-align: left;
+    padding-left: 30px;
+    max-width: 700px;
+    margin-right: auto;
+    margin-left: 30px;
+}
+
+/* Custom scrollbar track - positioned at bottom of section */
+.roller-scrollbar-track {
+    position: absolute;
+    width: 100vw;
+    height: 180px;
+    background: transparent;
+    bottom: -90px;
+    left: calc(-50vw + 50%);
+    z-index: 5;
+}
+
+/* Custom scrollbar thumb */
+.roller-scrollbar-thumb {
+    position: absolute;
+    width: 240px;
+    height: 180px;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+    opacity: 0.5;
+}
+
+.roller-scrollbar-thumb:hover {
+    opacity: 0.7;
+}
+
+.roller-scrollbar-thumb:active {
+    opacity: 0.9;
+}
+
+/* Scroll container - full viewport width */
+.roller-container {
+    position: relative;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    overflow-x: auto;
+    overflow-y: hidden;
+    /* Hide native scrollbar */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    z-index: 10;
+}
+
+.roller-container::-webkit-scrollbar {
+    display: none;
+}
+
+/* Scroll content - flex row of boxes */
+.roller-scroll {
+    display: flex;
+    gap: 20px;
+    padding: 0 20px;
+    transition: transform 0.5s ease;
+    min-width: 100vw;
+}
+
+/* Individual roller box */
+.roller-box {
+    flex: 0 0 500px;
+    width: 500px;
+    border: 3px solid;
+    transition: height 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+    overflow: hidden;
+    height: 500px;
+    align-self: flex-start;
+}
+
+.roller-box.expanded {
+    height: auto;
+}
+
+/* Box image */
+.roller-box-image {
+    width: calc(100% - 10px);
+    height: 400px;
+    object-fit: cover;
+    display: block;
+    margin: 5px;
+}
+
+/* Box content area */
+.roller-box-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Box header with title and button */
+.roller-box-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0;
+}
+
+.roller-box-title {
+    font-family: "Helvetica", Arial, sans-serif;
+    font-size: 36px;
+    font-weight: 400;
+    letter-spacing: -1px;
+    color: #111;
+    margin: 0;
+}
+
+/* Expand/collapse button */
+.roller-box-button {
+    padding: 12px 30px;
+    font-family: "Helvetica", Arial, sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: -0.5px;
+    color: #111;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+    filter: brightness(0.85);
+}
+
+.roller-box-button:hover {
+    opacity: 0.8;
+}
+
+/* Description - hidden by default, shown when expanded */
+.roller-box-description {
+    font-family: "Helvetica", Arial, sans-serif;
+    font-size: 20px;
+    line-height: 1.5;
+    color: #333;
+    margin-top: 20px;
+    padding-top: 20px;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.roller-box.expanded .roller-box-description {
+    display: block;
+    opacity: 1;
+}
+
+/* Tags/badges section within expanded content */
+.roller-tags-section {
+    margin-top: 30px;
+    padding-top: 20px;
+}
+
+.roller-tags-heading {
+    font-family: "Helvetica", Arial, sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    letter-spacing: -1px;
+    color: #111;
+    margin-bottom: 15px;
+}
+
+.roller-tags-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.roller-tag-badge {
+    display: inline-block;
+    padding: 10px 20px;
+    font-family: "Helvetica", Arial, sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: -0.5px;
+    color: #111;
+}
+
+/* Media queries for larger screens */
+@media (min-width: 1200px) {
+    .roller-section .roller-title.align-right {
+        margin-right: 60px;
+    }
+
+    .roller-section .roller-title.align-left {
+        margin-left: 60px;
+    }
+}
+
+@media (min-width: 1600px) {
+    .roller-section .roller-title.align-right {
+        margin-right: 100px;
+        max-width: 800px;
+    }
+
+    .roller-section .roller-title.align-left {
+        margin-left: 100px;
+        max-width: 800px;
+    }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .roller-section {
+        padding: 40px 0;
+    }
+
+    .roller-section .roller-title {
+        font-size: 32px;
+        letter-spacing: -1px;
+    }
+
+    .roller-section .roller-title.align-right {
+        padding-right: 20px;
+        margin-bottom: 20px;
+        margin-right: 20px;
+        max-width: none;
+    }
+
+    .roller-section .roller-title.align-left {
+        padding-left: 20px;
+        margin-bottom: 20px;
+        margin-left: 20px;
+        max-width: none;
+    }
+
+    .roller-scroll {
+        padding: 0 15px;
+        gap: 15px;
+    }
+
+    .roller-box {
+        flex: 0 0 250px;
+        width: 250px;
+        height: 280px;
+    }
+
+    .roller-box-image {
+        height: 210px;
+        width: calc(100% - 10px);
+        margin: 5px;
+    }
+
+    .roller-box-title {
+        font-size: 20px;
+    }
+
+    .roller-box-button {
+        font-size: 12px;
+        padding: 6px 15px;
+    }
+
+    .roller-box-description {
+        font-size: 14px;
+    }
+
+    .roller-tags-heading {
+        font-size: 20px;
+    }
+
+    .roller-tag-badge {
+        font-size: 16px;
+        padding: 8px 16px;
+    }
+}

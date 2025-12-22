@@ -1,12 +1,14 @@
 // Volunteer page functionality - dynamic content loading and color management
 
+// Store poster roller instance for color updates
+let posterRollerInstance = null;
+
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', async function() {
     await loadVolunteerData();
-    await loadPosterData();
+    await loadPosterRoller();
     initializeRoleNavigation();
     initializeColorTransitions();
-    initializePosterScroll();
     // Note: Header color and sticky behavior are now handled by header-universal.js
 });
 
@@ -290,276 +292,58 @@ function initializeColorTransitions() {
 
 // Sticky menu behavior is now handled by header-universal.js
 
-// Load poster data from JSON and generate poster boxes
-async function loadPosterData() {
+// Load poster data and create roller using RollerComponent
+async function loadPosterRoller() {
     try {
         const response = await fetch('assets/posters.json');
         const data = await response.json();
-        generatePosterBoxes(data.posters, data.roleColors);
+
+        // Use role colors from JSON, fallback to defaults if not provided
+        const roleColors = data.roleColors || {
+            'Frivillige': '#90EE90',
+            'Afviklere': '#87CEEB',
+            'Arrangører': '#FFB6C1'
+        };
+
+        // Transform poster data to RollerComponent format
+        const items = data.posters.map(poster => ({
+            id: poster.id,
+            title: poster.title,
+            image: poster.image,
+            description: poster.description,
+            color: poster.color,
+            tags: poster.roles ? poster.roles.map(role => ({
+                label: role,
+                color: roleColors[role] || '#ccc'
+            })) : [],
+            tagsHeading: poster.roles && poster.roles.length > 0 ? 'MULIGE ROLLER' : null
+        }));
+
+        // Create roller using the component
+        posterRollerInstance = RollerComponent.create({
+            containerId: 'poster-roller',
+            title: 'POSTER',
+            titleAlign: 'right',
+            items: items,
+            buttonTextExpand: 'LÆS MERE',
+            buttonTextCollapse: 'LUK',
+            scrollSpeed: 0.5,
+            touchResumeDelay: 2000,
+            infiniteScroll: true,
+            parentElement: document.getElementById('poster-roller-container')
+        });
+
+        // Update scrollbar color based on initial background
+        const currentBgColor = window.getComputedStyle(document.body).backgroundColor;
+        RollerComponent.updateScrollbarColor(posterRollerInstance, currentBgColor);
+
+        // Update scrollbar color on scroll (as background changes)
+        window.addEventListener('scroll', () => {
+            const bgColor = window.getComputedStyle(document.body).backgroundColor;
+            RollerComponent.updateScrollbarColor(posterRollerInstance, bgColor);
+        });
+
     } catch (error) {
         console.error('Error loading poster data:', error);
     }
-}
-
-// Generate poster boxes in the scroll container
-function generatePosterBoxes(posters, roleColorsFromJSON) {
-    const posterScroll = document.getElementById('poster-scroll');
-
-    // Use role colors from JSON, fallback to defaults if not provided
-    const roleColors = roleColorsFromJSON || {
-        'Frivillige': '#90EE90',
-        'Afviklere': '#87CEEB',
-        'Arrangører': '#FFB6C1'
-    };
-
-    // Create poster boxes twice for seamless infinite scroll
-    const allPosters = [...posters, ...posters];
-
-    allPosters.forEach((poster, index) => {
-        const box = document.createElement('div');
-        box.className = 'poster-box';
-        box.setAttribute('data-poster', `${poster.id}-${index}`); // Unique identifier for each box
-        box.style.borderColor = poster.color;
-        box.style.backgroundColor = poster.color; // Set background color to match border
-
-        // Create role badges HTML if roles exist
-        let rolesHTML = '';
-        if (poster.roles && poster.roles.length > 0) {
-            const roleBadges = poster.roles.map(role =>
-                `<span class="poster-role-badge" style="background-color: ${roleColors[role] || '#ccc'}">${role}</span>`
-            ).join('');
-
-            rolesHTML = `
-                <div class="poster-roles-section">
-                    <h4 class="poster-roles-heading">MULIGE ROLLER</h4>
-                    <div class="poster-roles-badges">
-                        ${roleBadges}
-                    </div>
-                </div>
-            `;
-        }
-
-        // Create content structure
-        box.innerHTML = `
-            <img src="${poster.image}" alt="${poster.title}" class="poster-image">
-            <div class="poster-content">
-                <div class="poster-header">
-                    <h3 class="poster-title">${poster.title}</h3>
-                    <button class="poster-button" style="background-color: ${poster.color}">LÆS MERE</button>
-                </div>
-                <div class="poster-description">
-                    ${poster.description}
-                    ${rolesHTML}
-                </div>
-            </div>
-        `;
-
-        // Add click handler for the entire box
-        box.addEventListener('click', function(e) {
-            // Prevent double-triggering from button click
-            if (e.target.classList.contains('poster-button')) {
-                return;
-            }
-
-            const wasExpanded = box.classList.contains('expanded');
-
-            // Close ALL expanded boxes first
-            document.querySelectorAll('.poster-box.expanded').forEach(expandedBox => {
-                expandedBox.classList.remove('expanded');
-                const btn = expandedBox.querySelector('.poster-button');
-                if (btn) btn.textContent = 'LÆS MERE';
-            });
-
-            // If this box wasn't expanded before, expand it
-            if (!wasExpanded) {
-                box.classList.add('expanded');
-                button.textContent = 'LUK';
-            }
-        });
-
-        // Add click handler specifically for the button
-        const button = box.querySelector('.poster-button');
-        button.addEventListener('click', function(e) {
-            e.stopPropagation();
-
-            const wasExpanded = box.classList.contains('expanded');
-
-            // Close ALL expanded boxes first
-            document.querySelectorAll('.poster-box.expanded').forEach(expandedBox => {
-                expandedBox.classList.remove('expanded');
-                const btn = expandedBox.querySelector('.poster-button');
-                if (btn) btn.textContent = 'LÆS MERE';
-            });
-
-            // If this box wasn't expanded before, expand it
-            if (!wasExpanded) {
-                box.classList.add('expanded');
-                button.textContent = 'LUK';
-            }
-        });
-
-        posterScroll.appendChild(box);
-    });
-}
-
-// Initialize poster scroll functionality
-function initializePosterScroll() {
-    const container = document.querySelector('.poster-container');
-    const scrollContent = document.querySelector('.poster-scroll');
-
-    if (!container || !scrollContent) return;
-
-    let scrollSpeed = 0.5; // Pixels per frame
-    let isAutoScrolling = true;
-    let scrollPosition = 0;
-    let animationId = null;
-
-    // Create custom scrollbar
-    const scrollbarTrack = document.createElement('div');
-    scrollbarTrack.className = 'poster-scrollbar-track';
-
-    const scrollbarThumb = document.createElement('div');
-    scrollbarThumb.className = 'poster-scrollbar-thumb';
-
-    scrollbarTrack.appendChild(scrollbarThumb);
-
-    // Insert scrollbar track inside poster section
-    const posterSection = document.querySelector('.poster-section');
-    posterSection.appendChild(scrollbarTrack);
-
-    // Function to update scrollbar color based on current background
-    function updateScrollbarColor() {
-        const currentBgColor = window.getComputedStyle(document.body).backgroundColor;
-        // Make scrollbar a much lighter version of the background for better contrast
-        scrollbarThumb.style.backgroundColor = lightenColor(currentBgColor, 0.7);
-    }
-
-    // Lighten color function (if not already available)
-    function lightenColor(color, factor = 0.7) {
-        const match = color.match(/rgb\((\d+),\s*(\d+),\s*(\d+)\)/);
-        if (match) {
-            const r = Math.min(255, parseInt(match[1]) + (255 - parseInt(match[1])) * factor);
-            const g = Math.min(255, parseInt(match[2]) + (255 - parseInt(match[2])) * factor);
-            const b = Math.min(255, parseInt(match[3]) + (255 - parseInt(match[3])) * factor);
-            return `rgb(${Math.round(r)}, ${Math.round(g)}, ${Math.round(b)})`;
-        }
-        return color;
-    }
-
-    // Update scrollbar color initially and on scroll
-    updateScrollbarColor();
-    window.addEventListener('scroll', updateScrollbarColor);
-
-    // Update scrollbar position
-    function updateScrollbar() {
-        const scrollPercentage = container.scrollLeft / (container.scrollWidth - container.clientWidth);
-        const maxThumbPosition = scrollbarTrack.clientWidth - scrollbarThumb.clientWidth;
-        scrollbarThumb.style.left = (scrollPercentage * maxThumbPosition) + 'px';
-    }
-
-    // Auto-scroll function
-    function autoScroll() {
-        if (isAutoScrolling) {
-            scrollPosition += scrollSpeed;
-
-            // Reset scroll when reaching halfway (for seamless loop)
-            const maxScroll = scrollContent.scrollWidth / 2;
-            if (scrollPosition >= maxScroll) {
-                scrollPosition = 0;
-            }
-
-            container.scrollLeft = scrollPosition;
-            updateScrollbar();
-        }
-
-        animationId = requestAnimationFrame(autoScroll);
-    }
-
-    // Stop auto-scroll on mouse enter
-    container.addEventListener('mouseenter', () => {
-        isAutoScrolling = false;
-    });
-
-    // Resume auto-scroll on mouse leave immediately
-    container.addEventListener('mouseleave', () => {
-        isAutoScrolling = true;
-    });
-
-    // Touch events for mobile - stop auto-scroll when user touches
-    let touchScrollTimeout = null;
-
-    container.addEventListener('touchstart', () => {
-        isAutoScrolling = false;
-        // Clear any pending resume timeout
-        if (touchScrollTimeout) {
-            clearTimeout(touchScrollTimeout);
-            touchScrollTimeout = null;
-        }
-    }, { passive: true });
-
-    // Keep auto-scroll off during touch movement
-    container.addEventListener('touchmove', () => {
-        isAutoScrolling = false;
-        // Update scroll position for seamless loop
-        scrollPosition = container.scrollLeft;
-        updateScrollbar();
-    }, { passive: true });
-
-    // Resume auto-scroll after touch ends (with a small delay)
-    container.addEventListener('touchend', () => {
-        touchScrollTimeout = setTimeout(() => {
-            isAutoScrolling = true;
-        }, 2000); // 2 second delay before resuming auto-scroll
-    }, { passive: true });
-
-    // Handle manual scrolling
-    container.addEventListener('scroll', () => {
-        if (!isAutoScrolling) {
-            scrollPosition = container.scrollLeft;
-            updateScrollbar();
-        }
-    });
-
-    // Handle scrollbar thumb dragging
-    let isDragging = false;
-    let startX = 0;
-    let startScrollLeft = 0;
-
-    scrollbarThumb.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        isAutoScrolling = false;
-        startX = e.clientX - scrollbarThumb.offsetLeft;
-        startScrollLeft = container.scrollLeft;
-        e.preventDefault();
-    });
-
-    document.addEventListener('mousemove', (e) => {
-        if (!isDragging) return;
-        e.preventDefault();
-
-        const x = e.clientX - startX;
-        const maxThumbPosition = scrollbarTrack.clientWidth - scrollbarThumb.clientWidth;
-        const boundedX = Math.max(0, Math.min(x, maxThumbPosition));
-
-        const scrollPercentage = boundedX / maxThumbPosition;
-        container.scrollLeft = scrollPercentage * (container.scrollWidth - container.clientWidth);
-        scrollPosition = container.scrollLeft;
-    });
-
-    document.addEventListener('mouseup', () => {
-        if (isDragging) {
-            isDragging = false;
-            // Don't auto-resume scrolling after dragging - wait for mouse to leave
-        }
-    });
-
-    // Start auto-scrolling
-    autoScroll();
-
-    // Cleanup on page unload
-    window.addEventListener('beforeunload', () => {
-        if (animationId) {
-            cancelAnimationFrame(animationId);
-        }
-    });
 }
