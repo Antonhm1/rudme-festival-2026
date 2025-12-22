@@ -1,0 +1,150 @@
+/* Association/Foreningen page styles */
+
+/* Enable vertical scrolling on this page */
+html, body {
+    height: auto !important;
+    min-height: 100vh;
+    overflow-y: auto !important;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    background-color: #E75F67;
+}
+
+.association-main {
+    padding-top: 0;
+    background-color: transparent;
+}
+
+/* Hero section with big image - absolute on desktop, relative on mobile */
+.hero-section {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    right: 30px;
+    z-index: 1;
+}
+
+.hero-image {
+    width: 100%;
+    height: auto;
+    max-height: 600px;
+    object-fit: cover;
+    display: block;
+}
+
+.hero-text {
+    font-family: "Helvetica", Arial, sans-serif;
+    font-size: 60px;
+    font-weight: 400;
+    letter-spacing: -2px;
+    color: #111;
+    text-align: right;
+    padding-top: 490px;
+    margin-bottom: 40px;
+    padding-right: 30px;
+    position: relative;
+    z-index: 10;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: 30px;
+}
+
+/* Content section */
+.content-section {
+    padding: 40px 30px;
+    background: transparent;
+    position: relative;
+    z-index: 10;
+    max-width: 900px;
+    margin-right: auto;
+    margin-left: 30px;
+}
+
+.section-title {
+    font-family: "Helvetica", Arial, sans-serif;
+    font-size: 90px;
+    font-weight: 400;
+    letter-spacing: -1px;
+    color: #111;
+    margin-bottom: 30px;
+}
+
+.description-text {
+    font-family: "Helvetica", Arial, sans-serif;
+    font-size: 20px;
+    line-height: 1.6;
+    color: #333;
+    max-width: 800px;
+}
+
+.description-text p {
+    margin-bottom: 20px;
+}
+
+.description-text p:last-child {
+    margin-bottom: 0;
+}
+
+/* On larger screens, increase margins */
+@media (min-width: 1200px) {
+    .hero-text {
+        margin-right: 60px;
+    }
+
+    .content-section {
+        margin-left: 60px;
+    }
+}
+
+@media (min-width: 1600px) {
+    .hero-text {
+        margin-right: 100px;
+        max-width: 800px;
+    }
+
+    .content-section {
+        margin-left: 100px;
+        max-width: 800px;
+    }
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+    .association-main {
+        padding-top: 0;
+    }
+
+    .hero-section {
+        position: relative;
+        top: auto;
+        left: auto;
+        right: auto;
+        margin: 15px 15px 0 15px;
+    }
+
+    .hero-text {
+        font-size: 28px;
+        letter-spacing: -1px;
+        padding-right: 0px;
+        padding-top: 20px;
+        margin-right: 20px;
+        max-width: none;
+        margin-left: 0;
+    }
+
+    .section-title {
+        font-size: 32px;
+        letter-spacing: -1px;
+    }
+
+    .content-section {
+        padding: 10px 15px;
+        max-width: none;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .description-text {
+        font-size: 16px;
+    }
+}
