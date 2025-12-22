@@ -41,6 +41,25 @@
         <div id="history-roller-container">
             <!-- History roller will be generated dynamically by RollerComponent -->
         </div>
+
+        <!-- Stats section with interactive graph -->
+        <section class="stats-section">
+            <h2 class="section-title">STATS</h2>
+            <div class="stats-container">
+                <div class="stats-toggles">
+                    <button class="stats-toggle active" data-series="attendees">GÆSTER</button>
+                    <button class="stats-toggle active" data-series="budget">OVERSKUD</button>
+                    <button class="stats-toggle active" data-series="revenue">OMSÆTNING</button>
+                    <button class="stats-toggle active" data-series="volunteers">FRIVILLIGE</button>
+                </div>
+                <div class="stats-graph-container">
+                    <canvas id="stats-graph"></canvas>
+                </div>
+                <div class="stats-legend">
+                    <div class="legend-years"></div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <script src="assets/header-insert.js" defer></script>
