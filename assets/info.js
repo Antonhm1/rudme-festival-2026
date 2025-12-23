@@ -117,6 +117,9 @@ function initializeColorTransitions() {
         contactItems.forEach(item => {
             item.style.setProperty('--item-color', bgColor);
         });
+
+        // Update button styles (including button-styled links)
+        SectionComponent.updateButtonStyles(bgColor);
     }
 
     // Update colors on scroll

@@ -195,7 +195,8 @@ const SectionComponent = {
      * @param {string} bgColor - Current background color
      */
     updateButtonStyles: function(bgColor) {
-        const buttons = document.querySelectorAll('.content-section-button');
+        // Update both buttons and button-styled links
+        const buttons = document.querySelectorAll('.content-section-button, .section-button-link');
         buttons.forEach(button => {
             button.style.backgroundColor = '#111';
             button.style.color = bgColor;
@@ -207,6 +208,19 @@ const SectionComponent = {
                 this.style.backgroundColor = '#111';
             };
         });
+    },
+
+    /**
+     * Create HTML for a button-styled link
+     * Use this in content to create download links or navigation links that match the button style
+     * @param {string} href - Link URL
+     * @param {string} text - Button text
+     * @param {boolean} [download=false] - Whether this is a download link
+     * @returns {string} HTML string for the button link
+     */
+    createButtonLink: function(href, text, download = false) {
+        const downloadAttr = download ? ' download' : '';
+        return `<a href="${href}" class="section-button-link"${downloadAttr}>${text}</a>`;
     },
 
     /**

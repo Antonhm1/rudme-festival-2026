@@ -133,6 +133,28 @@
     transition: background-color 0.3s ease;
 }
 
+/* Button-styled links (for download links, etc.) */
+.section-button-link {
+    display: inline-block;
+    padding: 15px 30px;
+    font-family: "Helvetica", Arial, sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: -0.5px;
+    text-decoration: none;
+    background-color: #111;
+    color: inherit;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 15px;
+    margin-right: 10px;
+}
+
+.section-button-link:last-child {
+    margin-right: 0;
+}
+
 /* Map container inside sections */
 .content-section-description .map-container {
     margin-top: 20px;
@@ -243,6 +265,11 @@
         padding: 15px;
         width: calc(100% - 40px);
         margin: 0 20px 20px 20px;
+    }
+
+    .section-button-link {
+        padding: 12px 20px;
+        font-size: 16px;
     }
 
     /* Contact boxes mobile */
