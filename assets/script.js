@@ -974,6 +974,7 @@ function attachBehaviors() {
             'camp': 'camp.html',
             'association': 'association.html',
             'contact': 'contact.html',
+            'skurvognen': 'skurvognen.html',
             // legacy/aliases
             'music': 'program.html',
             'musik': 'program.html',
@@ -1013,7 +1014,8 @@ function attachBehaviors() {
                 'volunteer.html': 'volunteer',
                 'camp.html': 'camp',
                 'association.html': 'association',
-                'contact.html': 'contact'
+                'contact.html': 'contact',
+                'skurvognen.html': 'skurvognen'
             };
             const currentValue = filenameMap[filename] || (filename.replace('.html','') || 'home');
             const initialLi = options.querySelector(`li[data-value="${currentValue}"]`) || options.querySelector('li.selected') || options.querySelector('li');

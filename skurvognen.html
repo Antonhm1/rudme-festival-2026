@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SKURVOGNEN - Rudme Festival</title>
+    <link rel="stylesheet" href="assets/styles.css">
+    <link rel="stylesheet" href="assets/section-component.css">
+    <link rel="stylesheet" href="assets/skurvognen.css">
+    <link rel="stylesheet" href="assets/footer.css">
+</head>
+<body>
+    <script src="assets/header-insert.js" defer></script>
+    <script src="assets/header-universal.js" defer></script>
+    <script src="assets/script.js" defer></script>
+    <script src="assets/section-component.js" defer></script>
+    <script src="assets/skurvognen.js" defer></script>
+
+    <main class="skurvognen-main">
+        <!-- Hero section with big picture -->
+        <section class="hero-section">
+            <img src="pictures/skurvognen/hero.jpg" alt="Skurvognen" class="hero-image">
+        </section>
+
+        <!-- Hero text underneath image -->
+        <div class="hero-text">SKURVOGNEN</div>
+
+        <!-- Navigation buttons section -->
+        <section class="nav-buttons-section">
+            <div class="nav-buttons-grid">
+                <button class="nav-button" data-target="om" data-color="#4ECDC4">OM</button>
+                <button class="nav-button" data-target="events" data-color="#FF6B6B">EVENTS</button>
+                <button class="nav-button" data-target="folg" data-color="#FFE66D">FØLG</button>
+            </div>
+        </section>
+
+        <!-- Om section -->
+        <section id="om" class="content-section" data-color="#4ECDC4">
+            <h2 class="section-title">Festivalens uundværlige søsterforening</h2>
+            <div class="section-content">
+                <p>Skurvognen er hjertet i det kreative fællesskab bag Rudme Festival. Som vores søsterforening arbejder vi året rundt med at skabe kulturelle oplevelser og events, der bringer mennesker sammen. Vi tror på, at fællesskab opstår, når mennesker mødes om noget større end dem selv – hvad enten det er musik, kunst, byggeri eller bare en god fest.</p>
+                <p>Gennem årene har Skurvognen været drivkraften bag utallige projekter, der har bragt folk sammen på tværs af baggrunde og interesser. Fra intime koncerter i baggårde til store sceneproduktioner har vi altid haft fokus på at skabe rum, hvor kreativiteten kan blomstre og nye venskaber kan opstå.</p>
+                <p>Vores frivillige er kernen i alt, hvad vi laver. Det er deres passion, dedikation og utrættelige indsats, der gør det muligt at realisere de vilde idéer og ambitiøse projekter. Sammen bygger vi ikke bare scener og festivalpladser – vi bygger et fællesskab, der holder hele året rundt.</p>
+                <p>Skurvognen er mere end en forening. Det er en bevægelse af mennesker, der vil noget med deres fritid. Mennesker, der tror på, at kultur og fællesskab kan forandre verden – én festival, én koncert, én byggefestival ad gangen.</p>
+            </div>
+        </section>
+
+        <!-- Events heading section -->
+        <section class="events-heading-section">
+            <h2 class="section-title">KULTURSKABERE<br>HELE ÅRET</h2>
+        </section>
+
+        <!-- Event sections container - will be populated from JS -->
+        <div id="events-sections-container">
+            <!-- Event sections will be generated dynamically using SectionComponent -->
+        </div>
+
+        <!-- Følg section -->
+        <section id="folg" class="content-section folg-section" data-color="#FFE66D">
+            <h2 class="section-title">Følg os!</h2>
+
+            <!-- Instagram embed -->
+            <div class="instagram-embed">
+                <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/rudmeskurvogn/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);">
+                    <a href="https://www.instagram.com/rudmeskurvogn/" target="_blank" style="background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;">
+                        Se profilen på Instagram
+                    </a>
+                </blockquote>
+            </div>
+
+            <div class="social-links">
+                <a href="https://www.instagram.com/rudmeskurvogn/" target="_blank" class="social-button instagram">
+                    <span>INSTAGRAM</span>
+                </a>
+                <a href="https://www.facebook.com/skurvognen" target="_blank" class="social-button facebook">
+                    <span>FACEBOOK</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Instagram embed script -->
+        <script async src="//www.instagram.com/embed.js"></script>
+    </main>
+
+    <div id="footer-placeholder"></div>
+    <script src="assets/footer-insert.js" defer></script>
+</body>
+</html>
