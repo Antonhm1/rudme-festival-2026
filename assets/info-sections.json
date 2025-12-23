@@ -84,6 +84,21 @@
             "color": "#4DD0E1",
             "image": "pictures/info-pictures/bæredygtighed.jpeg",
             "content": "<p>Vi gør vores bedste for at minimere festivalens miljøpåvirkning:</p><ul><li>Affaldssortering på hele pladsen</li><li>Pantordning på plastikkrus</li><li>Vegetariske og veganske madmuligheder</li><li>Samarbejde med lokale leverandører</li><li>Opfordring til samkørsel og offentlig transport</li></ul><p><strong>Hjælp os:</strong> Tag dit affald med og sorter det korrekt!</p>"
+        },
+        {
+            "id": "forenings-dokumenter",
+            "title": "Forenings dokumenter",
+            "color": "#8B5CF6",
+            "subsections": [
+                {
+                    "title": "Vedtægter",
+                    "content": "<p>Her kan du downloade foreningens vedtægter:</p><a href=\"dokumenter/Rudme%20Festival%20Vedtægter.pdf\" class=\"section-button-link\" download>Download Vedtægter (PDF)</a>"
+                },
+                {
+                    "title": "Referater",
+                    "content": "<p>Her finder du referater fra foreningens møder:</p><a href=\"dokumenter/referat-2025.pdf\" class=\"section-button-link\" download>Referat 2025</a><a href=\"dokumenter/referat-2024.pdf\" class=\"section-button-link\" download>Referat 2024</a>"
+                }
+            ]
         }
     ]
 }

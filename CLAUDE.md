@@ -18,6 +18,7 @@ This is a website for the Rudme Festival (July 16-18, 2026), built as a static H
 ## Architecture
 
 ### File Structure
+
 - `index.html` - Homepage with horizontal scrolling gallery
 - `*.html` - Additional pages (about, program, tickets, volunteer, camp, association, contact)
 - `assets/` - Shared resources including CSS, JavaScript, and images
@@ -28,6 +29,7 @@ This is a website for the Rudme Festival (July 16-18, 2026), built as a static H
 ### Core JavaScript Architecture
 
 #### Main Gallery System (`assets/script.js`)
+
 - **Dynamic slide generation**: Gallery slides are generated from `pictures/` directory using filename conventions
 - **Image naming convention**: `Name#HEXCOLOR&ORDER.ext` where:
   - Name becomes the alt text
@@ -39,6 +41,7 @@ This is a website for the Rudme Festival (July 16-18, 2026), built as a static H
 - **Logo color adaptation**: Logo and date text automatically adjust color based on background
 
 #### Header System (`assets/header-insert.js`)
+
 - Dynamically injects shared header content from `assets/header.html`
 - Creates custom navigation dropdown with fallback native select
 - Handles page-specific styling (black text on subpages, dynamic colors on homepage)
@@ -47,10 +50,12 @@ This is a website for the Rudme Festival (July 16-18, 2026), built as a static H
 - Header styling should be self-contained and consistent across all pages
 
 #### Program Page (`assets/program.js`)
+
 - Custom scrollbars for individual artist boxes
 - Color-coordinated with CSS custom properties
 
 #### Section Component (`assets/section-component.js` + `assets/section-component.css`)
+
 - Reusable component for content sections (used on volunteer and info pages)
 - Creates consistent layout: header outside content box, extended images, description, optional button
 - Usage: `SectionComponent.create({ id, title, image, imageCrop, content, buttonText, color, container })`
@@ -58,6 +63,7 @@ This is a website for the Rudme Festival (July 16-18, 2026), built as a static H
 - Includes `updateButtonStyles(bgColor)` for dynamic button coloring
 
 ### CSS Architecture (`assets/styles.css`)
+
 - CSS custom properties for slide-specific colors (--bg-color-1, --bg-color-2, etc.)
 - Responsive design with mobile-specific behaviors
 - Custom scrollbar styling with hover/active states
@@ -66,6 +72,7 @@ This is a website for the Rudme Festival (July 16-18, 2026), built as a static H
 ### Build Process
 
 The `scripts/generate_slides.js` tool:
+
 1. Scans the `pictures/` directory for images
 2. Parses filenames for color and ordering information
 3. Updates the gallery section in `index.html` between `<!-- SLIDES-START -->` and `<!-- SLIDES-END -->` markers
@@ -76,22 +83,6 @@ The `scripts/generate_slides.js` tool:
 - `assets/artists.json` - Artist information for the program page
 - `assets/load-from-sheet.js` - Google Sheets integration for dynamic content loading
 
-## Development Notes
+### Test
 
-- The gallery slides are embedded directly in `index.html` and regenerated via the build script
-- Logo SVG is loaded dynamically and styled with `currentColor` for theme adaptation
-- Social links and navigation use inline color adjustments on mobile for dynamic theming
-- The custom scrollbar system provides visual feedback about current slide position
-- Auto-advance respects user interaction, page visibility, and focus states
-
-## Testing
-
-The project includes comprehensive UI tests using Puppeteer and Jest:
-
-### Test Coverage
-- **Gallery functionality**: Horizontal scrolling, auto-advance, background color changes, custom scrollbar
-- **Navigation**: Header injection, dropdown menu, logo adaptation, page-specific styling
-- **Responsive design**: Mobile, tablet, and desktop viewports with functionality validation
-
-### Running Tests
-Use `npm test` to run all tests, or `npm run test:ui` for UI-specific tests. Tests run against local HTML files and validate both visual and functional behavior across different screen sizes.
+When testing, use Puppeteer on port 5500 (the visual stidio live server) to see the changes. Do this when making UI changes. When I make a prompt that says test with Puppeteer, this is what you should do.
