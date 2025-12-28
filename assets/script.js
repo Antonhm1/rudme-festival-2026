@@ -35,33 +35,24 @@ function getSocialLinksReservedSpace() {
 function manageSocialLinksZIndex() {
     if (!thumb || !scrollbar) return;
 
-    // Only apply on mobile screens
+    const socialContainer = document.querySelector('.social-container');
+    if (!socialContainer) return;
+
+    // Only apply dynamic z-index on mobile screens
     try {
         if (!window.matchMedia || !window.matchMedia('(max-width: 800px)').matches) {
+            // On desktop, keep social in front
+            socialContainer.style.zIndex = '1500';
             return;
         }
     } catch (err) {
         return;
     }
 
-    const socialContainer = document.querySelector('.social-container');
-    if (!socialContainer) return;
-
-    // Calculate thumb's right edge position
-    const thumbRect = thumb.getBoundingClientRect();
-    const thumbRightEdge = thumbRect.left + thumbRect.width;
-    const viewportWidth = window.innerWidth;
-
-    // Define threshold: when thumb gets within 150px of right edge, lower social z-index
-    const threshold = viewportWidth - 150;
-
-    if (thumbRightEdge > threshold) {
-        // Thumb is close to social area - lower social z-index so thumb can pass over
-        socialContainer.style.zIndex = '1200';
-    } else {
-        // Thumb is away from social area - restore high z-index so social links are clickable
-        socialContainer.style.zIndex = '1500';
-    }
+    // On mobile, scrollbar thumb (z-index 1400) should always be in front of social
+    // Social stays at 1300 so thumb can pass over it
+    // No dynamic changes needed - CSS handles it
+    socialContainer.style.zIndex = '1300';
 }
 
 // Helper to resolve DOM references once header is inserted
@@ -467,10 +458,12 @@ function attachBehaviors() {
     ensureScrollbarExists();
     resolveDom();
 
-    // Auto-advance (carousel) state: advance to next slide every 3s.
+    // Auto-advance (carousel) state: advance to next slide every 4s.
     // It respects user interaction (dragging/hover/focus) and page visibility.
     let autoTimer = null;
     const autoplayInterval = 4000; // ms
+    const firstScrollDelay = 1500; // faster first scroll so users know they can scroll
+    let isFirstAutoScroll = true; // track if this is the first auto-scroll
     let currentAutoIndex = 0;
     let isAutoScrolling = false; // flag to track programmatic scrolling
     let pauseTimer = null; // timer for pausing auto-advance after manual scroll
@@ -505,34 +498,52 @@ function attachBehaviors() {
         setTimeout(() => { isAutoScrolling = false; }, 1000);
     }
 
+    function advanceToNextSlide() {
+        // Do not advance while user is dragging
+        if (typeof isDragging !== 'undefined' && isDragging) return;
+        // If user is actively scrolling (recent RAF) avoid jitter by checking
+        currentAutoIndex = computeCurrentSlideIndex();
+
+        let nextIndex;
+        // When at the last slide, loop back to the first
+        if (currentAutoIndex === slides.length - 1) {
+            nextIndex = 0;
+        } else {
+            // Otherwise, advance to the next slide
+            nextIndex = currentAutoIndex + 1;
+        }
+
+        // Set flag before calling goToSlideIndex
+        isAutoScrolling = true;
+        goToSlideIndex(nextIndex);
+    }
+
     function startAutoAdvance() {
         stopAutoAdvance();
         if (!gallery || slides.length <= 1) return;
         // set current index from current scroll position
         currentAutoIndex = computeCurrentSlideIndex();
-        autoTimer = setInterval(() => {
-            // Do not advance while user is dragging
-            if (typeof isDragging !== 'undefined' && isDragging) return;
-            // If user is actively scrolling (recent RAF) avoid jitter by checking
-            currentAutoIndex = computeCurrentSlideIndex();
 
-            let nextIndex;
-            // When at the last slide, loop back to the first
-            if (currentAutoIndex === slides.length - 1) {
-                nextIndex = 0;
-            } else {
-                // Otherwise, advance to the next slide
-                nextIndex = currentAutoIndex + 1;
-            }
-
-            // Set flag before calling goToSlideIndex
-            isAutoScrolling = true;
-            goToSlideIndex(nextIndex);
-        }, autoplayInterval);
+        if (isFirstAutoScroll) {
+            // First scroll happens faster so users understand they can scroll
+            autoTimer = setTimeout(() => {
+                advanceToNextSlide();
+                isFirstAutoScroll = false;
+                // Now start the regular interval
+                autoTimer = setInterval(advanceToNextSlide, autoplayInterval);
+            }, firstScrollDelay);
+        } else {
+            // Regular interval for subsequent scrolls
+            autoTimer = setInterval(advanceToNextSlide, autoplayInterval);
+        }
     }
 
     function stopAutoAdvance() {
-        if (autoTimer) { clearInterval(autoTimer); autoTimer = null; }
+        if (autoTimer) {
+            clearTimeout(autoTimer); // works for both setTimeout and setInterval
+            clearInterval(autoTimer);
+            autoTimer = null;
+        }
     }
 
     if (gallery) gallery.addEventListener('scroll', onGalleryScroll);

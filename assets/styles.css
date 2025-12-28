@@ -313,7 +313,7 @@ select {
     /* bigger area so the thumb can be taller and more visible */
     height: 120px; /* increase container height so thumb can be taller */
     z-index: 1400; /* always in front of gallery */
-    pointer-events: auto; /* allow pointer events */
+    pointer-events: none; /* allow clicks to pass through to elements below */
     overflow: visible; /* ensure the thumb's children (icon/text) are not clipped */
 }
 
@@ -679,7 +679,9 @@ top: -3px;
     .social-container{
         position: fixed;
         right: 20px;
-        bottom: 25px;    
+        bottom: 25px;
+        /* On mobile, put social behind the scrollbar thumb so thumb passes over */
+        z-index: 1300;
     }
 
 
