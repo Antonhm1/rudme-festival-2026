@@ -336,9 +336,9 @@ select {
     border-radius: 0;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 0 20px;
+    justify-content: space-between; /* push arrows to edges */
+    gap: 12px;
+    padding: 0 12px; /* smaller padding to push arrows closer to edges */
     /* remove shadow per request */
     box-shadow: none;
     box-sizing: border-box;
@@ -362,9 +362,10 @@ select {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    max-width: calc(100% - 48px); /* leave space for icon */
-    text-align: left;
-    margin-top: -25px;
+    align-items: center; /* center text horizontally */
+    flex: 1;
+    min-width: 0; /* allow content to shrink */
+    text-align: center;
     opacity: 0;
     transition: opacity 160ms ease;
 }
@@ -404,23 +405,32 @@ select {
     line-height: 1.2;
     margin-top: 1px;
 }
+/* Arrow icons on left and right sides */
 .custom-scrollbar-thumb .thumb-icon {
-    width: 48px; /* larger arrow */
-    height: 48px;
-    flex: 0 0 48px;
+    width: 20px;
+    height: 20px;
+    flex: 0 0 20px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     opacity: 0;
     transition: opacity 160ms ease;
 }
-.custom-scrollbar-thumb .thumb-icon img {
+
+.custom-scrollbar-thumb .thumb-icon img,
+.custom-scrollbar-thumb .thumb-icon svg {
     width: 100%;
     height: 100%;
     display: block;
 }
 
-/* Show content and icon when the scrollbar is active (slide hovered) or the
+/* Left arrow - rotated 180 degrees to point left */
+.custom-scrollbar-thumb .thumb-icon-left img,
+.custom-scrollbar-thumb .thumb-icon-left svg {
+    transform: rotate(180deg);
+}
+
+/* Show content and icons when the scrollbar is active (slide hovered) or the
    thumb itself is hovered so users can interact. When not active they stay
    hidden to avoid visual clutter. */
 .custom-scrollbar.active .custom-scrollbar-thumb .thumb-content,
@@ -434,21 +444,7 @@ select {
 .custom-scrollbar-thumb .thumb-icon svg path,
 .custom-scrollbar-thumb .thumb-icon svg line,
 .custom-scrollbar-thumb .thumb-icon svg polyline {
-    stroke-width: 1.2 !important;
-}
-
-/* Arrow rotation animation */
-.custom-scrollbar-thumb .thumb-icon svg {
-    transition: transform 250ms ease;
-}
-
-/* Arrow direction classes */
-.custom-scrollbar-thumb .thumb-icon.pointing-left svg {
-    transform: rotate(180deg);
-}
-
-.custom-scrollbar-thumb .thumb-icon.pointing-right svg {
-    transform: rotate(0deg);
+    stroke-width: 1.5 !important;
 }
 
 /* Visual feedback when dragging thumb */
@@ -462,31 +458,27 @@ select {
     .custom-scrollbar { height: 120px; }
     .custom-scrollbar-thumb {
         height: 100px;
-        padding: 8px 12px 24px 12px;
-        min-width: 140px;
-        max-width: 170px;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: flex-start;
-        gap: 6px;
+        padding: 8px 8px 24px 8px;
+        min-width: 180px;
+        max-width: 220px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
         /* Ensure touch-action is set on mobile too */
         touch-action: none;
     }
     .custom-scrollbar-thumb .thumb-content {
-        max-width: 100%;
-        margin-top: 8px;
-        margin-bottom: 0;
+        flex: 1;
+        min-width: 0;
     }
-    .custom-scrollbar-thumb .thumb-description { font-size: 16px; }
-    .custom-scrollbar-thumb .thumb-location { font-size: 14px; }
-    .custom-scrollbar-thumb .thumb-photographer { font-size: 11px; }
+    .custom-scrollbar-thumb .thumb-description { font-size: 14px; }
+    .custom-scrollbar-thumb .thumb-location { font-size: 12px; }
+    .custom-scrollbar-thumb .thumb-photographer { font-size: 10px; }
     .custom-scrollbar-thumb .thumb-icon {
-        width: 45px;
-        height: 20px;
-        flex: 0 0 20px;
-        align-self: center;
-        margin-top: auto;
-        margin-bottom: 12px;
+        width: 16px;
+        height: 16px;
+        flex: 0 0 16px;
     }
 }
 

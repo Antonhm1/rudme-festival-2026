@@ -99,64 +99,17 @@ function ensureScrollbarExists() {
         sc.appendChild(thumbEl);
     }
 
-    // Ensure thumb content container exists
-    if (!thumbEl.querySelector('.thumb-content')) {
-        const content = document.createElement('div');
-        content.className = 'thumb-content';
-
-        // Create description element
-        const description = document.createElement('div');
-        description.className = 'thumb-description';
-        description.textContent = '';
-        content.appendChild(description);
-
-        // Create location element
-        const location = document.createElement('div');
-        location.className = 'thumb-location';
-        location.textContent = '';
-        content.appendChild(location);
-
-        // Create photographer element
-        const photographer = document.createElement('div');
-        photographer.className = 'thumb-photographer';
-        photographer.textContent = '';
-        content.appendChild(photographer);
-
-        thumbEl.appendChild(content);
-    }
-
-    // Ensure icon exists (attempt to inline SVG; fallback to <img>)
-    if (!thumbEl.querySelector('.thumb-icon')) {
-        const iconWrap = document.createElement('div');
-        iconWrap.className = 'thumb-icon';
-        (async function insertInlineArrow() {
-            const path = 'assets/arrow-new.svg';
-            try {
-                const resp = await fetch(path, { cache: 'no-cache' });
-                if (resp.ok) {
-                    const txt = await resp.text();
-                    const parser = new DOMParser();
-                    const doc = parser.parseFromString(txt, 'image/svg+xml');
-                    const svg = doc.querySelector('svg');
-                    if (svg) {
-                        svg.removeAttribute('width'); svg.removeAttribute('height');
-                        svg.setAttribute('aria-hidden', 'true');
-                        svg.style.width = '100%';
-                        svg.style.height = '100%';
-                        iconWrap.appendChild(document.importNode(svg, true));
-                        return;
-                    }
-                }
-            } catch (err) {
-                // fall through to img fallback
-            }
-            const img = document.createElement('img');
-            img.src = encodeURI('assets/arrow-new.svg');
-            img.alt = '';
-            iconWrap.appendChild(img);
-        })();
-        thumbEl.appendChild(iconWrap);
-    }
+    // Build thumb content structure with inline SVG for color control
+    const arrowSvg = `<svg viewBox="0 0 17.2 33.2" aria-hidden="true"><path d="M2.5,31.1l13.2-14.5L2.5,2.1" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+    thumbEl.innerHTML = `
+        <div class="thumb-icon thumb-icon-left">${arrowSvg}</div>
+        <div class="thumb-content">
+            <div class="thumb-description"></div>
+            <div class="thumb-location"></div>
+            <div class="thumb-photographer"></div>
+        </div>
+        <div class="thumb-icon thumb-icon-right">${arrowSvg}</div>
+    `;
 
     // refresh DOM refs
     resolveDom();
@@ -294,7 +247,7 @@ function setLogoColor(color) {
     } catch (err) {}
 }
 
-// Set dynamic color for thumb text and arrow
+// Set dynamic color for thumb text and arrows
 function setThumbColor(color) {
     if (!thumb) return;
     try {
@@ -305,14 +258,16 @@ function setThumbColor(color) {
         const descEl = thumb.querySelector('.thumb-description');
         const locEl = thumb.querySelector('.thumb-location');
         const photoEl = thumb.querySelector('.thumb-photographer');
-        const iconEl = thumb.querySelector('.thumb-icon');
 
         if (descEl) descEl.style.color = darkenedColor;
         if (locEl) locEl.style.color = darkenedColor;
         if (photoEl) photoEl.style.color = darkenedColor;
 
-        // Set color for arrow icon (SVG uses currentColor)
-        if (iconEl) iconEl.style.color = darkenedColor;
+        // Set color for both arrow icons (SVG uses currentColor)
+        const iconLeft = thumb.querySelector('.thumb-icon-left');
+        const iconRight = thumb.querySelector('.thumb-icon-right');
+        if (iconLeft) iconLeft.style.color = darkenedColor;
+        if (iconRight) iconRight.style.color = darkenedColor;
     } catch (err) { /* non-critical */ }
 }
 
@@ -500,65 +455,11 @@ function updateBackgroundOnScroll() {
 let rafId = null;
 function onGalleryScroll() {
     updateScrollbar();
-    updateArrowDirection();
-    checkForAutoReverse();
     if (rafId === null) {
         rafId = requestAnimationFrame(() => {
             updateBackgroundOnScroll();
             rafId = null;
         });
-    }
-}
-// Arrow direction state tracking
-let lastScrollLeft = 0;
-let currentScrollDirection = 'right'; // default direction
-
-// Update arrow direction based on scroll movement
-function updateArrowDirection() {
-    if (!gallery || !thumb) return;
-
-    const thumbIcon = thumb.querySelector('.thumb-icon');
-    if (!thumbIcon) return;
-
-    const currentScrollLeft = gallery.scrollLeft;
-    const scrollDirection = currentScrollLeft > lastScrollLeft ? 'right' :
-                           currentScrollLeft < lastScrollLeft ? 'left' : currentScrollDirection;
-
-    // Only update if direction actually changed
-    if (scrollDirection !== currentScrollDirection) {
-        currentScrollDirection = scrollDirection;
-
-        // Update CSS classes for arrow direction
-        thumbIcon.classList.remove('pointing-left', 'pointing-right');
-        thumbIcon.classList.add(`pointing-${scrollDirection}`);
-    }
-
-    lastScrollLeft = currentScrollLeft;
-}
-
-// Check if we're at the final slide (keep for manual scrolling arrow direction)
-function checkForAutoReverse() {
-    if (!gallery || !slides.length) return;
-
-    const maxScroll = gallery.scrollWidth - gallery.clientWidth;
-    const isAtEnd = gallery.scrollLeft >= maxScroll - 5; // small tolerance for rounding
-    const isAtStart = gallery.scrollLeft <= 5; // small tolerance for rounding
-
-    const thumbIcon = thumb?.querySelector('.thumb-icon');
-    if (!thumbIcon) return;
-
-    // This only affects manual scrolling direction indication
-    // Auto-advance will always loop forward
-    if (isAtEnd && currentScrollDirection === 'right') {
-        // At the end, point left for manual scroll
-        currentScrollDirection = 'left';
-        thumbIcon.classList.remove('pointing-right');
-        thumbIcon.classList.add('pointing-left');
-    } else if (isAtStart && currentScrollDirection === 'left') {
-        // At the start, point right for manual scroll
-        currentScrollDirection = 'right';
-        thumbIcon.classList.remove('pointing-left');
-        thumbIcon.classList.add('pointing-right');
     }
 }
 
@@ -602,16 +503,6 @@ function attachBehaviors() {
             gallery.scrollTo({ left, behavior: 'smooth' });
         } catch (err) {
             gallery.scrollLeft = left;
-        }
-
-        // Update arrow direction for programmatic scroll
-        const thumbIcon = thumb?.querySelector('.thumb-icon');
-        if (thumbIcon) {
-            // For auto-advance, always show right arrow since we're looping forward
-            // For manual scroll, this will be overridden by updateArrowDirection
-            currentScrollDirection = 'right';
-            thumbIcon.classList.remove('pointing-left');
-            thumbIcon.classList.add('pointing-right');
         }
 
         // Reset flag after a longer delay to allow smooth scroll animation to complete
@@ -714,15 +605,6 @@ function attachBehaviors() {
     // Initially keep the scrollbar hidden (behind the slides) until activity
     hideScrollbar();
 
-    // Initialize arrow direction
-    function initializeArrowDirection() {
-        const thumbIcon = thumb?.querySelector('.thumb-icon');
-        if (thumbIcon) {
-            thumbIcon.classList.add('pointing-right'); // default to pointing right
-            currentScrollDirection = 'right';
-        }
-    }
-
     // initial setup: wait for images
     let imagesLoaded = 0;
     const totalImages = slides.length;
@@ -730,7 +612,6 @@ function attachBehaviors() {
         recomputeSlidePositions();
         updateScrollbar();
         updateBackgroundOnScroll();
-        initializeArrowDirection();
         // start autoplay when static content is ready
         startAutoAdvance();
     } else {
@@ -743,7 +624,6 @@ function attachBehaviors() {
                     recomputeSlidePositions();
                     updateScrollbar();
                     updateBackgroundOnScroll();
-                    initializeArrowDirection();
                 }
             } else {
                 img.addEventListener('load', () => {
@@ -752,7 +632,6 @@ function attachBehaviors() {
                         recomputeSlidePositions();
                         updateScrollbar();
                         updateBackgroundOnScroll();
-                        initializeArrowDirection();
                         // start autoplay once images and layout are ready
                         startAutoAdvance();
                     }
@@ -763,7 +642,6 @@ function attachBehaviors() {
                         recomputeSlidePositions();
                         updateScrollbar();
                         updateBackgroundOnScroll();
-                        initializeArrowDirection();
                         // start autoplay even if some images errored
                         startAutoAdvance();
                     }
