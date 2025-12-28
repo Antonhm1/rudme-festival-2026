@@ -312,15 +312,9 @@ select {
     right: 0;
     /* bigger area so the thumb can be taller and more visible */
     height: 120px; /* increase container height so thumb can be taller */
-    z-index: 500; /* by default stay behind the gallery (gallery z-index:600) */
-    pointer-events: auto; /* allow pointer events; when behind gallery it won't intercept */
+    z-index: 1400; /* always in front of gallery */
+    pointer-events: auto; /* allow pointer events */
     overflow: visible; /* ensure the thumb's children (icon/text) are not clipped */
-}
-
-/* active class is toggled by JS on user activity to bring the scrollbar in front */
-.custom-scrollbar.active {
-    z-index: 1400; /* above header/logo/social elements */
-    pointer-events: auto; /* allow interaction when visible */
 }
 
 .custom-scrollbar-thumb {
@@ -342,7 +336,7 @@ select {
     /* remove shadow per request */
     box-shadow: none;
     box-sizing: border-box;
-    transition: left 120ms linear, width 120ms linear, transform 220ms ease, background 200ms linear;
+    transition: left 350ms ease-out, width 120ms linear, transform 220ms ease, background 200ms linear;
     /* keep visible at all times; z-index controls whether it's in front */
     pointer-events: auto; /* allow pointer events on the thumb itself */
     min-width: 300px; /* enforce a wider thumb */
@@ -352,10 +346,6 @@ select {
     user-select: none;
 }
 
-/* .active only changes z-index so the thumb "jumps to front" on activity */
-.custom-scrollbar.active {
-    z-index: 1400; /* above header/logo/social elements */
-}
 
 /* thumb content container */
 .custom-scrollbar-thumb .thumb-content {
@@ -366,8 +356,7 @@ select {
     flex: 1;
     min-width: 0; /* allow content to shrink */
     text-align: center;
-    opacity: 0;
-    transition: opacity 160ms ease;
+    opacity: 1; /* always visible */
 }
 
 /* individual text elements */
@@ -413,8 +402,7 @@ select {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    opacity: 0;
-    transition: opacity 160ms ease;
+    opacity: 1; /* always visible */
 }
 
 .custom-scrollbar-thumb .thumb-icon img,
@@ -430,15 +418,6 @@ select {
     transform: rotate(180deg);
 }
 
-/* Show content and icons when the scrollbar is active (slide hovered) or the
-   thumb itself is hovered so users can interact. When not active they stay
-   hidden to avoid visual clutter. */
-.custom-scrollbar.active .custom-scrollbar-thumb .thumb-content,
-.custom-scrollbar.active .custom-scrollbar-thumb .thumb-icon,
-.custom-scrollbar .custom-scrollbar-thumb:hover .thumb-content,
-.custom-scrollbar .custom-scrollbar-thumb:hover .thumb-icon {
-    opacity: 1;
-}
 
 /* Keep inline SVG stroke thin so the arrow matches the original icon style */
 .custom-scrollbar-thumb .thumb-icon svg path,

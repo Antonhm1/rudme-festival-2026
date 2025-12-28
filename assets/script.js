@@ -12,6 +12,9 @@ let selectDisplay;
 let logoContainer;
 let dateText;
 
+// Drag state - module level so updateScrollbar can check it
+let isDraggingThumb = false;
+
 // Reserved space for social links area on the right side of the scrollbar
 const SOCIAL_LINKS_RESERVED_SPACE = 470;
 const SOCIAL_LINKS_RESERVED_SPACE_MOBILE = 40;
@@ -273,28 +276,21 @@ function setThumbColor(color) {
 
 function updateScrollbar() {
     if (!gallery || !thumb || !scrollbar) return;
+
+    // Skip thumb positioning during drag to avoid fighting with drag handler
+    if (isDraggingThumb) return;
+
     const maxScroll = gallery.scrollWidth - gallery.clientWidth;
     const scrollPercentage = maxScroll === 0 ? 0 : gallery.scrollLeft / maxScroll;
-    // compute thumb width proportional to visible area
-    const thumbWidthRaw = gallery.scrollWidth > 0 ? (gallery.clientWidth / gallery.scrollWidth) * scrollbar.clientWidth : scrollbar.clientWidth;
-    // enforce a minimum width on mobile to avoid very small thumbs when there
-    // are many slides. This prevents the JS from overwriting the mobile CSS
-    // with a too-small inline width.
-    let thumbWidth = thumbWidthRaw;
-    try {
-        if (window.matchMedia && window.matchMedia('(max-width: 600px)').matches) {
-            const minMobile = 100; // minimum thumb width on mobile in px
-            thumbWidth = Math.max(minMobile, thumbWidthRaw);
-        }
-    } catch (err) {
-        // if matchMedia not available, fall back to raw value
-        thumbWidth = thumbWidthRaw;
-    }
+
+    // Get the actual rendered thumb width (respects CSS min-width/max-width)
+    // This ensures consistency with handleDragMove which also uses rendered width
+    const thumbWidth = thumb.getBoundingClientRect().width;
+
     // Calculate available space, accounting for social links area on the right
     const availableWidth = scrollbar.clientWidth - getSocialLinksReservedSpace();
     const available = Math.max(0, availableWidth - thumbWidth);
     const thumbPosition = scrollPercentage * available;
-    thumb.style.width = thumbWidth + 'px';
     thumb.style.left = thumbPosition + 'px';
 
     // Manage social links z-index based on thumb position
@@ -546,34 +542,10 @@ function attachBehaviors() {
         updateBackgroundOnScroll();
     });
 
-    // Show the scrollbar when the user moves the pointer (front page behavior).
-    // After a short idle period we hide it again (by removing the .active class)
-    // so it visually sits behind the slides (gallery has higher z-index).
-    let activityTimer = null;
-    // much shorter idle timeout so the thumb z-index reverts quickly
-    const ACTIVITY_HIDE_MS = 3000; // ms
-
-    function showScrollbar() {
-        try { if (scrollbar) scrollbar.classList.add('active'); } catch (err) {}
-    }
-    function hideScrollbar() {
-        try { if (scrollbar) scrollbar.classList.remove('active'); } catch (err) {}
-    }
-
-    function onUserActivity() {
-        showScrollbar();
-        if (activityTimer) clearTimeout(activityTimer);
-        activityTimer = setTimeout(() => {
-            hideScrollbar();
-            activityTimer = null;
-        }, ACTIVITY_HIDE_MS);
-    }
-
+    // Handle user scroll to pause auto-advance
     function onUserScroll() {
-        // Only show scrollbar if this is user-initiated scrolling, not auto-advance
+        // Only pause auto-advance if this is user-initiated scrolling, not auto-advance
         if (!isAutoScrolling) {
-            onUserActivity();
-
             // Pause auto-advance for 10 seconds on manual scroll
             stopAutoAdvance();
 
@@ -590,20 +562,12 @@ function attachBehaviors() {
         }
     }
 
-    // Listen for pointer/mouse/touch activity on the document so any movement
-    // brings the scrollbar forward. Keep the listener passive and cheap.
+    // Listen for scroll to pause auto-advance on user interaction
     try {
-        document.addEventListener('mousemove', onUserActivity, { passive: true });
-        document.addEventListener('pointermove', onUserActivity, { passive: true });
-        document.addEventListener('touchstart', onUserActivity, { passive: true });
-        // Show scrollbar only on user-initiated scroll (not auto-advance)
         document.addEventListener('scroll', onUserScroll, { passive: true });
         window.addEventListener('scroll', onUserScroll, { passive: true });
         if (gallery) gallery.addEventListener('scroll', onUserScroll, { passive: true });
     } catch (err) {}
-
-    // Initially keep the scrollbar hidden (behind the slides) until activity
-    hideScrollbar();
 
     // initial setup: wait for images
     let imagesLoaded = 0;
@@ -675,6 +639,7 @@ function attachBehaviors() {
         const pointerX = getPointerX(e);
         dragOffset = pointerX - thumbRect.left;
         isDragging = true;
+        isDraggingThumb = true; // module-level flag to prevent updateScrollbar interference
         activePointerId = e.pointerId || null;
         if (gallery) gallery.classList.add('dragging-scrollbar');
         if (e.pointerId && thumb.setPointerCapture) {
@@ -692,6 +657,7 @@ function attachBehaviors() {
         const pointerX = getPointerX(e);
         dragOffset = pointerX - thumbRect.left;
         isDragging = true;
+        isDraggingThumb = true; // module-level flag to prevent updateScrollbar interference
         if (gallery) gallery.classList.add('dragging-scrollbar');
         thumb.classList.add('dragging');
     }
@@ -706,9 +672,12 @@ function attachBehaviors() {
         let thumbLeft = pointerX - scrollbarRect.left - dragOffset;
         thumbLeft = Math.max(0, Math.min(available, thumbLeft));
         const scrollPercentage = available === 0 ? 0 : thumbLeft / available;
-        // This is user interaction with scrollbar, not auto-scroll, so show thumb
-        showScrollbar(); // directly show scrollbar during drag
         pauseAutoAdvanceWithTimer(); // pause auto-advance while dragging
+
+        // Directly update thumb position during drag
+        thumb.style.left = thumbLeft + 'px';
+
+        // Update gallery scroll to match
         gallery.scrollLeft = scrollPercentage * (gallery.scrollWidth - gallery.clientWidth);
     }
 
@@ -728,11 +697,41 @@ function attachBehaviors() {
     function endDrag(e) {
         if (!isDragging) return;
         isDragging = false;
+        // Keep isDraggingThumb true to prevent updateScrollbar from moving thumb
         activePointerId = null;
-        if (gallery) gallery.classList.remove('dragging-scrollbar');
         if (thumb) thumb.classList.remove('dragging');
         if (e && e.pointerId && thumb && thumb.releasePointerCapture) {
             try { thumb.releasePointerCapture(e.pointerId); } catch (err) {}
+        }
+
+        // Snap to closest slide immediately
+        if (!gallery || slides.length === 0) {
+            isDraggingThumb = false;
+            return;
+        }
+
+        // Find closest slide
+        const viewportCenter = gallery.scrollLeft + (gallery.clientWidth / 2);
+        let closestIdx = 0;
+        let closestDist = Infinity;
+        slides.forEach((s, i) => {
+            const slideCenter = s.offsetLeft + (s.offsetWidth / 2);
+            const dist = Math.abs(slideCenter - viewportCenter);
+            if (dist < closestDist) {
+                closestDist = dist;
+                closestIdx = i;
+            }
+        });
+
+        // Smoothly scroll to closest slide
+        const targetLeft = slidePositions[closestIdx] || 0;
+        gallery.classList.remove('dragging-scrollbar');
+        isDraggingThumb = false;
+
+        try {
+            gallery.scrollTo({ left: targetLeft, behavior: 'smooth' });
+        } catch (err) {
+            gallery.scrollLeft = targetLeft;
         }
     }
 
@@ -827,8 +826,6 @@ function attachBehaviors() {
                 const thumbLeft = Math.max(0, Math.min(availableWidth - thumbWidth, clickPosition - thumbWidth / 2));
                 const available = Math.max(0, availableWidth - thumbWidth);
                 const scrollPercentage = available === 0 ? 0 : thumbLeft / available;
-                // This is user interaction with scrollbar, so show thumb and pause auto-advance
-                onUserActivity();
                 pauseAutoAdvanceWithTimer();
                 gallery.scrollLeft = scrollPercentage * (gallery.scrollWidth - gallery.clientWidth);
             }
