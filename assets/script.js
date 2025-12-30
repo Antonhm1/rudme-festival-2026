@@ -32,6 +32,9 @@ function shuffleGallerySlides() {
             document.documentElement.style.setProperty(`--bg-color-${index + 1}`, bgColor);
         }
     });
+
+    // Reset scroll position to start (browser may restore old position)
+    gallery.scrollLeft = 0;
 }
 
 // DOM-targets will be resolved when the header is present. Declare here so
