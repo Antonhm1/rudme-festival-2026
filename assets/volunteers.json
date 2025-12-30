@@ -32,7 +32,7 @@
     {
       "id": "arrangor",
       "name": "ARRANGØR",
-      "image": "pictures/frivillig-siden/roller/arrangør3.jpeg",
+      "image": "pictures/frivillig-siden/roller/arrangoer3.jpeg",
       "crop": 50,
       "color": "#FFB6C1",
       "description": [
@@ -71,7 +71,7 @@
     {
       "id": "rudme-lejr",
       "name": "RUDME LEJR",
-      "image": "pictures/frivillig-siden/roller/Rudme Lejr.jpeg",
+      "image": "pictures/frivillig-siden/roller/Rudme-Lejr.jpeg",
       "crop": 50,
       "color": "#FFEB3B",
       "description": [

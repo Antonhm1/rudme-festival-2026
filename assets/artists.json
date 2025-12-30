@@ -44,7 +44,7 @@
       "id": "artist-f",
       "name": "SØN",
       "color": "#052145",
-      "image": "ArtistPictures/søn.png",
+      "image": "ArtistPictures/soen.png",
       "crop": "top",
       "spotify": "<iframe data-testid=\"embed-iframe\" style=\"border-radius:12px\" src=\"https://open.spotify.com/embed/artist/3QGV9euJ3cmqn0umll2yCb?utm_source=generator&theme=0\" width=\"100%\" height=\"352\" frameBorder=\"0\" allowfullscreen=\"\" allow=\"autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture\" loading=\"lazy\"></iframe>"
     }

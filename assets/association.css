@@ -289,7 +289,7 @@ html, body {
 /* Mobile responsive for stats */
 @media (max-width: 768px) {
     .stats-section {
-        padding: 10px 15px;
+        padding: 10px 0;
         max-width: none;
         margin-left: 0;
         margin-right: 0;
@@ -300,6 +300,8 @@ html, body {
     .stats-toggles {
         gap: 8px;
         margin-bottom: 25px;
+        padding-left: 15px;
+        padding-right: 15px;
     }
 
     .stats-toggle {
@@ -307,7 +309,16 @@ html, body {
         padding: 10px 16px;
     }
 
+    .stats-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 15px;
+    }
+
     .stats-graph-container {
         height: 350px;
+        min-width: 600px;
+        padding-left: 15px;
+        padding-right: 15px;
     }
 }

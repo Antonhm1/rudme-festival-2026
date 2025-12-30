@@ -66,6 +66,27 @@ function resolveDom() {
     dateText = document.getElementById('date-text');
 }
 
+// Apply mobile crop positions based on data-mobile-crop attribute
+// This allows fine-tuning which part of landscape images shows on mobile
+function applyMobileCropPositions() {
+    if (!gallery) return;
+    const isMobile = window.matchMedia && window.matchMedia('(max-width: 800px)').matches;
+    const slideElements = gallery.querySelectorAll('.slide');
+
+    slideElements.forEach(slide => {
+        const img = slide.querySelector('img');
+        if (!img) return;
+
+        const cropPercent = slide.dataset.mobileCrop;
+        if (cropPercent !== undefined && isMobile) {
+            img.style.objectPosition = `${cropPercent}% center`;
+        } else {
+            // Reset to default (center) on desktop
+            img.style.objectPosition = '';
+        }
+    });
+}
+
 // Ensure a custom scrollbar DOM exists on the front page. If the HTML doesn't
 // include the elements, create them so the rest of the code can operate
 // without assuming presence in the template.
@@ -551,6 +572,7 @@ function attachBehaviors() {
         recomputeSlidePositions();
         updateScrollbar();
         updateBackgroundOnScroll();
+        applyMobileCropPositions();
     });
 
     // Handle user scroll to pause auto-advance
@@ -579,6 +601,9 @@ function attachBehaviors() {
         window.addEventListener('scroll', onUserScroll, { passive: true });
         if (gallery) gallery.addEventListener('scroll', onUserScroll, { passive: true });
     } catch (err) {}
+
+    // Apply mobile crop positions immediately
+    applyMobileCropPositions();
 
     // initial setup: wait for images
     let imagesLoaded = 0;

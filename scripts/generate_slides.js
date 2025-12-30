@@ -29,7 +29,8 @@ async function main() {
       bg: picture.color || '#cccccc',
       order: picture.order || 0,
       location: picture.location || '',
-      photographer: picture.photographer || ''
+      photographer: picture.photographer || '',
+      mobileCrop: picture.mobileCrop || 5
     };
   });
 
@@ -42,7 +43,9 @@ async function main() {
     let alt = (s.name || s.filename).replace(/"/g, '');
     // Trim trailing punctuation
     alt = alt.replace(/[\-_.# ]+$/g, '').trim();
-    return `        <div class="slide" style="background-color: ${s.bg};" data-location="${s.location}" data-photographer="${s.photographer}">
+    // Convert mobileCrop (1-10) to percentage (0-100%)
+    const cropPercent = Math.round((s.mobileCrop - 1) * (100 / 9));
+    return `        <div class="slide" style="background-color: ${s.bg};" data-location="${s.location}" data-photographer="${s.photographer}" data-mobile-crop="${cropPercent}">
             <img src="${src}" alt="${alt}">
         </div>`;
   }).join('\n');

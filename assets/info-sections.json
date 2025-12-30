@@ -47,7 +47,7 @@
                 },
                 {
                     "title": "Ingen store højtalere",
-                    "image": "pictures/info-pictures/ingen-soundboks-kun-små-højtalere.jpeg",
+                    "image": "pictures/info-pictures/ingen-soundboks-kun-smaa-hoejtalere.jpeg",
                     "content": "<p>Gå op og fest i festteltet og lad din Soundbox blive hjemme, pladsen er for lille til 'soundbox-støj'. Hvis I skal have hyggemusik til de skønne morgentimer, så tag en mindre højtaler med.</p>"
                 },
                 {
@@ -68,21 +68,21 @@
             "id": "tilgaengelighed",
             "title": "Tilgængelighed",
             "color": "#2862A5",
-            "image": "pictures/info-pictures/tilgængelighed.png",
+            "image": "pictures/info-pictures/tilgaengelighed.png",
             "content": "<p>Rudme Festival ønsker at være for alle!</p><ul><li>Kørestolsvenlig adgang til alle områder</li><li>Handicapparkering tæt på indgangen</li><li>Handicaptoiletter på pladsen</li><li>Ledsagerordning (ledsager gratis adgang)</li><li>Platform for kørestolsbrugere foran scenen</li></ul><p>Kontakt os på <a href=\"mailto:info@rudmefestival.dk\">info@rudmefestival.dk</a> hvis du har særlige behov.</p>"
         },
         {
             "id": "boern",
             "title": "Børn & Familie",
             "color": "#F5A0E2",
-            "image": "pictures/info-pictures/børn.jpeg",
+            "image": "pictures/info-pictures/boern.jpeg",
             "content": "<p>Rudme Festival er familievenlig!</p><ul><li>Gratis adgang for børn under 15 år</li><li>Børneområde med aktiviteter</li><li>Puslerum ved toiletterne</li><li>Roligt familieområde foran scenen</li></ul><p class=\"info-note\">Husk høreværn til de små ører!</p>"
         },
         {
             "id": "miljo",
             "title": "Miljø & Bæredygtighed",
             "color": "#4DD0E1",
-            "image": "pictures/info-pictures/bæredygtighed.jpeg",
+            "image": "pictures/info-pictures/baeredygtighed.jpeg",
             "content": "<p>Vi gør vores bedste for at minimere festivalens miljøpåvirkning:</p><ul><li>Affaldssortering på hele pladsen</li><li>Pantordning på plastikkrus</li><li>Vegetariske og veganske madmuligheder</li><li>Samarbejde med lokale leverandører</li><li>Opfordring til samkørsel og offentlig transport</li></ul><p><strong>Hjælp os:</strong> Tag dit affald med og sorter det korrekt!</p>"
         },
         {
