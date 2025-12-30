@@ -2,6 +2,38 @@
 // This file was extracted from index.html and adapted to fetch the logo SVG so
 // the visual behavior remains the same while keeping assets separate.
 
+// Fisher-Yates shuffle algorithm for randomizing slide order
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+// Shuffle the slides in the gallery and update CSS color variables
+function shuffleGallerySlides() {
+    const gallery = document.getElementById('gallery');
+    if (!gallery) return;
+
+    const slideElements = Array.from(gallery.querySelectorAll('.slide'));
+    if (slideElements.length <= 1) return;
+
+    // Shuffle the slide elements
+    shuffleArray(slideElements);
+
+    // Re-append slides in shuffled order (this moves them in the DOM)
+    slideElements.forEach(slide => gallery.appendChild(slide));
+
+    // Update CSS variables to match new order
+    slideElements.forEach((slide, index) => {
+        const bgColor = slide.style.backgroundColor;
+        if (bgColor) {
+            document.documentElement.style.setProperty(`--bg-color-${index + 1}`, bgColor);
+        }
+    });
+}
+
 // DOM-targets will be resolved when the header is present. Declare here so
 // functions below can reference them.
 let gallery;
@@ -206,15 +238,13 @@ async function loadAndInitLogo() {
         const isIndex = filename === '' || filename === 'index.html';
 
         if (isIndex) {
-            // Front page: use dynamic background from gallery
-            let initial = getComputedStyle(document.body).backgroundColor;
-            const isTransparent = !initial || initial === 'transparent' || initial === 'rgba(0, 0, 0, 0)';
-            if (isTransparent) {
-                try {
-                    initial = bgColorForIndex(0) || '#FEAD47';
-                } catch (err) {
-                    initial = '#FEAD47';
-                }
+            // Front page: use the first slide's background color directly
+            // This ensures correct color on initial load before scroll events fire
+            let initial;
+            try {
+                initial = bgColorForIndex(0) || '#FEAD47';
+            } catch (err) {
+                initial = '#FEAD47';
             }
             logoContainer.style.color = initial;
             if (dateText) dateText.style.color = initial;
@@ -1066,6 +1096,9 @@ function attachBehaviors() {
 // the HTML and attach behaviors immediately (or after header insertion)
 // so the UI logic operates against the existing DOM.
 (function init() {
+    // Shuffle slides on every page load for variety
+    shuffleGallerySlides();
+
     if (document.getElementById('custom-select')) {
         attachBehaviors();
     } else {
