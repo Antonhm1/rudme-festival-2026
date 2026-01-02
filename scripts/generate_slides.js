@@ -3,7 +3,7 @@ const path = require('path');
 
 async function main() {
   const cwd = process.cwd();
-  const picturesJsonPath = path.join(cwd, 'assets', 'pictures.json');
+  const picturesJsonPath = path.join(cwd, 'database', 'pictures.json');
   const indexPath = path.join(cwd, 'index.html');
 
   // Load pictures data from JSON

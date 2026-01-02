@@ -30,13 +30,6 @@ jobs:
           GOOGLE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
         run: echo "$GOOGLE_SERVICE_ACCOUNT" | base64 --decode > service-account.json
 
-      - name: Verify service account file
-        run: |
-          echo "File exists: $(test -f service-account.json && echo 'yes' || echo 'no')"
-          echo "File size: $(wc -c < service-account.json) bytes"
-          echo "Is valid JSON: $(node -e 'try { JSON.parse(require("fs").readFileSync("service-account.json")); console.log("yes") } catch(e) { console.log("no: " + e.message) }')"
-          echo "Has client_email: $(node -e 'const j = JSON.parse(require("fs").readFileSync("service-account.json")); console.log(j.client_email ? "yes" : "no")')"
-
       - name: Run sync
         run: npm run sync
 

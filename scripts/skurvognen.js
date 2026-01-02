@@ -1,7 +1,7 @@
 /* Skurvognen page JavaScript - handles scroll navigation, event sections, and color transitions */
 
-// Event data - each event becomes its own section
-const eventsData = [
+// Default event data (fallback if JSON not available)
+const defaultEvents = [
     {
         id: 'house',
         title: 'HOUSE',
@@ -32,6 +32,57 @@ const eventsData = [
     }
 ];
 
+// Will be populated from JSON; fallback to defaultEvents
+let eventsData = [];
+
+// Load Skurvognen data (about + events) from JSON files
+async function loadSkurvognenData() {
+    // Load about content
+    try {
+        const resp = await fetch('database/skurvognen-om.json', { cache: 'no-store' });
+        if (resp.ok) {
+            const about = await resp.json();
+            const sub = document.getElementById('skurvognen-subheading');
+            const heading = document.getElementById('skurvognen-om-heading');
+            const content = document.getElementById('skurvognen-om-content');
+
+            if (sub && about.underoverskrift) sub.innerText = about.underoverskrift;
+            if (heading && about.overskrift) heading.innerText = about.overskrift;
+            if (content && about.beskrivelse) {
+                // Support array of paragraphs or single string
+                if (Array.isArray(about.beskrivelse)) {
+                    content.innerHTML = about.beskrivelse.map(p => `<p>${p}</p>`).join('');
+                } else {
+                    content.innerHTML = about.beskrivelse;
+                }
+            }
+        }
+    } catch (err) {
+        console.warn('Could not load skurvognen-om.json', err);
+    }
+
+    // Load events
+    try {
+        const resp = await fetch('database/skurvognen-events.json', { cache: 'no-store' });
+        if (resp.ok) {
+            const events = await resp.json();
+            if (Array.isArray(events) && events.length > 0) {
+                eventsData = events;
+            } else {
+                eventsData = defaultEvents;
+            }
+        } else {
+            eventsData = defaultEvents;
+        }
+    } catch (err) {
+        console.warn('Could not load skurvognen-events.json', err);
+        eventsData = defaultEvents;
+    }
+
+    // Create event sections now that eventsData is available
+    createEventSections();
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     // Set initial background color
     const initialColor = '#A4C0E0';
@@ -41,13 +92,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Set up smooth scroll navigation for buttons
     initializeNavigation();
 
-    // Create event sections using SectionComponent
-    createEventSections();
-
-    // Initialize color transitions on scroll
-    setTimeout(() => {
-        initializeColorTransitions();
-    }, 100);
+    // Load JSON-driven content (about + events) then init color transitions
+    loadSkurvognenData().then(() => {
+        setTimeout(() => {
+            initializeColorTransitions();
+        }, 100);
+    });
 });
 
 // Set up click handlers for navigation buttons
