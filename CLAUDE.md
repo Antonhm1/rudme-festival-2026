@@ -20,15 +20,21 @@ This is a website for the Rudme Festival (July 16-18, 2026), built as a static H
 ### File Structure
 
 - `index.html` - Homepage with horizontal scrolling gallery
-- `*.html` - Additional pages (about, program, tickets, volunteer, camp, association, contact)
-- `assets/` - Shared resources including CSS, JavaScript, and images
-- `pictures/` - Gallery images for the homepage slider
-- `scripts/` - Build and utility scripts
+- `*.html` - Additional pages (about, program, tickets, volunteer, camp, association, contact, info, skurvognen)
+- `css/` - All stylesheets (styles.css, page-specific CSS, component CSS)
+- `scripts/` - All JavaScript files (page scripts, components, utilities, build scripts)
+- `database/` - JSON data files (artists.json, volunteers.json, posters.json, etc.)
+- `pictures/` - All images organized by category:
+  - `artists/` - Artist profile images
+  - `icons/` - SVG icons and logos
+  - `Forsiden/` - Homepage gallery images
+  - Other subdirectories for page-specific images
+- `assets/` - HTML fragments only (header.html, footer.html)
 - `tests/` - Puppeteer UI tests for gallery, navigation, and responsive design
 
 ### Core JavaScript Architecture
 
-#### Main Gallery System (`assets/script.js`)
+#### Main Gallery System (`scripts/script.js`)
 
 - **Dynamic slide generation**: Gallery slides are generated from `pictures/` directory using filename conventions
 - **Image naming convention**: `Name#HEXCOLOR&ORDER.ext` where:
@@ -40,7 +46,7 @@ This is a website for the Rudme Festival (July 16-18, 2026), built as a static H
 - **Dynamic background**: Interpolates between slide colors based on scroll position
 - **Logo color adaptation**: Logo and date text automatically adjust color based on background
 
-#### Header System (`assets/header-insert.js`)
+#### Header System (`scripts/header-insert.js`)
 
 - Dynamically injects shared header content from `assets/header.html`
 - Creates custom navigation dropdown with fallback native select
@@ -49,12 +55,12 @@ This is a website for the Rudme Festival (July 16-18, 2026), built as a static H
 - **DO NOT** manipulate header styles on sub-sites unless absolutely necessary
 - Header styling should be self-contained and consistent across all pages
 
-#### Program Page (`assets/program.js`)
+#### Program Page (`scripts/program.js`)
 
 - Custom scrollbars for individual artist boxes
 - Color-coordinated with CSS custom properties
 
-#### Section Component (`assets/section-component.js` + `assets/section-component.css`)
+#### Section Component (`scripts/section-component.js` + `css/section-component.css`)
 
 - Reusable component for content sections (used on volunteer and info pages)
 - Creates consistent layout: header outside content box, extended images, description, optional button
@@ -62,7 +68,7 @@ This is a website for the Rudme Festival (July 16-18, 2026), built as a static H
 - Content can be HTML string or array of paragraphs
 - Includes `updateButtonStyles(bgColor)` for dynamic button coloring
 
-### CSS Architecture (`assets/styles.css`)
+### CSS Architecture (`css/styles.css`)
 
 - CSS custom properties for slide-specific colors (--bg-color-1, --bg-color-2, etc.)
 - Responsive design with mobile-specific behaviors
@@ -80,8 +86,12 @@ The `scripts/generate_slides.js` tool:
 
 ### Data Sources
 
-- `assets/artists.json` - Artist information for the program page
-- `assets/load-from-sheet.js` - Google Sheets integration for dynamic content loading
+- `database/artists.json` - Artist information for the program page
+- `database/volunteers.json` - Volunteer role information
+- `database/posters.json` - Volunteer position posters
+- `database/history.json` - Festival history data
+- `database/info-sections.json` - Info page content
+- `scripts/load-from-sheet.js` - Google Sheets integration for dynamic content loading
 
 ### Test
 

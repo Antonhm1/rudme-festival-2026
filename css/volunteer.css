@@ -188,7 +188,7 @@ html, body {
         letter-spacing: -1px;
         padding-right: 0px;
         padding-top: 20px; /* Spacing after the hero image (natural flow) */
-        margin-right: 20px; /* Override larger screen margins for mobile */
+        margin-right: 15px; /* Match hero image margin */
         max-width: none; /* Remove max-width constraint on mobile */
         margin-left: 0; /* Full width on mobile, no auto margin */
     }
@@ -199,7 +199,7 @@ html, body {
     }
 
     .roles-section {
-        padding: 10px 10px;
+        padding: 10px 15px;
         max-width: none; /* Full width on mobile */
         margin-left: 0;
         margin-right: 0;
@@ -216,6 +216,6 @@ html, body {
     }
 
     .roles-section {
-        padding: 10px 10px;
+        padding: 10px 15px;
     }
 }

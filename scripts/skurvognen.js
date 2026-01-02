@@ -34,7 +34,7 @@ const eventsData = [
 
 document.addEventListener('DOMContentLoaded', function() {
     // Set initial background color
-    const initialColor = '#FFE66D';
+    const initialColor = '#A4C0E0';
     document.body.style.backgroundColor = initialColor;
     document.documentElement.style.setProperty('--current-bg', initialColor);
 
@@ -104,7 +104,7 @@ function createEventSections() {
 
 // Initialize gradual color transitions on scroll
 function initializeColorTransitions() {
-    const initialColor = '#FFE66D';
+    const initialColor = '#A4C0E0';
     let sections = [];
 
     // Function to interpolate between two colors

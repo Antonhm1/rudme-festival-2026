@@ -547,7 +547,7 @@ function shuffleArray(array) {
 }
 
 function loadArtists() {
-    fetch('assets/artists.json')
+    fetch('database/artists.json')
         .then(r => r.ok ? r.json() : Promise.reject(new Error('Failed to fetch')))
         .then(data => {
             // Shuffle artists so they appear in random order each page load

@@ -594,7 +594,7 @@ body {
 
     .instagram-embed {
         width: 100%;
-        padding: 0 20px;
+        padding: 0 15px;
     }
 
     /* On mobile, use relative positioning for natural document flow */
@@ -611,13 +611,13 @@ body {
         letter-spacing: -1px;
         padding-right: 0px;
         padding-top: 20px; /* Spacing after the hero image (natural flow) */
-        margin-right: 20px; /* Override larger screen margins for mobile */
+        margin-right: 15px; /* Match hero image margin */
         max-width: none; /* Remove max-width constraint on mobile */
         margin-left: 0; /* Full width on mobile, no auto margin */
     }
 
     .intro-section {
-        padding: 60px 20px;
+        padding: 60px 15px;
     }
 
     .intro-title {
@@ -634,7 +634,7 @@ body {
     }
 
     .gallery-section {
-        padding: 60px 20px;
+        padding: 60px 15px;
         margin: 0;
     }
 
@@ -672,7 +672,7 @@ body {
     }
 
     .activities-section {
-        padding: 60px 20px;
+        padding: 60px 15px;
     }
 
     .section-intro {
@@ -706,7 +706,7 @@ body {
     }
 
     .features-section {
-        padding: 60px 20px;
+        padding: 60px 15px;
     }
 
     .features-grid {
@@ -735,7 +735,7 @@ body {
     }
 
     .social-section {
-        padding: 60px 20px;
+        padding: 60px 15px;
     }
 
     .social-grid {
@@ -743,16 +743,16 @@ body {
     }
 
     .follow-section {
-        padding: 60px 20px;
+        padding: 60px 15px;
     }
 
     .follow-subtitle {
         font-size: 18px;
-        padding: 0 20px;
+        padding: 0 15px;
     }
 
     .cta-section {
-        padding: 80px 20px;
+        padding: 80px 15px;
     }
 
     .cta-title {

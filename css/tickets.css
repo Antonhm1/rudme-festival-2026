@@ -198,7 +198,7 @@ html, body {
     }
 
     .newsletter-section {
-        padding: 40px 30px 40px 30px; /* Regular padding on mobile */
+        padding: 40px 15px; /* Match hero image margin */
         margin-top: 20px; /* Reduced space after scrolling banner on mobile */
     }
 

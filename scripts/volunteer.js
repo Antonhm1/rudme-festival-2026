@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 // Load volunteer data from JSON and generate page content
 async function loadVolunteerData() {
     try {
-        const response = await fetch('assets/volunteers.json');
+        const response = await fetch('database/volunteers.json');
         const data = await response.json();
 
         // Set initial background color from first role immediately
@@ -295,7 +295,7 @@ function initializeColorTransitions() {
 // Load poster data and create roller using RollerComponent
 async function loadPosterRoller() {
     try {
-        const response = await fetch('assets/posters.json');
+        const response = await fetch('database/posters.json');
         const data = await response.json();
 
         // Use role colors from JSON, fallback to defaults if not provided

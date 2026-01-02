@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Load info sections from JSON and generate content
 async function loadInfoData() {
     try {
-        const response = await fetch('assets/info-sections.json');
+        const response = await fetch('database/info-sections.json');
         const data = await response.json();
 
         generateInfoBoxes(data.sections);

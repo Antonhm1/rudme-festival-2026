@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function loadFooterLogo() {
     const logoContainer = document.getElementById('footer-logo-container');
     if (logoContainer) {
-        fetch('assets/RUDME-logo.svg')
+        fetch('pictures/icons/RUDME-logo.svg')
             .then(response => response.text())
             .then(svg => {
                 logoContainer.innerHTML = svg;

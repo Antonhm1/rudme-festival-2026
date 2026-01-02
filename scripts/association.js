@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Load history data from JSON and create roller
 async function loadHistoryRoller() {
     try {
-        const response = await fetch('assets/history.json');
+        const response = await fetch('database/history.json');
         const data = await response.json();
 
         // Transform year data to RollerComponent format
@@ -74,7 +74,7 @@ async function loadHistoryRoller() {
 // Initialize stats graph
 async function initStatsGraph() {
     try {
-        const response = await fetch('assets/history.json');
+        const response = await fetch('database/history.json');
         statsData = await response.json();
 
         // Setup toggle buttons

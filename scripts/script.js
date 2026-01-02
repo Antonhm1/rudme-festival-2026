@@ -178,7 +178,7 @@ async function loadAndInitLogo() {
     let svg = svgTarget.querySelector('svg');
     if (!svg) {
         try {
-            const resp = await fetch('assets/logo.svg', { cache: 'no-cache' });
+            const resp = await fetch('pictures/icons/logo.svg', { cache: 'no-cache' });
             if (resp.ok) {
                 const txt = await resp.text();
                 // Parse the returned SVG and insert only the first <svg> element to
