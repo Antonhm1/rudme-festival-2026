@@ -28,7 +28,7 @@ jobs:
       - name: Create service account file
         env:
           GOOGLE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
-        run: printenv GOOGLE_SERVICE_ACCOUNT > service-account.json
+        run: echo "$GOOGLE_SERVICE_ACCOUNT" | base64 --decode > service-account.json
 
       - name: Run sync
         run: npm run sync
