@@ -7,10 +7,15 @@
     "start": "node server.js",
     "test-manual": "node tests/test-manual.js",
     "generate-slides": "node scripts/generate_slides.js",
-    "done": "node scripts/done.js"
+    "done": "node scripts/done.js",
+    "sync": "node scripts/sync-google/index.js",
+    "sync:sheets": "node scripts/sync-google/index.js --sheets-only",
+    "sync:images": "node scripts/sync-google/index.js --images-only",
+    "build": "npm run sync && npm run generate-slides"
   },
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "googleapis": "^169.0.0"
   },
   "devDependencies": {
     "puppeteer": "^24.31.0"

@@ -11,7 +11,10 @@
       "image": "pictures/frivillig-siden/poster/Baren.jpg",
       "description": "Som bartender på Rudme Festival serverer du drikkevarer og skaber god stemning. Du vil være en del af et festligt team og møde mange glade festivalgæster.",
       "color": "#FF6B6B",
-      "roles": ["Frivillige", "Afviklere"]
+      "roles": [
+        "Frivillige",
+        "Afviklere"
+      ]
     },
     {
       "id": "madtelt",
@@ -19,7 +22,11 @@
       "image": "pictures/frivillig-siden/poster/madtelt.jpeg",
       "description": "I madteltet hjælper du med at servere lækker mad til sultne festivalgæster. Du bliver en del af et hyggeligt køkkenteam og sørger for at alle bliver mætte.",
       "color": "#A8A8F0",
-      "roles": ["Frivillige", "Afviklere", "Arrangører"]
+      "roles": [
+        "Frivillige",
+        "Afviklere",
+        "Arrangører"
+      ]
     },
     {
       "id": "team-clean",
@@ -27,7 +34,9 @@
       "image": "pictures/frivillig-siden/poster/Team-Clean.jpeg",
       "description": "Som del af Team Clean holder du festivalpladsen ren og pæn. Du sørger for at alle kan nyde en ren festival og hjælper med affaldshåndtering og oprydning.",
       "color": "#4ECDC4",
-      "roles": ["Frivillige"]
+      "roles": [
+        "Frivillige"
+      ]
     },
     {
       "id": "indgang",
@@ -35,7 +44,10 @@
       "image": "pictures/frivillig-siden/poster/indgang.jpeg",
       "description": "Ved indgangen tager du imod gæster, tjekker billetter og sørger for at alle får en varm velkomst til festivalen.",
       "color": "#FFE66D",
-      "roles": ["Afviklere", "Frivillige"]
+      "roles": [
+        "Afviklere",
+        "Frivillige"
+      ]
     },
     {
       "id": "stagehands",
@@ -43,7 +55,10 @@
       "image": "pictures/frivillig-siden/poster/stagehands.jpeg",
       "description": "Som stagehand hjælper du med at sætte udstyr op, koordinere med kunstnere og sørge for at alle koncerter kører glat.",
       "color": "#FF9A8B",
-      "roles": ["Afviklere", "Arrangører"]
+      "roles": [
+        "Afviklere",
+        "Arrangører"
+      ]
     },
     {
       "id": "krea",
@@ -51,7 +66,10 @@
       "image": "pictures/frivillig-siden/poster/krea.jpg",
       "description": "I krea-workshoppen hjælper du med kreative aktiviteter og workshops for festivalgæster i alle aldre.",
       "color": "#B4E7CE",
-      "roles": ["Frivillige", "Arrangører"]
+      "roles": [
+        "Frivillige",
+        "Arrangører"
+      ]
     },
     {
       "id": "vagter",
@@ -59,7 +77,9 @@
       "image": "pictures/frivillig-siden/poster/Vagter.jpeg",
       "description": "Som vagt hjælper du med at skabe trygge rammer for alle. Du holder øje med at alt forløber fredeligt og hjælper gæster der har brug for det.",
       "color": "#DDA77B",
-      "roles": ["Afviklere"]
+      "roles": [
+        "Afviklere"
+      ]
     },
     {
       "id": "backstage",
@@ -67,7 +87,10 @@
       "image": "pictures/frivillig-siden/poster/backstage.jpeg",
       "description": "Backstage tager du dig af kunstnerne, sørger for forplejning og hjælper med at alt er klar til deres optræden.",
       "color": "#C9ADA7",
-      "roles": ["Arrangører", "Afviklere"]
+      "roles": [
+        "Arrangører",
+        "Afviklere"
+      ]
     },
     {
       "id": "kiosken",
@@ -75,7 +98,10 @@
       "image": "pictures/frivillig-siden/poster/kiosken.jpeg",
       "description": "I kiosken sælger du snacks, drikkevarer og festivalmerchandise til gæsterne. Du bliver en del af et hyggeligt salgsteam.",
       "color": "#FFA500",
-      "roles": ["Frivillige", "Afviklere"]
+      "roles": [
+        "Frivillige",
+        "Afviklere"
+      ]
     },
     {
       "id": "sauna",
@@ -83,7 +109,9 @@
       "image": "pictures/frivillig-siden/poster/Sauna.jpeg",
       "description": "Ved saunaen hjælper du med at skabe en afslappende oplevelse for festivalgæster, der har brug for en pause fra festlighederne.",
       "color": "#8B4513",
-      "roles": ["Frivillige"]
+      "roles": [
+        "Frivillige"
+      ]
     },
     {
       "id": "oprydning",
@@ -91,7 +119,10 @@
       "image": "pictures/frivillig-siden/poster/Oprydning.jpeg",
       "description": "I oprydningsteamet hjælper du med at pakke festivalen ned og sørger for at pladsen bliver efterladt i god stand.",
       "color": "#696969",
-      "roles": ["Frivillige", "Afviklere"]
+      "roles": [
+        "Frivillige",
+        "Afviklere"
+      ]
     },
     {
       "id": "infrastruktur",
@@ -99,7 +130,10 @@
       "image": "pictures/frivillig-siden/poster/infrastruktur.jpeg",
       "description": "Som del af infrastrukturteamet bygger og vedligeholder du festivalens fysiske rammer - fra hegn til scener.",
       "color": "#2F4F4F",
-      "roles": ["Afviklere", "Arrangører"]
+      "roles": [
+        "Afviklere",
+        "Arrangører"
+      ]
     },
     {
       "id": "event",
@@ -107,7 +141,10 @@
       "image": "pictures/frivillig-siden/poster/event.jpeg",
       "description": "I eventteamet arrangerer du sjove aktiviteter, konkurrencer og happenings under festivalen.",
       "color": "#FF1493",
-      "roles": ["Arrangører", "Frivillige"]
+      "roles": [
+        "Arrangører",
+        "Frivillige"
+      ]
     },
     {
       "id": "edbeasts",
@@ -115,7 +152,10 @@
       "image": "pictures/frivillig-siden/poster/EDBeasts.jpeg",
       "description": "EDBeasts er festivalens elektroniske musikscene, hvor du hjælper med at skabe den vilde stemning til de sene timer.",
       "color": "#9400D3",
-      "roles": ["Afviklere", "Arrangører"]
+      "roles": [
+        "Afviklere",
+        "Arrangører"
+      ]
     },
     {
       "id": "rudme-lejr",
@@ -123,7 +163,10 @@
       "image": "pictures/frivillig-siden/poster/Rudme-Lejr.jpeg",
       "description": "I Rudme Lejr hjælper du med at drive campingområdet og skabe hygge for de overnattende gæster.",
       "color": "#228B22",
-      "roles": ["Frivillige", "Afviklere"]
+      "roles": [
+        "Frivillige",
+        "Afviklere"
+      ]
     },
     {
       "id": "samarit",
@@ -131,7 +174,9 @@
       "image": "pictures/frivillig-siden/poster/samarit.png",
       "description": "Som samarit yder du førstehjælp og tager dig af festivalgæster, der har brug for medicinsk assistance.",
       "color": "#DC143C",
-      "roles": ["Afviklere"]
+      "roles": [
+        "Afviklere"
+      ]
     }
   ]
 }
