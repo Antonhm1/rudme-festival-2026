@@ -35,7 +35,8 @@
       "description": "Som del af Team Clean holder du festivalpladsen ren og pæn. Du sørger for at alle kan nyde en ren festival og hjælper med affaldshåndtering og oprydning.",
       "color": "#4ECDC4",
       "roles": [
-        "Frivillige"
+        "Frivillige",
+        "Afviklere"
       ]
     },
     {
@@ -110,7 +111,7 @@
       "description": "Ved saunaen hjælper du med at skabe en afslappende oplevelse for festivalgæster, der har brug for en pause fra festlighederne.",
       "color": "#8B4513",
       "roles": [
-        "Frivillige"
+        "Afvikler"
       ]
     },
     {

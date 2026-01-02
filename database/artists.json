@@ -10,7 +10,7 @@
     },
     {
       "id": "artist-b",
-      "name": "GILLI",
+      "name": "SILLI",
       "color": "#FDCE99",
       "image": "pictures/artists/gilli.jpeg",
       "crop": "mid",
@@ -42,7 +42,7 @@
     },
     {
       "id": "artist-f",
-      "name": "SØN",
+      "name": "SLUSH ICE",
       "color": "#052145",
       "image": "pictures/artists/soen.png",
       "crop": "top",
