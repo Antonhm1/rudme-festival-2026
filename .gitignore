@@ -70,5 +70,4 @@ typings/
 # Google service account credentials (never commit!)
 service-account.json
 config/service-account.json
-*-[a-f0-9]*.json
-rudme-festival-*.json
+rudme-festival-hjemmeside-*.json

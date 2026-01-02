@@ -1,0 +1,44 @@
+{
+  "opgaver": [
+    {
+      "titel": "LYSKUNST",
+      "beskrivelse": "Skab lysinstallationer, arbejd med LED-design, programmer lyseffekter og hjælp med at skabe den magiske stemning.",
+      "image": "pictures/Rudme-Lejr/lyskunst.jpeg"
+    },
+    {
+      "titel": "TRÆHÅNDVÆRK",
+      "beskrivelse": "Arbejd med træ, byg barer, scener, møbler - lær traditionelt håndværk og brug professionelle værktøjer.",
+      "image": "pictures/Rudme-Lejr/traehaandvaerk.jpeg"
+    },
+    {
+      "titel": "MALING",
+      "beskrivelse": "Mal skilte, vægmalerier, dekorationer - tilføj farve til festivalen og sæt dit præg på pladsen.",
+      "image": "pictures/Rudme-Lejr/maling.jpeg"
+    },
+    {
+      "titel": "OPSÆTNING",
+      "beskrivelse": "Sæt telte op, installer strukturer, byg scener - hjælp med at rejse festivalens fundament.",
+      "image": "pictures/Rudme-Lejr/opsaetning.jpeg"
+    },
+    {
+      "titel": "PLADSDESIGN",
+      "beskrivelse": "Design festivalområder, planlæg flow, skab kreative rum - form festivalens landskab og atmosfære.",
+      "image": "pictures/Rudme-Lejr/rud-med-lejr.jpeg"
+    },
+    {
+      "titel": "STOF",
+      "beskrivelse": "Lav chill områder med hængende tekstil, strik og sy udsmykning til pladsen, skab hyggelige zoner.",
+      "image": "pictures/Rudme-Lejr/Stof.jpeg"
+    },
+    {
+      "titel": "FLYT",
+      "beskrivelse": "Flyt udstyr, hjælp med logistik, organiser materialer - vigtigt arbejde der får det hele til at fungere.",
+      "image": "pictures/Rudme-Lejr/Flyt.jpeg"
+    },
+    {
+      "titel": "HYG",
+      "beskrivelse": "Hav det sjovt, slap af, nyd tiden med andre - det hele handler også om at have det godt sammen!",
+      "image": "pictures/Rudme-Lejr/hyg.jpeg"
+    }
+  ]
+}

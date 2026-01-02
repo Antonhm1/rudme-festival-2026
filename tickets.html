@@ -19,27 +19,12 @@
 
         <!-- Static banner text -->
         <div class="static-banner">
-            <p>Billetter ikke til salg endnu, kommer en gang i februar/marts</p>
+            <p id="ticket-status-text">Billetter ikke til salg endnu, kommer en gang i februar/marts</p>
+            <a id="buy-ticket-button" class="buy-ticket-button" href="#" target="_blank" rel="noopener" style="display: none;">
+                KØB BILLET
+            </a>
         </div>
 
-        <!-- Newsletter signup section -->
-        <section class="newsletter-section">
-            <h2 class="newsletter-heading">Vil du have en reminder, når billetsalget starter?</h2>
-            <p class="newsletter-subheading">Skriv dig op til vores nyhedsbrev og vær blandt de første til at få besked</p>
-
-            <form class="newsletter-form" id="newsletter-form">
-                <div class="form-group">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" id="email" name="email" class="form-input" placeholder="din@email.dk" required>
-                </div>
-
-                <button type="submit" class="submit-button">Tilmeld nyhedsbrev</button>
-            </form>
-
-            <div class="success-message" id="success-message">
-                Tak for din tilmelding! Vi sender dig en besked, når billetsalget starter.
-            </div>
-        </section>
     </main>
 
     <div id="footer-placeholder"></div>

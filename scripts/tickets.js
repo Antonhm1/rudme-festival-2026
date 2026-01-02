@@ -1,4 +1,46 @@
 document.addEventListener('DOMContentLoaded', function() {
+    async function loadTicketData() {
+        const statusEl = document.getElementById('ticket-status-text');
+        const buyButton = document.getElementById('buy-ticket-button');
+
+        if (!statusEl && !buyButton) return;
+
+        try {
+            const response = await fetch('database/tickets.json', { cache: 'no-store' });
+            if (!response.ok) throw new Error('Network response not ok ' + response.status);
+            const data = await response.json();
+
+            const saleRaw = data && data['billetsalg-igang'];
+            const onSale = (function normalizeYesNo(value) {
+                if (typeof value === 'boolean') return value;
+                if (typeof value === 'number') return value === 1;
+                if (typeof value !== 'string') return false;
+                const v = value.trim().toLowerCase();
+                return v === 'ja' || v === 'yes' || v === 'true' || v === '1';
+            })(saleRaw);
+
+            const notForSaleText = data && data['Ikke til salg text'];
+            const forSaleText = data && data['til salg text'];
+            const ticketLink = data && data['billet link'];
+
+            if (statusEl) {
+                const fallback = statusEl.textContent || '';
+                statusEl.textContent = onSale ? (forSaleText || 'Billetsalget er i gang!') : (notForSaleText || fallback);
+            }
+
+            if (buyButton) {
+                if (onSale) {
+                    buyButton.style.display = 'inline-block';
+                    buyButton.href = (typeof ticketLink === 'string' && ticketLink.trim()) ? ticketLink.trim() : '#';
+                } else {
+                    buyButton.style.display = 'none';
+                }
+            }
+        } catch (error) {
+            console.error('Could not load ticket data:', error);
+        }
+    }
+
     // Apply purple color to header elements
     const applyPurpleTheme = () => {
         const logo = document.querySelector('#logo-container svg') || document.querySelector('svg');
@@ -35,6 +77,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Apply theme after a short delay as fallback
     setTimeout(applyPurpleTheme, 100);
+
+    loadTicketData();
 
     const form = document.getElementById('newsletter-form');
     const successMessage = document.getElementById('success-message');

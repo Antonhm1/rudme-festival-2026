@@ -1,0 +1,39 @@
+{
+  "spreadsheetId": "18AIH5RzZuOQ-Kag9Zn0EFdkKVtnI_emX23Zvi4lP5zQ",
+  "rootDriveFolderId": "16Lx2qd_xM3lfTUXrGRY6D9jMONj4b98r",
+  "localPicturesPath": "pictures",
+  "sheets": {
+    "artists": {
+      "sheetName": "artists",
+      "outputFile": "database/artists.json"
+    },
+    "volunteers": {
+      "sheetName": "frivillig roller",
+      "outputFile": "database/volunteers.json"
+    },
+    "posters": {
+      "sheetName": "frivillig poster",
+      "outputFile": "database/posters.json"
+    },
+    "roleColors": {
+      "sheetName": "roleColors",
+      "outputFile": null
+    },
+    "history": {
+      "sheetName": "history",
+      "outputFile": "database/history.json"
+    },
+    "pictures": {
+      "sheetName": "forsiden",
+      "outputFile": "database/pictures.json"
+    },
+    "info-sections": {
+      "sheetName": "om",
+      "outputFile": "database/info-sections.json"
+    },
+    "info-subsections": {
+      "sheetName": "om-subsection",
+      "outputFile": null
+    }
+  }
+}

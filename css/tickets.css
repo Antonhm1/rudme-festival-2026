@@ -58,6 +58,24 @@ html, body {
     line-height: 1.1;
 }
 
+.buy-ticket-button {
+    display: inline-block;
+    margin-top: 50px;
+    text-decoration: none;
+    background-color: #111;
+    color: #EFD0FF;
+    font-size: 50px;
+    padding: 32px 130px;
+    transition: background-color 0.3s ease;
+}
+
+.buy-ticket-button:hover,
+.buy-ticket-button:active {
+    transform: none;
+    box-shadow: none;
+    background-color: #333;
+}
+
 /* Newsletter section */
 .newsletter-section {
     width: 100%;
