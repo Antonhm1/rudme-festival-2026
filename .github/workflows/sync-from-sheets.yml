@@ -26,7 +26,9 @@ jobs:
         run: npm ci
 
       - name: Create service account file
-        run: echo '${{ secrets.GOOGLE_SERVICE_ACCOUNT }}' > service-account.json
+        env:
+          GOOGLE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
+        run: printenv GOOGLE_SERVICE_ACCOUNT > service-account.json
 
       - name: Run sync
         run: npm run sync
