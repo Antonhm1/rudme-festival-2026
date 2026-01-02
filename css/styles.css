@@ -152,7 +152,11 @@ select:hover { background-color: rgba(255,255,255,0.03); }
 
 /* only show the select background on subpages; frontpage remains transparent */
 .select-bg { display: none; }
-body.is-subpage .select-bg { display: block; }
+body.is-subpage .select-bg {
+    display: block;
+    /* Set initial background from CSS variable to prevent flash of white before JS runs */
+    background-color: var(--current-bg, var(--bg-color-1, #ffffff));
+}
 
 /*
   Page-scoped background rules for the select/menu.
@@ -162,6 +166,13 @@ body.is-subpage .select-bg { display: block; }
 .select-options,
 select {
     background: transparent;
+}
+
+/* Subpages: use CSS variable for select background to prevent flash on back/forward navigation */
+body.is-subpage .select-display,
+body.is-subpage .select-options,
+body.is-subpage .select-options li {
+    background-color: var(--current-bg, var(--bg-color-1, #ffffff));
 }
 
 /* caret / down-arrow taken from assets; placed on the right inside the display */
