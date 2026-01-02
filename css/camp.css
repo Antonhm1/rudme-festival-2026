@@ -109,6 +109,17 @@ body {
     max-width: 900px;
 }
 
+/* Style paragraphs inside the JSON-loaded intro text container */
+#rudme-lejr-info-text p {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #111;
+    margin-bottom: 30px;
+    max-width: 900px;
+}
+
 .intro-button {
     display: inline-block;
     padding: 20px 40px;
@@ -500,6 +511,22 @@ body {
 
 .cta-note {
     font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 18px;
+    font-style: italic;
+    color: #333;
+    margin-bottom: 50px;
+}
+
+/* Style paragraphs inside the JSON-loaded CTA beskrivelse container */
+#section-5-beskrivelse p {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 28px;
+    line-height: 1.5;
+    color: #111;
+    margin-bottom: 20px;
+}
+
+#section-5-beskrivelse p.note {
     font-size: 18px;
     font-style: italic;
     color: #333;

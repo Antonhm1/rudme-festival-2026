@@ -23,7 +23,7 @@
     {
       "sektion": 5,
       "overskrift": "KOM OG VÆR MED!",
-      "beskrivelse": "<p class=\"cta-text\">Kom og vær med til at skabe en festival, mens du har en fest!<br>Deltagelse i lejren er helt gratis - og vi glæder os til at se dig!</p><p class=\"cta-note\">OBS: Arbejdet på lejren udløser ikke en billet til selve festivalen.</p>",
+      "beskrivelse": "<p>Kom og vær med til at skabe en festival, mens du har en fest!<br>Deltagelse i lejren er helt gratis - og vi glæder os til at se dig!</p><p class='note'>OBS: Arbejdet på lejren udløser ikke en billet til selve festivalen.</p>",
       "tilmeldings link": "https://rudmefestival.nemtilmeld.dk/"
     }
   ]
