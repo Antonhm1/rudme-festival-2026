@@ -490,6 +490,8 @@ body.is-subpage .select-options li {
     pointer-events: none;
     /* remove background so SVG is visible */
     background: transparent;
+    /* Default dark color for visibility before JS runs - will be updated dynamically */
+    color: #333;
 }
 /* ensure injected/inlined SVG scales to container height and uses currentColor */
 #logo-container svg{
