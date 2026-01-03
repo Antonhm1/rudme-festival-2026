@@ -2,28 +2,28 @@
   {
     "id": "house",
     "title": "HOUSE",
-    "image": "pictures/Skurvognen/house.jpg",
+    "image": "house.jpg",
     "description": "House-fester i intime omgivelser med fokus på elektronisk musik og fællesskab. Vi skaber rum hvor musikken og stemningen smelter sammen.",
     "color": "#FF6B6B"
   },
   {
     "id": "distortion",
     "title": "SCENE PÅ DISTORTION",
-    "image": "pictures/Skurvognen/distortion.jpg",
+    "image": "distortion.jpg",
     "description": "Hvert år bygger vi scene og skaber fest på Distortion. En eksplosion af farver, musik og københavnsk gadefest-energi.",
     "color": "#4ECDC4"
   },
   {
     "id": "byggefestival",
     "title": "BYGGEFESTIVAL",
-    "image": "pictures/Skurvognen/arbejdsfestival.jpg",
+    "image": "arbejdsfestival.jpg",
     "description": "Arbejdsweekender hvor vi samles om at bygge, male og skabe. Her lærer man nye skills, møder fantastiske mennesker og ser resultatet af fælles indsats.",
     "color": "#FFE66D"
   },
   {
     "id": "heartland",
     "title": "HEARTLAND",
-    "image": "pictures/Skurvognen/heartland.jpeg",
+    "image": "heartland.jpeg",
     "description": "Vi designer og driver frivilligområdet på Heartland Festival. Et sted hvor festivalens hjælpere kan slappe af og genoplade.",
     "color": "#95E1D3"
   }

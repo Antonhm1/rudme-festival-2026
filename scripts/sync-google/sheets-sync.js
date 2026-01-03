@@ -10,6 +10,12 @@ const transformPosters = require('./transformers/posters');
 const transformHistory = require('./transformers/history');
 const transformPictures = require('./transformers/pictures');
 const transformInfoSections = require('./transformers/info-sections');
+const transformRudmeLejrOpgaver = require('./transformers/rudme-lejr-opgaver');
+const transformRudmeLejrFeatures = require('./transformers/rudme-lejr-features');
+const transformRudmeLejrInfo = require('./transformers/rudme-lejr-info');
+const transformSkurvognenOm = require('./transformers/skurvognen-om');
+const transformSkurvognenEvents = require('./transformers/skurvognen-events');
+const transformOm = require('./transformers/om');
 
 async function getAuthClient() {
   const auth = new google.auth.GoogleAuth({
@@ -105,6 +111,42 @@ async function syncSheets() {
       data: sheetData['info-sections'],
       subsections: sheetData['info-subsections'],
       output: config.sheets['info-sections'].outputFile
+    },
+    {
+      name: 'rudme-lejr-opgaver',
+      transformer: transformRudmeLejrOpgaver,
+      data: sheetData['rudme-lejr-opgaver'],
+      output: config.sheets['rudme-lejr-opgaver'].outputFile
+    },
+    {
+      name: 'rudme-lejr-features',
+      transformer: transformRudmeLejrFeatures,
+      data: sheetData['rudme-lejr-features'],
+      output: config.sheets['rudme-lejr-features'].outputFile
+    },
+    {
+      name: 'rudme-lejr-info',
+      transformer: transformRudmeLejrInfo,
+      data: sheetData['rudme-lejr-info'],
+      output: config.sheets['rudme-lejr-info'].outputFile
+    },
+    {
+      name: 'skurvognen-om',
+      transformer: transformSkurvognenOm,
+      data: sheetData['skurvognen-om'],
+      output: config.sheets['skurvognen-om'].outputFile
+    },
+    {
+      name: 'skurvognen-events',
+      transformer: transformSkurvognenEvents,
+      data: sheetData['skurvognen-events'],
+      output: config.sheets['skurvognen-events'].outputFile
+    },
+    {
+      name: 'om',
+      transformer: transformOm,
+      data: sheetData['om'],
+      output: config.sheets['om'].outputFile
     }
   ];
 

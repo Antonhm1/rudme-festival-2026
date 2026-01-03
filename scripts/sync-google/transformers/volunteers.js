@@ -7,20 +7,18 @@
  * - image_path: Full path or just filename
  * - crop: Numeric crop value (e.g., 30, 50)
  * - color: Hex color (e.g., "#90EE90")
- * - description_1, description_2, ... description_N: Multiple description paragraphs
+ * - description: Description text (newlines create separate paragraphs)
  * - buttonText: CTA button text (e.g., "BLIV FRIVILLIG")
  */
 
 function transformVolunteers(rows) {
   const roles = rows.map(row => {
-    // Collect all description columns
-    const description = [];
-    for (let i = 1; i <= 10; i++) {
-      const desc = row[`description_${i}`] || row[`description${i}`];
-      if (desc && desc.trim()) {
-        description.push(desc.trim());
-      }
-    }
+    // Split description by newlines to create array of paragraphs
+    const rawDescription = row.description || '';
+    const description = rawDescription
+      .split(/\n+/)
+      .map(p => p.trim())
+      .filter(p => p.length > 0);
 
     // Handle image path
     let imagePath = row.image_path || row.image || '';

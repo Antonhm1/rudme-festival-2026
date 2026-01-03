@@ -12,9 +12,42 @@ let showVolunteers = true;
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
+    loadAboutContent();
     loadHistoryRoller();
     initStatsGraph();
 });
+
+// Load about content from om.json
+async function loadAboutContent() {
+    try {
+        const response = await fetch('database/om.json');
+        if (!response.ok) {
+            throw new Error('Failed to load om.json');
+        }
+        const data = await response.json();
+
+        // Set hero text
+        const heroTextEl = document.getElementById('hero-text');
+        if (heroTextEl && data.heroText) {
+            heroTextEl.textContent = data.heroText;
+        }
+
+        // Set section title
+        const sectionTitleEl = document.getElementById('section-title');
+        if (sectionTitleEl && data.sectionTitle) {
+            sectionTitleEl.textContent = data.sectionTitle;
+        }
+
+        // Set description (HTML with <br> tags)
+        const beskrivelseEl = document.getElementById('beskrivelse');
+        if (beskrivelseEl && data.beskrivelse) {
+            beskrivelseEl.innerHTML = data.beskrivelse;
+        }
+
+    } catch (error) {
+        console.error('Error loading about content:', error);
+    }
+}
 
 // Load history data from JSON and create roller
 async function loadHistoryRoller() {

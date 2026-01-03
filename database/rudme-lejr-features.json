@@ -3,22 +3,22 @@
     {
       "titel": "GRATIS MAD & DRIKKE",
       "beskrivelse": "Der serveres gratis mad til alle deltagere hver dag. Snacks, øl og vand er tilgængelige mens du arbejder. Om aftenen kan du købe drikkevarer til indkøbspris.",
-      "image": "pictures/Rudme-Lejr/gratismad.jpeg"
+      "image": "gratismad.jpeg"
     },
     {
       "titel": "FÆLLESSKAB",
       "beskrivelse": "Bliv en del af et stærkt fællesskab. Mød nye mennesker og vær med til at skabe noget særligt sammen.",
-      "image": "pictures/Rudme-Lejr/faelledskab.jpeg"
+      "image": "faelledskab.jpeg"
     },
     {
       "titel": "AFTEN EVENTS",
       "beskrivelse": "Efter arbejdsdagen er der hygge og events. Vi har erfaringer med at opbygningsdagene er mindst lige så hyggelige som selve festivalen!",
-      "image": "pictures/Rudme-Lejr/aftenevents.jpg"
+      "image": "aftenevents.jpg"
     },
     {
       "titel": "NYE FÆRDIGHEDER",
       "beskrivelse": "Lær nye skills fra erfarne byggere og kunstnere. Få hands-on erfaring med værktøj og teknikker du måske aldrig har prøvet før.",
-      "image": "pictures/Rudme-Lejr/nyefaerdigheder.jpeg"
+      "image": "nyefaerdigheder.jpeg"
     }
   ]
 }

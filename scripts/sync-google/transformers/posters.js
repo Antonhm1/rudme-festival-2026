@@ -45,11 +45,14 @@ function transformPosters(postersData, roleColorsData) {
       roles = row.roles.split(',').map(r => r.trim()).filter(r => r);
     }
 
+    // Convert newlines to <br> in description
+    const description = (row.description || '').replace(/\n/g, '<br>');
+
     return {
       id: row.id || '',
       title: row.title || '',
       image: imagePath,
-      description: row.description || '',
+      description: description,
       color: row.color || '#FFFFFF',
       roles: roles
     };

@@ -24,10 +24,13 @@ function transformHistory(rows) {
       imagePath = `pictures/om/historie/${imagePath}`;
     }
 
+    // Convert newlines to <br> in description
+    const description = (row.description || '').replace(/\n/g, '<br>');
+
     return {
       year: parseInt(row.year, 10) || 0,
       image: imagePath,
-      description: row.description || '',
+      description: description,
       afterMovieUrl: row.afterMovieUrl || row.after_movie_url || '',
       picturesUrl: row.picturesUrl || row.pictures_url || '',
       attendees: parseInt(row.attendees, 10) || 0,

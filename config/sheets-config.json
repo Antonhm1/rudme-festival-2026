@@ -28,12 +28,36 @@
       "outputFile": "database/pictures.json"
     },
     "info-sections": {
-      "sheetName": "om",
+      "sheetName": "info",
       "outputFile": "database/info-sections.json"
     },
     "info-subsections": {
-      "sheetName": "om-subsection",
+      "sheetName": "info-subsection",
       "outputFile": null
+    },
+    "rudme-lejr-opgaver": {
+      "sheetName": "rudme_lejr_opgaver",
+      "outputFile": "database/rudme-lejr-opgaver.json"
+    },
+    "rudme-lejr-features": {
+      "sheetName": "rudme_lejr_features",
+      "outputFile": "database/rudme-lejr-features.json"
+    },
+    "rudme-lejr-info": {
+      "sheetName": "rudme_lejr_info",
+      "outputFile": "database/rudme-lejr-info.json"
+    },
+    "skurvognen-om": {
+      "sheetName": "skurvognen_om",
+      "outputFile": "database/skurvognen-om.json"
+    },
+    "skurvognen-events": {
+      "sheetName": "skurvognen_events",
+      "outputFile": "database/skurvognen-events.json"
+    },
+    "om": {
+      "sheetName": "om",
+      "outputFile": "database/om.json"
     }
   }
 }

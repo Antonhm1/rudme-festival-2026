@@ -13,7 +13,56 @@
  * - title: Subsection title
  * - image_path: Full path or just filename
  * - content: HTML content
+ *
+ * Content auto-wrapping:
+ * - Plain text without block elements gets wrapped in <p>
+ * - Text between block elements (<h3>, <ul>, etc.) gets wrapped in <p>
+ * - You only need to write: <h3>Title</h3>Text here
+ *   Instead of: <h3>Title</h3><p>Text here</p>
  */
+
+// Wrap text segments between block elements in <p> tags
+function wrapContentInParagraphs(content) {
+  if (!content || !content.trim()) return '';
+
+  const trimmed = content.trim();
+
+  // If content already has <p> tags, return as-is
+  if (/<p[\s>]/i.test(trimmed)) {
+    return trimmed;
+  }
+
+  // If content starts with <div>, <ul>, <ol>, <table> - it's complex HTML, leave as-is
+  if (/^<(div|ul|ol|table)[\s>]/i.test(trimmed)) {
+    return trimmed;
+  }
+
+  // Block elements that we handle (h1-h6 for headers)
+  const headerTags = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
+  const headerPattern = new RegExp(`<(${headerTags.join('|')})(\\s|>)`, 'i');
+
+  // If no headers, wrap the whole thing in <p> and convert newlines to <br>
+  if (!headerPattern.test(trimmed)) {
+    const withBreaks = trimmed.replace(/\n/g, '<br>');
+    return `<p>${withBreaks}</p>`;
+  }
+
+  // Split by header elements and wrap text segments between them
+  const headerRegex = new RegExp(`(<(?:${headerTags.join('|')})(?:\\s[^>]*)?>[\\s\\S]*?<\\/(?:${headerTags.join('|')})>)`, 'gi');
+
+  const parts = trimmed.split(headerRegex);
+
+  return parts.map(part => {
+    if (!part || !part.trim()) return '';
+    // If it's a header element, leave it as-is
+    if (headerPattern.test(part.trim())) {
+      return part;
+    }
+    // Otherwise convert newlines to <br> and wrap in <p>
+    const withBreaks = part.trim().replace(/\n/g, '<br>');
+    return `<p>${withBreaks}</p>`;
+  }).join('');
+}
 
 function transformInfoSections(sectionsData, subsectionsData) {
   // Group subsections by parent_id
@@ -36,7 +85,7 @@ function transformInfoSections(sectionsData, subsectionsData) {
       subsectionsByParent[parentId].push({
         title: row.title || '',
         image: imagePath || undefined,
-        content: row.content || ''
+        content: wrapContentInParagraphs(row.content || '')
       });
     });
   }
@@ -66,7 +115,7 @@ function transformInfoSections(sectionsData, subsectionsData) {
       section.subsections = subsectionsByParent[sectionId];
     } else if (row.content) {
       // Only add content if no subsections
-      section.content = row.content;
+      section.content = wrapContentInParagraphs(row.content);
     }
 
     return section;
