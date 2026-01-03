@@ -12,8 +12,15 @@
     // Add a body class indicating whether we're on the front page or a subpage.
     // This allows CSS to scope different select/menu backgrounds for index vs other pages.
     try {
-        const lastSegment = location.pathname.split('/').filter(Boolean).pop() || '';
-        if (location.pathname === '/' || lastSegment === 'index.html' || lastSegment === '') {
+        const pathname = location.pathname;
+        const lastSegment = pathname.split('/').filter(Boolean).pop() || '';
+        // Detect frontpage: root path, ends with '/', index.html, or empty segment
+        // This handles both local dev (/) and subdirectory deployments (/rudme-festival-2026/)
+        const isFrontpage = pathname === '/' ||
+                            pathname.endsWith('/') ||
+                            lastSegment === 'index.html' ||
+                            lastSegment === '';
+        if (isFrontpage) {
             document.body.classList.add('is-frontpage');
         } else {
             document.body.classList.add('is-subpage');
