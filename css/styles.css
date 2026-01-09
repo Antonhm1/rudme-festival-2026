@@ -196,16 +196,9 @@ body.is-subpage .select-options li {
     transform-origin: center;
 }
 
-/* Wiggle animation for hover */
-@keyframes caret-wiggle {
-    0% { transform: rotate(0deg); }
-    30% { transform: rotate(25deg); }
-    100% { transform: rotate(0deg); }
-}
-
-/* Animate arrow on hover (only when not open) */
+/* Rotate arrow on hover (quarter turn) */
 .custom-select:hover:not(.open) .select-caret img {
-    animation: caret-wiggle 0.4s ease;
+    transform: rotate(45deg);
 }
 
 /* rotate the arrow when dropdown is open */

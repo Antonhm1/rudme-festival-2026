@@ -312,7 +312,7 @@ html, body {
 
     /* Map responsive */
     .map-container iframe {
-        height: 250px;
+        height: 300px;
     }
 }
 

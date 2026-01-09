@@ -69,12 +69,7 @@ html, body {
     transition: background-color 0.3s ease;
 }
 
-.buy-ticket-button:hover,
-.buy-ticket-button:active {
-    transform: none;
-    box-shadow: none;
-    background-color: #333;
-}
+/* Hover effect handled by button-hover.js */
 
 /* Newsletter section */
 .newsletter-section {

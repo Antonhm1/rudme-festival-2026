@@ -7,6 +7,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 footerContainer.innerHTML = data;
                 loadFooterLogo();
                 setupDynamicFooterColors();
+                // Initialize button hover effect for footer buttons
+                if (typeof ButtonHover !== 'undefined') {
+                    ButtonHover.init('.footer-buy-ticket-btn');
+                }
             }
         })
         .catch(error => console.error('Error loading footer:', error));

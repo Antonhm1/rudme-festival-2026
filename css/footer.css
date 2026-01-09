@@ -177,9 +177,7 @@
     text-decoration: none;
 }
 
-.footer-buy-ticket-btn:hover {
-    opacity: 0.8;
-}
+/* Hover effect handled by button-hover.js */
 
 
 @media (max-width: 768px) {

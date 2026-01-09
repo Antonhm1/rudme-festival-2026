@@ -202,23 +202,57 @@ const SectionComponent = {
     },
 
     /**
+     * Available colors for random button hover effect
+     */
+    buttonColors: [
+        '#90EE90', // green - frivillig
+        '#87CEEB', // blue - afvikler
+        '#FFB6C1', // pink - arrangor
+        '#FFF59D', // light yellow - praktikant
+        '#FFEB3B', // bright yellow - rudme lejr
+        '#B19CD9', // purple - foreningsmedlem
+        '#111111', // black
+        '#FFFFFF'  // white
+    ],
+
+    /**
+     * Get a random color from the button colors array
+     * @param {string} [excludeColor] - Color to exclude from selection
+     * @returns {string} Random hex color
+     */
+    getRandomColor: function(excludeColor) {
+        const available = this.buttonColors.filter(c => c !== excludeColor);
+        return available[Math.floor(Math.random() * available.length)];
+    },
+
+    /**
      * Update button styles based on current background color
      * Called from page-specific color transition code
      * @param {string} bgColor - Current background color
      */
     updateButtonStyles: function(bgColor) {
+        const self = this;
         // Update both buttons and button-styled links
         const buttons = document.querySelectorAll('.content-section-button, .section-button-link');
         buttons.forEach(button => {
-            button.style.backgroundColor = '#111';
-            button.style.color = bgColor;
+            // Only set initial styles if not already randomized
+            if (!button.dataset.randomized) {
+                button.style.backgroundColor = '#111';
+                button.style.color = bgColor;
+            }
 
-            button.onmouseenter = function() {
-                this.style.backgroundColor = '#333';
-            };
-            button.onmouseleave = function() {
-                this.style.backgroundColor = '#111';
-            };
+            // Remove old listeners by replacing element (clean approach)
+            if (!button.dataset.hoverInitialized) {
+                button.dataset.hoverInitialized = 'true';
+
+                button.addEventListener('mouseenter', function() {
+                    const newBgColor = self.getRandomColor();
+                    const newTextColor = self.getRandomColor(newBgColor);
+                    this.style.backgroundColor = newBgColor;
+                    this.style.color = newTextColor;
+                    this.dataset.randomized = 'true';
+                });
+            }
         });
     },
 
