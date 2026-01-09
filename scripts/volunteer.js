@@ -57,6 +57,7 @@ function generateRoleSections(roles) {
             imageCrop: role.crop,
             content: role.description,
             buttonText: role.buttonText,
+            buttonLink: role.buttonLink,
             color: role.color,
             container: container
         });

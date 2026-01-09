@@ -9,6 +9,7 @@
  * - color: Hex color (e.g., "#90EE90")
  * - description: Description text (newlines create separate paragraphs)
  * - buttonText: CTA button text (e.g., "BLIV FRIVILLIG")
+ * - button link: URL for the button
  */
 
 function transformVolunteers(rows) {
@@ -33,7 +34,8 @@ function transformVolunteers(rows) {
       crop: parseInt(row.crop, 10) || 50,
       color: row.color || '#FFFFFF',
       description: description,
-      buttonText: row.buttonText || row.button_text || ''
+      buttonText: row.buttonText || row.button_text || '',
+      buttonLink: row['button link'] || row.buttonLink || row.button_link || ''
     };
   }).filter(role => role.id && role.name);
 

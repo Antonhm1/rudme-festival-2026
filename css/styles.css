@@ -196,6 +196,18 @@ body.is-subpage .select-options li {
     transform-origin: center;
 }
 
+/* Wiggle animation for hover */
+@keyframes caret-wiggle {
+    0% { transform: rotate(0deg); }
+    30% { transform: rotate(25deg); }
+    100% { transform: rotate(0deg); }
+}
+
+/* Animate arrow on hover (only when not open) */
+.custom-select:hover:not(.open) .select-caret img {
+    animation: caret-wiggle 0.4s ease;
+}
+
 /* rotate the arrow when dropdown is open */
 .custom-select.open .select-caret img {
     transform: rotate(180deg);
@@ -414,6 +426,10 @@ body.is-subpage .select-options li {
     align-items: center;
     justify-content: center;
     opacity: 1; /* always visible */
+    cursor: pointer;
+}
+.custom-scrollbar-thumb .thumb-icon:hover {
+    opacity: 0.7;
 }
 
 .custom-scrollbar-thumb .thumb-icon img,
@@ -473,6 +489,16 @@ body.is-subpage .select-options li {
 }
 
 
+
+/* Logo link wrapper - makes logo clickable to go to homepage */
+#logo-link {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    display: block;
+    position: relative;
+    z-index: 1200;
+}
 
 /* Logo in top-left, sits at top of the document flow (uses margins so it scrolls with content) */
 #logo-container{

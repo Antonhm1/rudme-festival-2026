@@ -38,6 +38,7 @@ const SectionComponent = {
      * @param {string|string[]} [options.content] - HTML content string or array of paragraphs
      * @param {Object[]} [options.subsections] - Array of subsections (each with title, image, imageCrop, content)
      * @param {string} [options.buttonText] - Button text (omit for no button)
+     * @param {string} [options.buttonLink] - Button link URL (if provided, button becomes a link)
      * @param {string} options.color - Section color for background transitions
      * @param {HTMLElement} [options.container] - Container to append to (optional)
      * @returns {HTMLElement} The created section element
@@ -51,6 +52,7 @@ const SectionComponent = {
             content,
             subsections,
             buttonText,
+            buttonLink,
             color,
             container
         } = options;
@@ -158,10 +160,20 @@ const SectionComponent = {
 
         // Button (if provided)
         if (buttonText) {
-            const button = document.createElement('button');
-            button.className = 'content-section-button';
-            button.textContent = buttonText;
-            contentBox.appendChild(button);
+            if (buttonLink) {
+                const link = document.createElement('a');
+                link.className = 'content-section-button';
+                link.href = buttonLink;
+                link.textContent = buttonText;
+                link.target = '_blank';
+                link.rel = 'noopener noreferrer';
+                contentBox.appendChild(link);
+            } else {
+                const button = document.createElement('button');
+                button.className = 'content-section-button';
+                button.textContent = buttonText;
+                contentBox.appendChild(button);
+            }
         }
 
         section.appendChild(contentBox);

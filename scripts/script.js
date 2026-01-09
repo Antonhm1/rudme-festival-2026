@@ -901,6 +901,48 @@ function attachBehaviors() {
         });
     }
 
+    // Arrow click handlers for previous/next slide navigation
+    if (thumb) {
+        const leftArrow = thumb.querySelector('.thumb-icon-left');
+        const rightArrow = thumb.querySelector('.thumb-icon-right');
+
+        // Helper to prevent thumb drag when clicking arrows
+        const preventDrag = (e) => {
+            e.stopPropagation();
+            e.preventDefault();
+        };
+
+        if (leftArrow) {
+            // Stop pointer/mouse events from triggering thumb drag
+            leftArrow.addEventListener('pointerdown', preventDrag);
+            leftArrow.addEventListener('mousedown', preventDrag);
+            leftArrow.addEventListener('touchstart', preventDrag);
+
+            leftArrow.addEventListener('click', (e) => {
+                e.stopPropagation();
+                pauseAutoAdvanceWithTimer();
+                currentAutoIndex = computeCurrentSlideIndex();
+                const prevIndex = currentAutoIndex === 0 ? slides.length - 1 : currentAutoIndex - 1;
+                goToSlideIndex(prevIndex);
+            });
+        }
+
+        if (rightArrow) {
+            // Stop pointer/mouse events from triggering thumb drag
+            rightArrow.addEventListener('pointerdown', preventDrag);
+            rightArrow.addEventListener('mousedown', preventDrag);
+            rightArrow.addEventListener('touchstart', preventDrag);
+
+            rightArrow.addEventListener('click', (e) => {
+                e.stopPropagation();
+                pauseAutoAdvanceWithTimer();
+                currentAutoIndex = computeCurrentSlideIndex();
+                const nextIndex = currentAutoIndex === slides.length - 1 ? 0 : currentAutoIndex + 1;
+                goToSlideIndex(nextIndex);
+            });
+        }
+    }
+
     // expose navigatePage globally for the fallback select onchange attribute
     window.navigatePage = function(page) {
         if (!page || page === 'home') {
