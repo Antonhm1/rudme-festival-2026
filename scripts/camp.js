@@ -1,6 +1,16 @@
 // Camp page JavaScript - Gallery lightbox and smooth animations
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Default image path for Rudme Lejr images
+    const RUDME_LEJR_IMAGE_PATH = 'pictures/Rudme-Lejr/';
+
+    // Helper function to get full image path (adds default path if only filename is provided)
+    function getImagePath(imageName) {
+        if (!imageName) return '';
+        // If already has a path (contains /), use as-is; otherwise prepend default path
+        return imageName.includes('/') ? imageName : RUDME_LEJR_IMAGE_PATH + imageName;
+    }
+
     async function loadRudmeLejrData() {
         // Load all section headings and descriptions from rudme-lejr-info.json
         try {
@@ -68,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 const img = document.createElement('img');
                 img.className = 'activity-image';
-                img.src = opgave && opgave.image ? opgave.image : '';
+                img.src = getImagePath(opgave && opgave.image ? opgave.image : '');
                 img.alt = opgave && opgave.titel ? opgave.titel : 'Opgave';
 
                 const desc = document.createElement('p');
@@ -104,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 const img = document.createElement('img');
                 img.className = 'feature-image';
-                img.src = feature && feature.image ? feature.image : '';
+                img.src = getImagePath(feature && feature.image ? feature.image : '');
                 img.alt = feature && feature.titel ? feature.titel : 'Feature';
 
                 const desc = document.createElement('p');
