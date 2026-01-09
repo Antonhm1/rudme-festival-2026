@@ -12,6 +12,7 @@
     position: relative;
     z-index: 10;
     overflow: hidden;
+    margin-bottom: 80px; /* Add spacing after roller section */
 }
 
 /* Section title - can be aligned left or right */

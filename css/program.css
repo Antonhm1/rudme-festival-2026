@@ -92,6 +92,8 @@ html:not(.show-vertical-scrollbar) { scrollbar-color: transparent transparent; }
     min-height: 180px;
     /* no rounded corners */
     border-radius: 0;
+    /* pointer cursor to indicate clickability */
+    cursor: pointer;
     /* leave space at top for the flush scrollbar (scrollbar sits at top:0) */
      /* reserve extra bottom padding to make room for the artist title */
      --title-height: 32px; /* height reserved for the artist name line (adjustable) */
@@ -154,6 +156,20 @@ html:not(.show-vertical-scrollbar) { scrollbar-color: transparent transparent; }
     padding-left: 0;
     padding-right: 0;
     z-index: 100;
+    /* Hover hint animation - slides content slightly to show there's more */
+    transition: transform 0.3s ease-out;
+}
+
+/* Hover animation: slide content to hint at scrollability (only on first slide) */
+/* Content moves halfway into the margin (14px = half of 28px box-inset) */
+.artist-box:hover .box-scroll.at-start {
+    transform: translateX(-14px);
+}
+
+/* Don't animate if user is dragging the scrollbar */
+.artist-box .box-scroll.dragging-scrollbar {
+    transform: none !important;
+    transition: none;
 }
 
 .box-scroll::-webkit-scrollbar { display: none; }
@@ -251,6 +267,19 @@ html:not(.show-vertical-scrollbar) { scrollbar-color: transparent transparent; }
     border-radius: 0;
     background: rgba(255,255,255,0.9);
     cursor: pointer;
+    /* Hover hint animation for thumb */
+    transition: transform 0.3s ease-out;
+}
+
+/* Thumb slides right on hover to align with left edge of picture (28px = box-inset) */
+.artist-box:hover .box-scroll.at-start ~ .box-scrollbar .custom-scrollbar-thumb {
+    transform: translateX(28px);
+}
+
+/* Don't animate thumb if dragging */
+.artist-box .box-scroll.dragging-scrollbar ~ .box-scrollbar .custom-scrollbar-thumb {
+    transform: none !important;
+    transition: none;
 }
 
 /* Responsive: stack artist boxes vertically on narrow viewports */
@@ -303,4 +332,13 @@ html:not(.show-vertical-scrollbar) { scrollbar-color: transparent transparent; }
         gap: 12px; /* slightly smaller gap between scroll items on mobile */
     }
 
+    /* Smaller hover animation on mobile (7px = half of 14px mobile box-inset) */
+    .artist-box:hover .box-scroll.at-start {
+        transform: translateX(-7px);
+    }
+
+    /* Thumb aligns with picture edge on mobile (14px = mobile box-inset) */
+    .artist-box:hover .box-scroll.at-start ~ .box-scrollbar .custom-scrollbar-thumb {
+        transform: translateX(14px);
+    }
 }

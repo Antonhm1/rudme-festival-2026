@@ -50,7 +50,7 @@ html, body {
     color: #111;
     text-align: right;
     padding-top: 490px; /* Position below the absolute hero image */
-    margin-bottom: 40px;
+    margin-bottom: 80px;
     padding-right: 30px;
     position: relative;
     z-index: 10;
@@ -66,10 +66,11 @@ html, body {
     background: transparent; /* Transparent so body color shows through */
     position: relative;
     z-index: 10;
-    /* Constrain width and push to left */
+    /* Constrain width and push to right */
     max-width: 900px;
-    margin-right: auto; /* This pushes it to the left */
-    margin-left: 30px; /* Default left margin */
+    margin-left: auto; /* This pushes it to the right */
+    margin-right: 30px; /* Default right margin */
+    margin-bottom: 80px; /* Add spacing after roles section */
 }
 
 /* On larger screens, increase margins */
@@ -79,7 +80,7 @@ html, body {
     }
 
     .roles-section {
-        margin-left: 60px;
+        margin-right: 60px;
     }
 }
 
@@ -90,7 +91,7 @@ html, body {
     }
 
     .roles-section {
-        margin-left: 100px;
+        margin-right: 100px;
         max-width: 800px; /* Match hero text width on large screens */
     }
 }
@@ -102,16 +103,21 @@ html, body {
     letter-spacing: -1px;
     color: #111;
     margin-bottom: 30px;
+    text-align: right;
+    padding-right: 30px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: 30px;
 }
 
-/* Flexbox for role boxes - float left with variable width */
+/* Flexbox for role boxes - float right with variable width */
 .roles-grid {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
     align-items: flex-start;
+    justify-content: flex-end; /* Align boxes to the right */
     /* Remove width constraint since parent container handles it */
-    margin-left: 0; /* Align to the left */
 }
 
 /* Individual role boxes with colors */
@@ -167,6 +173,11 @@ html, body {
 
 /* Role section styles now use shared section-component.css */
 /* Poster/roller section styles now use shared roller-component.css */
+
+/* Add spacing to role sections container */
+#role-sections-container {
+    margin-top: 80px;
+}
 
 /* Mobile responsive adjustments */
 @media (max-width: 768px) {

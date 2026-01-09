@@ -70,9 +70,10 @@
             return;
         }
 
-        // Determine if this is the front page (index.html)
+        // Determine if this is the front page (index.html) or program page
         const filename = window.location.pathname.split('/').pop() || 'index.html';
         const isIndex = filename === '' || filename === 'index.html';
+        const isProgram = filename === 'program.html';
 
         // Skip universal header management on front page - script.js handles it
         if (isIndex) return;
@@ -81,7 +82,7 @@
         initStickyMenu(menu);
 
         // Initialize color observation
-        initColorObserver(logo, dateText, selectDisplay, selectBg, selectOptions, menu);
+        initColorObserver(logo, dateText, selectDisplay, selectBg, selectOptions, menu, isProgram);
     }
 
     // Sticky menu - becomes fixed when scrolling past a threshold
@@ -116,8 +117,20 @@
         handleScroll();
     }
 
+    // Darken a color by multiplying each channel (0-1 multiplier)
+    function darkenColor(color, multiplier) {
+        const rgb = parseRGB(color);
+        if (!rgb) return color;
+
+        const r = Math.round(rgb.r * multiplier);
+        const g = Math.round(rgb.g * multiplier);
+        const b = Math.round(rgb.b * multiplier);
+
+        return `rgb(${r}, ${g}, ${b})`;
+    }
+
     // Observe body background color changes and update header elements
-    function initColorObserver(logo, dateText, selectDisplay, selectBg, selectOptions, menu) {
+    function initColorObserver(logo, dateText, selectDisplay, selectBg, selectOptions, menu, isProgram) {
         let lastColor = '';
 
         function updateHeaderColors() {
@@ -156,9 +169,11 @@
             if (bgColor === lastColor) return;
             lastColor = bgColor;
 
-            // Update logo and date text color to match background
-            if (logo) logo.style.color = bgColor;
-            if (dateText) dateText.style.color = bgColor;
+            // Update logo and date text color
+            // On program page, use a darker version of the background color
+            const logoColor = isProgram ? darkenColor(bgColor, 0.6) : bgColor;
+            if (logo) logo.style.color = logoColor;
+            if (dateText) dateText.style.color = logoColor;
 
             // Update select/menu backgrounds to match
             if (selectDisplay) selectDisplay.style.backgroundColor = bgColor;

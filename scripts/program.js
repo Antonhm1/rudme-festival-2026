@@ -112,6 +112,13 @@ function attachBoxScrollbars() {
 
             thumb.style.width = finalThumbWidth + 'px';
             thumb.style.left = Math.max(0, Math.min(available, thumbPosition)) + 'px';
+
+            // Toggle at-start class for hover animation (only animate on first slide)
+            if (scrollEl.scrollLeft < 10) {
+                scrollEl.classList.add('at-start');
+            } else {
+                scrollEl.classList.remove('at-start');
+            }
         }
 
         // Sync on scroll and resize
@@ -204,6 +211,7 @@ function attachBoxScrollbars() {
                     } catch (err) {}
                 });
             } catch (err) {}
+            // Hover animation is handled by CSS (transform on .box-scroll and .custom-scrollbar-thumb)
         });
 
         box.addEventListener('pointerleave', (e) => {

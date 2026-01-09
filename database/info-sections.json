@@ -12,7 +12,7 @@
       "title": "Tid & Sted",
       "color": "#FFA726",
       "image": "pictures/info-pictures/faelledskab.jpeg",
-      "content": "<p><strong>Dato:</strong> 16. - 18. juli 2026<br><strong>Pladsen åbner:</strong> Torsdag d. 16. juli kl. 14:00<br><strong>Festival pladsen lukker:</strong> Søndag d. 19. juli kl. 12:00<br><strong>Adresse:</strong><br>Rudmevej 36<br>5750 Ringe<div class=\"map-container\"><iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2263.7951!2d10.4721!3d55.2389!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x464d2b5e8a8c9a9d%3A0x0!2sRudmevej%2036%2C%205750%20Ringe!5e0!3m2!1sda!2sdk!4v1638789012345\" width=\"100%\" height=\"200\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\"></iframe></div></p>"
+      "content": "<p><strong>Dato:</strong> 16. - 18. juli 2026<br><strong>Pladsen åbner:</strong> Torsdag d. 16. juli kl. 14:00<br><strong>Festival pladsen lukker:</strong> Søndag d. 19. juli kl. 12:00<br><strong>Adresse:</strong><br>Rudmevej 36<br>5750 Ringe</p><div class=\"map-container\"><iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1100000!2d10.4721!3d55.8!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x464d2b5e8a8c9a9d%3A0x4c8f7a1b2c3d4e5f!2sRudmevej%2036%2C%205750%20Ringe!5e0!3m2!1sda!2sdk!4v1704067200000\" width=\"100%\" height=\"600\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe></div>"
     },
     {
       "id": "transport",
@@ -92,7 +92,11 @@
       "subsections": [
         {
           "title": "Vedtægter",
-          "content": "<p>Her kan du downloade foreningens vedtægter:</p><a href=\\\"dokumenter/Rudme%20Festival%20Vedtægter.pdf\\\" class=\\\"section-button-link\\\" download>Download Vedtægter (PDF)</a>\"}, {\"title\": \"Referater\", \"content\": \"<p>Her finder du referater fra foreningens møder:</p><a href=\\\"dokumenter/referat-2025.pdf\\\" class=\\\"section-button-link\\\" download>Referat 2025</a><a href=\\\"dokumenter/referat-2024.pdf\\\" class=\\\"section-button-link\\\" download>Referat 2024</a>"
+          "content": "<p>Her kan du downloade foreningens vedtægter:</p><a href=\"dokumenter/Rudme%20Festival%20Vedtægter.pdf\" class=\"section-button-link\" download>Download Vedtægter (PDF)</a>"
+        },
+        {
+          "title": "Referater",
+          "content": "<p>Her finder du referater fra foreningens møder:</p><a href=\"dokumenter/referat-2025.pdf\" class=\"section-button-link\" download>Referat 2025</a><a href=\"dokumenter/referat-2024.pdf\" class=\"section-button-link\" download>Referat 2024</a>"
         }
       ]
     }

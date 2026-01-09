@@ -56,6 +56,12 @@
     font-weight: 400;
 }
 
+.contact-info .cvr-info {
+    margin-top: 30px;
+    font-size: 20px;
+    font-weight: 400;
+}
+
 /* Full-width scrolling gallery section */
 .footer-gallery-section {
     order: 1;
@@ -146,11 +152,10 @@
     font-weight: 400;
     margin: 10px 15px;
     letter-spacing: 1px;
-    transition: opacity 0.3s ease;
 }
 
 .social-links a:hover {
-    opacity: 0.7;
+    text-decoration: underline;
 }
 
 .footer-button-container {
@@ -210,6 +215,11 @@
     }
 
     .contact-info .contact-name {
+        font-size: 16px;
+    }
+
+    .contact-info .cvr-info {
+        margin-top: 12px;
         font-size: 16px;
     }
 

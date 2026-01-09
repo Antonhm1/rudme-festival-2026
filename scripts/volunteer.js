@@ -324,7 +324,7 @@ async function loadPosterRoller() {
         posterRollerInstance = RollerComponent.create({
             containerId: 'poster-roller',
             title: 'POSTER',
-            titleAlign: 'right',
+            titleAlign: 'left',
             items: items,
             buttonTextExpand: 'LÆS MERE',
             buttonTextCollapse: 'LUK',
