@@ -133,11 +133,10 @@ html, body {
     display: inline-flex;
     flex-direction: column;
     gap: 0;
-    padding: 15px 8px 8px 8px;
+    padding: 0;
     width: auto;
     white-space: nowrap;
-    background: #3B9D86 !important;
-    cursor: pointer;
+    background: transparent !important;
 }
 
 .contact-box strong {
@@ -148,13 +147,13 @@ html, body {
     letter-spacing: 0;
     color: #111;
     margin-bottom: 8px;
-    padding-left: 12px;
+    padding-left: 0;
 }
 
 .contact-box span {
     display: block;
-    background: #E91E63;
-    color: #111;
+    background: #111;
+    color: #fff;
     font-family: "Helvetica", Arial, sans-serif;
     font-weight: 400;
     font-size: 22px;
@@ -162,12 +161,7 @@ html, body {
     padding: 14px 20px;
     margin: 0;
     user-select: all;
-    transition: background 0.2s ease;
-}
-
-.contact-box:hover span,
-.contact-box.clicked span {
-    background: #fff;
+    cursor: pointer;
 }
 
 /* First content section needs extra padding for absolute hero on desktop */
@@ -296,12 +290,12 @@ html, body {
     }
 
     .contact-box {
-        padding: 12px 6px 6px 6px;
+        padding: 0;
     }
 
     .contact-box strong {
         font-size: 16px;
-        padding-left: 10px;
+        padding-left: 0;
         margin-bottom: 6px;
     }
 
@@ -334,6 +328,7 @@ html, body {
 
     .contact-box strong {
         font-size: 14px;
+        padding-left: 0;
     }
 
     .contact-box span {

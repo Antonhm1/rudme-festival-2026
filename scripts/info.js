@@ -242,12 +242,16 @@ function initializeColorTransitions() {
     window.addEventListener('scroll', requestTick);
 }
 
-// Initialize click handlers for contact boxes
+// Initialize hover handlers for contact box email/phone spans
 function initializeContactBoxClicks() {
-    const contactBoxes = document.querySelectorAll('.contact-box');
-    contactBoxes.forEach(box => {
-        box.addEventListener('click', function() {
-            this.classList.add('clicked');
+    const contactSpans = document.querySelectorAll('.contact-box span');
+    contactSpans.forEach(span => {
+        span.addEventListener('mouseenter', function() {
+            const newBgColor = ButtonHover.getRandomColor();
+            const newTextColor = ButtonHover.getRandomColor(newBgColor);
+            this.style.backgroundColor = newBgColor;
+            this.style.color = newTextColor;
         });
+        // Colors stay randomized after hover (like the black buttons)
     });
 }
