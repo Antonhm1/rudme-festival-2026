@@ -67,7 +67,13 @@ async function loadSkurvognenData() {
         if (resp.ok) {
             const events = await resp.json();
             if (Array.isArray(events) && events.length > 0) {
-                eventsData = events;
+                // Prepend image path if not already included
+                eventsData = events.map(event => ({
+                    ...event,
+                    image: event.image && !event.image.startsWith('pictures/')
+                        ? `pictures/Skurvognen/${event.image}`
+                        : event.image
+                }));
             } else {
                 eventsData = defaultEvents;
             }
