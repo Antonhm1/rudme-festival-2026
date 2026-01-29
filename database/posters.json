@@ -73,16 +73,6 @@
       ]
     },
     {
-      "id": "vagter",
-      "title": "Vagter",
-      "image": "pictures/frivillig-siden/poster/Vagter.jpeg",
-      "description": "Som vagt hjælper du med at skabe trygge rammer for alle. Du holder øje med at alt forløber fredeligt og hjælper gæster der har brug for det.",
-      "color": "#DDA77B",
-      "roles": [
-        "Afviklere"
-      ]
-    },
-    {
       "id": "backstage",
       "title": "Backstage",
       "image": "pictures/frivillig-siden/poster/backstage.jpeg",
