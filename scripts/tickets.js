@@ -25,7 +25,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (statusEl) {
                 const fallback = statusEl.textContent || '';
-                statusEl.textContent = onSale ? (forSaleText || 'Billetsalget er i gang!') : (notForSaleText || fallback);
+                const text = onSale ? (forSaleText || 'Billetsalget er i gang!') : (notForSaleText || fallback);
+                statusEl.innerHTML = text.replace(/\n/g, '<br>');
             }
 
             if (buyButton) {

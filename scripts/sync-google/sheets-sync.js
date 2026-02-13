@@ -16,6 +16,7 @@ const transformRudmeLejrInfo = require('./transformers/rudme-lejr-info');
 const transformSkurvognenOm = require('./transformers/skurvognen-om');
 const transformSkurvognenEvents = require('./transformers/skurvognen-events');
 const transformOm = require('./transformers/om');
+const transformTickets = require('./transformers/tickets');
 
 async function getAuthClient() {
   const auth = new google.auth.GoogleAuth({
@@ -147,6 +148,12 @@ async function syncSheets() {
       transformer: transformOm,
       data: sheetData['om'],
       output: config.sheets['om'].outputFile
+    },
+    {
+      name: 'tickets',
+      transformer: transformTickets,
+      data: sheetData['tickets'],
+      output: config.sheets['tickets'].outputFile
     }
   ];
 

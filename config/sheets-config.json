@@ -58,6 +58,10 @@
     "om": {
       "sheetName": "om",
       "outputFile": "database/om.json"
+    },
+    "tickets": {
+      "sheetName": "Billetter",
+      "outputFile": "database/tickets.json"
     }
   }
 }

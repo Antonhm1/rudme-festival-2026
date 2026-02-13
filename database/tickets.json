@@ -1,6 +1,6 @@
 {
-  "billetsalg-igang": "ja",
-  "Ikke til salg text": "Billetter ikke til salg endnu, kommer en gang i februar/marts",
-  "til salg text": "Billetsalget er i gang!",
-  "billet link": ""
+  "billetsalg-igang": "nej",
+  "Ikke til salg text": "Billetter ikke til salg endnu...",
+  "til salg text": "Billetsalget er i gang!\n3 dages festival 850kr",
+  "billet link": "dr.dk"
 }
