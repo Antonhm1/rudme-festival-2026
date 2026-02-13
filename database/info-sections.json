@@ -43,7 +43,7 @@
         {
           "title": "Ingen glas på pladsen",
           "image": "pictures/info-pictures/ingen-glas.jpeg",
-          "content": "<p>Vi bestræber os på at man kan løbe rundt med bare tæer, så lad glasset blive hjemme! Tag dåseøl med og hæld vodkaen over i en plastikflaske. Vi opfordrer derudover, at man selvfølgelig køber sine drikkevarer i vores lækre og utroligt billige bar.</p>"
+          "content": "<p>Vi bestræber os på at man kan løbe rundt med bare tæer, så lad glasset blive hjemme! Tag dåseøl med og hæld vodkaen over i en plastikflaske. Vi opfordrer derudover, at man selvfølgelig køber sine drikkevarer i vores lækre og billige bar.</p>"
         },
         {
           "title": "Ingen store højtalere",
@@ -53,7 +53,7 @@
         {
           "title": "Ingen Stoffer",
           "image": "pictures/info-pictures/noDrugs-info.jpeg",
-          "content": "<p>ingen satoffer på rudme</p>"
+          "content": "<p>Ingen stoffer på rudme. kun kærlighed.</p>"
         }
       ]
     },
@@ -62,7 +62,7 @@
       "title": "Strøm & Opladning",
       "color": "#90EE90",
       "image": "pictures/info-pictures/opladning-10kr-i-indgangen.jpeg",
-      "content": "<p>I indgangen på pladsen vil der være mulighed for at få opladet sine elektroniske devices.<strong>Pris:</strong> Kun 10 kr. Man skal bare medbringe sin device og oplader, så klarer vi resten!</p>"
+      "content": "<p>I indgangen på pladsen vil der være mulighed for at få opladet sine elektroniske devices.<strong> <br>Pris:</strong> Kun 10 kr. Man skal bare medbringe sin device og oplader, så klarer vi resten!</p>"
     },
     {
       "id": "tilgaengelighed",
@@ -76,7 +76,7 @@
       "title": "Børn & Familie",
       "color": "#F5A0E2",
       "image": "pictures/info-pictures/boern.jpeg",
-      "content": "<p>Rudme Festival er familievenlig!<ul><li>Gratis adgang for børn under 15 år</li><li>Børneområde med aktiviteter</li><li>Puslerum ved toiletterne</li><li>Roligt familieområde foran scenen</li></ul>Husk høreværn til de små ører!</p>"
+      "content": "<p>Rudme Festival er familievenlig!<ul><li>Gratis adgang for børn under 12 år</li><li>Børneområde med aktiviteter</li><li>Puslerum ved toiletterne</li></ul>Husk høreværn til de små ører!</p>"
     },
     {
       "id": "miljo",
