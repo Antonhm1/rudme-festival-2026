@@ -50,20 +50,18 @@ let dateText;
 // Drag state - module level so updateScrollbar can check it
 let isDraggingThumb = false;
 
-// Reserved space for social links area on the right side of the scrollbar
-const SOCIAL_LINKS_RESERVED_SPACE = 470;
-const SOCIAL_LINKS_RESERVED_SPACE_MOBILE = 40;
+// Compute the available width for thumb travel based on actual gallery/slide dimensions.
+// The right edge of the thumb at max scroll aligns with the right edge of the picture + one gallery margin.
+function getThumbAvailableWidth() {
+    const galleryEl = gallery || document.getElementById('gallery');
+    const slideEl = slides.length > 0 ? slides[0] : (galleryEl ? galleryEl.querySelector('.slide') : null);
+    if (!slideEl) return scrollbar ? scrollbar.clientWidth : window.innerWidth;
 
-// Helper to get reserved space based on screen size
-function getSocialLinksReservedSpace() {
-    try {
-        if (window.matchMedia && window.matchMedia('(max-width: 800px)').matches) {
-            return SOCIAL_LINKS_RESERVED_SPACE_MOBILE;
-        }
-    } catch (err) {
-        // Fallback if matchMedia not available
-    }
-    return SOCIAL_LINKS_RESERVED_SPACE;
+    const galleryLeft = galleryEl ? galleryEl.offsetLeft : 30;
+    const slideWidth = slideEl.offsetWidth;
+
+    // Right edge of thumb travel = gallery-left + slideWidth + gallery-left
+    return 2 * galleryLeft + slideWidth;
 }
 
 // Dynamic z-index management for social links when thumb approaches on mobile
@@ -332,8 +330,8 @@ function updateScrollbar() {
     // This ensures consistency with handleDragMove which also uses rendered width
     const thumbWidth = thumb.getBoundingClientRect().width;
 
-    // Calculate available space, accounting for social links area on the right
-    const availableWidth = scrollbar.clientWidth - getSocialLinksReservedSpace();
+    // Calculate available space from actual gallery/slide dimensions
+    const availableWidth = getThumbAvailableWidth();
     const available = Math.max(0, availableWidth - thumbWidth);
     const thumbPosition = scrollPercentage * available;
     thumb.style.left = thumbPosition + 'px';
@@ -735,8 +733,8 @@ function attachBehaviors() {
         if (!isDragging || !thumb || !scrollbar || !gallery) return;
         const scrollbarRect = scrollbar.getBoundingClientRect();
         const thumbWidth = thumb.getBoundingClientRect().width;
-        // Calculate available space, accounting for social links area on the right
-        const availableWidth = scrollbarRect.width - getSocialLinksReservedSpace();
+        // Calculate available space from actual gallery/slide dimensions
+        const availableWidth = getThumbAvailableWidth();
         const available = Math.max(0, availableWidth - thumbWidth);
         let thumbLeft = pointerX - scrollbarRect.left - dragOffset;
         thumbLeft = Math.max(0, Math.min(available, thumbLeft));
@@ -897,8 +895,8 @@ function attachBehaviors() {
                 const scrollbarRect = scrollbar.getBoundingClientRect();
                 const clickPosition = e.clientX - scrollbarRect.left;
                 const thumbWidth = thumb.getBoundingClientRect().width;
-                // Calculate available space, accounting for social links area on the right
-                const availableWidth = scrollbarRect.width - getSocialLinksReservedSpace();
+                // Calculate available space from actual gallery/slide dimensions
+                const availableWidth = getThumbAvailableWidth();
                 const thumbLeft = Math.max(0, Math.min(availableWidth - thumbWidth, clickPosition - thumbWidth / 2));
                 const available = Math.max(0, availableWidth - thumbWidth);
                 const scrollPercentage = available === 0 ? 0 : thumbLeft / available;
