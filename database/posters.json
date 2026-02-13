@@ -98,7 +98,7 @@
       "id": "sauna",
       "title": "Sauna",
       "image": "pictures/frivillig-siden/poster/Sauna.jpeg",
-      "description": "Ved saunaen hjælper du med at skabe en afslappende oplevelse for festivalgæster, der har brug for en pause fra festlighederne.",
+      "description": "Ved saunaen hjælper du med at skabe en afslappende oplevelse for festivalgæster, der har brug for en pause fra festlighederne. Du kan inden være afvikler eller gusmester!",
       "color": "#8B4513",
       "roles": [
         "Afviklere"
@@ -108,7 +108,7 @@
       "id": "oprydning",
       "title": "Oprydning",
       "image": "pictures/frivillig-siden/poster/Oprydning.jpeg",
-      "description": "I oprydningsteamet hjælper du med at pakke festivalen ned og sørger for at pladsen bliver efterladt i god stand.",
+      "description": "I oprydningsteamet hjælper du med at pakke festivalen ned og sørger for at pladsen bliver efterladt i god stand. Man kan være på oprydningshold søndag, mandag, tirsdag eller onsdag efter festivalen. ",
       "color": "#696969",
       "roles": [
         "Frivillige",
@@ -130,7 +130,7 @@
       "id": "event",
       "title": "Event",
       "image": "pictures/frivillig-siden/poster/event.jpeg",
-      "description": "I eventteamet arrangerer du sjove aktiviteter, konkurrencer og happenings under festivalen.",
+      "description": "I eventteamet arrangerer eller hyrer folk in til at lave du aktiviteter, konkurrencer og happenings under festivalen.",
       "color": "#FF1493",
       "roles": [
         "Arrangører",
@@ -141,7 +141,7 @@
       "id": "edbeasts",
       "title": "EDBeasts",
       "image": "pictures/frivillig-siden/poster/EDBeasts.jpeg",
-      "description": "EDBeasts er festivalens elektroniske musikscene, hvor du hjælper med at skabe den vilde stemning til de sene timer.",
+      "description": "EDBeasts er festivalens elektroniske masterminds. De står for at kode LED-lys og laver interaktive installationer rundt om på pladsen. ",
       "color": "#9400D3",
       "roles": [
         "Afviklere",
