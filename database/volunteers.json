@@ -24,7 +24,7 @@
         "Du vil modtage <strong>festivalbillet</strong>, årets festival <strong>t-shirt</strong> samt <strong>mad og drikkebilletter</strong> når du er på vagt. At være afvikler på Rudme Festival indebærer <strong>8 timers arbejde</strong>, fordelt på en eller to vagter. Eventuelle <strong>afbud skal ske senest  d. 13. juni</strong>. Ved udeblivelse kan der udstedes en bøde. Afbud sker ved at du aflyser din vagt i Crewplan."
       ],
       "buttonText": "BLIV AFVIKLER",
-      "buttonLink": "https://www.dr.dk/"
+      "buttonLink": ""
     },
     {
       "id": "arrangor",
@@ -36,7 +36,7 @@
         "Som arrangør er du med til at planlægge og koordinere festivalen. Du får indflydelse på hvordan de kommende festivaler skal se ud og hjælper med at skabe den unikke Rudme-stemning. Du vil modtage <strong>festivalbillet</strong>, årets festival <strong>t-shirt</strong> samt ekstra mange <strong>mad og drikkebilletter</strong> når du er på vagt. At være arrangør på Rudme Festival kræver engagement før, under og efter festivalen."
       ],
       "buttonText": "BLIV ARRANGØR",
-      "buttonLink": "https://www.dr.dk/"
+      "buttonLink": ""
     },
     {
       "id": "praktikant",
@@ -48,7 +48,7 @@
         "Som praktikant får du mulighed for at lære om festivalafvikling og få hands-on erfaring med event management. Du vil modtage <strong>festivalbillet</strong>, årets festival <strong>t-shirt</strong> samt <strong>mad og drikkebilletter</strong> når du er på vagt. Praktikperioden varer typisk 2-4 uger omkring festivalen."
       ],
       "buttonText": "BLIV PRAKTIKANT",
-      "buttonLink": "https://www.dr.dk/"
+      "buttonLink": ""
     },
     {
       "id": "rudme-lejr",
@@ -60,7 +60,7 @@
         "Rudme Lejr er vores opsætningsdage, som vi har erfaring med er mindst ligeså hyggelige som selve festivalen. Der bliver bygget stort og småt, lavet krea, sat telte op og alt muligt andet - alt sammen imens der bare er god stemning og skøn energi. Der er fuld forplejning undervejs. Læs mere på Rudme Lejr siden."
       ],
       "buttonText": "TILMELD RUDME LEJR",
-      "buttonLink": ""
+      "buttonLink": "https://www.dr.dk/"
     },
     {
       "id": "foreningsmedlem",
@@ -71,7 +71,7 @@
       "description": [
         "Som foreningsmedlem får du indflydelse på festivalens fremtid og er med til at forme Rudme Festival. Du får stemmeret ved generalforsamlingen og kan stille op til bestyrelsen. Medlemskab koster 100 kr. om året og giver dig mulighed for at være med til at præge festivalen."
       ],
-      "buttonText": "BLIV MEDLEM",
+      "buttonText": "BLIV FORENINGSMEDLEM",
       "buttonLink": "https://www.dr.dk/"
     },
     {
@@ -81,7 +81,7 @@
       "crop": 35,
       "color": "#DE7BEF",
       "description": [
-        "Som bestyrelsesmedlem tager du ansvar for større områder af festivalen og tager sammen med resten af bestyrelsen de overordnede belutninger omkring festivalen. Stillingen kræver erfaring fra tidligere festivaler og evne til at lede andre. Det er muligt at stille op til bestyrelsen på den årlige generalforsamnlig."
+        "Som bestyrelsesmedlem har ansvar for større festivalen og tager sammen med resten af bestyrelsen de overordnede belutninger omkring festivalens udvikling. Det er muligt at stille op til bestyrelsen på den årlige generalforsamnlig."
       ],
       "buttonText": "BLIV FORENINGSMEDLEM",
       "buttonLink": "https://www.dr.dk/"
