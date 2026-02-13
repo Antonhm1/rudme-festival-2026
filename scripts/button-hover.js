@@ -58,12 +58,58 @@ const ButtonHover = {
 
             // Colors stay randomized after hover (matches volunteer page behavior)
         });
+    },
+
+    /**
+     * Fixed color combinations for mobile animation [bg, text]
+     */
+    mobileCombos: [
+        ['#90EE90', '#111111'], // green bg, black text
+        ['#FFB6C1', '#87CEEB'], // pink bg, blue text
+        ['#111111', '#FFEB3B'], // black bg, yellow text
+        ['#87CEEB', '#FFFFFF'], // blue bg, white text
+        ['#FFEB3B', '#B19CD9'], // yellow bg, purple text
+        ['#B19CD9', '#90EE90']  // purple bg, green text
+    ],
+
+    /**
+     * Start auto-cycling color animation on mobile for elements matching selector.
+     * Cycles through 6 defined color combos every ~1s.
+     */
+    initMobileAnimation: function(selector) {
+        const self = this;
+        // Only run on touch devices / narrow screens (no hover support)
+        if (window.matchMedia('(hover: hover)').matches) return;
+
+        const buttons = document.querySelectorAll(selector);
+        buttons.forEach(button => {
+            if (button.dataset.mobileAnimInitialized) return;
+            button.dataset.mobileAnimInitialized = 'true';
+
+            // Add CSS transition for smooth color changes
+            button.style.transition = 'background-color 0.4s ease, color 0.4s ease';
+
+            let index = 0;
+            function cycle() {
+                const [bg, text] = self.mobileCombos[index];
+                button.style.backgroundColor = bg;
+                button.style.color = text;
+                index = (index + 1) % self.mobileCombos.length;
+            }
+
+            // Start after a short delay, then repeat every 1s
+            setTimeout(() => {
+                cycle();
+                setInterval(cycle, 1000);
+            }, 500);
+        });
     }
 };
 
 // Auto-initialize on DOMContentLoaded for buttons with 'random-hover-btn' class
 document.addEventListener('DOMContentLoaded', function() {
     ButtonHover.init('.random-hover-btn');
+    ButtonHover.initMobileAnimation('.random-hover-btn');
 });
 
 // Export for module usage if needed
