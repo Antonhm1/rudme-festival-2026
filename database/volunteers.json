@@ -24,7 +24,7 @@
         "Du vil modtage <strong>festivalbillet</strong>, årets festival <strong>t-shirt</strong> samt <strong>mad og drikkebilletter</strong> når du er på vagt. At være afvikler på Rudme Festival indebærer <strong>8 timers arbejde</strong>, fordelt på en eller to vagter. Eventuelle <strong>afbud skal ske senest  d. 13. juni</strong>. Ved udeblivelse kan der udstedes en bøde. Afbud sker ved at du aflyser din vagt i Crewplan."
       ],
       "buttonText": "BLIV AFVIKLER",
-      "buttonLink": ""
+      "buttonLink": "mailto:frivillig@rudmefestival.dk?subject=Ans%C3%B8gning%20om%20at%20blive%20afvikler&body=Hej%0A%0AJeg%20hedder%20%5Bdit%20navn%5D.%0A%0AJeg%20kunne%20godt%20t%C3%A6nke%20mig%20at%20v%C3%A6re%20afvikler%20i%20%5Bhvilket%20omr%C3%A5de%2Fhold%5D.%0A%0ADet%20kunne%20jeg%20godt%20t%C3%A6nke%20mig%2C%20fordi%20%5Bbegrundelse%5D.%0A%0AHvad%20er%20dit%20forhold%20til%20Rudme%20Festival%3F%20%5Bdit%20svar%5D%0A%0AVenlig%20hilsen%0A%5Bdit%20navn%5D"
     },
     {
       "id": "arrangor",
@@ -36,7 +36,7 @@
         "Som arrangør er du med til at planlægge og koordinere festivalen. Du får indflydelse på hvordan de kommende festivaler skal se ud og hjælper med at skabe den unikke Rudme-stemning. Du vil modtage <strong>festivalbillet</strong>, årets festival <strong>t-shirt</strong> samt ekstra mange <strong>mad og drikkebilletter</strong> når du er på vagt. At være arrangør på Rudme Festival kræver engagement før, under og efter festivalen."
       ],
       "buttonText": "BLIV ARRANGØR",
-      "buttonLink": ""
+      "buttonLink": "mailto:frivillig@rudmefestival.dk?subject=Ans%C3%B8gning%20om%20at%20blive%20arrang%C3%B8r&body=Hej%2C%0A%0AJeg%20hedder%20%5Bdit%20navn%5D.%0A%0AJeg%20kunne%20godt%20t%C3%A6nke%20mig%20at%20v%C3%A6re%20arrang%C3%B8r%20i%20%5Bhvilket%20omr%C3%A5de%2Fhold%5D.%0A%0ADet%20kunne%20jeg%20godt%20t%C3%A6nke%20mig%2C%20fordi%20%5Bbegrundelse%5D.%0A%0AHvad%20er%20dit%20forhold%20til%20Rudme%20Festival%3F%20%5Bdit%20svar%5D%0A%0AVenlig%20hilsen%0A%5Bdit%20navn%5D"
     },
     {
       "id": "praktikant",
@@ -48,7 +48,7 @@
         "Som praktikant får du mulighed for at lære om festivalafvikling og få hands-on erfaring med event management. Du vil modtage <strong>festivalbillet</strong>, årets festival <strong>t-shirt</strong> samt <strong>mad og drikkebilletter</strong> når du er på vagt. Praktikperioden varer typisk 2-4 uger omkring festivalen."
       ],
       "buttonText": "BLIV PRAKTIKANT",
-      "buttonLink": ""
+      "buttonLink": "mailto:frivillig@rudmefestival.dk?subject=Ans%C3%B8gning%20om%20at%20blive%20praktikant&body=Hej%2C%0A%0AJeg%20hedder%20%5Bdit%20navn%5D.%0A%0AJeg%20kunne%20godt%20t%C3%A6nke%20mig%20at%20v%C3%A6re%20praktikant%20i%20%5Bhvilken%20periode%2Fomr%C3%A5de%5D.%0A%0ADet%20kunne%20jeg%20godt%20t%C3%A6nke%20mig%2C%20fordi%20%5Bbegrundelse%5D.%0A%0AHvad%20er%20dit%20forhold%20til%20Rudme%20Festival%3F%20%5Bdit%20svar%5D%0A%0AVenlig%20hilsen%0A%5Bdit%20navn%5D"
     },
     {
       "id": "rudme-lejr",

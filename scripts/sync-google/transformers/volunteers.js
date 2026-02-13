@@ -10,7 +10,15 @@
  * - description: Description text (newlines create separate paragraphs)
  * - buttonText: CTA button text (e.g., "BLIV FRIVILLIG")
  * - button link: URL for the button
+ * - Mailbeskrivelse: Email body template (if present, generates a mailto: link instead of using button link)
  */
+
+const MAILTO_ADDRESS = 'frivillig@rudmefestival.dk';
+
+function buildMailtoLink(roleName, mailBody) {
+  const subject = `Ansøgning om at blive ${roleName.toLowerCase()}`;
+  return `mailto:${MAILTO_ADDRESS}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(mailBody)}`;
+}
 
 function transformVolunteers(rows) {
   const roles = rows.map(row => {
@@ -27,6 +35,15 @@ function transformVolunteers(rows) {
       imagePath = `pictures/frivillig-siden/roller/${imagePath}`;
     }
 
+    // Build button link: use Mailbeskrivelse to create mailto if present, otherwise use button link
+    const mailDescription = (row['Mail beskrivelse'] || row.Mailbeskrivelse || row.mailbeskrivelse || '').trim();
+    let buttonLink;
+    if (mailDescription) {
+      buttonLink = buildMailtoLink(row.name || '', mailDescription);
+    } else {
+      buttonLink = row['button link'] || row.buttonLink || row.button_link || '';
+    }
+
     return {
       id: row.id || '',
       name: row.name || '',
@@ -35,7 +52,7 @@ function transformVolunteers(rows) {
       color: row.color || '#FFFFFF',
       description: description,
       buttonText: row.buttonText || row.button_text || '',
-      buttonLink: row['button link'] || row.buttonLink || row.button_link || ''
+      buttonLink: buttonLink
     };
   }).filter(role => role.id && role.name);
 
