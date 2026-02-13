@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 img.alt = opgave && opgave.titel ? opgave.titel : 'Opgave';
 
                 const desc = document.createElement('p');
-                desc.textContent = opgave && opgave.beskrivelse ? opgave.beskrivelse : '';
+                desc.innerHTML = opgave && opgave.beskrivelse ? opgave.beskrivelse : '';
 
                 box.appendChild(title);
                 box.appendChild(img);
@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 img.alt = feature && feature.titel ? feature.titel : 'Feature';
 
                 const desc = document.createElement('p');
-                desc.textContent = feature && feature.beskrivelse ? feature.beskrivelse : '';
+                desc.innerHTML = feature && feature.beskrivelse ? feature.beskrivelse : '';
 
                 box.appendChild(title);
                 box.appendChild(img);
