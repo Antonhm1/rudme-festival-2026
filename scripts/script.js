@@ -797,6 +797,13 @@ function attachBehaviors() {
         gallery.classList.remove('dragging-scrollbar');
         isDraggingThumb = false;
 
+        // Always update thumb text now that isDraggingThumb is false.
+        // At boundary slides (first/last) the gallery.scrollLeft may already
+        // equal the target, so scrollTo won't fire a scroll event and
+        // updateScrollbar would never run otherwise.
+        updateScrollbar();
+        updateBackgroundOnScroll();
+
         try {
             gallery.scrollTo({ left: targetLeft, behavior: 'smooth' });
         } catch (err) {
