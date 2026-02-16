@@ -6,8 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "test-manual": "node tests/test-manual.js",
-    "generate-slides": "node scripts/generate_slides.js",
-    "done": "node scripts/done.js",
+    "generate-slides": "node scripts/build/generate_slides.js",
     "sync": "node scripts/sync-google/index.js",
     "sync:sheets": "node scripts/sync-google/index.js --sheets-only",
     "sync:images": "node scripts/sync-google/index.js --images-only",

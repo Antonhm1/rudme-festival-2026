@@ -9,7 +9,7 @@ This is a website for the Rudme Festival (July 16-18, 2026), built as a static H
 ## Key Commands
 
 - `npm start` - Start the local Express server for development (requires server.js to be created)
-- `node scripts/generate_slides.js` - Regenerate the gallery slides in index.html from images in the pictures/ directory
+- `node scripts/build/generate_slides.js` - Regenerate the gallery slides in index.html from images in the pictures/ directory
 - `npm test` - Run all UI tests with Puppeteer
 - `npm run test:ui` - Run only UI tests (Gallery, Navigation, Responsive)
 - `npm run test:watch` - Run tests in watch mode for development
@@ -22,7 +22,11 @@ This is a website for the Rudme Festival (July 16-18, 2026), built as a static H
 - `index.html` - Homepage with horizontal scrolling gallery
 - `*.html` - Additional pages (about, program, tickets, volunteer, camp, association, contact, info, skurvognen)
 - `css/` - All stylesheets (styles.css, page-specific CSS, component CSS)
-- `scripts/` - All JavaScript files (page scripts, components, utilities, build scripts)
+- `scripts/` - All JavaScript files, organized into:
+  - `pages/` - Page-specific scripts (script.js, program.js, camp.js, etc.)
+  - `components/` - Shared browser components (header, footer, section-component, etc.)
+  - `build/` - Node.js build scripts (generate_slides.js, compress-images.sh)
+  - `sync-google/` - Google Sheets sync scripts
 - `database/` - JSON data files (artists.json, volunteers.json, posters.json, etc.)
 - `pictures/` - All images organized by category:
   - `artists/` - Artist profile images
@@ -34,7 +38,7 @@ This is a website for the Rudme Festival (July 16-18, 2026), built as a static H
 
 ### Core JavaScript Architecture
 
-#### Main Gallery System (`scripts/script.js`)
+#### Main Gallery System (`scripts/pages/script.js`)
 
 - **Dynamic slide generation**: Gallery slides are generated from `pictures/` directory using filename conventions
 - **Image naming convention**: `Name#HEXCOLOR&ORDER.ext` where:
@@ -46,7 +50,7 @@ This is a website for the Rudme Festival (July 16-18, 2026), built as a static H
 - **Dynamic background**: Interpolates between slide colors based on scroll position
 - **Logo color adaptation**: Logo and date text automatically adjust color based on background
 
-#### Header System (`scripts/header-insert.js`)
+#### Header System (`scripts/components/header-insert.js`)
 
 - Dynamically injects shared header content from `assets/header.html`
 - Creates custom navigation dropdown with fallback native select
@@ -55,12 +59,12 @@ This is a website for the Rudme Festival (July 16-18, 2026), built as a static H
 - **DO NOT** manipulate header styles on sub-sites unless absolutely necessary
 - Header styling should be self-contained and consistent across all pages
 
-#### Program Page (`scripts/program.js`)
+#### Program Page (`scripts/pages/program.js`)
 
 - Custom scrollbars for individual artist boxes
 - Color-coordinated with CSS custom properties
 
-#### Section Component (`scripts/section-component.js` + `css/section-component.css`)
+#### Section Component (`scripts/components/section-component.js` + `css/section-component.css`)
 
 - Reusable component for content sections (used on volunteer and info pages)
 - Creates consistent layout: header outside content box, extended images, description, optional button
@@ -77,7 +81,7 @@ This is a website for the Rudme Festival (July 16-18, 2026), built as a static H
 
 ### Build Process
 
-The `scripts/generate_slides.js` tool:
+The `scripts/build/generate_slides.js` tool:
 
 1. Scans the `pictures/` directory for images
 2. Parses filenames for color and ordering information
@@ -91,7 +95,7 @@ The `scripts/generate_slides.js` tool:
 - `database/posters.json` - Volunteer position posters
 - `database/history.json` - Festival history data
 - `database/info-sections.json` - Info page content
-- `scripts/load-from-sheet.js` - Google Sheets integration for dynamic content loading
+- `scripts/components/load-from-sheet.js` - Google Sheets integration for dynamic content loading
 
 ### Test
 
