@@ -46,6 +46,18 @@ async function loadSkurvognenData() {
             const heading = document.getElementById('skurvognen-om-heading');
             const content = document.getElementById('skurvognen-om-content');
 
+            // Apply color from sheet to the om section and page background
+            if (about.color) {
+                const omSection = document.getElementById('om');
+                if (omSection) omSection.setAttribute('data-color', about.color);
+                document.body.style.backgroundColor = about.color;
+                document.documentElement.style.setProperty('--current-bg', about.color);
+                document.documentElement.style.setProperty('--skurvognen-bg-color', about.color);
+                document.documentElement.style.setProperty('--bg-color-1', about.color);
+                // Store for use in color transitions
+                window._skurvognenInitialColor = about.color;
+            }
+
             if (sub && about.underoverskrift) sub.innerText = about.underoverskrift;
             if (heading && about.overskrift) heading.innerText = about.overskrift;
             if (content && about.beskrivelse) {
@@ -90,8 +102,8 @@ async function loadSkurvognenData() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Set initial background color
-    const initialColor = '#A4C0E0';
+    // Set initial background color from CSS (will be overridden by sheet color once loaded)
+    const initialColor = getComputedStyle(document.documentElement).getPropertyValue('--skurvognen-bg-color').trim() || '#F6FDE8';
     document.body.style.backgroundColor = initialColor;
     document.documentElement.style.setProperty('--current-bg', initialColor);
 
@@ -160,7 +172,7 @@ function createEventSections() {
 
 // Initialize gradual color transitions on scroll
 function initializeColorTransitions() {
-    const initialColor = '#A4C0E0';
+    const initialColor = window._skurvognenInitialColor || getComputedStyle(document.documentElement).getPropertyValue('--skurvognen-bg-color').trim() || '#F6FDE8';
     let sections = [];
 
     // Function to interpolate between two colors

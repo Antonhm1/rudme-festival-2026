@@ -5,6 +5,7 @@
  * - underoverskrift: Subtitle
  * - overskrift: Main heading
  * - beskrivelse: Description text (newlines create separate paragraphs)
+ * - color: Background color for the om section (hex, e.g. #F6FDE8)
  */
 
 function transformSkurvognenOm(data) {
@@ -19,6 +20,7 @@ function transformSkurvognenOm(data) {
   const firstRow = data[0];
   const underoverskrift = firstRow.underoverskrift || '';
   const overskrift = firstRow.overskrift || '';
+  const color = firstRow.color || '';
 
   // Split beskrivelse by newlines to create array of paragraphs
   const rawBeskrivelse = firstRow.beskrivelse || '';
@@ -27,11 +29,15 @@ function transformSkurvognenOm(data) {
     .map(p => p.trim())
     .filter(p => p.length > 0);
 
-  return {
+  const result = {
     underoverskrift,
     overskrift,
     beskrivelse
   };
+
+  if (color) result.color = color;
+
+  return result;
 }
 
 module.exports = transformSkurvognenOm;
