@@ -15,7 +15,7 @@ const puppeteer = require('puppeteer');
 
     for (let viewport of viewports) {
         await page.setViewport(viewport);
-        await page.goto('http://localhost:5500/volunteer.html');
+        await page.goto('http://localhost:5500/frivillig.html');
         await new Promise(resolve => setTimeout(resolve, 1500));
 
         const layoutInfo = await page.evaluate(() => {

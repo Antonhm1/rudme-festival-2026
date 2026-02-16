@@ -10,17 +10,17 @@ const BASE_URL = 'http://localhost:5500';
 // Pages to test with their button selectors
 const testCases = [
     {
-        page: '/camp.html',
+        page: '/rudmelejr.html',
         buttons: ['.intro-button', '.cta-button'],
         description: 'Camp page buttons'
     },
     {
-        page: '/volunteer.html',
+        page: '/frivillig.html',
         buttons: ['.content-section-button'],
         description: 'Volunteer page section buttons'
     },
     {
-        page: '/volunteer.html',
+        page: '/frivillig.html',
         buttons: ['.footer-buy-ticket-btn'],
         description: 'Footer button on volunteer page',
         waitForFooter: true

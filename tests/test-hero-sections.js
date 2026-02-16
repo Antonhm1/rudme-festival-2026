@@ -161,10 +161,10 @@ class HeroSectionTester {
 
     // Test each page with hero sections
     const pages = [
-      { file: 'volunteer.html', selector: '.hero-text', name: 'Volunteer Page' },
+      { file: 'frivillig.html', selector: '.hero-text', name: 'Volunteer Page' },
       { file: 'info.html', selector: '#info-sections-container', name: 'Info Page' },
-      { file: 'camp.html', selector: '.hero-text', name: 'Camp Page' },
-      { file: 'tickets.html', selector: '.scrolling-banner', name: 'Tickets Page' }
+      { file: 'rudmelejr.html', selector: '.hero-text', name: 'Camp Page' },
+      { file: 'billet.html', selector: '.scrolling-banner', name: 'Tickets Page' }
     ];
 
     for (const page of pages) {

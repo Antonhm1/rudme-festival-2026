@@ -960,11 +960,11 @@ function attachBehaviors() {
             'home': 'index.html',
             'about': 'info.html',
             'program': 'program.html',
-            'tickets': 'tickets.html',
-            'volunteer': 'volunteer.html',
-            'camp': 'camp.html',
-            'association': 'association.html',
-            'contact': 'contact.html',
+            'tickets': 'billet.html',
+            'volunteer': 'frivillig.html',
+            'camp': 'rudmelejr.html',
+            'association': 'om.html',
+            'contact': 'kontakt.html',
             'skurvognen': 'skurvognen.html',
             // legacy/aliases
             'music': 'program.html',
@@ -1001,11 +1001,11 @@ function attachBehaviors() {
                 'about.html': 'about',
                 'info.html': 'about',
                 'program.html': 'program',
-                'tickets.html': 'tickets',
-                'volunteer.html': 'volunteer',
-                'camp.html': 'camp',
-                'association.html': 'association',
-                'contact.html': 'contact',
+                'billet.html': 'tickets',
+                'frivillig.html': 'volunteer',
+                'rudmelejr.html': 'camp',
+                'om.html': 'association',
+                'kontakt.html': 'contact',
                 'skurvognen.html': 'skurvognen'
             };
             const currentValue = filenameMap[filename] || (filename.replace('.html','') || 'home');

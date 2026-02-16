@@ -8,7 +8,7 @@ const puppeteer = require('puppeteer');
     await page.setViewport({ width: 1400, height: 900 });
 
     // Navigate to volunteer page on port 5500
-    await page.goto('http://localhost:5500/volunteer.html');
+    await page.goto('http://localhost:5500/frivillig.html');
 
     // Wait for content to load
     await page.waitForSelector('#role-sections-container', { timeout: 5000 });

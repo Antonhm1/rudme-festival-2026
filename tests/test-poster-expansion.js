@@ -4,7 +4,7 @@ const puppeteer = require('puppeteer');
     const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
 
-    await page.goto('http://localhost:5500/volunteer.html');
+    await page.goto('http://localhost:5500/frivillig.html');
     await new Promise(resolve => setTimeout(resolve, 2000));
 
     console.log('Testing poster box expansion:\n');

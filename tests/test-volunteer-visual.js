@@ -13,7 +13,7 @@ async function testVolunteerVisual() {
 
         console.log('📷 Opening volunteer page for visual inspection...');
 
-        await page.goto('http://localhost:5500/volunteer.html', {
+        await page.goto('http://localhost:5500/frivillig.html', {
             waitUntil: 'networkidle2',
             timeout: 10000
         });

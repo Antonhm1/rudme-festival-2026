@@ -14,7 +14,7 @@ async function testVolunteerPage() {
         console.log('🚀 Testing volunteer page on port 5500...');
 
         // Navigate to volunteer page
-        await page.goto('http://localhost:5500/volunteer.html', {
+        await page.goto('http://localhost:5500/frivillig.html', {
             waitUntil: 'networkidle2',
             timeout: 10000
         });

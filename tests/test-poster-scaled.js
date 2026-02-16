@@ -5,7 +5,7 @@ const puppeteer = require('puppeteer');
     const page = await browser.newPage();
     await page.setViewport({ width: 1920, height: 1080 });
 
-    await page.goto('http://localhost:5500/volunteer.html');
+    await page.goto('http://localhost:5500/frivillig.html');
     await new Promise(resolve => setTimeout(resolve, 2000));
 
     console.log('Testing scaled poster boxes (500x500):\n');

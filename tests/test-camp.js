@@ -11,7 +11,7 @@ const puppeteer = require('puppeteer');
         await page.setViewport({ width: 1440, height: 900 });
 
         // Navigate to camp page
-        await page.goto('http://localhost:3000/camp.html', {
+        await page.goto('http://localhost:3000/rudmelejr.html', {
             waitUntil: 'networkidle2',
             timeout: 10000
         });
