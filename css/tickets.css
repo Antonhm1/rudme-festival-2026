@@ -235,7 +235,6 @@ html, body {
     }
 
     .buy-ticket-button {
-        display: block !important;
         font-size: 28px;
         padding: 20px 0;
         text-align: center;
