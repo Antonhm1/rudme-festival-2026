@@ -89,7 +89,12 @@
       "id": "forenings-dokumenter",
       "title": "Foreningsdokumenter",
       "color": "#8B5CF6",
-      "content": "<p>Her finder du foreningens dokumenter.</p><div id=\"documents-grid\" class=\"documents-grid\"></div>"
+      "subsections": [
+        {
+          "title": "Vedtægter",
+          "content": "<p>Her kan du downloade foreningens vedtægter:</p><a href=\\\"dokumenter/Rudme%20Festival%20Vedtægter.pdf\\\" class=\\\"section-button-link\\\" download>Download Vedtægter (PDF)</a>\"}, {\"title\": \"Referater\", \"content\": \"<p>Her finder du referater fra foreningens møder:</p><a href=\\\"dokumenter/referat-2025.pdf\\\" class=\\\"section-button-link\\\" download>Referat 2025</a><a href=\\\"dokumenter/referat-2024.pdf\\\" class=\\\"section-button-link\\\" download>Referat 2024</a>"
+        }
+      ]
     }
   ]
 }

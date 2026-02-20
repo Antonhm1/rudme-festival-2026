@@ -56,6 +56,18 @@
         if (!container) return;
 
         sections.forEach(section => {
+            // Override forenings-dokumenter to use dynamic documents grid
+            if (section.id === 'forenings-dokumenter') {
+                SectionComponent.create({
+                    id: section.id,
+                    title: section.title,
+                    content: '<p>Her finder du foreningens dokumenter.</p><div id="documents-grid" class="documents-grid"></div>',
+                    color: section.color,
+                    container: container
+                });
+                return;
+            }
+
             SectionComponent.create({
                 id: section.id,
                 title: section.title,
