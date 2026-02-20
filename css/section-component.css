@@ -211,6 +211,40 @@
     cursor: pointer;
 }
 
+/* Document cards grid */
+.documents-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.content-section-description a.document-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 24px;
+    background-color: #8B5CF6;
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    min-width: 200px;
+}
+
+.document-card-icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+}
+
+.document-card-name {
+    font-family: "Helvetica", Arial, sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: -0.5px;
+}
+
 /* Mobile responsive */
 @media (max-width: 768px) {
     .content-section {
@@ -267,6 +301,21 @@
     .section-button-link {
         padding: 12px 20px;
         font-size: 16px;
+    }
+
+    /* Document cards mobile */
+    .documents-grid {
+        gap: 10px;
+    }
+
+    .document-card {
+        padding: 14px 18px;
+        min-width: unset;
+        width: 100%;
+    }
+
+    .document-card-name {
+        font-size: 17px;
     }
 
     /* Contact boxes mobile */

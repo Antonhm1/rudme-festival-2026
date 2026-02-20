@@ -1,5 +1,6 @@
 const { syncSheets } = require('./sheets-sync');
 const { syncDriveImages } = require('./drive-sync');
+const { syncDocuments } = require('./drive-documents-sync');
 
 async function main() {
   const args = process.argv.slice(2);
@@ -18,6 +19,10 @@ async function main() {
     if (!sheetsOnly) {
       console.log('=== Syncing Drive Images ===');
       await syncDriveImages();
+      console.log('');
+
+      console.log('=== Syncing Drive Documents ===');
+      await syncDocuments();
       console.log('');
     }
 

@@ -13,6 +13,9 @@
             generateInfoBoxes(data.sections);
             generateInfoSections(data.sections);
 
+            // Load documents into the forenings-dokumenter section
+            await loadDocuments();
+
             // Wait for SectionComponent rendering before initializing scroll features
             setTimeout(() => {
                 initColorTransitions();
@@ -64,6 +67,52 @@
                 container: container
             });
         });
+    }
+
+    async function loadDocuments() {
+        const grid = document.getElementById('documents-grid');
+        if (!grid) return;
+
+        try {
+            const response = await fetch('database/documents.json');
+            const documents = await response.json();
+
+            documents.forEach(doc => {
+                const card = document.createElement('a');
+                card.className = 'document-card';
+                card.href = doc.viewLink;
+                card.target = '_blank';
+                card.rel = 'noopener noreferrer';
+
+                const icon = document.createElement('span');
+                icon.className = 'document-card-icon';
+                icon.innerHTML = '<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>';
+
+                const name = document.createElement('span');
+                name.className = 'document-card-name';
+                name.textContent = doc.name;
+
+                card.appendChild(icon);
+                card.appendChild(name);
+
+                // Set initial random colors per card
+                const initBg = SectionComponent.getRandomColor('#111111');
+                const initText = SectionComponent.getRandomColor(initBg);
+                card.style.backgroundColor = initBg;
+                card.style.color = initText;
+
+                card.addEventListener('mouseenter', function() {
+                    const newBgColor = SectionComponent.getRandomColor();
+                    const newTextColor = SectionComponent.getRandomColor(newBgColor);
+                    this.style.backgroundColor = newBgColor;
+                    this.style.color = newTextColor;
+                });
+
+                grid.appendChild(card);
+            });
+        } catch (error) {
+            console.error('Could not load documents:', error);
+        }
     }
 
     // Parse "#RRGGBB" to [r, g, b]
