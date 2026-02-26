@@ -10,8 +10,8 @@
       "budgetResult": 4500,
       "revenue": 45000,
       "organizers": 5,
-      "coordinators": 8,
-      "volunteers": 25,
+      "coordinators": 0,
+      "volunteers": 0,
       "color": "#90EE90"
     },
     {
@@ -24,8 +24,8 @@
       "budgetResult": 4700,
       "revenue": 89000,
       "organizers": 6,
-      "coordinators": 12,
-      "volunteers": 35,
+      "coordinators": 0,
+      "volunteers": 40,
       "color": "#87CEEB"
     },
     {
@@ -37,9 +37,9 @@
       "attendees": 750,
       "budgetResult": 5000,
       "revenue": 156000,
-      "organizers": 7,
-      "coordinators": 15,
-      "volunteers": 48,
+      "organizers": 9,
+      "coordinators": 0,
+      "volunteers": 150,
       "color": "#FFB6C1"
     },
     {
@@ -51,9 +51,9 @@
       "attendees": 1000,
       "budgetResult": 8000,
       "revenue": 248000,
-      "organizers": 8,
-      "coordinators": 18,
-      "volunteers": 65,
+      "organizers": 9,
+      "coordinators": 0,
+      "volunteers": 200,
       "color": "#DDA0DD"
     },
     {
@@ -65,9 +65,9 @@
       "attendees": 1200,
       "budgetResult": -8200,
       "revenue": 385000,
-      "organizers": 9,
-      "coordinators": 22,
-      "volunteers": 85,
+      "organizers": 35,
+      "coordinators": 0,
+      "volunteers": 300,
       "color": "#F0E68C"
     },
     {
@@ -79,9 +79,9 @@
       "attendees": 1400,
       "budgetResult": 25400,
       "revenue": 520000,
-      "organizers": 10,
-      "coordinators": 28,
-      "volunteers": 110,
+      "organizers": 40,
+      "coordinators": 0,
+      "volunteers": 350,
       "color": "#98D8C8"
     },
     {
@@ -93,23 +93,23 @@
       "attendees": 1700,
       "budgetResult": 31200,
       "revenue": 612000,
-      "organizers": 11,
-      "coordinators": 32,
-      "volunteers": 135,
+      "organizers": 50,
+      "coordinators": 0,
+      "volunteers": 400,
       "color": "#F7DC6F"
     },
     {
       "year": 2025,
       "image": "pictures/om/historie/2025.jpeg",
-      "description": "2025 var året, hvor alt gik op i en højere enhed.<br>Der var styr på det hele. Arrangørerne var glade. Publikum var glade. Solen stod højt – og festivalen kørte som smurt.<br><br>Festivalen opnåede rekordomsætning og tog et stort skridt fremad rent fysisk. Med en generøs bevilling fra Spar Nord Fonden kunne Rudme Festival købe sin egen mobilscene og sige farvel til den gamle, slidte scenemorgen.<br>Samtidig blev festivalens infrastruktur styrket med en ny stor containervogn til opbevaring.",
+      "description": "2025 var året, hvor alt gik op i en højere enhed.<br>Der var styr på det hele. Arrangørerne var glade. Publikum var glade. Solen stod højt – og festivalen kørte som smurt.<br><br>Festivalen opnåede rekordomsætning og tog et stort skridt fremad rent fysisk. Med en generøs bevilling fra Spar Nord Fonden kunne Rudme Festival købe sin egen mobilscene og sige farvel til den gamle, slidte scenemorgen.<br>Samtidig blev festivalens infrastruktur styrket med en ny stor containervogn til opbevaring.<br><br>Eventprogrammet var stærkt og mangfoldigt. Der blev danset samba, spillet teaterforestillinger, og kulminationen kom i festivalens hidtil største folkedans, hvor næsten 1.000 mennesker samledes i én enorm, dansende cirkel.",
       "afterMovieUrl": "",
       "picturesUrl": "",
       "attendees": 1800,
       "budgetResult": 18700,
       "revenue": 695000,
-      "organizers": 12,
-      "coordinators": 38,
-      "volunteers": 160,
+      "organizers": 55,
+      "coordinators": 0,
+      "volunteers": 450,
       "color": "#AED6F1"
     }
   ]
