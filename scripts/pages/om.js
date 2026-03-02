@@ -112,7 +112,7 @@
     // Series configuration for the stats graph
     const seriesConfig = [
         { key: 'volunteers', field: 'volunteers', color: '#DDA0DD', scale: 'people', format: v => v.toString() },
-        { key: 'budget', field: 'budgetResult', color: '#87CEEB', scale: 'money', format: v => (v >= 0 ? '+' : '') + v.toLocaleString('da-DK') + ' kr' },
+        { key: 'budget', field: 'budgetResult', color: '#87CEEB', scale: 'budget', format: v => (v >= 0 ? '+' : '') + v.toLocaleString('da-DK') + ' kr' },
         { key: 'revenue', field: 'revenue', color: '#98D8AA', scale: 'money', format: v => v.toLocaleString('da-DK') + ' kr' },
         { key: 'attendees', field: 'attendees', color: '#FFE693', scale: 'people', format: v => v.toLocaleString('da-DK') }
     ];
@@ -151,12 +151,18 @@
         const maxPeople = Math.max(...years.map(y => y.attendees));
         const maxMoney = Math.max(...years.map(y => y.revenue));
         const minMoney = Math.min(...years.map(y => y.budgetResult), 0);
+        const maxBudget = Math.max(...years.map(y => y.budgetResult));
+        const minBudget = Math.min(...years.map(y => y.budgetResult));
 
         const getY = {
             people: (value) => padding.top + (graphHeight - bottomPadding) - (value / maxPeople * (graphHeight - bottomPadding) * 0.9),
             money: (value) => {
                 const normalized = (value - minMoney) / (maxMoney - minMoney);
                 return padding.top + 40 + (graphHeight - bottomPadding) - (normalized * (graphHeight - bottomPadding) * 0.85);
+            },
+            budget: (value) => {
+                const normalized = (value - minBudget) / (maxBudget - minBudget);
+                return padding.top + 40 + (graphHeight - bottomPadding) - (normalized * (graphHeight - bottomPadding) * 0.85) - 80;
             }
         };
 
@@ -186,14 +192,31 @@
             });
             ctx.stroke();
 
-            // Draw labels
-            ctx.fillStyle = series.color;
+            // Draw labels with white background
             ctx.font = '13px Helvetica, Arial, sans-serif';
             ctx.textAlign = 'center';
             years.forEach((year, i) => {
                 const x = padding.left + i * xStep;
                 const y = yFn(year[series.field]);
-                ctx.fillText(series.format(year[series.field]), x, y - 14);
+                const text = series.format(year[series.field]);
+                const textWidth = ctx.measureText(text).width;
+                const padX = 4;
+                const padY = 4;
+                const textY = y - 14;
+                const boxX = x - textWidth / 2 - padX;
+                const boxY = textY - 10 - padY;
+                const boxW = textWidth + padX * 2;
+                const boxH = 10 + padY * 2;
+                const radius = 4;
+                ctx.beginPath();
+                ctx.roundRect(boxX, boxY, boxW, boxH, radius);
+                ctx.fillStyle = '#FFFFFF';
+                ctx.fill();
+                ctx.strokeStyle = series.color;
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
+                ctx.fillStyle = '#000000';
+                ctx.fillText(text, x, y - 14);
             });
         });
     }
