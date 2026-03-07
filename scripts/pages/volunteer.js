@@ -5,8 +5,8 @@ let posterRollerInstance = null;
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', async function() {
-    await loadVolunteerData();
     generateJobopslag();
+    await loadVolunteerData();
     await loadPosterRoller();
     initializeRoleNavigation();
     initializeColorTransitions();
