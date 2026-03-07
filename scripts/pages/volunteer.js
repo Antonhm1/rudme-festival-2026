@@ -6,11 +6,60 @@ let posterRollerInstance = null;
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', async function() {
     await loadVolunteerData();
+    generateJobopslag();
     await loadPosterRoller();
     initializeRoleNavigation();
     initializeColorTransitions();
     // Note: Header color and sticky behavior are now handled by header-universal.js
 });
+
+// Generate jobopslag cards dynamically
+function generateJobopslag() {
+    const grid = document.getElementById('jobopslag-grid');
+    if (!grid) return;
+
+    const jobopslag = [
+        { title: 'Afvikler i indgangen', role: 'afvikler', color: '#FFE66D' },
+        { title: 'Arrangør i indgangen', role: 'arrangor', color: '#FFE66D' },
+        { title: 'Arrangør i madteltet', role: 'arrangor', color: '#A8A8F0' },
+        { title: 'Afvikler i madteltet', role: 'afvikler', color: '#A8A8F0' },
+        { title: 'Arrangør i Krea', role: 'arrangor', color: '#B4E7CE' },
+        { title: 'Arrangør i Eventudvalget', role: 'arrangor', color: '#FF1493' },
+        { title: 'Oprydningsarrangør', role: 'arrangor', color: '#696969' },
+        { title: 'Oprydningsafvikler', role: 'afvikler', color: '#696969' },
+        { title: 'Stagehands', role: 'afvikler', color: '#FF9A8B' },
+    ];
+
+    jobopslag.forEach(job => {
+        const card = document.createElement('div');
+        card.className = 'jobopslag-card';
+        card.style.backgroundColor = job.color;
+
+        const title = document.createElement('h3');
+        title.className = 'jobopslag-card-title';
+        title.textContent = job.title;
+
+        const button = document.createElement('button');
+        button.className = 'jobopslag-card-button random-hover-btn';
+        button.textContent = job.role === 'afvikler' ? 'BLIV AFVIKLER' : 'BLIV ARRANGØR';
+        button.addEventListener('click', () => scrollToRole(job.role));
+
+        card.appendChild(title);
+        card.appendChild(button);
+        grid.appendChild(card);
+    });
+
+    // Add note below the grid
+    const note = document.createElement('p');
+    note.className = 'jobopslag-note';
+    note.innerHTML = '<em>Obs! Man kan ansøge om at blive arrangør eller afvikler i alle udvalg. Disse ovenstående er bare dem, hvor vi mangler flest:)</em>';
+    grid.parentElement.appendChild(note);
+
+    // Initialize random hover effect on the dynamically created buttons
+    if (typeof ButtonHover !== 'undefined') {
+        ButtonHover.init('.jobopslag-card-button');
+    }
+}
 
 // Load volunteer data from JSON and generate page content
 async function loadVolunteerData() {

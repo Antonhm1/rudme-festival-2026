@@ -60,6 +60,76 @@ html, body {
     margin-right: 30px; /* Default right margin for small screens */
 }
 
+/* Jobopslag section */
+.jobopslag-section {
+    padding: 40px 30px;
+    position: relative;
+    z-index: 10;
+    max-width: 900px;
+    margin-right: auto;
+    margin-left: 30px;
+    margin-bottom: 80px;
+}
+
+.jobopslag-title {
+    font-family: "Helvetica", Arial, sans-serif;
+    font-size: 90px;
+    font-weight: 400;
+    letter-spacing: -1px;
+    color: #111;
+    margin-bottom: 30px;
+    text-align: left;
+    padding-left: 0;
+}
+
+.jobopslag-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: flex-start;
+}
+
+.jobopslag-card {
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    min-width: 200px;
+}
+
+.jobopslag-card-title {
+    font-family: "Helvetica", Arial, sans-serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: #111;
+    margin: 0;
+}
+
+.jobopslag-card-button {
+    font-family: "Helvetica", Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: -0.5px;
+    color: #90EE90;
+    background-color: #111;
+    border: none;
+    padding: 15px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.jobopslag-note {
+    font-family: "Helvetica", Arial, sans-serif;
+    font-size: 42px;
+    font-weight: 400;
+    letter-spacing: -1px;
+    color: #111;
+    text-align: left;
+    margin-top: 30px;
+    padding-left: 0;
+}
+
 /* Roles section */
 .roles-section {
     padding: 40px 30px;
@@ -79,6 +149,10 @@ html, body {
         margin-right: 60px;
     }
 
+    .jobopslag-section {
+        margin-left: 60px;
+    }
+
     .roles-section {
         margin-right: 60px;
     }
@@ -88,6 +162,11 @@ html, body {
     .hero-text {
         margin-right: 100px;
         max-width: 800px; /* Slightly wider container on very large screens */
+    }
+
+    .jobopslag-section {
+        margin-left: 100px;
+        max-width: 800px;
     }
 
     .roles-section {
@@ -207,6 +286,44 @@ html, body {
     .section-title {
         font-size: 32px;
         letter-spacing: -1px;
+    }
+
+    .jobopslag-section {
+        padding: 20px 15px;
+        max-width: none;
+        margin-left: 0;
+        margin-right: 0;
+        margin-bottom: 40px;
+    }
+
+    .jobopslag-title {
+        font-size: 32px;
+        letter-spacing: -1px;
+        padding-left: 0;
+    }
+
+    .jobopslag-grid {
+        gap: 8px;
+    }
+
+    .jobopslag-card {
+        min-width: unset;
+        width: 100%;
+        padding: 16px;
+    }
+
+    .jobopslag-card-title {
+        font-size: 18px;
+    }
+
+    .jobopslag-card-button {
+        font-size: 14px;
+        padding: 10px 16px;
+    }
+
+    .jobopslag-note {
+        font-size: 20px;
+        padding-left: 0;
     }
 
     .roles-section {
