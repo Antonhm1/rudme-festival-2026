@@ -603,7 +603,7 @@
             const map = {
                 'home': 'index.html', 'about': 'info.html', 'program': 'program.html',
                 'tickets': 'billet.html', 'volunteer': 'frivillig.html', 'camp': 'rudmelejr.html',
-                'association': 'om.html', 'contact': 'kontakt.html', 'skurvognen': 'skurvognen.html',
+                'association': 'om.html', 'contact': 'kontakt.html', 'skurvognen': 'skurvognen.html', 'sponsors': 'sponsorer.html',
                 'music': 'program.html', 'musik': 'program.html', 'gallery': 'program.html'
             };
 

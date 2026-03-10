@@ -1,6 +1,7 @@
 const { syncSheets } = require('./sheets-sync');
 const { syncDriveImages } = require('./drive-sync');
 const { syncDocuments } = require('./drive-documents-sync');
+const { generateSponsorsJson } = require('./sponsors-sync');
 
 async function main() {
   const args = process.argv.slice(2);
@@ -23,6 +24,10 @@ async function main() {
 
       console.log('=== Syncing Drive Documents ===');
       await syncDocuments();
+      console.log('');
+
+      console.log('=== Generating Sponsors List ===');
+      generateSponsorsJson();
       console.log('');
     }
 
