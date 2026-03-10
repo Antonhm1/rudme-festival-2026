@@ -37,25 +37,24 @@ html, body {
 
 .sponsors-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 40px;
+    grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+    gap: 50px;
     padding: 0 30px;
     max-width: 1400px;
 }
 
 .sponsor-card {
-    background: rgba(255, 255, 255, 0.85);
+    background: transparent;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 30px;
+    padding: 20px;
     aspect-ratio: 3 / 2;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.2s ease;
 }
 
 .sponsor-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
 }
 
 .sponsor-card img {
@@ -115,7 +114,7 @@ html, body {
     }
 
     .sponsors-grid {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
         gap: 20px;
         padding: 0 15px;
     }
