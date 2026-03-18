@@ -2,6 +2,7 @@ const { syncSheets } = require('./sheets-sync');
 const { syncDriveImages } = require('./drive-sync');
 const { syncDocuments } = require('./drive-documents-sync');
 const { generateSponsorsJson } = require('./sponsors-sync');
+const { compressImages } = require('../build/compress-images');
 
 async function main() {
   const args = process.argv.slice(2);
@@ -20,6 +21,10 @@ async function main() {
     if (!sheetsOnly) {
       console.log('=== Syncing Drive Images ===');
       await syncDriveImages();
+      console.log('');
+
+      console.log('=== Compressing Images ===');
+      await compressImages();
       console.log('');
 
       console.log('=== Syncing Drive Documents ===');

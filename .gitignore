@@ -39,6 +39,7 @@ Thumbs.db
 *.temp
 *.log
 *.cache
+.compressed-manifest.json
 
 # Screenshots and test artifacts
 screenshots/
