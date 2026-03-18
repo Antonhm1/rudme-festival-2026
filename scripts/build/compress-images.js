@@ -59,14 +59,16 @@ async function compressImage(filePath) {
         await fs.promises.writeFile(jpgPath, buffer);
       }
     } else {
-      // On Linux, sharp/vips handles TIFFs directly — resize + convert in one pipeline
-      const metadata = await sharp(filePath, { limitInputPixels: false }).metadata();
-      width = metadata.width;
-      let pipeline = sharp(filePath, { limitInputPixels: false });
-      if (width > MAX_WIDTH) pipeline = pipeline.resize(MAX_WIDTH);
-      const buffer = await pipeline.jpeg({ quality: JPEG_QUALITY }).toBuffer();
-      await fs.promises.writeFile(jpgPath, buffer);
+      // On Linux, use ImageMagick convert as vips has TIFF memory limits
+      execSync(`convert "${filePath}" -quality ${JPEG_QUALITY} "${jpgPath}"`, { stdio: 'pipe' });
       await fs.promises.unlink(filePath);
+      const jpgImage = sharp(await fs.promises.readFile(jpgPath), { limitInputPixels: false });
+      const metadata = await jpgImage.metadata();
+      width = metadata.width;
+      if (width > MAX_WIDTH) {
+        const buffer = await jpgImage.resize(MAX_WIDTH).jpeg({ quality: JPEG_QUALITY }).toBuffer();
+        await fs.promises.writeFile(jpgPath, buffer);
+      }
     }
 
     const newSize = fs.statSync(jpgPath).size;
