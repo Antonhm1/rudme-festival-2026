@@ -1,6 +1,7 @@
 const sharp = require('sharp');
 const fs = require('fs');
 const path = require('path');
+const { execSync } = require('child_process');
 
 const MAX_WIDTH = 2000;
 const JPEG_QUALITY = 80;
@@ -30,7 +31,7 @@ function findImages(dir) {
     const fullPath = path.join(dir, entry.name);
     if (entry.isDirectory()) {
       results.push(...findImages(fullPath));
-    } else if (/\.(jpe?g|png)$/i.test(entry.name)) {
+    } else if (/\.(jpe?g|png|tiff?)$/i.test(entry.name)) {
       results.push(fullPath);
     }
   }
@@ -39,8 +40,25 @@ function findImages(dir) {
 
 async function compressImage(filePath) {
   const ext = path.extname(filePath).toLowerCase();
+  const isTiff = ext === '.tif' || ext === '.tiff';
   const originalSize = fs.statSync(filePath).size;
-  const image = sharp(await fs.promises.readFile(filePath));
+  // Convert TIFF to JPEG using sips (macOS) since vips struggles with large TIFFs
+  if (isTiff) {
+    const jpgPath = filePath.replace(/\.tiff?$/i, '.jpg');
+    execSync(`sips -s format jpeg -s formatOptions ${JPEG_QUALITY} "${filePath}" --out "${jpgPath}"`, { stdio: 'pipe' });
+    await fs.promises.unlink(filePath);
+    // Now compress the converted JPEG through sharp for resizing
+    const jpgImage = sharp(await fs.promises.readFile(jpgPath), { limitInputPixels: false });
+    const metadata = await jpgImage.metadata();
+    if (metadata.width > MAX_WIDTH) {
+      const buffer = await jpgImage.resize(MAX_WIDTH).jpeg({ quality: JPEG_QUALITY }).toBuffer();
+      await fs.promises.writeFile(jpgPath, buffer);
+    }
+    const newSize = fs.statSync(jpgPath).size;
+    return { originalSize, newSize, resized: metadata.width > MAX_WIDTH, width: metadata.width, convertedTo: jpgPath };
+  }
+
+  const image = sharp(await fs.promises.readFile(filePath), { limitInputPixels: false });
   const metadata = await image.metadata();
 
   let pipeline = image;
@@ -57,6 +75,14 @@ async function compressImage(filePath) {
   }
 
   const newSize = buffer.length;
+
+  if (isTiff) {
+    const newPath = filePath.replace(/\.tiff?$/i, '.jpg');
+    await fs.promises.writeFile(newPath, buffer);
+    await fs.promises.unlink(filePath);
+    return { originalSize, newSize, resized: metadata.width > MAX_WIDTH, width: metadata.width, convertedTo: newPath };
+  }
+
   if (newSize < originalSize) {
     await fs.promises.writeFile(filePath, buffer);
     return { originalSize, newSize, resized: metadata.width > MAX_WIDTH, width: metadata.width };
@@ -99,12 +125,16 @@ async function compressImages() {
         const pct = ((saved / result.originalSize) * 100).toFixed(0);
         const sizeStr = `${(result.originalSize / 1024).toFixed(0)}KB -> ${(result.newSize / 1024).toFixed(0)}KB`;
         const resizeStr = result.resized ? ` (${result.width}px -> ${MAX_WIDTH}px)` : '';
-        console.log(`  Compressed: ${relPath} ${sizeStr} (-${pct}%)${resizeStr}`);
+        const convertStr = result.convertedTo ? ` [converted to .jpg]` : '';
+        console.log(`  Compressed: ${relPath} ${sizeStr} (-${pct}%)${resizeStr}${convertStr}`);
         processed++;
       }
 
-      const newStat = fs.statSync(filePath);
-      manifest[key] = { mtimeMs: newStat.mtimeMs, size: newStat.size };
+      const finalPath = result.convertedTo || filePath;
+      const finalKey = result.convertedTo ? path.relative(ROOT, result.convertedTo) : key;
+      const newStat = fs.statSync(finalPath);
+      if (result.convertedTo) delete manifest[key];
+      manifest[finalKey] = { mtimeMs: newStat.mtimeMs, size: newStat.size };
     } catch (err) {
       console.error(`  Failed: ${relPath} - ${err.message}`);
     }
