@@ -1,30 +1,30 @@
 [
   {
+    "id": "SKURVOGNSPLADSEN",
+    "title": "HEARTLAND",
+    "image": "heartland.jpeg",
+    "description": "På Rudme Festival finder finder du Skurvognen på den bagerste mark, ved siden af alle teltpladserne. Her har vi vores egen plads, hvor du både kan slappe af i skyggen af træerne, komme til masser af sjove events, købe pizza slices, toast, drinks og øl eller feste til god musik langt ud på natten<3<3",
+    "color": "#95E1D3"
+  },
+  {
     "id": "house",
     "title": "HOUSE",
-    "image": "house.jpg",
-    "description": "House-fester i intime omgivelser med fokus på elektronisk musik og fællesskab. Vi skaber rum hvor musikken og stemningen smelter sammen.",
+    "image": "HAUSE.tif",
+    "description": "Hvis du bare ikke kan få nok af Rudme, på de skønne festivalsdage, holder Skurvognen sin egen endagsfestival hvert år i starten af maj! Her får vi både glæde af den originale Skurvogn der står plantet på Rudmevej 80 og af vores hjemmebyggede scenevogn, når der spilles op til koncert med alt fra Jazz til HipHop til foreningens eget PartyBand.",
     "color": "#FF6B6B"
   },
   {
     "id": "distortion",
     "title": "SCENE PÅ DISTORTION",
-    "image": "distortion.jpg",
-    "description": "Hvert år bygger vi scene og skaber fest på Distortion. En eksplosion af farver, musik og københavnsk gadefest-energi.",
+    "image": "Scene på distortion.jpg",
+    "description": "De sidste to år har Skurvognen været med på Distortion som Streethost. Vi bestræber os på at tage fællesskabet og den kreative ånd hele vejen med fra Rudme og til København. Der ud over fylder vi scenen med Live Musik fra unge upcoming kusntere fra hele landet og god stemning blandt alle de glade gadefestere.",
     "color": "#4ECDC4"
   },
   {
     "id": "byggefestival",
-    "title": "BYGGEFESTIVAL",
-    "image": "arbejdsfestival.jpg",
-    "description": "Arbejdsweekender hvor vi samles om at bygge, male og skabe. Her lærer man nye skills, møder fantastiske mennesker og ser resultatet af fælles indsats.",
+    "title": "ARBEJDSFESTIVAL",
+    "image": "Arbejdsfestival .jpg",
+    "description": "Hvis du vil være med til at holde Skurvognen levende og samtidig udforske dine egne bygge- og kreative evner, skal du komme med til Arbejdsfestival. Her renovere vi de gamle vogne, gør klar til Huase og starter nye projekter op til årets Rudme Festival.",
     "color": "#FFE66D"
-  },
-  {
-    "id": "heartland",
-    "title": "HEARTLAND",
-    "image": "heartland.jpeg",
-    "description": "Vi designer og driver frivilligområdet på Heartland Festival. Et sted hvor festivalens hjælpere kan slappe af og genoplade.",
-    "color": "#95E1D3"
   }
 ]
