@@ -45,7 +45,8 @@ jobs:
       - name: Check for changes
         id: changes
         run: |
-          git diff --quiet || echo "has_changes=true" >> $GITHUB_OUTPUT
+          git add -A
+          git diff --cached --quiet || echo "has_changes=true" >> $GITHUB_OUTPUT
 
       - name: Commit and push changes
         if: steps.changes.outputs.has_changes == 'true'

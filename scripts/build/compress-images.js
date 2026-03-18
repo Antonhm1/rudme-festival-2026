@@ -42,20 +42,35 @@ async function compressImage(filePath) {
   const ext = path.extname(filePath).toLowerCase();
   const isTiff = ext === '.tif' || ext === '.tiff';
   const originalSize = fs.statSync(filePath).size;
-  // Convert TIFF to JPEG using sips (macOS) since vips struggles with large TIFFs
+  // Convert TIFF to JPEG - use sips on macOS, sharp with streaming on Linux
   if (isTiff) {
     const jpgPath = filePath.replace(/\.tiff?$/i, '.jpg');
-    execSync(`sips -s format jpeg -s formatOptions ${JPEG_QUALITY} "${filePath}" --out "${jpgPath}"`, { stdio: 'pipe' });
-    await fs.promises.unlink(filePath);
-    // Now compress the converted JPEG through sharp for resizing
-    const jpgImage = sharp(await fs.promises.readFile(jpgPath), { limitInputPixels: false });
-    const metadata = await jpgImage.metadata();
-    if (metadata.width > MAX_WIDTH) {
-      const buffer = await jpgImage.resize(MAX_WIDTH).jpeg({ quality: JPEG_QUALITY }).toBuffer();
+    const isMac = process.platform === 'darwin';
+
+    let width;
+    if (isMac) {
+      execSync(`sips -s format jpeg -s formatOptions ${JPEG_QUALITY} "${filePath}" --out "${jpgPath}"`, { stdio: 'pipe' });
+      await fs.promises.unlink(filePath);
+      const jpgImage = sharp(await fs.promises.readFile(jpgPath), { limitInputPixels: false });
+      const metadata = await jpgImage.metadata();
+      width = metadata.width;
+      if (width > MAX_WIDTH) {
+        const buffer = await jpgImage.resize(MAX_WIDTH).jpeg({ quality: JPEG_QUALITY }).toBuffer();
+        await fs.promises.writeFile(jpgPath, buffer);
+      }
+    } else {
+      // On Linux, sharp/vips handles TIFFs directly — resize + convert in one pipeline
+      const metadata = await sharp(filePath, { limitInputPixels: false }).metadata();
+      width = metadata.width;
+      let pipeline = sharp(filePath, { limitInputPixels: false });
+      if (width > MAX_WIDTH) pipeline = pipeline.resize(MAX_WIDTH);
+      const buffer = await pipeline.jpeg({ quality: JPEG_QUALITY }).toBuffer();
       await fs.promises.writeFile(jpgPath, buffer);
+      await fs.promises.unlink(filePath);
     }
+
     const newSize = fs.statSync(jpgPath).size;
-    return { originalSize, newSize, resized: metadata.width > MAX_WIDTH, width: metadata.width, convertedTo: jpgPath };
+    return { originalSize, newSize, resized: width > MAX_WIDTH, width, convertedTo: jpgPath };
   }
 
   const image = sharp(await fs.promises.readFile(filePath), { limitInputPixels: false });
@@ -75,13 +90,6 @@ async function compressImage(filePath) {
   }
 
   const newSize = buffer.length;
-
-  if (isTiff) {
-    const newPath = filePath.replace(/\.tiff?$/i, '.jpg');
-    await fs.promises.writeFile(newPath, buffer);
-    await fs.promises.unlink(filePath);
-    return { originalSize, newSize, resized: metadata.width > MAX_WIDTH, width: metadata.width, convertedTo: newPath };
-  }
 
   if (newSize < originalSize) {
     await fs.promises.writeFile(filePath, buffer);
