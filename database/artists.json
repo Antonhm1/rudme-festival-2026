@@ -15,6 +15,14 @@
       "image": "pictures/artists/farmand.jpg",
       "crop": "mid",
       "spotify": "<iframe data-testid=\"embed-iframe\" style=\"border-radius:12px\" src=\"https://open.spotify.com/embed/artist/1wcnSvUv3l6ZKV1HcjJI3j?utm_source=generator&theme=0\" width=\"100%\" height=\"352\" frameBorder=\"0\" allowfullscreen=\"\" allow=\"autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture\" loading=\"lazy\"></iframe>"
+    },
+    {
+      "id": "3",
+      "name": "Spawner",
+      "color": "#000000",
+      "image": "",
+      "crop": "mid",
+      "spotify": ""
     }
   ]
 }
