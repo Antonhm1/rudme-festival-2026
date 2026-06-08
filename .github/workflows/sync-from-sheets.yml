@@ -30,21 +30,6 @@ jobs:
       - name: Install system dependencies
         run: sudo apt-get update && sudo apt-get install -y imagemagick
 
-      - name: Raise ImageMagick resource limits
-        # Large TIFFs (e.g. 150+ MB artist photos) abort under ImageMagick's
-        # default policy. Relax the resource caps so they convert to JPEG.
-        run: |
-          for policy in /etc/ImageMagick-*/policy.xml; do
-            [ -f "$policy" ] || continue
-            echo "Relaxing limits in $policy"
-            sudo sed -i -E 's/(name="memory" value=")[^"]*/\14GiB/' "$policy"
-            sudo sed -i -E 's/(name="map" value=")[^"]*/\18GiB/' "$policy"
-            sudo sed -i -E 's/(name="width" value=")[^"]*/\1200KP/' "$policy"
-            sudo sed -i -E 's/(name="height" value=")[^"]*/\1200KP/' "$policy"
-            sudo sed -i -E 's/(name="area" value=")[^"]*/\14GP/' "$policy"
-            sudo sed -i -E 's/(name="disk" value=")[^"]*/\116GiB/' "$policy"
-          done
-
       - name: Install dependencies
         run: npm ci
 

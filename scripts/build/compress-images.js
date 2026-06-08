@@ -1,7 +1,6 @@
 const sharp = require('sharp');
 const fs = require('fs');
 const path = require('path');
-const { execSync } = require('child_process');
 
 const MAX_WIDTH = 2000;
 const JPEG_QUALITY = 80;
@@ -42,41 +41,31 @@ async function compressImage(filePath) {
   const ext = path.extname(filePath).toLowerCase();
   const isTiff = ext === '.tif' || ext === '.tiff';
   const originalSize = fs.statSync(filePath).size;
-  // Convert TIFF to JPEG - use sips on macOS, sharp with streaming on Linux
+  // Convert TIFF to JPEG with libvips (via sharp), reading straight from the
+  // file path with sequential access + shrink-on-load. This keeps memory low
+  // even for very large TIFFs — ImageMagick's `convert` gets OOM-killed on
+  // 150 MB+ files, and reading the whole file into a Buffer first defeats
+  // shrink-on-load.
   if (isTiff) {
     const jpgPath = filePath.replace(/\.tiff?$/i, '.jpg');
-    const isMac = process.platform === 'darwin';
 
-    let width;
-    if (isMac) {
-      execSync(`sips -s format jpeg -s formatOptions ${JPEG_QUALITY} "${filePath}" --out "${jpgPath}"`, { stdio: 'pipe' });
-      await fs.promises.unlink(filePath);
-      const jpgImage = sharp(await fs.promises.readFile(jpgPath), { limitInputPixels: false });
-      const metadata = await jpgImage.metadata();
-      width = metadata.width;
-      if (width > MAX_WIDTH) {
-        const buffer = await jpgImage.resize(MAX_WIDTH).jpeg({ quality: JPEG_QUALITY }).toBuffer();
-        await fs.promises.writeFile(jpgPath, buffer);
-      }
-    } else {
-      // On Linux, use ImageMagick convert as vips has TIFF memory limits.
-      // Raise the per-command resource limits so very large TIFFs don't abort
-      // (these only take effect up to the maximums in ImageMagick's policy.xml,
-      // which the CI workflow relaxes before running).
-      const limits = '-limit memory 4GiB -limit map 8GiB -limit disk 16GiB -limit area 4GP';
-      execSync(`convert ${limits} "${filePath}" -quality ${JPEG_QUALITY} "${jpgPath}"`, { stdio: 'pipe' });
-      await fs.promises.unlink(filePath);
-      const jpgImage = sharp(await fs.promises.readFile(jpgPath), { limitInputPixels: false });
-      const metadata = await jpgImage.metadata();
-      width = metadata.width;
-      if (width > MAX_WIDTH) {
-        const buffer = await jpgImage.resize(MAX_WIDTH).jpeg({ quality: JPEG_QUALITY }).toBuffer();
-        await fs.promises.writeFile(jpgPath, buffer);
-      }
+    let origWidth;
+    try {
+      origWidth = (await sharp(filePath, { limitInputPixels: false }).metadata()).width;
+      await sharp(filePath, { limitInputPixels: false, sequentialRead: true })
+        .resize({ width: MAX_WIDTH, withoutEnlargement: true })
+        .jpeg({ quality: JPEG_QUALITY })
+        .toFile(jpgPath);
+    } catch (err) {
+      // Remove the oversized original so it can never block the commit
+      // (GitHub rejects files >100 MB). The rest of the sync still lands.
+      await fs.promises.unlink(filePath).catch(() => {});
+      throw new Error(`TIFF conversion failed, removed original ${path.basename(filePath)}: ${err.message}`);
     }
+    await fs.promises.unlink(filePath);
 
     const newSize = fs.statSync(jpgPath).size;
-    return { originalSize, newSize, resized: width > MAX_WIDTH, width, convertedTo: jpgPath };
+    return { originalSize, newSize, resized: origWidth > MAX_WIDTH, width: origWidth, convertedTo: jpgPath };
   }
 
   const image = sharp(await fs.promises.readFile(filePath), { limitInputPixels: false });
