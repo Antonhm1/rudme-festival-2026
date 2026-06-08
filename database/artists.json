@@ -43,10 +43,18 @@
     {
       "id": "6",
       "name": "Part Time Boy",
-      "color": "#000000",
+      "color": "#671A48",
       "image": "pictures/artists/PARTTIMEBOY.jpg",
-      "crop": "mid",
+      "crop": "top",
       "spotify": ""
+    },
+    {
+      "id": "7",
+      "name": "Sophie-Lou",
+      "color": "#8A6453",
+      "image": "pictures/artists/SOPHIELOU.tif",
+      "crop": "mid",
+      "spotify": "<iframe data-testid=\"embed-iframe\" style=\"border-radius:12px\" src=\"https://open.spotify.com/embed/artist/45LUACR3KoMDFiyLbXmhy2?utm_source=generator&theme=0\" width=\"100%\" height=\"352\" frameBorder=\"0\" allowfullscreen=\"\" allow=\"autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture\" loading=\"lazy\"></iframe>"
     }
   ]
 }
