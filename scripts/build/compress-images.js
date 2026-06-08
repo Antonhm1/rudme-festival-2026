@@ -49,10 +49,13 @@ async function compressImage(filePath) {
   if (isTiff) {
     const jpgPath = filePath.replace(/\.tiff?$/i, '.jpg');
 
+    // `unlimited: true` lifts libvips' default 50 MB libtiff allocation cap
+    // (anti-decompression-bomb guard) so large TIFFs can be decoded.
+    const tiffOpts = { limitInputPixels: false, sequentialRead: true, unlimited: true };
     let origWidth;
     try {
-      origWidth = (await sharp(filePath, { limitInputPixels: false }).metadata()).width;
-      await sharp(filePath, { limitInputPixels: false, sequentialRead: true })
+      origWidth = (await sharp(filePath, tiffOpts).metadata()).width;
+      await sharp(filePath, tiffOpts)
         .resize({ width: MAX_WIDTH, withoutEnlargement: true })
         .jpeg({ quality: JPEG_QUALITY })
         .toFile(jpgPath);
