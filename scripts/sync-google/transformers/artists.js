@@ -17,6 +17,9 @@ function transformArtists(rows) {
     if (imagePath && !imagePath.includes('/')) {
       imagePath = `pictures/artists/${imagePath}`;
     }
+    // The image sync converts TIFFs to JPEG, so point .tif/.tiff references
+    // at the resulting .jpg file.
+    imagePath = imagePath.replace(/\.tiff?$/i, '.jpg');
 
     return {
       id: row.id || '',
