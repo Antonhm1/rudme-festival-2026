@@ -59,8 +59,12 @@ async function compressImage(filePath) {
         await fs.promises.writeFile(jpgPath, buffer);
       }
     } else {
-      // On Linux, use ImageMagick convert as vips has TIFF memory limits
-      execSync(`convert "${filePath}" -quality ${JPEG_QUALITY} "${jpgPath}"`, { stdio: 'pipe' });
+      // On Linux, use ImageMagick convert as vips has TIFF memory limits.
+      // Raise the per-command resource limits so very large TIFFs don't abort
+      // (these only take effect up to the maximums in ImageMagick's policy.xml,
+      // which the CI workflow relaxes before running).
+      const limits = '-limit memory 4GiB -limit map 8GiB -limit disk 16GiB -limit area 4GP';
+      execSync(`convert ${limits} "${filePath}" -quality ${JPEG_QUALITY} "${jpgPath}"`, { stdio: 'pipe' });
       await fs.promises.unlink(filePath);
       const jpgImage = sharp(await fs.promises.readFile(jpgPath), { limitInputPixels: false });
       const metadata = await jpgImage.metadata();
@@ -146,7 +150,8 @@ async function compressImages() {
       if (result.convertedTo) delete manifest[key];
       manifest[finalKey] = { mtimeMs: newStat.mtimeMs, size: newStat.size };
     } catch (err) {
-      console.error(`  Failed: ${relPath} - ${err.message}`);
+      const stderr = err.stderr ? `\n${err.stderr.toString().trim()}` : '';
+      console.error(`  Failed: ${relPath} - ${err.message}${stderr}`);
     }
   }
 

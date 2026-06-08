@@ -12,6 +12,8 @@ async function getAuthClient() {
   return auth.getClient();
 }
 
+const MAX_FILE_SIZE_BYTES = 90 * 1024 * 1024; // 90 MB — GitHub hard limit is 100 MB
+
 async function listFilesInFolder(drive, folderId) {
   const files = [];
   let pageToken = null;
@@ -19,7 +21,7 @@ async function listFilesInFolder(drive, folderId) {
   do {
     const response = await drive.files.list({
       q: `'${folderId}' in parents and trashed = false`,
-      fields: 'nextPageToken, files(id, name, mimeType, modifiedTime)',
+      fields: 'nextPageToken, files(id, name, mimeType, modifiedTime, size)',
       pageSize: 1000,
       pageToken: pageToken
     });
@@ -83,6 +85,17 @@ async function syncFolder(drive, folderId, localPath, relativePath = '') {
                     file.name.match(/\.(jpg|jpeg|png|gif|webp|svg)$/i);
 
     if (!isImage) continue;
+
+    // Skip files that exceed GitHub's 100 MB file size limit.
+    // TIFFs are exempt: the compression step converts them to small JPEGs and
+    // deletes the original, so a large .tif never reaches the commit.
+    const isTiff = /\.tiff?$/i.test(file.name) || file.mimeType === 'image/tiff';
+    const fileSize = parseInt(file.size || '0', 10);
+    if (fileSize > MAX_FILE_SIZE_BYTES && !isTiff) {
+      const sizeMB = (fileSize / 1024 / 1024).toFixed(1);
+      console.warn(`  Skipping ${file.name} (${sizeMB} MB) — exceeds 90 MB limit`);
+      continue;
+    }
 
     const destPath = path.join(fullLocalPath, file.name);
 
