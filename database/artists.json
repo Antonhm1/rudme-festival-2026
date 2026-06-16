@@ -74,11 +74,27 @@
     },
     {
       "id": "10",
-      "name": "Skammerensdøtre",
+      "name": "Skammerens døtre",
       "color": "#E23E1B",
       "image": "pictures/artists/SKAMMERENDØTRE.jpg",
       "crop": "mid",
-      "spotify": ""
+      "spotify": "<iframe data-testid=\"embed-iframe\" style=\"border-radius:12px\" src=\"https://open.spotify.com/embed/artist/27czJDSwFg9zbimXXwdwmh?utm_source=generator&theme=0&si=d54259878f504bae\" width=\"100%\" height=\"352\" frameBorder=\"0\" allowfullscreen=\"\" allow=\"autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture\" loading=\"lazy\"></iframe>"
+    },
+    {
+      "id": "11",
+      "name": "Shinyhunt",
+      "color": "#536440",
+      "image": "pictures/artists/SHINYHUNT.jpg",
+      "crop": "mid",
+      "spotify": "<iframe data-testid=\"embed-iframe\" style=\"border-radius:12px\" src=\"https://open.spotify.com/embed/artist/6HzmHkcqEfZjqzsd5rGG63?utm_source=generator&si=d2aab971447042b4\" width=\"100%\" height=\"352\" frameBorder=\"0\" allowfullscreen=\"\" allow=\"autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture\" loading=\"lazy\"></iframe>"
+    },
+    {
+      "id": "12",
+      "name": "Ana Juél",
+      "color": "#433F22",
+      "image": "pictures/artists/ANAJUEL.jpg",
+      "crop": "mid",
+      "spotify": "<iframe data-testid=\"embed-iframe\" style=\"border-radius:12px\" src=\"https://open.spotify.com/embed/artist/1iHkVAKq12mQH5fZHmKPaU?utm_source=generator&si=0fe1b55ef2634a74\" width=\"100%\" height=\"352\" frameBorder=\"0\" allowfullscreen=\"\" allow=\"autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture\" loading=\"lazy\"></iframe>"
     }
   ]
 }
