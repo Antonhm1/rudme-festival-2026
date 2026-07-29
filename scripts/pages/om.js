@@ -45,9 +45,32 @@
         }
     }
 
+    function escapeAttr(value) {
+        return String(value).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+    }
+
+    // Extra photos from the mini museum, revealed when a year is expanded
+    function buildGalleryHTML(year) {
+        if (!Array.isArray(year.gallery) || year.gallery.length === 0) return '';
+
+        const figures = year.gallery.map(item => {
+            const caption = item.caption || '';
+            return `
+                <figure class="history-gallery-item">
+                    <img src="${escapeAttr(item.image)}" alt="${escapeAttr(caption || year.label || year.year)}" loading="lazy">
+                    ${caption ? `<figcaption>${caption}</figcaption>` : ''}
+                </figure>
+            `;
+        }).join('');
+
+        return `<div class="history-gallery">${figures}</div>`;
+    }
+
     function createHistoryRoller(data) {
         const items = data.years.map(year => {
             let description = `<p>${year.description}</p>`;
+
+            description += buildGalleryHTML(year);
 
             const links = [];
             if (year.afterMovieUrl) {
@@ -62,7 +85,7 @@
 
             return {
                 id: `year-${year.year}`,
-                title: year.year.toString(),
+                title: year.label || year.year.toString(),
                 image: year.image,
                 description: description,
                 color: year.color
@@ -144,7 +167,12 @@
         const graphHeight = height - padding.top - padding.bottom;
         const bottomPadding = 80;
 
-        const years = historyData.years;
+        // Only plot years the festival actually ran and has numbers for.
+        // Cancelled years (2020-21) and years not yet totalled up would otherwise
+        // drag every curve down to zero.
+        const years = historyData.years.filter(y => y.attendees > 0);
+        if (years.length < 2) return;
+
         const xStep = graphWidth / (years.length - 1);
 
         // Scale helpers

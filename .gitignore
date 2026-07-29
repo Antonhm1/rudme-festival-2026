@@ -72,3 +72,8 @@ typings/
 service-account.json
 config/service-account.json
 rudme-festival-hjemmeside-*.json
+
+# Source material and one-off backups (the sync workflow runs "git add -A",
+# so anything left lying around here would otherwise get committed)
+Rudme Festival Mini Museum*.pdf
+.history-sheet-backup.json

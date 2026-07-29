@@ -3,8 +3,12 @@
  *
  * Expected columns:
  * - year: Year number (e.g., 2016)
+ * - label: Display title for the card (optional, defaults to year — use for spans like "2020 – 2021")
  * - image_path: Full path or just filename
  * - description: Year description
+ * - gallery: Extra images shown when the card is expanded (optional).
+ *   One image per line (or separated by ";"), format: filename|caption
+ *   Bare filenames resolve to pictures/om/historie/museum/
  * - afterMovieUrl: URL to after movie (optional)
  * - picturesUrl: URL to pictures (optional)
  * - attendees: Number of attendees
@@ -15,6 +19,27 @@
  * - volunteers: Number of volunteers
  * - color: Hex color
  */
+
+const MUSEUM_PATH = 'pictures/om/historie/museum';
+
+// "filename|caption" entries separated by newlines or semicolons
+function parseGallery(value) {
+  if (!value) return [];
+
+  return String(value)
+    .split(/[\n;]+/)
+    .map(entry => entry.trim())
+    .filter(Boolean)
+    .map(entry => {
+      const [rawImage, ...captionParts] = entry.split('|');
+      let image = rawImage.trim();
+      if (image && !image.includes('/')) {
+        image = `${MUSEUM_PATH}/${image}`;
+      }
+      return { image, caption: captionParts.join('|').trim() };
+    })
+    .filter(item => item.image);
+}
 
 function transformHistory(rows) {
   const years = rows.map(row => {
@@ -27,10 +52,14 @@ function transformHistory(rows) {
     // Convert newlines to <br> in description
     const description = (row.description || '').replace(/\n/g, '<br>');
 
+    const year = parseInt(row.year, 10) || 0;
+
     return {
-      year: parseInt(row.year, 10) || 0,
+      year: year,
+      label: (row.label || '').trim() || String(year),
       image: imagePath,
       description: description,
+      gallery: parseGallery(row.gallery),
       afterMovieUrl: row.afterMovieUrl || row.after_movie_url || '',
       picturesUrl: row.picturesUrl || row.pictures_url || '',
       attendees: parseInt(row.attendees, 10) || 0,

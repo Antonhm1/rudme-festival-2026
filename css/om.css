@@ -149,6 +149,49 @@ html, body {
     }
 }
 
+/* Photo gallery inside an expanded history card */
+.history-gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: start;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.history-gallery-item {
+    margin: 0;
+}
+
+/* Natural proportions, not a fixed crop: several of these are posters and
+   programmes where cropping would cut off the text. */
+.history-gallery-item img {
+    display: block;
+    width: 100%;
+    height: auto;
+    background-color: rgba(0, 0, 0, 0.06);
+}
+
+.history-gallery-item figcaption {
+    margin-top: 6px;
+    font-family: "Helvetica", Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.3;
+    color: #333;
+}
+
+/* The card is only 250px wide on mobile, so two columns would leave
+   thumbnails too small to read. */
+@media (max-width: 768px) {
+    .history-gallery {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .history-gallery-item figcaption {
+        font-size: 13px;
+    }
+}
+
 /* History roller link styles */
 .history-links {
     display: flex;

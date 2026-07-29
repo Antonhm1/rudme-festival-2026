@@ -2,8 +2,31 @@
   "years": [
     {
       "year": 2016,
-      "image": "pictures/om/historie/2016.jpg",
-      "description": "Festivalens første år startede efter en beruset nat. Den 12. januar blev der oprettet en Facebook-begivenhed med meldingen: Der bliver afholdt Rudme Festival.<br><br>Indtil tre uger før festivalen hørte offentligheden intet – hverken om program eller tilladelser. Men tre uger før blev beslutningen taget: Vi gør det alligevel.<br><br>Resultatet? En kæmpe succes med omkring 150 deltagere.<br><br>Der var én scene i en hvid pavillon. Ingen barer. Ingen alkoholbevilling. Ingen frivillige.<br>Alle – også arrangørerne – betalte 100 kr. i entré, og opgaver blev løst på helt frivillig basis.<br><br>Drikkevarer måtte man selv hente hos købmanden via den legendariske Dotten Delivery.",
+      "label": "2016",
+      "image": "pictures/om/historie/museum/2016-01-pavillonen.jpg",
+      "description": "Festivalens første år startede efter en beruset nat i en skurvogn ved Rudmevej 80. Den 12. januar blev der oprettet en Facebook-begivenhed med meldingen: Der bliver afholdt Rudme Festival.<br><br>Tre uger før festivalen kendte ingen til beslutningen, ingen vidste hvad der skulle foregå, hverken program eller tilladelser var i hus. Men tre uger før blev beslutningen alligevel taget: Vi gør det. Vi laver sgu Rudme Festival.<br><br>Resultatet? En kæmpe succes med omkring 150 deltagere.<br><br>Der var én scene i en hvid pavillon. Ingen bar. Ingen alkoholbevilling. Ingen frivillige.<br>Alle – også arrangørerne – betalte 100 kr. i entré, og opgaver blev løst udelukkende på frivillig basis.<br><br>Drikkevarer måtte man selv hente hos købmanden vha. den legendariske “Dotten Delivery”. Efter et par stærke år blev Dotten, værende et af festivalens vartegn, desværre skrottet. I dag mindes vi bilen i vores ølbar, som har fået navnet “Dottes bodega”.<br><br>Navne på plakaten: Os, Reverb, DJ Denmark, Dødfødt, Bass Madness, Rivulin, Melis, DJ Gordon, Fatamogabel.",
+      "gallery": [
+        {
+          "image": "pictures/om/historie/museum/2016-02-dotten.jpg",
+          "caption": "Dotten Delivery"
+        },
+        {
+          "image": "pictures/om/historie/museum/2016-03-pladsen.jpg",
+          "caption": "Festivalpladsen 2016"
+        },
+        {
+          "image": "pictures/om/historie/museum/2016-04-koncert.jpg",
+          "caption": "Koncert på den første scene"
+        },
+        {
+          "image": "pictures/om/historie/museum/2016-05-pladskort.jpg",
+          "caption": "Pladskortet"
+        },
+        {
+          "image": "pictures/om/historie/museum/2016-06-madteltet.jpg",
+          "caption": "Madteltet – og priserne"
+        }
+      ],
       "afterMovieUrl": "",
       "picturesUrl": "",
       "attendees": 179,
@@ -16,8 +39,35 @@
     },
     {
       "year": 2017,
-      "image": "pictures/om/historie/2017.jpg",
-      "description": "I 2017 tog Rudme Festival et stort skridt fremad.<br><br>Tilladelserne kom i hus, planlægningen begyndte i bedre tid, og vi fik både bankkonto, forening, vedtægter og bestyrelse.<br><br>Årets store visuelle var den ikoniske gamle scenevogn, sponsoreret af et lokalt landevejscirkus.<br>Samtidig dukkede en gammel blå vogn – ingen ved helt hvordan eller af hvem – op på den lokale boldplads. Den blev hurtigt forvandlet til festivalens backstageområde.<br><br>Billetprisen steg til 150 kr., og deltagerantallet voksede til ca. 350.<br><br>Festivalen fik sin første bar, og femkroners-shots blev et instant hit.<br>Vi fik doneret store spejle fra et lokalt teater, som både pyntede indgangen ved scenen – og fungerede som pisseoirer.<br><br>Traditioner begyndte at tage form:<br>Bass Madness’ genkomst, ølboldturnering og kægleturnering.<br><br>Nu var det ikke længere kun venners venner – men også helt nye ansigter.",
+      "label": "2017",
+      "image": "pictures/om/historie/museum/2017-03-scenevognen.jpg",
+      "description": "I 2017 tog Rudme Festival et stort skridt fremad.<br><br>I året 2017 blev der søgt tilladelser, og de kom i hus! Planlægningen begyndte i bedre tid, og vi fik både bankkonto, forening, vedtægter og bestyrelse.<br><br>Årets store visuelle initiativ var den ikoniske gamle scenevogn, sponsoreret af et lokalt landevejscirkus.<br>Samtidig dukkede en gammel blå skurvogn op – ingen vidste helt hvordan eller hvem den havde tilhørt, dette er stadig et mysterium. Den blev hurtigt forvandlet til festivalens backstageområde, og står til årets festival helt nyrenoveret!<br><br>Billetprisen steg til 150 kr., og deltagerantallet voksede til ca. 350.<br><br>Festivalen fik sin første bar “Bar Klar”, og femkroners-shots blev et instant hit. Vi fik doneret store spejle fra et lokalt teater, som både pyntede indgangen ved scenen – og fungerede som pissoir.<br><br>Traditioner begyndte at tage form: Bandet Bass Madness’ årlige tilbagevenden, øl-boldturnering og kævle-turnering.<br><br>Nu var det ikke længere kun venners venner, der kom på festivalen, men også helt nye ansigter.<br><br>Efter en vellykket festival gravede en af arrangørerne en tidskapsel ned midt på festivalpladsen. Det er endnu ikke lykkedes arrangørerne at finde den igen.",
+      "gallery": [
+        {
+          "image": "pictures/om/historie/museum/2017-01-planlaegning.jpg",
+          "caption": "Planlægning af festival anno 2017"
+        },
+        {
+          "image": "pictures/om/historie/museum/2017-02-hong-kong.jpg",
+          "caption": "Hong Kong foran backstagevognen"
+        },
+        {
+          "image": "pictures/om/historie/museum/2017-04-bar-klar.jpg",
+          "caption": "Bar Klar – festivalens første bar"
+        },
+        {
+          "image": "pictures/om/historie/museum/2017-05-kaevleturnering.jpg",
+          "caption": "Kævleturnering"
+        },
+        {
+          "image": "pictures/om/historie/museum/2017-06-t-shirt.jpg",
+          "caption": "Festivalens første officielle t-shirt"
+        },
+        {
+          "image": "pictures/om/historie/museum/2017-07-musikprogram.jpg",
+          "caption": "Musikprogram 2017"
+        }
+      ],
       "afterMovieUrl": "",
       "picturesUrl": "",
       "attendees": 400,
@@ -30,8 +80,43 @@
     },
     {
       "year": 2018,
-      "image": "pictures/om/historie/2018.jpg",
-      "description": "2018 blev året, hvor det hele virkelig klikkede.<br><br>Med 700 deltagere satte festivalen endnu en rekord.<br>Formlen var på plads – og vi vidste nu, at Rudme Festival kunne lykkes.<br><br>Fire nye arrangører kom til, og kunstnere begyndte selv at kontakte os.<br>For første gang havde vi rigtige frivillige, som fik billet som tak for deres indsats.<br><br>Vi introducerede også Rudme Lejr – et nyt koncept, hvor folk kunne komme dagene op til festivalen og hjælpe med opbygningen.<br>Det blev en kæmpe succes med masser af hygge, fællesskab og fest allerede før festivalstart.",
+      "label": "2018",
+      "image": "pictures/om/historie/museum/2018-02-folkedans.jpg",
+      "description": "2018 blev året, hvor det hele virkelig klikkede.<br><br>Med 700 deltagere satte festivalen endnu en rekord.<br>Formlen var på plads – og vi vidste nu, at Rudme Festival kunne lykkes.<br><br>Fire nye arrangører kom til, og kunstnere begyndte selv at kontakte os. For første gang havde vi rigtige frivillige, som fik billet som tak for deres indsats.<br><br>Vi introducerede også Rudme Lejr – et nyt koncept, hvor folk kunne komme dagene op til festivalen og hjælpe med opbygningen. Det blev en kæmpe succes med masser af hygge, fællesskab, samsovning og fest allerede før festivalen startede.",
+      "gallery": [
+        {
+          "image": "pictures/om/historie/museum/2018-01-dansetelt.jpg",
+          "caption": "Dansetelt"
+        },
+        {
+          "image": "pictures/om/historie/museum/2018-03-pladsen.jpg",
+          "caption": "Festivalpladsen 2018"
+        },
+        {
+          "image": "pictures/om/historie/museum/2018-04-bar-acuda.jpg",
+          "caption": "Bar Acuda"
+        },
+        {
+          "image": "pictures/om/historie/museum/2018-05-bass-madness.jpg",
+          "caption": "Husorkestret “Bass Madness”"
+        },
+        {
+          "image": "pictures/om/historie/museum/2018-06-t-shirt.jpg",
+          "caption": "2018’s officielle t-shirt"
+        },
+        {
+          "image": "pictures/om/historie/museum/2018-09-musik-torsdag.jpg",
+          "caption": "Musikprogram: torsdag"
+        },
+        {
+          "image": "pictures/om/historie/museum/2018-08-musik-fredag.jpg",
+          "caption": "Musikprogram: fredag"
+        },
+        {
+          "image": "pictures/om/historie/museum/2018-07-musik-loerdag.jpg",
+          "caption": "Musikprogram: lørdag"
+        }
+      ],
       "afterMovieUrl": "",
       "picturesUrl": "",
       "attendees": 650,
@@ -44,8 +129,31 @@
     },
     {
       "year": 2019,
-      "image": "pictures/om/historie/2019.jpg",
-      "description": "I 2019 rundede Rudme Festival 1.000 deltagere.<br><br>Året bød på uforglemmelige øjeblikke:<br>Fraadses midnats home run, Bass Madness Killer Set, nøgenløbet, kæmpe folkedans og regndans til Loke Deph.<br><br>Med et solidt musikprogram og en stadig voksende frivilliggruppe cementerede festivalen sin plads som noget helt særligt.",
+      "label": "2019",
+      "image": "pictures/om/historie/museum/2019-03-vakt.jpg",
+      "description": "I 2019 rundede Rudme Festival 1.000 deltagere.<br><br>Året bød på uforglemmelige øjeblikke: Fraads’ midnats home run, Bass Madness’ killer set, nøgenløbet, kæmpe folkedans-event og regndans til Loke Deph.<br><br>Med et solidt musikprogram og en stadig voksende frivilliggruppe cementerede festivalen sin plads som noget helt særligt.<br><br>Dog var der stadig meget at lære endnu. Bestyrelsen arbejdede 16-18 timer i døgnet, løste alle slags opgaver og måtte stå i baren, når der blev rigtig travlt. Derudover deltog de også i den nu traditionsrige fodboldturnering.<br><br>Priserne i 2019 blev holdt helt nede.",
+      "gallery": [
+        {
+          "image": "pictures/om/historie/museum/2019-01-priser.jpg",
+          "caption": "Priserne blev holdt helt nede"
+        },
+        {
+          "image": "pictures/om/historie/museum/2019-02-pladsen.jpg",
+          "caption": "Festivalpladsen 2019"
+        },
+        {
+          "image": "pictures/om/historie/museum/2019-05-musik-torsdag.jpg",
+          "caption": "Musikprogram: torsdag"
+        },
+        {
+          "image": "pictures/om/historie/museum/2019-04-musik-fredag.jpg",
+          "caption": "Musikprogram: fredag"
+        },
+        {
+          "image": "pictures/om/historie/museum/2019-06-musik-loerdag.jpg",
+          "caption": "Musikprogram: lørdag"
+        }
+      ],
       "afterMovieUrl": "",
       "picturesUrl": "",
       "attendees": 1000,
@@ -57,9 +165,69 @@
       "color": "#DDA0DD"
     },
     {
+      "year": 2020,
+      "label": "2020 – 2021",
+      "image": "pictures/om/historie/museum/2020-02-rudme-lejr.jpg",
+      "description": "I år 2020 skulle der markeres Rudme Festivals femte år.<br><br>Festivalen var nu gået fra at være fem gutter med skøre ideer i en skurvogn, som arrangerede en større havefest for 150 mennesker tilbage i 2016, til at være en arrangørgruppe på 36 unge ildsjæle med hjertet dybt begravet i Rudme-hyggen. I år skulle der laves festival for mere end 1.000 mennesker.<br><br>Corona-pandemien, der påvirkede hele verden, kom også til Rudme, og festivalen måtte aflyses – hele to gange.<br><br>Som alternativ måtte arrangørerne lave en mini-festival kaldet ‘Rudme Lejr’. Der blev vist corona-pas i indgangen, og der blev skabt 3 dages fest, hvor alle hjalp i bar og madtelt, og mange af arrangørerne spillede koncerter.<br><br>I 2021 var hudsulten blevet så stor, at festen endte ud i en stor isterninge-leg, og samtlige deltagere endte i corona-isolation. Ups!",
+      "gallery": [
+        {
+          "image": "pictures/om/historie/museum/2020-01-t-shirt.jpg",
+          "caption": "Rudme Lejr-trøjerne"
+        },
+        {
+          "image": "pictures/om/historie/museum/2020-03-faellesskab.jpg",
+          "caption": "Fællesskab på Rudme Lejr"
+        },
+        {
+          "image": "pictures/om/historie/museum/2020-04-corona.jpg",
+          "caption": "Fyens Stiftstidende: 14 unge smittet med corona"
+        }
+      ],
+      "afterMovieUrl": "",
+      "picturesUrl": "",
+      "attendees": 0,
+      "budgetResult": 0,
+      "revenue": 0,
+      "organizers": 36,
+      "coordinators": 0,
+      "volunteers": 0,
+      "color": "#D7DBDD"
+    },
+    {
       "year": 2022,
-      "image": "pictures/om/historie/2022.jpg",
-      "description": "Efter to års pause vendte Rudme Festival stærkt tilbage i 2022.<br>De unge hungrede efter fest – og det kunne mærkes.<br><br>Det blev et brag af en festival med uforglemmelige højdepunkter:<br>Pom Pokos unikke og intense koncert, SØNs lyriske følelsesbrag og Ravi Kumars legendariske midnatskoncert i silende regn, hvor en Wall of Death opstod midt i mørket. Afskum leverede en massiv, mørk energiudladning, og Bass Madness bød på en helt særlig specialkoncert: Blæst Madness – med tyve blæsere på scenen.<br><br>2022 var også året, hvor festivalen udvidede til en ny mark, og hvor Skurvognsforeningen blev en del af Rudme Festival med deres helt egen plads.<br>Et nyt område, et nyt fællesskab – og en kæmpe succes.",
+      "label": "2022",
+      "image": "pictures/om/historie/museum/2022-03-blaest-madness.jpg",
+      "description": "Efter to års pause vendte Rudme Festival stærkt tilbage i 2022. De unge hungrede efter fest, og det kunne mærkes.<br><br>Arbejdspresset var højt, og aldrig havde der været så mange gæster forbi. Efter 2022 begyndte arrangørholdet at arbejde mere struktureret med stresshåndtering, arbejdsfordeling og miljø. Festivalen havde brug for flere frivillige hænder for at følge med. Siden er stablen af frivillige vokset til næsten 400 frivillige bestående af bestyrelse, arrangører, afviklere og alm. frivillige, med stor opbakning og arbejdskraft fra hele lokalområdet.<br><br>Det blev et brag af en festival med uforglemmelige højdepunkter: Pom Pokos unikke og intense koncert, SØNs lyriske følelsesbrag og Ravi Kumars legendariske midnatskoncert i silende regn, hvor en Wall of Death opstod midt i mørket. Afskum leverede en massiv, mørk energiudladning, og Bass Madness bød på en helt særlig koncert: Blæst Madness.<br><br>2022 var også året, hvor festivalen udvidede med en ny mark, og Skurvogns Foreningen blev en del af Rudme Festival med deres helt egen plads. I den lille kiosk blev der solgt toast, som blev så populært, at det skabte lange køer. Allerede her viste Skurvogns Foreningen, at her lå et kæmpe potentiale. Et nyt område, et nyt fællesskab og en kæmpe succes.",
+      "gallery": [
+        {
+          "image": "pictures/om/historie/museum/2022-01-stemning.jpg",
+          "caption": "Stemning i teltet"
+        },
+        {
+          "image": "pictures/om/historie/museum/2022-02-koncert.jpg",
+          "caption": "Koncert i festteltet"
+        },
+        {
+          "image": "pictures/om/historie/museum/2022-04-skurvognspladsen.jpg",
+          "caption": "Skurvognspladsen"
+        },
+        {
+          "image": "pictures/om/historie/museum/2022-05-t-shirt.jpg",
+          "caption": "2022’ officielle t-shirt"
+        },
+        {
+          "image": "pictures/om/historie/museum/2022-06-musik-torsdag.jpg",
+          "caption": "Musikprogram: torsdag"
+        },
+        {
+          "image": "pictures/om/historie/museum/2022-07-musik-fredag.jpg",
+          "caption": "Musikprogram: fredag"
+        },
+        {
+          "image": "pictures/om/historie/museum/2022-08-musik-loerdag.jpg",
+          "caption": "Musikprogram: lørdag"
+        }
+      ],
       "afterMovieUrl": "",
       "picturesUrl": "",
       "attendees": 1200,
@@ -72,8 +240,43 @@
     },
     {
       "year": 2023,
-      "image": "pictures/om/historie/2023.jpg",
-      "description": "2023 blev endnu et stærkt år – med høj sol, varme dage og virkelig gode koncerter.<br><br>Syl leverede en vild koncert i et crowsurfende mushdræbende kedel af et festtletspublikum. <br>Debbie Sings bragte natten i lyserød hyperpop-stemning. Festivalen kulminerede, da JJ Paulo lukkede hele ballet med en stor fællesdanseseance i silende regn. Et øjeblik, hvor publikum, musik og vejr smeltede sammen.<br><br>Skurvognsforeningen var med for andet år i træk, og deres plads blev udvidet – større og vildere.<br>Deres toastvogn blev fuldstændig overrendt. Folk skulle åbenbart virkelig bede om toast.",
+      "label": "2023",
+      "image": "pictures/om/historie/museum/2023-02-kindsight.jpg",
+      "description": "2023 blev et år med høj sol, varme dage og virkelig gode koncerter.<br><br>Syl leverede en vild koncert i en crowdsurfende kedel i festteltet. Debbie Sings kickstartede natten med lyserød hyperpop-stemning, og det hele kulminerede, da JJ Paulo lukkede ballet med en stor fællesdansseance i silende regn. Et øjeblik, hvor publikum, musik og vejr smeltede sammen.<br><br>Skurvogns Foreningen var med for andet år i træk, og deres plads blev udvidet – større og vildere.<br><br>I drinksbaren blev der lavet en rekord i at sidde på bænken i længst tid. Det blev til 8,5 time, hvor adskillige drinks blev drukket. I dag kan man finde et messingskilt i baren, hvor rekorden står indgraveret.<br><br>I foråret døde festivalens gamle mascot. Hunden Uffe døde af alderdom. Derfor lavede vi i 2023 for første gang “Uffes Beergarden”, hvor vi mindes kære Uffe – verdens bedste Rudme-hund.<br><br>Hele Rudme Festival forening samarbejdede om at lave festivalens første manifest. Dette har siden været vores fundament og udgangspunkt for planlægningen og afviklingen af festivalen.",
+      "gallery": [
+        {
+          "image": "pictures/om/historie/museum/2023-01-festteltet.jpg",
+          "caption": "Fuldt hus på pladsen"
+        },
+        {
+          "image": "pictures/om/historie/museum/2023-03-pladsen.jpg",
+          "caption": "Festivalpladsen 2023"
+        },
+        {
+          "image": "pictures/om/historie/museum/2023-04-ublu.jpg",
+          "caption": "Ublu"
+        },
+        {
+          "image": "pictures/om/historie/museum/2023-05-manifest.jpg",
+          "caption": "Festivalens første manifest"
+        },
+        {
+          "image": "pictures/om/historie/museum/2023-06-t-shirt.jpg",
+          "caption": "2023’ officielle t-shirt"
+        },
+        {
+          "image": "pictures/om/historie/museum/2023-07-musik-torsdag.jpg",
+          "caption": "Musikprogram: torsdag"
+        },
+        {
+          "image": "pictures/om/historie/museum/2023-08-musik-fredag.jpg",
+          "caption": "Musikprogram: fredag"
+        },
+        {
+          "image": "pictures/om/historie/museum/2023-09-musik-loerdag.jpg",
+          "caption": "Musikprogram: lørdag"
+        }
+      ],
       "afterMovieUrl": "",
       "picturesUrl": "",
       "attendees": 1400,
@@ -86,8 +289,27 @@
     },
     {
       "year": 2024,
-      "image": "pictures/om/historie/2024.jpeg",
-      "description": "2024 var året, hvor events for alvor tog over.<br><br>Der var flere events end nogensinde – og de var utrolig gode.<br>Kroki i kirken, bingoturneringer, musikquiz, dans, selvforsvar, optog og meget mere.<br>Der var ganske enkelt aldrig et kedeligt øjeblik på Rudme.<br><br>Året bød også på et helt ny bod, eventboden, hvor spil og aktiviteter kunne lånes. Det blev hurtigt et naturligt samlingspunkt – og en stor succes.<br><br>Vi fik desuden et dedikeret IT-hold: EDBeasts, som skabte interaktive LED-installationer rundt omkring på pladsen.<br>Frivillige kunne være med til at kode, lodde og bygge de hjemmelavede værker, og teknologien blev en levende del af festivalens udtryk.<br><br>Koncerterne holdt naturligvis niveau:<br><br>Skammens Støtter skabte kaos midt i solen med deres no-bullshit-attitude, der fik publikum til at smide tøjet.<br>Dermersal rejste en massiv lydmur, mens Ivan Sito bragte reggaeton op i nattehimlen.<br>Og Nausia leverede en euforisk, saksofonisk transe-tilstand, der fortryllede hele festivalen.",
+      "label": "2024",
+      "image": "pictures/om/historie/museum/2024-01-soeren-ryge.jpg",
+      "description": "2024 var året, hvor events for alvor tog over. Der var flere events end nogensinde: Croquis i kirken, bingoturneringer, musikquiz, dans, selvforsvar, optog og meget mere.<br><br>Året bød også på en helt ny eventbod, hvor spil og aktiviteter kunne lånes. Det blev hurtigt et naturligt samlingspunkt og en stor succes.<br><br>Vi fik desuden et dedikeret IT-hold: EDBeasts, som skabte interaktive LED-installationer rundt omkring på pladsen. Frivillige kunne være med til at kode, lodde og bygge de hjemmelavede værker, og teknologien blev herigennem en levende del af festivalens udtryk.<br><br>Koncerterne holdt naturligvis niveau: Skammerens Døtre skabte kaos midt i solen med en attitude, der fik publikum til at smide tøjet. Demersal rejste en massiv lydmur, mens Ivan$ito sendte reggaeton op i Rudmes nattehimmel.",
+      "gallery": [
+        {
+          "image": "pictures/om/historie/museum/2024-02-koncert.jpg",
+          "caption": "Koncert på pladsen"
+        },
+        {
+          "image": "pictures/om/historie/museum/2024-03-kartoffeltryk.jpg",
+          "caption": "Kartoffeltryk"
+        },
+        {
+          "image": "pictures/om/historie/museum/2024-04-musikprogram.jpg",
+          "caption": "Musikprogram 2024"
+        },
+        {
+          "image": "pictures/om/historie/museum/2024-05-t-shirt.jpg",
+          "caption": "2024’ officielle t-shirt"
+        }
+      ],
       "afterMovieUrl": "",
       "picturesUrl": "",
       "attendees": 1700,
@@ -100,17 +322,52 @@
     },
     {
       "year": 2025,
-      "image": "pictures/om/historie/2025.jpeg",
-      "description": "2025 var året, hvor alt gik op i en højere enhed.<br>Der var styr på det hele. Arrangørerne var glade. Publikum var glade. Solen stod højt – og festivalen kørte som smurt.<br><br>Festivalen opnåede rekordomsætning og tog et stort skridt fremad rent fysisk. Med en generøs bevilling fra Spar Nord Fonden kunne Rudme Festival købe sin egen mobilscene og sige farvel til den gamle, slidte scenemorgen.<br>Samtidig blev festivalens infrastruktur styrket med en ny stor containervogn til opbevaring.<br><br>Eventprogrammet var stærkt og mangfoldigt. Der blev danset samba, spillet teaterforestillinger, og kulminationen kom i festivalens hidtil største folkedans, hvor næsten 1.000 mennesker samledes i én enorm, dansende cirkel.",
+      "label": "2025",
+      "image": "pictures/om/historie/museum/2025-02-pladsen.jpg",
+      "description": "I 2025 nåede Rudme Festival sin hidtil største kapacitet med ca. 2000 besøgende gæster i løbet af festivalens tre dage. 2025 var også et år uden de store problemer: Arrangørerne var glade, publikum var glade, solen stod højt, og festivalen kørte som smurt.<br><br>Festivalen opnåede rekordomsætning og tog et stort skridt fremad rent fysisk. Med en generøs bevilling fra Spar Nord Fonden kunne Rudme Festival købe sin egen mobilscene og sige farvel til den gamle, slidte scenevogn. Samtidig blev festivalens infrastruktur styrket med en ny stor containervogn til opbevaring.<br><br>Eventprogrammet var stærkt og mangfoldigt. Der blev danset samba, spillet teaterforestillinger, og kulminationen kom i festivalens hidtil største folkedans, hvor næsten 1.000 mennesker samledes i én enorm, dansende cirkel.",
+      "gallery": [
+        {
+          "image": "pictures/om/historie/museum/2025-01-koncert.jpg",
+          "caption": "Koncert i festteltet"
+        },
+        {
+          "image": "pictures/om/historie/museum/2025-03-mobilscenen.jpg",
+          "caption": "Den nye mobilscene"
+        },
+        {
+          "image": "pictures/om/historie/museum/2025-04-musikprogram.jpg",
+          "caption": "Musikprogram 2025"
+        },
+        {
+          "image": "pictures/om/historie/museum/2025-05-t-shirt.jpg",
+          "caption": "2025’ officielle t-shirt"
+        }
+      ],
       "afterMovieUrl": "",
       "picturesUrl": "",
-      "attendees": 1800,
+      "attendees": 2000,
       "budgetResult": 94000,
       "revenue": 1560000,
       "organizers": 55,
       "coordinators": 0,
       "volunteers": 450,
       "color": "#AED6F1"
+    },
+    {
+      "year": 2026,
+      "label": "2026",
+      "image": "pictures/om/historie/museum/2026-01-jubilaeum.jpg",
+      "description": "Ved afholdelse af dette års festival fejrer vi festivalens 10 års jubilæum. Vi har i år gjort os endnu mere umage for at skabe en stor og mindeværdig fest.<br><br>Derfor skal vi høre bands som Kindsight og Skammerens Døtre, der tidligere har været forbi festivalen, og DJ’s der spillede på Rudme Festival helt tilbage, da festivalen startede.<br><br>I år har vi arbejdet målrettet med at involvere, arrangere og oplære nye frivillige, afviklere og arrangører. Derudover har vi fået praktikanter på Rudme Festival, så nye nysgerrige unge kan blive en del af fællesskabet og arbejdet bag festivalen uden at stå med et stort ansvar fra start.<br><br>Med en stor ny køkkenvogn bygget af lokale fra Rudme by, en nyrenoveret backstagevogn og med lækre jubilæums-is har vi glædet os til at byde jer velkommen til dette års Rudme Festival. Et stort år, specielt for os der har været med fra festivalens spæde start.<br><br>Vi glæder os til mange år endnu!",
+      "gallery": [],
+      "afterMovieUrl": "",
+      "picturesUrl": "",
+      "attendees": 0,
+      "budgetResult": 0,
+      "revenue": 0,
+      "organizers": 0,
+      "coordinators": 0,
+      "volunteers": 0,
+      "color": "#F5CBA7"
     }
   ]
 }
