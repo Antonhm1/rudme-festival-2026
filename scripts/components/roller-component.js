@@ -175,14 +175,12 @@ const RollerComponent = {
 
         const button = box.querySelector('.roller-box-button');
 
-        // Click handler for box
-        box.addEventListener('click', (e) => {
-            if (e.target.classList.contains('roller-box-button')) return;
-
+        const toggle = () => {
             const wasExpanded = box.classList.contains('expanded');
 
             // Close all expanded boxes
             document.querySelectorAll('.roller-box.expanded').forEach(expandedBox => {
+                this._trackWidthChange(expandedBox);
                 expandedBox.classList.remove('expanded');
                 const btn = expandedBox.querySelector('.roller-box-button');
                 if (btn) btn.textContent = buttonTextExpand;
@@ -190,32 +188,65 @@ const RollerComponent = {
 
             // Toggle this box
             if (!wasExpanded) {
+                this._trackWidthChange(box);
                 box.classList.add('expanded');
                 button.textContent = buttonTextCollapse;
             }
+        };
+
+        // Click handler for box
+        box.addEventListener('click', (e) => {
+            if (e.target.classList.contains('roller-box-button')) return;
+            toggle();
         });
 
         // Click handler for button
         button.addEventListener('click', (e) => {
             e.stopPropagation();
-
-            const wasExpanded = box.classList.contains('expanded');
-
-            // Close all expanded boxes
-            document.querySelectorAll('.roller-box.expanded').forEach(expandedBox => {
-                expandedBox.classList.remove('expanded');
-                const btn = expandedBox.querySelector('.roller-box-button');
-                if (btn) btn.textContent = buttonTextExpand;
-            });
-
-            // Toggle this box
-            if (!wasExpanded) {
-                box.classList.add('expanded');
-                button.textContent = buttonTextCollapse;
-            }
+            toggle();
         });
 
         return box;
+    },
+
+    /**
+     * Keep a resizing box's right edge where it is.
+     *
+     * Boxes are laid out left to right, so a box that grows wider would
+     * normally push itself and everything after it to the right. Following the
+     * real width frame by frame and adding the growth to the scroll position
+     * instead makes the box appear to open towards the left. Deltas are applied
+     * incrementally so a box closing and another opening compose correctly.
+     *
+     * @private
+     */
+    _trackWidthChange: function(box) {
+        const container = box.closest('.roller-container');
+        if (!container) return;
+
+        const section = box.closest('.roller-section');
+        const instance = section ? this.instances.get(section.id) : null;
+
+        let lastWidth = box.getBoundingClientRect().width;
+        const startedAt = performance.now();
+
+        const follow = () => {
+            const width = box.getBoundingClientRect().width;
+            const delta = width - lastWidth;
+
+            if (delta !== 0) {
+                lastWidth = width;
+                container.scrollLeft += delta;
+                if (instance) instance.scrollPosition = container.scrollLeft;
+            }
+
+            // Comfortably longer than the CSS width transition
+            if (performance.now() - startedAt < 600) {
+                requestAnimationFrame(follow);
+            }
+        };
+
+        requestAnimationFrame(follow);
     },
 
     /**

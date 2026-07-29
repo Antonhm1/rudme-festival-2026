@@ -101,7 +101,7 @@
     flex: 0 0 500px;
     width: 500px;
     border: 3px solid;
-    transition: height 0.3s ease, transform 0.2s ease;
+    transition: height 0.3s ease, flex-basis 0.35s ease, width 0.35s ease, transform 0.2s ease;
     cursor: pointer;
     overflow: hidden;
     height: 500px;
@@ -110,6 +110,16 @@
 
 .roller-box.expanded {
     height: auto;
+}
+
+/* An expanded box also grows 50% wider, to give the photo gallery room.
+   The script pins its right edge while it grows, so it opens leftwards.
+   Not on mobile: a 375px card on a 390px screen leaves nothing to scroll by. */
+@media (min-width: 769px) {
+    .roller-box.expanded {
+        flex-basis: 750px;
+        width: 750px;
+    }
 }
 
 /* Box image */
