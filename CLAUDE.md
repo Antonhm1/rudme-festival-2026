@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a website for the Rudme Festival (July 16-18, 2026), built as a static HTML site with dynamic JavaScript functionality. The site features a horizontal scrolling gallery on the homepage, dynamic navigation, and program pages with artist information.
+This is a website for the Rudme Festival (July 15-17, 2027), built as a static HTML site with dynamic JavaScript functionality. The site features a horizontal scrolling gallery on the homepage, dynamic navigation, and program pages with artist information.
 
 ## Key Commands
 
